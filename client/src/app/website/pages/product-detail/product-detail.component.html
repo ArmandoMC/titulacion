@@ -1,0 +1,43 @@
+<div class="container-fluid page-product ">
+  <button (click)="goToBack()" class="btn btn-success">Back</button>
+  <div class="row detail" *ngIf="product">
+    <!-- <div class="row"> -->
+    <div class="col-5">
+      <div class="gallery">
+        <!-- <swiper>
+                        <ng-template> -->
+        <img [src]="product.image" alt=""/>
+        <!-- </ng-template>
+                    </swiper>> -->
+      </div>
+    </div>
+    <div class="col-4">
+      <div>
+        <h1>{{ product?.name }} {{product?.presentation}} </h1>
+        <hr>
+        <h4 class="price"> {{product?.price | currency}} </h4>
+        <h4>Acerca de este producto</h4>
+        <p>{{ product?.description }}</p>
+      </div>
+    </div>
+    <div class="col-3 carrito">
+      <div class="info-carrito">
+        <h4 class="price">{{product?.price | currency}}</h4>
+        <h4 class="stock">En stock</h4>
+        <div class="form-group">
+          <label for="text">Cantidad</label>
+          <p>
+            <select  name="miselect" [(ngModel)]="seleccionado" class="select">
+              <option  [value]="item" *ngFor="let item of listaOferta" >
+                {{ item }}
+              </option>
+            </select>
+          </p>
+          <button (click)="onAddToShoppingCart()" class="btn btn-primary btn-block">
+            {{ agregado == true ? "En el carrito" : "Add to cart" }}
+          </button>
+        </div>
+      </div>      
+    </div>
+  </div>
+</div>

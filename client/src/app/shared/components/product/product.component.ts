@@ -1,0 +1,81 @@
+import { Component, OnInit,Input ,Output,EventEmitter} from '@angular/core';
+import { Product } from 'src/app/models/product.model';
+import { StoreService } from 'src/app/services/store.service';
+
+@Component({
+  selector: 'app-product',
+  templateUrl: './product.component.html',
+  styleUrls: ['./product.component.css']
+})
+export class ProductComponent implements OnInit {
+
+  @Input()product:Product={
+    id:'',
+    name: '',
+    description: '',
+    sleeve_color: '',
+    flavor: '',
+    presentation: '',
+    packaging: '',
+    stock: 0,
+    oferta:0,
+    purchase_price: 0,
+    price: 0,
+    image: '',
+    public_id: '',
+    category_id: 0,
+    // price:0,
+    brand_id:0,
+    status_id:0,
+
+
+  }
+  agregado:boolean=false;
+
+
+  @Output() addedProduct=new EventEmitter<Product>();
+  @Output() showProduct=new EventEmitter<string>();
+   products:Product[]=[];
+  cantidad=0;
+
+  constructor(
+    private storeService:StoreService
+  ) {
+// this.verificar(this.products);
+   }
+
+   ngOnInit(): void {
+     this.storeService.myCart$.subscribe(data=>{
+       this.products=data;
+       
+
+     })
+    //  this.agregado=false;
+   }
+
+  onAddToCart(){
+  //  this.agregado=true;
+
+  //  const indice=this.products.findIndex(p=>p.id==this.product.id)
+  //      if(indice!=-1){
+  //        this.agregado=false;
+  //      }else
+        this.addedProduct.emit(this.product);
+
+  //        this.agregado=true;
+  //      }
+  }
+  onShowDetail(){
+    this.showProduct.emit(this.product.id);
+  }
+  verificar(products:Product[]){
+    const indice=products.findIndex(p=>p.id==this.product.id)
+       if(indice!=-1){
+         this.agregado=false;
+       }else{
+        // this.addedProduct.emit(this.product);
+
+         this.agregado=true;
+       }
+  }
+}

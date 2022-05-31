@@ -1,0 +1,39 @@
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a routerLink="/" class="navbar-brand" href="#">DIMA</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <form class="form-inline">
+      <input class="form-control ml-lg-5" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+    <ul class="navbar-nav">
+      <li class="nav-item ">
+        <a routerLinkActive="active" routerLink="/home" class="nav-link">All</a>
+      </li>
+      <!-- <li *ngFor="let item of categories" class="nav-item">
+        <a [routerLink]="['/category',item.id]" class="nav-link" routerLinkActive="active">{{item.name}}</a>
+      </li> -->
+      <li *ngIf="!isLoggedIn" class="nav-item">
+        <a routerLink="/login"class="nav-link">Login</a>
+      </li>
+      <li *ngIf="!isLoggedIn" class="nav-item">
+        <a routerLink="/register" class="nav-link">Register</a>
+      </li>
+      <li *ngIf="isLoggedIn" class="nav-item profile">
+        <a routerLink="/profile" class="nav-link ">Hello,{{loggedInUser}}</a>
+      </li>
+
+      <li *ngIf="isLoggedIn" class="nav-item">
+        <a class="nav-link" style="cursor: pointer" (click)="logout()">Salir</a>
+      </li>
+      <li class="nav-item cart">
+        <a class="nav-link " routerLink="/my-cart">Cart</a>
+        <span class="counter">{{counter}} </span>
+      </li>
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,46 @@
+<div class="container-fluid mt-4">
+  <table class="table" *ngIf="products.length>0 else elseBlock">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Precio</th>
+        <th scope="col">Sabor</th>
+        <th scope="col">cantidad</th>
+        <th scope="col">subtotal</th>
+        <th scope="col"></th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products;let indice=index">
+        <th scope="col">{{indice+1}}</th>
+        <th scope="col"><img [src]="product.image" alt="" width="120"> </th>
+        <th scope="col">{{ product.price }}</th>
+        <th scope="col">{{product.flavor}}</th>
+        <th scope="col">{{product.oferta}}</th>
+        <th scope="col">{{product.subtotal}}</th>
+        <button class="btn btn-primary" (click)="eliminarProducto(product.id)">Eliminar</button>
+
+      </tr>
+    </tbody>
+  </table>
+<ng-template #elseBlock>
+    <div class="div">
+      <h3>Carrito vacio</h3>
+    </div>
+</ng-template>
+
+<button *ngIf="logueado==true else elseShow"  [routerLink]="['/checkout']" class="btn btn-primary">Ir a pagar</button>
+  <!-- <h2>el total a pagar es: {{total}}</h2>
+  <h2>la cantidad de productos es {{cantidadTotal}}</h2> -->
+<ng-template #elseShow>
+  <button [routerLink]="['/login']" class="btn btn-primary">Acceder a mi cuenta y comprar</button>
+  <p></p>
+  <button [routerLink]="['/register']" class="btn btn-primary">Registrarme y comprar</button>
+
+</ng-template>
+
+<!-- <button class="btn btn-primary">Registrarme y comprar</button> -->
+
+</div>

@@ -1,0 +1,35 @@
+.form-inline{
+  width: 50%;
+}
+.form-inline input{
+  width: 55%;
+
+}
+nav{
+  min-height: 85px;
+}
+ul{
+  /* margin-right: 0; */
+  /* width: 350px; */
+  margin-left:auto;
+}
+.cart{
+  width: 90px;
+
+}
+.cart a{
+  display: inline-block;
+}
+.counter{
+  width: 20px;
+  height: 20px;
+  /* border: 2px; */
+  display: inline-block;
+  color: #FFF;
+}
+
+.active{
+  border:1px solid #ACD9B2 !important;
+  color:#ACD9B2;
+  border-radius: 5px;
+}

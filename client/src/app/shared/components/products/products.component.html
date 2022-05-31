@@ -1,0 +1,47 @@
+<!-- <p>La cantidad {{myShoppingCart.length}} </p>
+<p>total: ${{total}}</p> -->
+<p></p>
+<!-- <p>
+  Today: {{today | date:'shortDate'}}
+</p>
+<p>
+  Today: {{today | timeAgo}}
+</p>
+<p>
+  Otra fecha: {{date | date:'yyyy.dd.MM'}}
+</p>
+<p>
+  {{'hOlA BasCVSaa asaDa' | uppercase}}
+</p> -->
+
+<!-- <button (click)="createNewProduct()">Create product</button>
+<button (click)="onShowDetail('2348')">Detail not found</button> -->
+
+<div class="container-fluid">
+  <div class="row product--grid">
+    <app-product class="col-lg-3 col-md-6 col-sm-6" [product]="p" *ngFor="let p of products"
+      (addedProduct)="onAddToShoppingCart($event)" (showProduct)="onShowDetail($event)">
+    </app-product>
+    <button type="button" (click)="onLoadMore()" class="btn btn-secondary btn-lg btn-block">Ver mas</button>
+  </div>
+</div>
+<div class="product-detail" [ngClass]="{'active':showProductDetail}">
+  {{statusDetail}}
+  <div *ngIf="productChosen">
+    <button (click)="toggleProductDetail()">Close</button>
+    <h1> {{productChosen.name}} </h1>
+    <!-- <swiper [slidesPerView]="1">
+      <ng-template swiperSlide>
+        <img [src]="productChosen.image" alt="">
+      </ng-template>
+      <ng-template swiperSlide>Slide 2</ng-template>
+      <ng-template swiperSlide>Slide 3</ng-template>
+    </swiper> -->
+    <img [src]="productChosen.image" alt="">
+
+    <p>{{productChosen.description}} </p>
+    <!-- <button (click)="updateProduct()">editar</button>
+    <button (click)="deleteProduct()">eliminar</button> -->
+
+  </div>
+</div>
