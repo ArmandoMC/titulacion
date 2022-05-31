@@ -1,6 +1,6 @@
 <div class="container-fluid mt-4">
-  <table class="table" *ngIf="products.length>0 else elseBlock">
-    <thead class="thead-dark">
+  <table class="table table-hover" *ngIf="products.length > 0; else elseBlock">
+    <thead class="">
       <tr>
         <th scope="col">#</th>
         <th scope="col">Nombre</th>
@@ -9,38 +9,69 @@
         <th scope="col">cantidad</th>
         <th scope="col">subtotal</th>
         <th scope="col"></th>
-
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let product of products;let indice=index">
-        <th scope="col">{{indice+1}}</th>
-        <th scope="col"><img [src]="product.image" alt="" width="120"> </th>
-        <th scope="col">{{ product.price }}</th>
-        <th scope="col">{{product.flavor}}</th>
-        <th scope="col">{{product.oferta}}</th>
-        <th scope="col">{{product.subtotal}}</th>
-        <button class="btn btn-primary" (click)="eliminarProducto(product.id)">Eliminar</button>
-
+      <tr *ngFor="let product of products; let indice = index">
+        <th scope="row">{{ indice + 1 }}</th>
+        <td><img [src]="product.image" alt="" width="120" /></td>
+        <td>{{ product.price }}</td>
+        <td>{{ product.flavor }}</td>
+        <td>
+          <div class="">
+            <button (click)="restar(product.id)">-</button>
+            <!-- <select name="miselect" class="select" [ngModel]="product.oferta" #nombreSelect>
+              <option [value]="product.oferta">
+                {{ product.oferta }}
+              </option>
+              <option value="item" *ngFor="let item of listaOferta">{{item}}
+              </option>
+            </select> -->
+            <input type="text" name="oferta" id="" value="{{product.oferta}}" disabled>
+            <button (click)="sumar(product.id)">+</button>
+          </div>
+          
+        </td>
+        <td>{{ product.subtotal |currency}}</td>
+        <td>
+          <button
+            class="btn btn-primary"
+            (click)="eliminarProducto(product.id)"
+          >
+            Eliminar
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
-<ng-template #elseBlock>
+  <h4 class="float-right pr-5">Total({{numProducts}} productos):{{total | currency}}</h4>
+  <p></p>
+  <ng-template #elseBlock>
     <div class="div">
       <h3>Carrito vacio</h3>
+      <button class="btn btn-primary" [routerLink]="['/home']">Empezar a comprar</button>
+      <p></p>
     </div>
-</ng-template>
+  </ng-template>
 
-<button *ngIf="logueado==true else elseShow"  [routerLink]="['/checkout']" class="btn btn-primary">Ir a pagar</button>
+  <button
+    *ngIf="logueado == true; else elseShow"
+    [routerLink]="['/checkout']"
+    class="btn btn-primary float-right"
+  >
+    Proceder al pago
+  </button>
   <!-- <h2>el total a pagar es: {{total}}</h2>
   <h2>la cantidad de productos es {{cantidadTotal}}</h2> -->
-<ng-template #elseShow>
-  <button [routerLink]="['/login']" class="btn btn-primary">Acceder a mi cuenta y comprar</button>
-  <p></p>
-  <button [routerLink]="['/register']" class="btn btn-primary">Registrarme y comprar</button>
+  <ng-template #elseShow>
+    <button [routerLink]="['/login']" class="btn btn-primary">
+      Acceder a mi cuenta y pagar
+    </button>
+    <p></p>
+    <button [routerLink]="['/register']" class="btn btn-primary">
+      Registrarme y pagar
+    </button>
+  </ng-template>
 
-</ng-template>
-
-<!-- <button class="btn btn-primary">Registrarme y comprar</button> -->
-
+  <!-- <button class="btn btn-primary">Registrarme y comprar</button> -->
 </div>

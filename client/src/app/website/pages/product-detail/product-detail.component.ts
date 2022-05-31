@@ -3,76 +3,72 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Product } from 'src/app/models/product.model';
-import {switchMap} from 'rxjs/operators';
-import{ProductsService} from '../../../services/products.service';
-import{StoreService} from '../../../services/store.service';
+import { switchMap } from 'rxjs/operators';
+import { ProductsService } from '../../../services/products.service';
+import { StoreService } from '../../../services/store.service';
 
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.css']
+  styleUrls: ['./product-detail.component.css'],
 })
 export class ProductDetailComponent implements OnInit {
-
-  numeroInicial:number=1;
-  productStock:number=0;
-  productId:string | null=null;
-  product:Product | null=null;
-  listaOferta:number[]=[];
-  cantidad=0;
-  agregado:boolean=false;
-  seleccionado:string=''+1;
+  productStock: number = 0;
+  productId: string | null = null;
+  product: Product | null = null;
+  listaOferta: number[] = [];
+  cantidad = 0;
+  agregado: boolean = false;
+  seleccionado: string = '' + 1;
   constructor(
-    private route:ActivatedRoute,
-    private productsService:ProductsService,
-    private storeService:StoreService,
-    private location:Location
-  ) { }
+    private route: ActivatedRoute,
+    private productsService: ProductsService,
+    private storeService: StoreService,
+    private location: Location
+  ) {}
 
   ngOnInit(): void {
     this.route.paramMap
-    .pipe(
-      switchMap(params => {
-        this.productId = params.get('id');
-        if (this.productId) {
-          return this.productsService.getProduct(this.productId);
+      .pipe(
+        switchMap((params) => {
+          this.productId = params.get('id');
+          if (this.productId) {
+            return this.productsService.getProduct(this.productId);
+          }
+          return [null];
+        })
+      )
+      .subscribe((data) => {
+        if (data) {
+          this.product = data;
+          this.productStock = data.stock;
+          this.listarOferta();
+          const encontrado = this.storeService.getShoppingCart().find((element) => element.id === this.product?.id);
+          if (encontrado) {
+            this.agregado = true;
+            this.seleccionado = '' + encontrado.oferta;
+          } else {
+            this.agregado = false;
+          }
         }
-        return [null];
-      }),
-    )
-    .subscribe(data => {
-      this.product = data;
-      if(data){
-        this.productStock=data.stock;
-        this.listarOferta();
-      }
-    })
-    const encontrado=this.storeService.getShoppingCart().find(element=>element.id==this.product?.id);
-    // const encontrado=this.carrito.find(element=>element.id==this.product?.id)
-    if(encontrado){
-      this.agregado=true;
-      this.seleccionado=''+encontrado.oferta;
-    }else{
-      this.agregado=false;
-    }
+      });
   }
 
   onAddToShoppingCart() {
-
-    if(this.product){
-      this.product.oferta=Number.parseInt(this.seleccionado);
+    if (this.product) {
+      this.product.oferta = Number.parseInt(this.seleccionado);
       this.storeService.addProduct(this.product);
-      this.agregado=true;
+      this.agregado = true;
     }
-    
+
     // this.total = this.storeService.getTotal();
   }
 
-  goToBack(){
+  goToBack() {
     this.location.back();
   }
 
-  listarOferta(){
+  listarOferta() {
     for (let index = 1; index <= this.productStock; index++) {
       this.listaOferta.push(index);
     }
