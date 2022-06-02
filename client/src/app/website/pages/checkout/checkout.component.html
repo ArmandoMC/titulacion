@@ -1,1 +1,162 @@
-<p *ngIf="logueado==true">Pagina para pagar</p>
+<div class="container">
+  <div class="step1" *ngIf="showStep1 == true">
+    <h1>1 PASO --> Seleccionar una dirección de envío</h1>
+    <p>
+      ¿Aparece a continuación la dirección que deseas utilizar? Si es así, haz
+      clic en el botón "Enviar a esta dirección". O puedes
+      <a
+        class="link-new-address"
+        (click)="capturar()"
+        style="cursor: pointer; color: blue"
+      >
+        introducir una nueva dirección de envío.
+      </a>
+    </p>
+    <div class="direcciones row mb-4">
+      <div
+        class="col-md-3 mr-3 address-detail border-secondary"
+        *ngFor="let d of addresses"
+      >
+        <span>{{ d.name_lastname }}</span> <br />
+        <span>{{ d.address }}</span
+        ><br />
+        <span>Número de teléfono: {{ d.telefono }}</span
+        ><br />
+        <span>Código postal: {{ d.postal_code }}</span
+        ><br />
+        <span>{{ d.city }} {{ d.state }} {{ d.country }}</span
+        ><br />
+
+        <button class="btn btn-primary btn-block mt-2 mb-2" (click)="step2()">
+          Usar esta dirección
+        </button>
+        <button class="btn btn-primary mt-2 mb-2 float-left">Editar</button>
+        <button class="btn btn-primary mt-2 mb-2 float-right">Eliminar</button>
+      </div>
+    </div>
+  </div>
+  <div class="step2" *ngIf="showStep1==false">
+    <h1>2 PASO --> Metodo de pago</h1>
+    <p>A continuación, eleccione agregar una tarjetaa de credito o debito</p>
+    <button class="btn btn-primary">Agregar tarjeta</button>
+
+    <div class="credit-card">
+      <div>
+
+      </div>
+    </div>
+  </div>
+
+  <hr *ngIf="showAddForm == true" />
+  <div class="add-address" *ngIf="showAddForm == true">
+    <form class="needs-validation" novalidate (ngSubmit)="addAddress()">
+      <div class="form-row">
+        <div class="col-md-6 mb-3">
+          <label for="validationCustom01">Nombre y apellidos</label>
+          <input
+            type="text"
+            class="form-control"
+            id="validationCustom01"
+            name="name_lastname"
+            [(ngModel)]="name_lastname"
+          />
+          <div class="valid-feedback">Looks good!</div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-6 mb-3">
+          <label for="validationCustom03">Numero de telefono</label>
+          <input
+            type="text"
+            class="form-control"
+            id="validationCustom03"
+            name="telefono"
+            [(ngModel)]="telefono"
+          />
+          <div class="invalid-feedback">Please provide a valid city.</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="validationCustom03">Ciudad</label>
+          <input
+            type="text"
+            class="form-control"
+            id="validationCustom03"
+            name="city"
+            [(ngModel)]="city"
+          />
+          <div class="invalid-feedback">Please provide a valid city.</div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="validationCustom03">Direccion</label>
+          <input
+            type="text"
+            class="form-control"
+            id="validationCustom03"
+            name="address"
+            placeholder=""
+            [(ngModel)]="address"
+          />
+          <div class="invalid-feedback">Please provide a valid city.</div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <label for="validationCustom04">Provincia</label>
+          <!-- <select class="custom-select" id="validationCustom04" required>
+              <option selected disabled value="">Choose...</option>
+              <option>...</option>
+            </select> -->
+          <input
+            type="text"
+            class="form-control"
+            id="validationCustom03"
+            name="state"
+            placeholder=""
+            [(ngModel)]="state"
+          />
+
+          <div class="invalid-feedback">Please select a valid state.</div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <label for="validationCustom05">Pais</label>
+          <input
+            type="text"
+            class="form-control"
+            id="validationCustom05"
+            name="country"
+            [(ngModel)]="country"
+          />
+          <div class="invalid-feedback">Please provide a valid zip.</div>
+        </div>
+        <div class="col-md-3 mb-3">
+          <label for="validationCustom05">Codigo postal</label>
+          <input
+            type="text"
+            class="form-control"
+            id="validationCustom05"
+            name="postal_code"
+            [(ngModel)]="postal_code"
+          />
+          <div class="invalid-feedback">Please provide a valid zip.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            value=""
+            id="invalidCheck"
+            required
+          />
+          <label class="form-check-label" for="invalidCheck">
+            Agree to terms and conditions
+          </label>
+          <div class="invalid-feedback">You must agree before submitting.</div>
+        </div>
+      </div>
+      <button class="btn btn-primary" type="submit">Submit form</button>
+      <button class="btn btn-secondary" type="" (click)="cancelar()">
+        Cancelar
+      </button>
+    </form>
+  </div>
+</div>

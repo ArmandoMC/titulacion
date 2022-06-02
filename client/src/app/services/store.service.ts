@@ -11,7 +11,6 @@ export class StoreService {
   // public readonly currentUser$: Observable<Auth> = this.currentUserSubject.asObservable();
 
   private myShoppingCart: Product[] = this.obtener();
-  private my: any[] = this.obtener();
   private cantidadProductos = 0;
   // private myShoppingCartSinDuplicados: Product[] = [];
 

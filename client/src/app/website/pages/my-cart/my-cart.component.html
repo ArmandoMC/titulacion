@@ -44,7 +44,7 @@
       </tr>
     </tbody>
   </table>
-  <h4 class="float-right pr-5">Total({{numProducts}} productos):{{total | currency}}</h4>
+  <h4 *ngIf="products.length > 0" class="pr-5 h-total text-right">Total({{numProducts}} productos):{{total | currency}}</h4>
   <p></p>
   <ng-template #elseBlock>
     <div class="div">
@@ -55,20 +55,20 @@
   </ng-template>
 
   <button
-    *ngIf="logueado == true; else elseShow"
+    *ngIf="logueado == true && products.length>0; else elseShow"
     [routerLink]="['/checkout']"
-    class="btn btn-primary float-right"
+    class="btn btn-primary float-right mr-5 btn-pago"
   >
     Proceder al pago
   </button>
   <!-- <h2>el total a pagar es: {{total}}</h2>
   <h2>la cantidad de productos es {{cantidadTotal}}</h2> -->
   <ng-template #elseShow>
-    <button [routerLink]="['/login']" class="btn btn-primary">
+    <button *ngIf="products.length>0" [routerLink]="['/login']" class="btn btn-primary btn-login">
       Acceder a mi cuenta y pagar
     </button>
     <p></p>
-    <button [routerLink]="['/register']" class="btn btn-primary">
+    <button *ngIf="products.length>0" [routerLink]="['/register']" class="btn btn-primary btn-register">
       Registrarme y pagar
     </button>
   </ng-template>

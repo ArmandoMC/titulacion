@@ -20,6 +20,7 @@ import { AuthGuard } from '../guards/auth.guard';
 import { CheckoutGuard } from '../guards/checkout.guard';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 
+
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -31,7 +32,8 @@ import { CheckoutComponent } from './pages/checkout/checkout.component';
     ProfileComponent,
     ProductDetailComponent,
     LayoutComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    
   ],
   imports: [
     CommonModule,
@@ -39,7 +41,8 @@ import { CheckoutComponent } from './pages/checkout/checkout.component';
     SwiperModule,
     SharedModule,
     QuicklinkModule,
-    FormsModule
+    FormsModule,
+  
   ],
   providers:[AuthGuard,CheckoutGuard]
 })

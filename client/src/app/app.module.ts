@@ -13,6 +13,7 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
 import { StoreService } from './services/store.service';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {QuicklinkModule} from 'ngx-quicklink';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -20,8 +21,9 @@ import {QuicklinkModule} from 'ngx-quicklink';
 @NgModule({
   declarations: [
     AppComponent,
-    NotFoundComponent
-  
+    NotFoundComponent,
+    
+    
   ],
   imports: [
     AppRoutingModule,
@@ -29,7 +31,9 @@ import {QuicklinkModule} from 'ngx-quicklink';
     RouterModule,
     FormsModule,
     HttpClientModule,
-    QuicklinkModule
+    QuicklinkModule,
+    BrowserAnimationsModule,
+   
     
   ],
   providers: [AuthService, CustomerService,StoreService,
