@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit,OnExit {
 
     const customer:CreateCustomerDTO={
        name:this.name,
-       lastName:this.lastName,
+       last_name:this.lastName,
        phone:this.phone,
        user:{
          email:this.email,

@@ -8,10 +8,11 @@ import {
 import { StoreService } from '../../../services/store.service';
 import { CartService } from '../../../services/cart.service';
 import { AuthService } from '../../../services/auth.service';
+import { CheckoutService } from '../../../services/checkout.service';
 import { Product } from '../../../models/product.model';
+import { CreateOrderDTO } from '../../../models/order.model';
 import { Subscription } from 'rxjs';
 import { TokenService } from 'src/app/services/token.service';
-import { HtmlAstPath } from '@angular/compiler';
 
 @Component({
   selector: 'app-my-cart',
@@ -31,13 +32,15 @@ export class MyCartComponent implements OnInit, OnDestroy {
   products: Product[] = [];
   numProducts = 0;
   logueado: boolean;
+  orderId:number=0;
   // product.oferta:number=0;
 
   constructor(
     private storeService: StoreService,
     private cartService: CartService,
     private authService: AuthService,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private checkoutService: CheckoutService,
   ) {
     this.logueado = false;
   }
@@ -99,9 +102,15 @@ export class MyCartComponent implements OnInit, OnDestroy {
       this.storeService.addProduct(element);
     }
   }
+  // generarOrden(){
+  //   const newOrdder:CreateOrderDTO={
+  //     name:'martha',
+  //     amount:this.total
   //   }
-  //   // if(element){
-  //   //   this.seleccionado=''+element.oferta;
-  //   // }
+  //   this.cartService.generateOrder(newOrdder)
+  //   .subscribe(data=>{
+  //     // this.orderId=data.id;
+  //     console.log('orden creada:',data)
+  //   })
   // }
 }

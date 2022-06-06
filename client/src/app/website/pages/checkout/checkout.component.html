@@ -1,5 +1,7 @@
 <div class="container">
-  <div class="step1" *ngIf="showStep1 == true">
+  <!-- <button (click)="cambiarEstado()"></button> -->
+  <!--[ngCl ass]="{'rojo':disabled,'azul':!disabled}" -->
+  <div class="step1"  [ngClass]="{'disabled':disabledStep1}">
     <h1>1 PASO --> Seleccionar una dirección de envío</h1>
     <p>
       ¿Aparece a continuación la dirección que deseas utilizar? Si es así, haz
@@ -12,151 +14,260 @@
         introducir una nueva dirección de envío.
       </a>
     </p>
-    <div class="direcciones row mb-4">
-      <div
-        class="col-md-3 mr-3 address-detail border-secondary"
-        *ngFor="let d of addresses"
-      >
-        <span>{{ d.name_lastname }}</span> <br />
-        <span>{{ d.address }}</span
-        ><br />
-        <span>Número de teléfono: {{ d.telefono }}</span
-        ><br />
-        <span>Código postal: {{ d.postal_code }}</span
-        ><br />
-        <span>{{ d.city }} {{ d.state }} {{ d.country }}</span
-        ><br />
-
-        <button class="btn btn-primary btn-block mt-2 mb-2" (click)="step2()">
-          Usar esta dirección
-        </button>
-        <button class="btn btn-primary mt-2 mb-2 float-left">Editar</button>
-        <button class="btn btn-primary mt-2 mb-2 float-right">Eliminar</button>
-      </div>
-    </div>
-  </div>
-  <div class="step2" *ngIf="showStep1==false">
-    <h1>2 PASO --> Metodo de pago</h1>
-    <p>A continuación, eleccione agregar una tarjetaa de credito o debito</p>
-    <button class="btn btn-primary">Agregar tarjeta</button>
-
-    <div class="credit-card">
-      <div>
-
-      </div>
-    </div>
-  </div>
-
-  <hr *ngIf="showAddForm == true" />
-  <div class="add-address" *ngIf="showAddForm == true">
-    <form class="needs-validation" novalidate (ngSubmit)="addAddress()">
-      <div class="form-row">
-        <div class="col-md-6 mb-3">
-          <label for="validationCustom01">Nombre y apellidos</label>
-          <input
-            type="text"
-            class="form-control"
-            id="validationCustom01"
-            name="name_lastname"
-            [(ngModel)]="name_lastname"
-          />
-          <div class="valid-feedback">Looks good!</div>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="col-md-6 mb-3">
-          <label for="validationCustom03">Numero de telefono</label>
-          <input
-            type="text"
-            class="form-control"
-            id="validationCustom03"
-            name="telefono"
-            [(ngModel)]="telefono"
-          />
-          <div class="invalid-feedback">Please provide a valid city.</div>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label for="validationCustom03">Ciudad</label>
-          <input
-            type="text"
-            class="form-control"
-            id="validationCustom03"
-            name="city"
-            [(ngModel)]="city"
-          />
-          <div class="invalid-feedback">Please provide a valid city.</div>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label for="validationCustom03">Direccion</label>
-          <input
-            type="text"
-            class="form-control"
-            id="validationCustom03"
-            name="address"
-            placeholder=""
-            [(ngModel)]="address"
-          />
-          <div class="invalid-feedback">Please provide a valid city.</div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <label for="validationCustom04">Provincia</label>
-          <!-- <select class="custom-select" id="validationCustom04" required>
-              <option selected disabled value="">Choose...</option>
-              <option>...</option>
-            </select> -->
-          <input
-            type="text"
-            class="form-control"
-            id="validationCustom03"
-            name="state"
-            placeholder=""
-            [(ngModel)]="state"
-          />
-
-          <div class="invalid-feedback">Please select a valid state.</div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <label for="validationCustom05">Pais</label>
-          <input
-            type="text"
-            class="form-control"
-            id="validationCustom05"
-            name="country"
-            [(ngModel)]="country"
-          />
-          <div class="invalid-feedback">Please provide a valid zip.</div>
-        </div>
-        <div class="col-md-3 mb-3">
-          <label for="validationCustom05">Codigo postal</label>
-          <input
-            type="text"
-            class="form-control"
-            id="validationCustom05"
-            name="postal_code"
-            [(ngModel)]="postal_code"
-          />
-          <div class="invalid-feedback">Please provide a valid zip.</div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            value=""
-            id="invalidCheck"
-            required
-          />
-          <label class="form-check-label" for="invalidCheck">
-            Agree to terms and conditions
+    <div class="container row direcciones mb-4">
+        <div class="form-check col-md-2 mr-3 address-detail" *ngFor="let d of addresses;let i=index">
+          <input class="form-check-input" type="radio" name="exampleRadios" 
+          id="exampleRadios1" value="option1" (click)="capturarIdAddress(d.id)">
+          <label class="form-check-label" for="exampleRadios1">
+            <span>{{ d.name_lastname }}</span> <br />
+            <span>{{ d.address }}</span
+            ><br />
+            <span>Número de teléfono: {{ d.telefono }}</span
+            ><br />
+            <span>Código postal: {{ d.postal_code }}</span
+            ><br />
+            <span>{{ d.city }} {{ d.state }} {{ d.country }}</span
+            ><br />
           </label>
-          <div class="invalid-feedback">You must agree before submitting.</div>
-        </div>
-      </div>
-      <button class="btn btn-primary" type="submit">Submit form</button>
-      <button class="btn btn-secondary" type="" (click)="cancelar()">
-        Cancelar
-      </button>
-    </form>
+        </div> 
+        <div class="col-lg-12 mt-3">
+          <button class="btn btn-success" *ngIf="address_id" (click)="goToStep2()" onfocus="this.blur()">Siguiente</button>    
+        </div>  
+    </div>
   </div>
+  <div class="new-address" *ngIf="showAddForm == true">
+    <hr *ngIf="showAddForm == true" />
+    <div class="add-address" *ngIf="showAddForm == true">
+      <form class="needs-validation" novalidate (ngSubmit)="addAddress()">
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="validationCustom01">Nombre y apellidos</label>
+            <input
+              type="text"
+              class="form-control"
+              id="validationCustom01"
+              name="name_lastname"
+              [(ngModel)]="name_lastname"
+            />
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col-md-6 mb-3">
+            <label for="validationCustom03">Numero de telefono</label>
+            <input
+              type="text"
+              class="form-control"
+              id="validationCustom03"
+              name="telefono"
+              [(ngModel)]="telefono"
+            />
+            <div class="invalid-feedback">Please provide a valid city.</div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationCustom03">Ciudad</label>
+            <input
+              type="text"
+              class="form-control"
+              id="validationCustom03"
+              name="city"
+              [(ngModel)]="city"
+            />
+            <div class="invalid-feedback">Please provide a valid city.</div>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationCustom03">Direccion</label>
+            <input
+              type="text"
+              class="form-control"
+              id="validationCustom03"
+              name="address"
+              placeholder=""
+              [(ngModel)]="address"
+            />
+            <div class="invalid-feedback">Please provide a valid city.</div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label for="validationCustom04">Provincia</label>
+            <!-- <select class="custom-select" id="validationCustom04" required>
+                <option selected disabled value="">Choose...</option>
+                <option>...</option>
+              </select> -->
+            <input
+              type="text"
+              class="form-control"
+              id="validationCustom03"
+              name="state"
+              placeholder=""
+              [(ngModel)]="state"
+            />
+
+            <div class="invalid-feedback">Please select a valid state.</div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label for="validationCustom05">Pais</label>
+            <input
+              type="text"
+              class="form-control"
+              id="validationCustom05"
+              name="country"
+              [(ngModel)]="country"
+            />
+            <div class="invalid-feedback">Please provide a valid zip.</div>
+          </div>
+          <div class="col-md-3 mb-3">
+            <label for="validationCustom05">Codigo postal</label>
+            <input
+              type="text"
+              class="form-control"
+              id="validationCustom05"
+              name="postal_code"
+              [(ngModel)]="postal_code"
+            />
+            <div class="invalid-feedback">Please provide a valid zip.</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              value=""
+              id="invalidCheck"
+              required
+            />
+            <label class="form-check-label" for="invalidCheck">
+              Agree to terms and conditions
+            </label>
+            <div class="invalid-feedback">
+              You must agree before submitting.
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit form</button>
+        <button class="btn btn-secondary" type="" (click)="cancelar()">
+          Cancelar
+        </button>
+      </form>
+    </div>
+  </div>
+
+<div class="step2" [ngClass]="{'disabled':disabledStep2}">
+<h2>PASO 2 : VERIFICACION DE PEDIDO Y DATOS DE ENVIO</h2>
+<div class="row info-pedido">
+  <div class="col">
+    <div class="card">
+      <div class="card-header">
+        Resumen del pedido
+      </div>
+      <div class="card-body">
+        <table class="table table-borderless">
+          
+          <tbody>
+            <tr *ngFor="let p of cart; let indice = index">
+              <td><img [src]="p.image" alt="" width="70" />{{p.name}}  {{p.presentation}}jdjjdjdjdjdjdjd </td>
+              <td>X {{ p.oferta }}</td>
+           
+              <td>{{ p.subtotal |currency}}</td>
+              
+            </tr>
+          </tbody>
+        </table>
+        
+      </div>
+      <div class="card-footer text-muted text-right pr-5">
+        Total:  <b>{{total | currency}}</b> 
+      </div>
+      <button class="btn btn-primary" [routerLink]="['/my-cart']" onfocus="this.blur()">Modificar pedido</button>
+
+    </div>
+  </div>
+  <div class="col">
+    <div class="card">
+      <div class="card-header">
+        Resumen del envio
+      </div>
+      <div class="card-body">
+        <table class="table table-borderless">
+          <tbody *ngIf="addressSelected; else showMessage">
+            <tr >
+             Cliente:{{addressSelected.name_lastname}}
+            </tr>
+            <tr>
+             Direccion: {{addressSelected.address}}
+            </tr>
+            <tr >
+              Teléfono: {{addressSelected.telefono}}
+             </tr>
+            <tr >
+              {{addressSelected.city}} - {{addressSelected.state}} - {{addressSelected.country}}
+             </tr>
+          </tbody>
+        </table>
+        <ng-template #showMessage>
+          <h6>Los datos de envio se mostrarán despues de seleccionar una dirección de envio.</h6>
+        </ng-template>
+      </div>
+      <div class="card-footer text-muted text-right pr-5">
+      </div>
+      <button class="btn btn-secondary" (click)="bactToStep1()" onfocus="this.blur()">Seleccionar otra direccion</button>
+    </div>
+  </div>
+  
 </div>
+<button class="btn btn-success mt-3" (click)="goToStep3()" onfocus="this.blur()">Confirmar todo</button>
+</div>
+
+  <div class="step3 mt-3" [ngClass]="{'disabled':disabledStep3}">
+    <h1>3 PASO --> Metodo de pago</h1>
+    <p>A continuación, eleccione agregar una tarjetaa de credito o debito</p>
+
+    <div class="checkout-card">
+      <!-- <div class="checkbox-alert">
+        📌 A continuación debes de introducir los datos de tu tarjeta para procesar el pago! <br>
+        El pago se procesara mediante la platforma de <b><a href="https://stripe.com/" target="_blank">stripe</a></b>
+      </div> -->
+      <form action="" (submit)="initPay()">
+        <!-- <div class="input input-amount">
+          <label class="label">Monto a pagar</label>
+          <input type="text" name="amount" placeholder="0.00">
+          <span class="currency">USD</span>
+        </div> -->
+        <hr>
+        <div class="input">
+          <label class="label">Número de tarjeta</label>
+          <div id="card" ></div>
+        </div>
+        <hr>
+        <div class="input">
+          <label class="label">CVC</label>
+          <div id="cvc"></div>
+        </div>
+        <hr>
+        <div class="input">
+          <label class="label">Fecha de vencimiento</label>
+          <div id="exp"></div>
+        </div>
+        <div class="terms">
+          <!-- <a href="">Links</a>
+          <a href="">Links</a> -->
+        </div>
+    
+        <button  class="btn btn-success" type="submit" onfocus="this.blur()">Pagar</button>
+      </form>
+      <button  class="btn btn-secondary" type="submit" (click)="bactToStep2()" onfocus="this.blur()">Regresar al paso 2</button>
+      <!-- <button  class="btn btn-primary" type="submit">Siguiente</button> -->
+
+    </div>
+   
+    
+  
+    
+  </div>
+
+ 
+</div>
+
+
+
+

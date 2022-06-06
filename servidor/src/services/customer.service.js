@@ -50,11 +50,11 @@ class CustomerService {
 
   }
 
-  async find() {
+  async findClientByUser(userId) {
 
-    const query = `SELECT C.id,name, last_name,phone,C.create_at,U.id as user_id ,U.email,U.role FROM customers C JOIN users U ON C.user_id=U.id `;
+    const query = `SELECT C.id,name, last_name,phone FROM customers C JOIN users U ON C.user_id=${userId} `;
     const rta = await this.pool.query(query);
-    return rta.rows;
+    return rta.rows[0];
   }
 
   async findOne(id) {

@@ -19,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthGuard } from '../guards/auth.guard';
 import { CheckoutGuard } from '../guards/checkout.guard';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
+import { MyAddressesComponent } from './pages/my-addresses/my-addresses.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { CheckoutComponent } from './pages/checkout/checkout.component';
     ProductDetailComponent,
     LayoutComponent,
     CheckoutComponent,
+    MyAddressesComponent,
     
   ],
   imports: [

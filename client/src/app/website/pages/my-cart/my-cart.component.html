@@ -53,11 +53,11 @@
       <p></p>
     </div>
   </ng-template>
-
   <button
     *ngIf="logueado == true && products.length>0; else elseShow"
-    [routerLink]="['/checkout']"
     class="btn btn-primary float-right mr-5 btn-pago"
+    
+    [routerLink]="['/checkout']"
   >
     Proceder al pago
   </button>
@@ -73,5 +73,4 @@
     </button>
   </ng-template>
 
-  <!-- <button class="btn btn-primary">Registrarme y comprar</button> -->
 </div>

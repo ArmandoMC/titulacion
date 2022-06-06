@@ -4,7 +4,7 @@ export interface Customer{
 
   id:number;
   name:string;
-  lastName:string;
+  last_name:string;
   phone:string;
   user:{
     email:string;

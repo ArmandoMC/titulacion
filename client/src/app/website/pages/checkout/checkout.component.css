@@ -11,6 +11,30 @@
 .link-new-address:hover{
     text-decoration: underline;
 }
+.credit-card{
+  width: 400px;
+  height: 50px;
+  border:1px solid black;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.disabled{
+  pointer-events: none;
+  
+  opacity: 0.7;
+  
+}
+/* .checkout-card form div input{
+  pointer-events: none;
+  
+} */
+/* .address-detail{
+  border-width: 2px;
+  border-color: aqua;
+  border-style: solid;
+} */
 /* .example-stepper {
     margin-top: 8px;
   }

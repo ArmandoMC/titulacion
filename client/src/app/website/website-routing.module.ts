@@ -14,6 +14,7 @@ import { HomeComponent } from './pages/home/home.component';
 import {AuthGuard} from '../guards/auth.guard';
 import {ExitGuard} from '../guards/exit.guard';
 import {CheckoutGuard} from '../guards/checkout.guard';
+import { MyAddressesComponent } from './pages/my-addresses/my-addresses.component';
 
 const routes: Routes = [
   {
@@ -55,6 +56,11 @@ const routes: Routes = [
         canActivate:[CheckoutGuard],
         component: CheckoutComponent,
       },
+      // {
+      //   path: 'checkout/address',
+      //   // canActivate:[CheckoutGuard],
+      //   component: MyAddressesComponent,
+      // },
       {
         path: 'recovery',
         component: RecoveryComponent,
