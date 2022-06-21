@@ -43,15 +43,33 @@ export class ProductDetailComponent implements OnInit {
           this.product = data;
           this.productStock = data.stock;
           this.listarOferta();
-          const encontrado = this.storeService.getShoppingCart().find((element) => element.id === this.product?.id);
-          if (encontrado) {
-            this.agregado = true;
-            this.seleccionado = '' + encontrado.oferta;
-          } else {
-            this.agregado = false;
-          }
+          this.storeService.myCart$.subscribe(cart=>{
+            const encontrado = cart.find((element) => element.id === this.product?.id);
+            if (encontrado) {
+              this.agregado = true;
+              this.seleccionado = '' + encontrado.oferta;
+            } else {
+              this.agregado = false;
+            }
+          })
+
+         
         }
       });
+
+      // this.storeService.myCart$.subscribe(data=>{
+      //   if(this.productId){
+      //     const encontrado = data.find((element) => element.id === this.productId);
+      //     if (encontrado) {
+      //       this.agregado = true;
+      //       this.seleccionado = '' + encontrado.oferta;
+      //     } else {
+      //       this.agregado = false;
+      //     }
+        
+      //   }
+       
+      // })
   }
 
   onAddToShoppingCart() {

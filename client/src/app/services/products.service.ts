@@ -94,6 +94,9 @@ export class ProductsService {
   update(id:string,dto:UpdateProductDTO){
     return this.http.put<Product>(`${this.API_URL}/products/${id}`,dto);
   }
+  updateStockProducts(product:Product[]){
+    return this.http.put<any>(`${this.API_URL}/products/updateStock`,product);
+  }
   detele(id:string){
     return this.http.delete<number>(`${this.API_URL}/products/${id}`);
   }

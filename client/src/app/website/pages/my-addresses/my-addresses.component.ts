@@ -40,58 +40,58 @@ export class MyAddressesComponent implements OnInit {
 
   ngOnInit(): void {
     this.btn_selected=false;
-    this.authService.user$
-    .subscribe(data=>{
-      this.idUsuario = data.id;
-      this.addressService.getAllAddress(this.idUsuario).subscribe();
+    // this.authService.user$
+    // .subscribe(data=>{
+    //   this.idUsuario = data.id;
+    //   this.addressService.getAllAddress(this.idUsuario).subscribe();
 
-    });
+    // });
 
     
-    this.addressService.addresses$.subscribe((data) => {
-        this.addresses = data;
+    // this.addressService.addresses$.subscribe((data) => {
+    //     this.addresses = data;
       
-    });
+    // });
   }
-  changeColor=[false,false,false]
+  // changeColor=[false,false,false]
   
-  cambiarEstado(){
-  }
-  addAddress() {
-    const newAddress: CreateAddressDTO = {
-      name_lastname: this.name_lastname,
-      telefono: this.telefono,
-      address: this.address,
-      city: this.city,
-      state: this.state,
-      country: this.country,
-      postal_code: this.postal_code,
-      user_id: this.idUsuario,
-    };
-    this.addressService.create(newAddress).subscribe((data) => {
-        console.log('direccion añadida');
-      },
-      (error) => {console.log('error al agregar difeccion');
-    }
-    );
-    this.showAddForm = false;
-  }
-  capturar() {
-    this.showAddForm = true;
-  }
-  cancelar() {
-    this.showAddForm = false;
-  }
-  goToStep2(addressId:number) {
-    // this.showStep1=false;
-    this.showStep2=true;
-    // this.btn_selected=true;
-    this.addressService.updateVector(addressId); 
+  // cambiarEstado(){
+  // }
+  // addAddress() {
+  //   const newAddress: CreateAddressDTO = {
+  //     name_lastname: this.name_lastname,
+  //     telefono: this.telefono,
+  //     address: this.address,
+  //     city: this.city,
+  //     state: this.state,
+  //     country: this.country,
+  //     postal_code: this.postal_code,
+  //     user_id: this.idUsuario,
+  //   };
+  //   this.addressService.create(newAddress).subscribe((data) => {
+  //       console.log('direccion añadida');
+  //     },
+  //     (error) => {console.log('error al agregar difeccion');
+  //   }
+  //   );
+  //   this.showAddForm = false;
+  // }
+  // capturar() {
+  //   this.showAddForm = true;
+  // }
+  // cancelar() {
+  //   this.showAddForm = false;
+  // }
+  // goToStep2(addressId:number) {
+  //   // this.showStep1=false;
+  //   this.showStep2=true;
+  //   // this.btn_selected=true;
+  //   this.addressService.updateVector(addressId); 
     
-    console.log('addres_id',addressId)
-  }
-  bactToStep1(){
-   this.showStep1=true;
-   this.showStep2=false;
-  }
+  //   console.log('addres_id',addressId)
+  // }
+  // bactToStep1(){
+  //  this.showStep1=true;
+  //  this.showStep2=false;
+  // }
 }

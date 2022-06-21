@@ -1,7 +1,7 @@
 <div class="container">
   <!-- <button (click)="cambiarEstado()"></button> -->
   <!--[ngCl ass]="{'rojo':disabled,'azul':!disabled}" -->
-  <div class="step1"  [ngClass]="{'disabled':disabledStep1}">
+  <div class="step1" [ngClass]="{ disabled: disabledStep1 }">
     <h1>1 PASO --> Seleccionar una dirección de envío</h1>
     <p>
       ¿Aparece a continuación la dirección que deseas utilizar? Si es así, haz
@@ -15,31 +15,50 @@
       </a>
     </p>
     <div class="container row direcciones mb-4">
-        <div class="form-check col-md-2 mr-3 address-detail" *ngFor="let d of addresses;let i=index">
-          <input class="form-check-input" type="radio" name="exampleRadios" 
-          id="exampleRadios1" value="option1" (click)="capturarIdAddress(d.id)">
-          <label class="form-check-label" for="exampleRadios1">
-            <span>{{ d.name_lastname }}</span> <br />
-            <span>{{ d.address }}</span
-            ><br />
-            <span>Número de teléfono: {{ d.telefono }}</span
-            ><br />
-            <span>Código postal: {{ d.postal_code }}</span
-            ><br />
-            <span>{{ d.city }} {{ d.state }} {{ d.country }}</span
-            ><br />
-          </label>
-        </div> 
-        <div class="col-lg-12 mt-3">
-          <button class="btn btn-success" *ngIf="address_id" (click)="goToStep2()" onfocus="this.blur()">Siguiente</button>    
-        </div>  
+      <div
+        class="form-check col-md-2 mr-3 address-detail"
+        *ngFor="let d of addresses; let i = index"
+      >
+        <input
+          class="form-check-input"
+          type="radio"
+          name="exampleRadios"
+          id="exampleRadios1"
+          value="option1"
+          (click)="capturarIdAddress(d.id)"
+        />
+        <label class="form-check-label" for="exampleRadios1">
+          <!-- <span>{{ d.name_lastname }}</span> <br /> -->
+          <span>Dirección: {{ d.address }}</span
+          ><br />
+          <span>Ciudad: {{ d.city }}</span
+          ><br />
+         <span>Provincia: {{ d.state }}</span
+          ><br />
+         <span>Pais: {{ d.country }}</span
+          ><br />
+          <span>Código postal: {{ d.postal_code }}</span
+          ><br />
+          
+        </label>
+      </div>
+      <div class="col-lg-12 mt-3">
+        <button
+          class="btn btn-success"
+          *ngIf="address_id"
+          (click)="goToStep2()"
+          onfocus="this.blur()"
+        >
+          Siguiente
+        </button>
+      </div>
     </div>
   </div>
   <div class="new-address" *ngIf="showAddForm == true">
     <hr *ngIf="showAddForm == true" />
     <div class="add-address" *ngIf="showAddForm == true">
       <form class="needs-validation" novalidate (ngSubmit)="addAddress()">
-        <div class="form-row">
+        <!-- <div class="form-row">
           <div class="col-md-6 mb-3">
             <label for="validationCustom01">Nombre y apellidos</label>
             <input
@@ -51,7 +70,7 @@
             />
             <div class="valid-feedback">Looks good!</div>
           </div>
-        </div>
+        </div> -->
         <div class="form-row">
           <div class="col-md-6 mb-3">
             <label for="validationCustom03">Numero de telefono</label>
@@ -152,122 +171,203 @@
     </div>
   </div>
 
-<div class="step2" [ngClass]="{'disabled':disabledStep2}">
-<h2>PASO 2 : VERIFICACION DE PEDIDO Y DATOS DE ENVIO</h2>
-<div class="row info-pedido">
-  <div class="col">
-    <div class="card">
-      <div class="card-header">
-        Resumen del pedido
-      </div>
-      <div class="card-body">
-        <table class="table table-borderless">
-          
-          <tbody>
-            <tr *ngFor="let p of cart; let indice = index">
-              <td><img [src]="p.image" alt="" width="70" />{{p.name}}  {{p.presentation}}jdjjdjdjdjdjdjd </td>
-              <td>X {{ p.oferta }}</td>
+  <div class="step2" [ngClass]="{ disabled: disabledStep2 }">
+    <h2>PASO 2 : VERIFICACION DE PEDIDO Y DATOS DE ENVIO</h2>
+    <div class="row info-pedido">
+      <div class="col">
+        <div class="card">
+          <div class="card-header">Datos de Orden de compra</div>
+          <div class="card-body">
+            <form>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputNombres">Nombres</label>
+                  <input type="text" class="form-control" id="inputNombres">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputApellidos">Apellidos</label>
+                  <input type="text" class="form-control" id="inputApellidos">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputCedula">C.I/R.U.C</label>
+                  <input type="text" class="form-control" id="inputCedula">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputTelefono">Teléfono</label>
+                  <input type="text" class="form-control" id="inputTelefono">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputCorreo">Correo</label>
+                <input type="email" class="form-control" id="inputCorreo" placeholder="example@email.com">
+              </div>
+              <div class="form-group">
+                <label for="inputAddress">Direccion</label>
+                <div class="tabla">
+                  <table class="table">
+                    <tbody *ngIf="addressSelected; else showMessage">
+                      <tr>
+                       {{addressSelected.address}}
+                      </tr>
+                      
+                      <tr>
+                        {{addressSelected.city}} - {{addressSelected.state}} - {{addressSelected.country}}
+                      </tr>
+                      <tr>
+                        {{addressSelected.postal_code}}
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+               
+                <!-- <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"> -->
+              </div>
+              <!-- <button type="submit" class="btn btn-primary">Sign in</button> -->
+            </form>
            
-              <td>{{ p.subtotal |currency}}</td>
-              
-            </tr>
-          </tbody>
-        </table>
-        
+            <ng-template #showMessage>
+              <h6>
+                Los datos de direccion se mostrarán despues de seleccionar una
+                dirección de envio.
+              </h6>
+            </ng-template>
+          </div>
+          <div class="card-footer text-muted text-left">
+            <button
+              class="btn btn-secondary"
+              (click)="bactToStep1()"
+              onfocus="this.blur()"
+            >
+              Seleccionar otra direccion
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="card-footer text-muted text-right pr-5">
-        Total:  <b>{{total | currency}}</b> 
+      <div class="col">
+        <div class="card">
+          <div class="card-header">Resumen del pedido</div>
+          <div class="card-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Producto</th>
+                  <th scope="col">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let p of cart; let indice = index">
+                  <td>
+                    {{ p.name }} {{ p.presentation }} x {{p.oferta}}
+                  </td>
+                  <!-- <td>x {{ p.oferta }}</td> -->
+                  <td>{{ p.subtotal | currency }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-footer text-muted text-right pr-5">
+           
+            <h6>
+              Subtotal: <b style="font-size: 15px">{{total | currency}}</b>
+            </h6>
+            <h6>
+              Iva: <b style="font-size: 15px">$0.00</b>
+            </h6>
+            <h6>
+              Envío<span>(Tarifa fija):</span> <b>$3.50</b>
+            </h6>
+            <h5>
+              Total: <b style="font-size: 20px">{{ total +3.50 | currency }}</b>
+            </h5>
+            <hr />
+            <button
+              class="btn btn-primary mt-2"
+              [routerLink]="['/my-cart']"
+              onfocus="this.blur()"
+            >
+              Modificar pedido
+            </button>
+          </div>
+        </div>
       </div>
-      <button class="btn btn-primary" [routerLink]="['/my-cart']" onfocus="this.blur()">Modificar pedido</button>
-
+      
     </div>
+    <button
+      class="btn btn-success mt-3"
+      (click)="goToStep3()"
+      onfocus="this.blur()"
+    >
+        Siguiente
+    </button>
   </div>
-  <div class="col">
-    <div class="card">
-      <div class="card-header">
-        Resumen del envio
-      </div>
-      <div class="card-body">
-        <table class="table table-borderless">
-          <tbody *ngIf="addressSelected; else showMessage">
-            <tr >
-             Cliente:{{addressSelected.name_lastname}}
-            </tr>
-            <tr>
-             Direccion: {{addressSelected.address}}
-            </tr>
-            <tr >
-              Teléfono: {{addressSelected.telefono}}
-             </tr>
-            <tr >
-              {{addressSelected.city}} - {{addressSelected.state}} - {{addressSelected.country}}
-             </tr>
-          </tbody>
-        </table>
-        <ng-template #showMessage>
-          <h6>Los datos de envio se mostrarán despues de seleccionar una dirección de envio.</h6>
-        </ng-template>
-      </div>
-      <div class="card-footer text-muted text-right pr-5">
-      </div>
-      <button class="btn btn-secondary" (click)="bactToStep1()" onfocus="this.blur()">Seleccionar otra direccion</button>
-    </div>
-  </div>
-  
-</div>
-<button class="btn btn-success mt-3" (click)="goToStep3()" onfocus="this.blur()">Confirmar todo</button>
-</div>
 
-  <div class="step3 mt-3" [ngClass]="{'disabled':disabledStep3}">
+  <div class="step3 mt-3" [ngClass]="{ disabled: disabledStep3 }">
     <h1>3 PASO --> Metodo de pago</h1>
-    <p>A continuación, eleccione agregar una tarjetaa de credito o debito</p>
+    <!-- <p>A continuación, eleccione agregar una tarjetaa de credito o debito</p> -->
 
-    <div class="checkout-card">
-      <!-- <div class="checkbox-alert">
-        📌 A continuación debes de introducir los datos de tu tarjeta para procesar el pago! <br>
+    <div class="container checkout-card">
+      <div class="checkbox-alert mb-3">
+        📌 A continuación debes de introducir los datos de tu tarjeta para procesar el pago! 
         El pago se procesara mediante la platforma de <b><a href="https://stripe.com/" target="_blank">stripe</a></b>
-      </div> -->
-      <form action="" (submit)="initPay()">
+      </div>
+      <form action="" class="datos" (submit)="initPay()">
         <!-- <div class="input input-amount">
           <label class="label">Monto a pagar</label>
           <input type="text" name="amount" placeholder="0.00">
           <span class="currency">USD</span>
         </div> -->
-        <hr>
-        <div class="input">
-          <label class="label">Número de tarjeta</label>
-          <div id="card" ></div>
+        <div class="text-center mb-3">
+          <img src="../../../../assets/images/car.jpg" alt="" width="90" />
+          <h4 style="line-height: 90%">DIMA</h4>
+          <span>tienda de productos lácteos</span>
         </div>
-        <hr>
-        <div class="input">
-          <label class="label">CVC</label>
+
+        <!-- <div class="form-group">
+          <label>Nombre de tarjeta</label>
+          <div id="nombre"></div>
+        </div> -->
+        <div class="form-group">
+          <label for="inputNombre">Nombre del titular</label>
+          <input type="text" class="form-control titular" id="" placeholder="">
+        </div>
+        <div class="form-group">
+          <label>Número de tarjeta</label>
+          <div id="card"></div>
+        </div>
+        <hr />
+        <div class="form-group">
+          <label>CVC</label>
           <div id="cvc"></div>
         </div>
-        <hr>
-        <div class="input">
-          <label class="label">Fecha de vencimiento</label>
+        <hr />
+        <div class="form-group">
+          <label>Fecha de vencimiento</label>
           <div id="exp"></div>
         </div>
         <div class="terms">
           <!-- <a href="">Links</a>
           <a href="">Links</a> -->
         </div>
-    
-        <button  class="btn btn-success" type="submit" onfocus="this.blur()">Pagar</button>
+
+        <button
+          class="btn btn-success btn-block"
+          type="submit"
+          onfocus="this.blur()"
+        >
+          Pagar {{ total | currency }}
+        </button>
       </form>
-      <button  class="btn btn-secondary" type="submit" (click)="bactToStep2()" onfocus="this.blur()">Regresar al paso 2</button>
+      <button
+        class="btn btn-secondary mt-3"
+        type="submit"
+        (click)="bactToStep2()"
+        onfocus="this.blur()"
+      >
+        Regresar al paso 2
+      </button>
       <!-- <button  class="btn btn-primary" type="submit">Siguiente</button> -->
-
     </div>
-   
-    
-  
-    
   </div>
-
- 
 </div>
-
-
-
-

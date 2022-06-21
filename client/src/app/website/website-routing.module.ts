@@ -5,16 +5,18 @@ import { RecoveryComponent } from './pages/recovery/recovery.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { LoginComponent } from './pages/login/login.component';
+import { AccountComponent } from './pages/account/account.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ProductDetailComponent } from './pages/product-detail/product-detail.component';
 import { LayoutComponent } from './components/layout/layout.component';
+import { MyAddressesComponent } from './pages/my-addresses/my-addresses.component';
+import { OrdersComponent } from './pages/orders/orders.component';
 
 
 import { HomeComponent } from './pages/home/home.component';
 import {AuthGuard} from '../guards/auth.guard';
 import {ExitGuard} from '../guards/exit.guard';
 import {CheckoutGuard} from '../guards/checkout.guard';
-import { MyAddressesComponent } from './pages/my-addresses/my-addresses.component';
 
 const routes: Routes = [
   {
@@ -48,8 +50,21 @@ const routes: Routes = [
         component: ProfileComponent,
       },
       {
+        path: 'account',
+        // canActivate:[AuthGuard],
+        component: AccountComponent,
+      },
+      {
         path: 'my-cart',
         component: MyCartComponent,
+      },
+      {
+        path: 'my-addresses',
+        component: MyAddressesComponent,
+      },
+      {
+        path: 'orders',
+        component: OrdersComponent,
       },
       {
         path: 'checkout',

@@ -63,7 +63,21 @@ router.post('/',
     }
   }
 );
-
+router.put('/updateStock',
+  // validatorHandler(getProductSchema, 'params'),
+  // validatorHandler(updateProductSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      // const { id } = req.body;
+      const body = req.body;
+      console.log('vector de products :',body)
+      const product = await service.updateStock(req.body);
+      res.json(product);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 router.put('/:id',
   validatorHandler(getProductSchema, 'params'),
   validatorHandler(updateProductSchema, 'body'),
@@ -78,6 +92,7 @@ router.put('/:id',
     }
   }
 );
+
 router.put('/updateImage/:id',
   validatorHandler(getProductSchema, 'params'),
   // validatorHandler(updateProductSchema, 'body'),
@@ -92,6 +107,7 @@ router.put('/updateImage/:id',
     }
   }
 );
+
 
 router.delete('/:id',
   validatorHandler(getProductSchema, 'params'),

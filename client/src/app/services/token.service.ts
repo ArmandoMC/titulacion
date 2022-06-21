@@ -23,4 +23,8 @@ export class TokenService {
     localStorage.removeItem('token');
   }
   
+  removeCart(){
+    localStorage.removeItem('carrito');
+  }
+  
 }

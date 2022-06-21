@@ -1,0 +1,32 @@
+.mis-datos {
+    border-color:#ced5db;
+    border-style: groove;
+    border-width: 1px;
+    border-radius: 5px;
+}
+.mis-direcciones {
+    border-color:#ced5db;
+    border-style: groove;
+    border-width: 1px;
+    border-radius: 5px;
+
+}
+.mis-pedidos {
+    border-color:#ced5db;
+    border-style: groove;
+    border-width: 1px;
+    border-radius: 5px;
+
+}
+.link-mis-datos{
+    text-decoration: none;
+    color: black;
+}
+.link-mis-direcciones{
+    text-decoration: none;
+    color: black;
+}
+.link-mis-pedidos{
+    text-decoration: none;
+    color: black;
+}

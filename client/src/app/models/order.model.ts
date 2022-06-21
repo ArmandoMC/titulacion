@@ -1,5 +1,5 @@
 
-export interface Order{
+export interface OrderPayment{
   // id:number;
   // name:string;
   // amount:number;
@@ -10,10 +10,12 @@ export interface Order{
   customer_id:number;
   address_id:number;
   total:number;
-  id_transaccion:string;
   status:string;
+  id_transaccion?:string;
+  token?:string;
+  name?:string;
   
   
 }
-export interface CreateOrderDTO extends Omit<Order,'id'>{}
-export interface UpdateOrderDTO extends Omit<Order,'id'|'name'|'amount'|'stripe_id'|'localizator'>{}
+export interface CreateOrderDTO extends Omit<OrderPayment,'id'>{}
+export interface UpdateOrderDTO extends Omit<OrderPayment,'id'|'name'|'amount'|'stripe_id'|'localizator'>{}

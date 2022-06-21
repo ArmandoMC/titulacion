@@ -31,7 +31,6 @@ export class AddressService {
     return this.http.post<Address>(`${this.API_URL}/address`,dto)
     .pipe(
       tap((address)=>{
-        address.status='not-selected'
         this.myAddresses.push(address);
         this.addresses.next(this.myAddresses);
       })
@@ -44,7 +43,7 @@ export class AddressService {
     return this.http.get<Address[]>(`${this.API_URL}/address/${idUser}`)
     .pipe(
       tap((response)=>{
-        response.map(item=>{item.status='not-selected'})
+        // response.map(item=>{item.status='not-selected'})
         this.myAddresses=response;
         this.addresses.next(this.myAddresses);
       })
@@ -52,12 +51,12 @@ export class AddressService {
 
   }
 
-  updateVector(id:number){
-    const indice=this.myAddresses.findIndex(ad=>ad.id==id);
-    if(indice!=-1){
-      this.myAddresses[indice].status='selected';
-    }
-  }
+  // updateVector(id:number){
+  //   const indice=this.myAddresses.findIndex(ad=>ad.id==id);
+  //   if(indice!=-1){
+  //     this.myAddresses[indice].status='selected';
+  //   }
+  // }
  
 
 }

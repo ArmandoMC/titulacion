@@ -12,19 +12,51 @@ class PagoService {
     this.pool.on('error', (err) => console.error(err));
   }
   async create(data) {
-    const { name, amount } = data;
+    const{customer_id,address_id,total,status,token,name}=data;
+    const responseMethod = await this.generatePaymentMethod(token) //TODO: 🔴 Token magico!
+    const resPaymentIntent = await this.generatePaymentIntent(
+      {
+        amount: total,
+        user: name,
+        payment_method: responseMethod.id
+      }
+    )
+
     const query = {
-      text: `INSERT INTO order_pago(name,amount) VALUES($1,$2) RETURNING *`,
-      values: [name, amount]
+      text: `INSERT INTO orders(customer_id,address_id,total,id_transaccion,status) VALUES($1,$2,$3,$4,$5) RETURNING *`,
+      values: [customer_id,address_id,total,resPaymentIntent.id,status]
     };
+
     const order = await this.pool.query(query);
-    console.log('ordern:', order.rows[0])
+    console.log('order:', order.rows[0])
     if (order.rows.length === 0) {
       throw boom.notFound('error al crear orden');
     }
 
-    return order.rows[0];
+    return {data:order.rows[0],resPaymentIntent};
   }
+  async createDetail(id,data) {
+    // const{customer_id,address_id,total,status,token,name}=data;
+   let query;
+    for(let i=0;i<data.length;i++) {
+      query = {
+        text: `INSERT INTO orders_products(order_id,product_id,quantity) VALUES($1,$2,$3) RETURNING *`,
+        values: [id,data[i].id,data[i].oferta]
+      };
+      let orderDetail = await this.pool.query(query);
+      console.log('detalle de orden',orderDetail.rows)
+    };
+     
+
+    // console.log('detalle de orden:', orderDetail.rows)
+    // if (order.rows.length === 0) {
+    //   throw boom.notFound('error al crear orden');
+    // }
+
+    return {message:'Detalle de orden registrado con éxito'};
+  }
+
+
   async addItem(data) {
     const { orderId, productId, amount } = data;
     const query = {
@@ -55,9 +87,13 @@ class PagoService {
     // });
     //  return rta;
   }
-  async find() {
-    const query = 'SELECT * FROM orders';
+  async find(id) {
+    const query = {
+      text:`SELECT op.product_id,op.quantity,p.name,p.presentation,p.price FROM orders_products op INNER JOIN products p ON op.product_id=p.id WHERE order_id=$1 `,
+      values:[id]
+    };
     const orders = await this.pool.query(query);
+    console.log('backend:',orders.rows)
     return orders.rows;
   }
 
@@ -70,6 +106,30 @@ class PagoService {
     const order = await this.pool.query(query);
     if (order.rows.length === 0) {
       throw boom.notFound('orden not found');
+    }
+    return order.rows[0];
+  }
+  async findOrdersByCustomer(id) {
+    const query =
+    {
+      text: `SELECT * FROM orders WHERE customer_id=$1`,
+      values: [id]
+    };
+    const order = await this.pool.query(query);
+    if (order.rows.length === 0) {
+      throw boom.notFound('no hay ordenes para el cliente');
+    }
+    return order.rows;
+  }
+  async findAddressByOrderId(id) {
+    const query =
+    {
+      text: `SELECT ad.address FROM address ad WHERE ad.id=$1`,
+      values: [id]
+    };
+    const order = await this.pool.query(query);
+    if (order.rows.length === 0) {
+      throw boom.notFound('no hay direccione para el cliente');
     }
     return order.rows[0];
   }
@@ -117,7 +177,6 @@ class PagoService {
     //TODO: Generamos metodo de pago en Stripe
     // console.log('orden verificada en bd', resOrder.rows[0])
     const responseMethod = await this.generatePaymentMethod(token) //TODO: 🔴 Token magico!
-    //TODO: Generamos intencion de pago
     const resPaymentIntent = await this.generatePaymentIntent(
       {
         amount: resOrder.amount,
@@ -125,7 +184,6 @@ class PagoService {
         payment_method: responseMethod.id
       }
     )
-    //TODO: Actualizamos  orden con id de intencion de pago
     // await this.updateStripeId(id,resPaymentIntent.id);
 
     const query = {

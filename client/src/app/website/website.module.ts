@@ -20,6 +20,8 @@ import { AuthGuard } from '../guards/auth.guard';
 import { CheckoutGuard } from '../guards/checkout.guard';
 import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { MyAddressesComponent } from './pages/my-addresses/my-addresses.component';
+import { AccountComponent } from './pages/account/account.component';
+import { OrdersComponent } from './pages/orders/orders.component';
 
 
 @NgModule({
@@ -35,6 +37,8 @@ import { MyAddressesComponent } from './pages/my-addresses/my-addresses.componen
     LayoutComponent,
     CheckoutComponent,
     MyAddressesComponent,
+    AccountComponent,
+    OrdersComponent,
     
   ],
   imports: [

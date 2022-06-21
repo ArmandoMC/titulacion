@@ -1,4 +1,5 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Address, CreateAddressDTO } from 'src/app/models/address.model';
 import { AddressService } from 'src/app/services/address.service';
 import { AuthService } from '../../../services/auth.service';
@@ -6,15 +7,22 @@ import { CheckoutService } from '../../../services/checkout.service';
 import { CartService } from '../../../services/cart.service';
 import { StoreService } from '../../../services/store.service';
 import { CustomerService } from '../../../services/customer.service';
+import { TokenService } from '../../../services/token.service';
+import { ProductsService } from '../../../services/products.service';
 // import { kushki } from "@kushki/js";
 import { loadStripe } from '@stripe/stripe-js';
 // import {WindowRef} from "../../WindowRef";
 import { environment } from '../../../../environments/environment';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UpdateOrderDTO } from 'src/app/models/order.model';
+import {
+  OrderPayment,
+  UpdateOrderDTO,
+  CreateOrderDTO,
+} from 'src/app/models/order.model';
 import { switchMap, tap } from 'rxjs/operators';
 import { Product } from 'src/app/models/product.model';
 import { Customer } from 'src/app/models/customer.model';
+import { zip } from 'rxjs';
 // import {RestService} from "../../services/rest.service";
 // import {ActivatedRoute} from "@angular/router";
 // import {Toaster} from "ngx-toast-notifications";
@@ -53,26 +61,30 @@ export class CheckoutComponent implements OnInit {
   cardExp: any;
   id: number;
   orderData!: any;
-  status = 'pendiente';
   cart: Product[] = [];
   total: number = 0;
-  customer:Customer;
+  customer: Customer;
   customer_name: string;
   customer_id: number = 0;
   address_id: number = 0;
-  addressSelected:Address;
-    disabledStep1:boolean=false;
-    disabledStep2:boolean=true;
-    disabledStep3:boolean=true;
+  addressSelected: Address;
+  status: string = 'Procesando';
+
+  newOrder: OrderPayment;
+  disabledStep1: boolean = false;
+  disabledStep2: boolean = true;
+  disabledStep3: boolean = true;
   constructor(
     private authService: AuthService,
     private addressService: AddressService,
     private checkoutService: CheckoutService,
     private cartService: CartService,
     private storeService: StoreService,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private tokenService: TokenService,
+    private productService: ProductsService,
+    private router: Router
   ) {
-    // this.STRIPE=window.Stripe(environment.stripe_pk);
     this.STRIPE = window.Stripe(environment.stripe_pk);
   }
 
@@ -84,13 +96,12 @@ export class CheckoutComponent implements OnInit {
           console.log('user_id', this.idUsuario);
 
           this.customerService.getClient(this.idUsuario).subscribe((data) => {
-            console.log(data)
-            if(data){
-              this.customer=data;
-              this.customer_id=this.customer.id;
+            console.log(data);
+            if (data) {
+              this.customer = data;
+              this.customer_id = this.customer.id;
               console.log('customer_id', this.customer_id);
             }
-           
           });
         })
       )
@@ -98,12 +109,6 @@ export class CheckoutComponent implements OnInit {
     this.addressService.getAllAddress(this.idUsuario).subscribe((data) => {
       this.addresses = data;
     });
-    // this.addressService.addresses$.subscribe((data) => {
-    //   if (data) {
-
-        
-    //   }
-    // });
 
     this.storeService.myCart$.subscribe((data) => {
       this.cart = data;
@@ -178,23 +183,40 @@ export class CheckoutComponent implements OnInit {
       console.log('token creado', token.id);
       //TODO: Enviamos el token a nuesta api donde generamos (stripe) un metodo de pago basado en el token
       //TODO: tok_23213
+      const newOrder: CreateOrderDTO = {
+        customer_id: this.customer.id,
+        address_id: this.address_id,
+        total: this.total,
+        status: this.status,
+        token: token.id,
+        name: this.customer.name,
+      };
       this.checkoutService
-        .sendPayment(token.id, this.id)
+        .sendPayment(newOrder)
         .pipe(
           tap(async (data) => {
-            const m = await this.STRIPE.handleCardPayment(data.client_secret);
-            console.log('es m', m);
+            await this.STRIPE.handleCardPayment(data.resPaymentIntent.client_secret);
+            // console.log('es m', m);
             console.log('DINERIO DINERO');
-            // this.status = 'pagado';
-            // const dto: UpdateOrderDTO = {
-            //   status: this.status,
-            // };
-            // this.checkoutService.confirmOrder(this.id,dto).subscribe(orden=>{
-            //   console.log('orden confirmada',orden)
-            // })
+            // console.log('ide de orden',data.data.id)
+            this.checkoutService.registerPurchaseDetail(data.data.id,this.cart).subscribe(detail=>{
+
+                console.log('detalle registrado en bd:',detail)
+
+                this.storeService.vaciarCart();
+                this.router.navigate(['/home']);
+            })
+            this.productService.updateStockProducts(this.cart).subscribe(dt=>{
+              console.log('data de stock actualzidos:',dt)
+            })
           })
+
         )
-        .subscribe();
+        .subscribe((data) => {
+          console.log('ultima data:', data)
+         
+        });
+      // .subscribe();
     } catch (e) {
       //TODO: Nuestra api devolver un "client_secret" que es un token unico por intencion de pago
       //TODO: SDK de stripe se encarga de verificar si el banco necesita autorizar o no
@@ -209,8 +231,6 @@ export class CheckoutComponent implements OnInit {
 
   addAddress() {
     const newAddress: CreateAddressDTO = {
-      name_lastname: this.name_lastname,
-      telefono: this.telefono,
       address: this.address,
       city: this.city,
       state: this.state,
@@ -228,34 +248,30 @@ export class CheckoutComponent implements OnInit {
     );
     this.showAddForm = false;
   }
- 
+
   capturar() {
     this.showAddForm = true;
   }
-  capturarIdAddress(id:number){
-    console.log('addres_id',id)
-    this.address_id=id;
-   this.addressSelected=this.addresses.find(dir=>dir.id==id);
-   console.log(this.addressSelected)
+  capturarIdAddress(id: number) {
+    console.log('addres_id', id);
+    this.address_id = id;
+    this.addressSelected = this.addresses.find((dir) => dir.id == id);
+    //  console.log(this.addressSelected)
   }
   goToStep2() {
-    this.disabledStep1=true;
-    this.disabledStep2=false;
-        
+    this.disabledStep1 = true;
+    this.disabledStep2 = false;
   }
   bactToStep1() {
-    
-    this.disabledStep1=false;
-    this.disabledStep2=true;
+    this.disabledStep1 = false;
+    this.disabledStep2 = true;
   }
   goToStep3() {
-    this.disabledStep3=false;
-    this.disabledStep2=true;
-        
+    this.disabledStep3 = false;
+    this.disabledStep2 = true;
   }
   bactToStep2() {
-    
-    this.disabledStep3=true;
-    this.disabledStep2=false;
+    this.disabledStep3 = true;
+    this.disabledStep2 = false;
   }
 }

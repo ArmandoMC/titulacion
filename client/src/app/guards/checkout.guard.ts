@@ -24,9 +24,10 @@ export class CheckoutGuard implements CanActivate {
           if (!user) {
             this.router.navigate(['/login']);
             return false;
+          }else{
+            return true;
           }
 
-          return true;
         })
       );
   }

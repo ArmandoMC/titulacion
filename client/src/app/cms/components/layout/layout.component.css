@@ -1,4 +1,4 @@
-div {
+.contenedor {
   display: grid;
   height: 100vh;
   grid-template-columns: 220px 1fr;

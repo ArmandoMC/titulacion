@@ -39,7 +39,10 @@ class AddressService {
     const query = {
       text: `SELECT * FROM address WHERE user_id=${id}`
     };
+    // const query = `SELECT total,id_transaccion,status,ad.address FROM orders as or JOIN address as ad ON or.address_id=ad.id WHERE or.customer_id=${id}`;
+
     const address = await this.pool.query(query);
+    console.log('dir:',address)
     if (address.rows.length === 0) {
       return [];
       // throw boom.notFound('address not found');

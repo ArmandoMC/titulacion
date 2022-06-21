@@ -5,13 +5,15 @@ const YOUR_DOMAIN = 'http://localhost:4200/home';
 
 const OrderService = require('../services/order.service');
 const PagoService = require('../services/pago.service');
+const AddressService = require('../services/address.service');
 const validatorHandler = require('../middlewares/validator.handler');
-const { createOrderSchema, getOrderSchema, addItemSchema } = require('../schemas/order.schema');
+const { createOrderSchema, getOrderSchema,createDetailSchema, addItemSchema ,getDetailSchema} = require('../schemas/order.schema');
 const { createPagoSchema } = require('../schemas/pago.schema');
 
 const router = express.Router();
 const service = new OrderService();
 const servicePago=new PagoService();
+const addressService=new AddressService();
 
 // router.get('/', async (req, res, next) => {
 //   try {
@@ -40,20 +42,71 @@ const servicePago=new PagoService();
 //   }
 // );
 
+// router.post('/',
+//   // passport.authenticate('jwt', { session: false }),
+//   // validatorHandler(createOrderSchema, 'body'),
+//   async (req, res, next) => {
+//     try {
+        
+//       const result=await servicePago.create(req.body)
+      
+//       res.status(201).json(result);
+//     } catch (error) {
+//       next(error);
+//     }
+//   }
+// );
 router.post('/',
   // passport.authenticate('jwt', { session: false }),
   // validatorHandler(createOrderSchema, 'body'),
   async (req, res, next) => {
     try {
-        
+        console.log('req.body:',req.body);
       const result=await servicePago.create(req.body)
-      
+      console.log('result combinado',result)
       res.status(201).json(result);
     } catch (error) {
       next(error);
     }
   }
 );
+router.post('/detail/:id',
+  // passport.authenticate('jwt', { session: false }),
+  // validatorHandler(getDetailSchema, 'params'),
+  // validatorHandler(createDetailSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const{id}=req.params;
+      console.log('id de order recibido:',id)
+        console.log('req.body recibido:',req.body);
+
+      
+      const result=await servicePago.createDetail(id,req.body)
+      console.log('resultado',result)
+      res.status(201).json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+router.get('/detail/:id',
+  // passport.authenticate('jwt', { session: false }),
+  // validatorHandler(getDetailSchema, 'params'),
+  // validatorHandler(createDetailSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const{id}=req.params;
+      console.log('id de order recibido:',id)
+      
+      const result=await servicePago.find(id)
+      console.log('resultado',result)
+      res.json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 // router.post('/create-checkout-session', async (req, res) => {
 //   const session = await stripe.checkout.sessions.create({
 //     line_items: [
@@ -79,6 +132,34 @@ router.get('/:id',
       const { id } = req.params;
       const order = await servicePago.findOne(id);
       res.json(order);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+router.get('/customer/:id',
+  // validatorHandler(getOrderSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      console.log('id de customer:',id)
+      const orders = await servicePago.findOrdersByCustomer(id);
+      // const or=await addressService.findOne(id)
+      res.json(orders);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+router.get('/address/:id',
+  // validatorHandler(getOrderSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      console.log('id de customer:',id)
+      const orders = await servicePago.findAddressByOrderId(id);
+      // const or=await addressService.findOne(id)
+      res.json(orders);
     } catch (error) {
       next(error);
     }

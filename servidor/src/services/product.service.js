@@ -79,6 +79,19 @@ class ProductsService {
     const rta = await pool.query(query);
     return rta.rows[0];
   }
+  async updateStock(data) {
+
+    let query;
+    for(let i=0;i<data.length;i++) {
+      query = {
+        text: `UPDATE products SET stock=$1 WHERE id=${data[i].id} RETURNING *`,
+        values: [(data[i].stock-data[i].oferta)]
+      };
+      let updateProduct = await this.pool.query(query);
+      console.log('producto actualizado stock',updateProduct.rows)
+    };
+    return {message:'Stock de productos actualizados con éxito'};
+  }
 
   async delete(id) {
     await this.findOne(id);
