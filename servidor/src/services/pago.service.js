@@ -55,7 +55,24 @@ class PagoService {
 
     return {message:'Detalle de orden registrado con éxito'};
   }
+    async updateIdVenta(order,venta){
+      const{id}=order.data;
+      console.log('id: ',id);
+      const{id_sale}=venta;
+      console.log('id_sale:',id_sale)
+      const query =
+      {
+        text: `UPDATE orders SET sale_id=$1 WHERE id=${id} RETURNING *`,
+        values: [id_sale]
+      };
+      const newOrder = await this.pool.query(query);
 
+      if (newOrder.rows.length === 0) {
+        throw boom.notFound('no se pudo actualizar idVenta en la orden');
+      }
+      console.log('ide de vent actulizado en la orden:', newOrder.rows[0])
+      return newOrder.rows[0];
+    }
 
   async addItem(data) {
     const { orderId, productId, amount } = data;
@@ -100,7 +117,7 @@ class PagoService {
   async findOne(id) {
     const query =
     {
-      text: `SELECT * FROM order_pago WHERE id=$1`,
+      text: `SELECT * FROM orders WHERE id=$1`,
       values: [id]
     };
     const order = await this.pool.query(query);
@@ -109,6 +126,20 @@ class PagoService {
     }
     return order.rows[0];
   }
+  async findPending() {
+    const status='Procesando';
+    const query =
+    {
+      text: `SELECT * FROM orders WHERE status=$1`,
+      values:[status]
+    };
+    const orders = await this.pool.query(query);
+    if (orders.rows.length === 0) {
+      throw boom.notFound('orden not found');
+    }
+    return orders.rows;
+  }
+  
   async findOrdersByCustomer(id) {
     const query =
     {
@@ -117,7 +148,9 @@ class PagoService {
     };
     const order = await this.pool.query(query);
     if (order.rows.length === 0) {
-      throw boom.notFound('no hay ordenes para el cliente');
+      // throw boom.notFound('no hay ordenes para el cliente');
+      return [];
+
     }
     return order.rows;
   }
@@ -158,7 +191,7 @@ class PagoService {
     console.log('bienvenido al metodo de updtae status')
    
     const query = {
-      text: `UPDATE order_pago SET status=$1 WHERE id=$2 RETURNING *`,
+      text: `UPDATE orders SET status=$1 WHERE id=$2 RETURNING *`,
       values: [status, id]
     };
     const rta = await pool.query(query);

@@ -21,7 +21,7 @@ class CustomerService {
         password: hash
       }
     }
-    const { name, lastName, phone, user } = newData;
+    const { name, last_name, phone, user } = newData;
     let statement;
     if (!user.role) {
       const q1 = {
@@ -41,7 +41,7 @@ class CustomerService {
     const us = statement.rows[0];
     const query = {
       text: `INSERT INTO customers(name,last_name,phone,user_id) VALUES($1,$2,$3,$4) RETURNING *`,
-      values: [name, lastName, phone, us.id]
+      values: [name, last_name, phone, us.id]
     }
     const newCustomer = await this.pool.query(query);
 

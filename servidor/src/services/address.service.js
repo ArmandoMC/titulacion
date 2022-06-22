@@ -12,10 +12,10 @@ class AddressService {
   }
 
   async create(data) {
-    const{name_lastname,telefono,address,city,state,country,postal_code,user_id}=data;
+    const{address,city,state,country,postal_code,user_id}=data;
     const query = {
-      text: `INSERT INTO address(name_lastname,telefono,address,city,state,country,postal_code,user_id) VALUES($1,$2,$3,$4,$5,$6,$7,$8) RETURNING *`,
-      values: [name_lastname, telefono, address,city,state,country,postal_code,user_id]
+      text: `INSERT INTO address(address,city,state,country,postal_code,user_id) VALUES($1,$2,$3,$4,$5,$6) RETURNING *`,
+      values: [address,city,state,country,postal_code,user_id]
     };
     const rta = await this.pool.query(query);
     return rta.rows[0];
@@ -42,7 +42,7 @@ class AddressService {
     // const query = `SELECT total,id_transaccion,status,ad.address FROM orders as or JOIN address as ad ON or.address_id=ad.id WHERE or.customer_id=${id}`;
 
     const address = await this.pool.query(query);
-    console.log('dir:',address)
+    console.log('dir:',address.rows)
     if (address.rows.length === 0) {
       return [];
       // throw boom.notFound('address not found');

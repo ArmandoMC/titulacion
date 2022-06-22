@@ -14,12 +14,12 @@ export class RegisterComponent implements OnInit,OnExit {
 
   
   name:string;
-  lastName:string;
+  last_name:string;
   phone:string;
   email:string;
   password:string;
   repeatPassword:string;
-
+  role:string;
 
   constructor(
     private customerService:CustomerService,
@@ -32,11 +32,12 @@ export class RegisterComponent implements OnInit,OnExit {
 
     const customer:CreateCustomerDTO={
        name:this.name,
-       last_name:this.lastName,
+       last_name:this.last_name,
        phone:this.phone,
        user:{
          email:this.email,
-         password:this.password
+         password:this.password,
+         role:'admin'
        }
     }
     this.customerService.create(customer)

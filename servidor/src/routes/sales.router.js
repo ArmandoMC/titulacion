@@ -1,20 +1,13 @@
 const express = require('express');
-const passport = require('passport');
-const stripe = require('stripe')('pk_test_51L6P6aKmdXkslfCmYQzTMdo90vo1E3jfPBZeYyecej9nXVdYoZMU81Rxt6u9gtlk0jFfZsod6bIn2W00beEMAu4v00YEprAJdx');
-const YOUR_DOMAIN = 'http://localhost:4200/home';
 
-const OrderService = require('../services/order.service');
-const PagoService = require('../services/pago.service');
-const SalesService = require('../services/sales.service');
+
 const AddressService = require('../services/address.service');
 const validatorHandler = require('../middlewares/validator.handler');
 const { createOrderSchema, getOrderSchema,createDetailSchema, addItemSchema ,getDetailSchema} = require('../schemas/order.schema');
-const { createPagoSchema } = require('../schemas/pago.schema');
+const SalesService = require('../services/sales.service');
 
 const router = express.Router();
-const service = new OrderService();
-const servicePago=new PagoService();
-const serviceSales=new SalesService();
+const service = new SalesService();
 const addressService=new AddressService();
 
 // router.get('/', async (req, res, next) => {
@@ -44,34 +37,16 @@ const addressService=new AddressService();
 //   }
 // );
 
-// router.post('/',
-//   // passport.authenticate('jwt', { session: false }),
-//   // validatorHandler(createOrderSchema, 'body'),
-//   async (req, res, next) => {
-//     try {
-        
-//       const result=await servicePago.create(req.body)
-      
-//       res.status(201).json(result);
-//     } catch (error) {
-//       next(error);
-//     }
-//   }
-// );
+
 router.post('/',
   // passport.authenticate('jwt', { session: false }),
   // validatorHandler(createOrderSchema, 'body'),
   async (req, res, next) => {
     try {
-        console.log('req.body:',req.body);
-      const order=await servicePago.create(req.body);
-      const venta=await serviceSales.createVenta(order.data);
-      // const id_venta=venta.id;
-      // console.log('ventaaaaaaaaaa',venta.id)
-      await servicePago.updateIdVenta(order,venta);
-
-      // console.log('result combinado',result)
-      res.status(201).json(order);
+        console.log('body de orden generada:',req.body);
+      const result=await service.create(req.body)
+      console.log('result combinado',result)
+      res.status(201).json(result);
     } catch (error) {
       next(error);
     }
@@ -131,18 +106,7 @@ router.get('/detail/:id',
 
 //   res.redirect(303, session.url);
 // });
-router.get('/pending',
-  // validatorHandler(getOrderSchema, 'params'),
-  async (req, res, next) => {
-    try {
-      // const { id } = req.params;
-      const orders = await servicePago.findPending();
-      res.json(orders);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
+
 router.get('/:id',
   // validatorHandler(getOrderSchema, 'params'),
   async (req, res, next) => {
@@ -155,7 +119,6 @@ router.get('/:id',
     }
   }
 );
-
 router.get('/customer/:id',
   // validatorHandler(getOrderSchema, 'params'),
   async (req, res, next) => {
@@ -201,23 +164,6 @@ router.put('/:id',
   }
 );
 
-
-// router.put('/confirm/:id',
-//   // validatorHandler(addItemSchema, 'body'),
-//   async (req, res, next) => {
-//     try {
-//       const {id} = req.params;
-//       const {status}=req.body;
-//       console.log('item recibido en ruta',id,"y status recibod:",status)
-//       const orderConfirmada = await servicePago.checkItem(id,status);
-     
-//       console.log('(orden):',orderConfirmada)
-//       res.status(201).json(orderConfirmada);
-//     } catch (error) {
-//       next(error);
-//     }
-//   }
-// );
 
 router.put('/confirm/:id',
   // validatorHandler(addItemSchema, 'body'),

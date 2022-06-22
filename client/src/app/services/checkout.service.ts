@@ -34,13 +34,17 @@ export class CheckoutService {
   sendPayment(dto: CreateOrderDTO):Observable<any> {
     return this.http.post<any>(`${this.API}/orders`,dto);
   }
- 
-
-  generateOrder(data:CreateOrderDTO) {
-    return this.http.post<OrderPayment>(`${this.API}/orders`, data)
+  getAllPendingOrders(){
+    return this.http.get<OrderPayment[]>(`${this.API}/orders/pending`)
   }
 
-  confirmOrder(id:number,dto:UpdateOrderDTO) {
-    return this.http.put<OrderPayment>(`${this.API}/orders/confirm/${id}`,dto);
+ 
+
+  // generateOrder(data:CreateOrderDTO) {
+  //   return this.http.post<OrderPayment>(`${this.API}/orders`, data)
+  // }
+
+  confirmOrder(id:number,status:string) {
+    return this.http.put<OrderPayment>(`${this.API}/orders/confirm/${id}`,{status});
   }
 }

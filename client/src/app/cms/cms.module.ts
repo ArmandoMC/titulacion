@@ -11,6 +11,7 @@ import { CustomersComponent } from './pages/customers/customers.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { SalesComponent } from './pages/sales/sales.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { PendingOrdersComponent } from './pages/pending-orders/pending-orders.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     CustomersComponent,
     OrdersComponent,
     SalesComponent,
-    DashboardComponent
+    DashboardComponent,
+    PendingOrdersComponent
   ],
   imports: [
     CommonModule,

@@ -35,7 +35,9 @@ router.post('/',
   async (req, res, next) => {
     try {
       const body = req.body;
+      console.log('body de customer:', body)
       const newCustomer = await service.create(body);
+      console.log('customer creado:',newCustomer)
       res.status(201).json(newCustomer);
     } catch (error) {
       console.log('hubo un error');

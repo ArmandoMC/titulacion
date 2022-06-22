@@ -1,0 +1,40 @@
+<div class="container-fluid mt-4">
+    <table class="table" *ngIf="ordersPending.length > 0; else elseBlock">
+      <thead class="">
+        <tr>
+          <!-- <th scope="col">#</th> -->
+          <th scope="col">Id</th>
+          <th scope="col">Total</th>
+          <th scope="col">Id transaccion</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Confirmacion</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of ordersPending; let indice = index">
+          <!-- <th scope="row">{{ indice + 1 }}</th> -->
+          <td>{{ order.id }}</td>
+          <td>{{ order.total | currency }}</td>
+          <td>{{ order.id_transaccion }}</td>
+  
+          <td>{{ order.status }}</td>
+          <td><button class="btn btn-danger" (click)="confirmarOrden(order.id)" >Confirmar</button> </td>
+         
+        </tr>
+      </tbody>
+    </table>
+    <!-- <h4 *ngIf="products.length > 0" class="pr-5 h-total text-right">Total({{numProducts}} productos):{{total | currency}}</h4> -->
+    <p></p>
+    <ng-template #elseBlock>
+      <div class="div">
+        <h3>No hay órdenes pendientes</h3>
+        <!-- <button class="btn btn-primary" [routerLink]="['/home']">
+          Empezar a comprar
+        </button> -->
+        <p></p>
+      </div>
+    </ng-template>
+   
+  </div>
+  

@@ -5,6 +5,7 @@ export interface Customer{
   id:number;
   name:string;
   last_name:string;
+  dni?:string;
   phone:string;
   user:{
     email:string;
