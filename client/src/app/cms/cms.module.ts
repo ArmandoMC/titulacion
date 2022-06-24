@@ -12,6 +12,7 @@ import { OrdersComponent } from './pages/orders/orders.component';
 import { SalesComponent } from './pages/sales/sales.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { PendingOrdersComponent } from './pages/pending-orders/pending-orders.component';
+import { CompletedOrdersComponent } from './pages/completed-orders/completed-orders.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { PendingOrdersComponent } from './pages/pending-orders/pending-orders.co
     OrdersComponent,
     SalesComponent,
     DashboardComponent,
-    PendingOrdersComponent
+    PendingOrdersComponent,
+    CompletedOrdersComponent
   ],
   imports: [
     CommonModule,

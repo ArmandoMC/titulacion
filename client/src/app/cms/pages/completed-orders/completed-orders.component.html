@@ -1,28 +1,28 @@
 <div class="container-fluid mt-4">
-    <table class="table" *ngIf="ordersPending.length > 0; else elseBlock">
+    <table class="table" *ngIf="ordersCompleted.length > 0; else elseBlock">
       <thead class="">
         <tr>
           <!-- <th scope="col">#</th> -->
           <th scope="col">N° Pedido</th>
-          <th scope="col">Total pagado</th>
+          <th scope="col">Total</th>
           <th scope="col">Fecha</th>
           <th scope="col">Cliente </th>
           <th scope="col">Id transaccion</th>
           <th scope="col">Estado</th>
-          <th scope="col">Despachar orden</th>
+          <!-- <th scope="col">Confirmacion</th> -->
           
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let order of ordersPending; let indice = index">
+        <tr *ngFor="let order of ordersCompleted; let indice = index">
           <!-- <th scope="row">{{ indice + 1 }}</th> -->
           <td>{{ order.id }}</td>
           <td>{{ order.total | currency }}</td>
           <td>{{ order.created_at | date:'shortDate' }}</td>
           <td>{{ order.name }}</td>
           <td>{{ order.id_transaccion }}</td>
-          <td>Pagado</td>
-          <td><button class="btn btn-danger" (click)="confirmarOrden(order.id)" >Confirmar</button> </td>
+          <td>{{ order.status }}</td>
+          <!-- <td><button class="btn btn-danger" (click)="confirmarOrden(order.id)" >Confirmar</button> </td> -->
          
         </tr>
       </tbody>
@@ -30,7 +30,7 @@
     <p></p>
     <ng-template #elseBlock>
       <div class="div">
-        <h3>No hay órdenes pendientes</h3>
+        <h3>No hay órdenes compeltas</h3>
         
         <p></p>
       </div>

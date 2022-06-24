@@ -16,5 +16,8 @@ export class CustomerService {
   getClient(id: number) {
     return this.http.get<Customer>(`${this.API_URL}/${id}`);
   }
+  updateDniAndPhone(id: number,dni:string,phone:string) {
+    return this.http.put<Customer>(`${this.API_URL}/${id}`,{dni,phone});
+  }
   
 }

@@ -69,8 +69,10 @@ export class StoreService {
     localStorage.setItem('carrito', JSON.stringify(this.myShoppingCart));
   }
   vaciarCart(){
-   this.tokenService.removeCart();
-    return this.myCart.next([] as Product[]);
+    this.tokenService.removeCart();
+    this.myShoppingCart=[]as Product[];
+   this.myCart.next(this.myShoppingCart)
+   return ([] as Product[]);
   }
   getTotal() {
     return (this.total = this.myShoppingCart.reduce(

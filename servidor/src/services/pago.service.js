@@ -127,15 +127,32 @@ class PagoService {
     return order.rows[0];
   }
   async findPending() {
-    const status='Procesando';
+    const confirmation=false;
     const query =
     {
-      text: `SELECT * FROM orders WHERE status=$1`,
-      values:[status]
+      text: `SELECT ord.id,ord.customer_id,ord.total,ord.id_transaccion,ord.status,ord.created_at, c.name FROM orders ord INNER JOIN customers c ON ord.customer_id=c.id WHERE ord.confirmation=$1`,
+      values:[confirmation]
     };
     const orders = await this.pool.query(query);
     if (orders.rows.length === 0) {
-      throw boom.notFound('orden not found');
+      // throw boom.notFound('orden not found');
+      return [];
+
+    }
+    return orders.rows;
+  }
+  async findCompleted() {
+    const confirmation=true;
+    const query =
+    {
+      text:  `SELECT ord.id,ord.customer_id,ord.total,ord.id_transaccion,ord.status,ord.created_at, c.name FROM orders ord INNER JOIN customers c ON ord.customer_id=c.id WHERE ord.confirmation=$1`,
+      values:[confirmation]
+    };
+    const orders = await this.pool.query(query);
+    if (orders.rows.length === 0) {
+      // throw boom.notFound('orden not found');
+      return [];
+
     }
     return orders.rows;
   }
@@ -187,12 +204,12 @@ class PagoService {
     
     return rta.rows[0];
   }
-  async updateStatus(id, status) {
+  async updateConfirmation(id, confirmation) {
     console.log('bienvenido al metodo de updtae status')
    
     const query = {
-      text: `UPDATE orders SET status=$1 WHERE id=$2 RETURNING *`,
-      values: [status, id]
+      text: `UPDATE orders SET confirmation=$1 WHERE id=$2 RETURNING *`,
+      values: [confirmation, id]
     };
     const rta = await pool.query(query);
     console.log('Esta es la respuesta al update status:', rta.rows[0])
@@ -231,7 +248,7 @@ class PagoService {
     return resPaymentIntent;
   }
 
-  async checkItem(id,status) {
+  async checkItem(id,confirmation) {
     try {
       console.log('bienvenido a metodo checkItem')
       //TODO: Buscamos orden en nuestra base de datos
@@ -240,7 +257,7 @@ class PagoService {
       // const status = detailStripe.status.includes('succe') ? 'success' : 'pendiente';
       //TODO: Actualizamos nuestra orden con el estatus
       // await orders.findOneAndUpdate({ localizator: id }, { status })
-      const orden=await this.updateStatus(id, status);
+      const orden=await this.updateConfirmation(id, confirmation);
       return orden;
     } catch (e) {
       console.log('error en metodo chehcItem')

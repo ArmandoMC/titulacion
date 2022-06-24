@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from '@angular/router';
 import { OrderPayment } from 'src/app/models/order.model';
 import {CheckoutService} from '../../../services/checkout.service';
 
@@ -10,25 +11,32 @@ import {CheckoutService} from '../../../services/checkout.service';
 export class PendingOrdersComponent implements OnInit {
 
   ordersPending:OrderPayment[]=[];
-  status:string='En camino';
+  // status:string='En camino';
   constructor(
-    private checkoutService:CheckoutService
+    private checkoutService:CheckoutService,
+    private router:Router
   ) { }
 
   ngOnInit(): void {
-    this.checkoutService.getAllPendingOrders().subscribe(data=>{
-      if(data){
-        this.ordersPending=data;
-        console.log(this.ordersPending)
-      }
+    
+    this.checkoutService.getAllPendingOrders().subscribe()
+    this.checkoutService.orders$.subscribe(dta=>{
+     this.ordersPending=dta;
     })
   }
 
   confirmarOrden(id:number){
-  
-    this.checkoutService.confirmOrder(id,this.status).subscribe(data=>{
-      console.log('orden confirmada por admin',data)
+    const confirmation=true;
+    this.checkoutService.confirmOrder(id,confirmation).subscribe(data=>{
+
     })
+  
+    const indice=this.ordersPending.findIndex(item=>item.id===id);
+    if(indice!=-1){
+      this.ordersPending.splice(indice,1);
+    }
+   
+
   }
 
 }

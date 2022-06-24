@@ -1,4 +1,4 @@
-// const boom = require('@hapi/boom');
+const boom = require('@hapi/boom');
 const { models } = require('../libs/sequelize');
 const pool = require('../libs/postgres.pool');
 
@@ -97,6 +97,28 @@ class OrderService {
     }
     await this.pool.query(query);
     return { id };
+  }
+  async deleteOrder(id) {
+    // await this.findOne(id);
+    const query = {
+      text: `DELETE FROM orders WHERE id=$1 RETURNING *`,
+      values: [id]
+    }
+    const deleted=await this.pool.query(query);
+    // if (deleted.rows.length === 0) {
+    //   throw boom.notFound('orden not pudo ser eliminada');
+    // }
+    console.log('id de orden eliminado:', deleted.rows[0].id)
+    return  deleted.rows[0].id;
+  }
+  async getUltimoId() {
+    // await this.findOne(id);
+    const query = {
+      text: `SELECT * FROM orders ORDER BY id DESC LIMIT 1`
+    }
+    const idObtenido=await this.pool.query(query);
+    console.log('id obtenido:', idObtenido.rows[0])
+    return  idObtenido.rows[0];
   }
 
 }

@@ -12,8 +12,11 @@ export interface OrderPayment{
   total:number;
   status:string;
   id_transaccion?:string;
+  sale_id?:number;
+  created_at?:Date;
   token?:string;
   name?:string;
+  confirmation?:boolean;
   
   
 }

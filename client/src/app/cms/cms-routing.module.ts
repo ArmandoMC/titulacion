@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { TasksComponent } from './pages/tasks/tasks.component';
 import { GridComponent } from './pages/grid/grid.component';
 import { PendingOrdersComponent } from './pages/pending-orders/pending-orders.component';
+import { CompletedOrdersComponent } from './pages/completed-orders/completed-orders.component';
 import { LayoutComponent } from './components/layout/layout.component';
 
 const routes: Routes = [
@@ -26,6 +27,10 @@ const routes: Routes = [
       {
         path: 'orders/pendientes',
         component: PendingOrdersComponent,
+      },
+      {
+        path: 'orders/finalizadas',
+        component: CompletedOrdersComponent,
       },
     ],
   },

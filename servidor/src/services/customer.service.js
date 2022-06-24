@@ -52,7 +52,7 @@ class CustomerService {
 
   async findClientByUser(userId) {
 
-    const query = `SELECT C.id,name, last_name,phone FROM customers C JOIN users U ON C.user_id=${userId} `;
+    const query = `SELECT C.id,name, last_name,dni,phone FROM customers C JOIN users U ON C.user_id=${userId} `;
     const rta = await this.pool.query(query);
     return rta.rows[0];
   }
@@ -77,6 +77,18 @@ class CustomerService {
       values: [name, lastName, phone, id]
     };
     const rta = await this.pool.query(query);
+    return rta.rows[0];
+  }
+  async updateDniAndPhone(id, changes) {
+    const { dni, phone } = changes;
+    const query = {
+      text: `UPDATE customers SET dni=$1,phone=$2 WHERE id=$3 RETURNING *`,
+      values: [dni, phone, id]
+    };
+    const rta = await this.pool.query(query);
+    if (rta.rows.length===0) {
+      throw boom.notFound('customer not found');
+    }
     return rta.rows[0];
   }
 

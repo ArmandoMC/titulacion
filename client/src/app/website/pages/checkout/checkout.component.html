@@ -10,10 +10,99 @@
         class="link-new-address"
         (click)="capturar()"
         style="cursor: pointer; color: blue"
+        data-toggle="modal" data-target="#exampleModal"
       >
         introducir una nueva dirección de envío.
       </a>
     </p>
+    <!-- Scrollable modal -->
+  
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Agregar nueva dirección</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>        
+                <form class="needs-validation" novalidate (ngSubmit)="addAddress()">
+                  <div class="modal-body">
+                    <div class="form-row">
+                      <div class="form-group col mb-3">
+                        <label for="validationCustom03">Direccion</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="validationCustom03"
+                          name="address"
+                          placeholder=""
+                          [(ngModel)]="address"
+                        />
+                        <div class="invalid-feedback">Please provide a valid city.</div>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-4 mb-3">
+                        <label for="validationCustom03">Ciudad</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="validationCustom03"
+                          name="city"
+                          [(ngModel)]="city"
+                        />
+                        <div class="invalid-feedback">Please provide a valid city.</div>
+                      </div>
+                      <div class="form-group col-md-4 mb-3">
+                        <label for="validationCustom04">Provincia</label>
+                       
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="validationCustom03"
+                          name="state"
+                          placeholder=""
+                          [(ngModel)]="state"
+                        />
+            
+                        <div class="invalid-feedback">Please select a valid state.</div>
+                      </div>
+                      <div class="form-group col-md-4 mb-3">
+                        <label for="validationCustom05">Pais</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="validationCustom05"
+                          name="country"
+                          [(ngModel)]="country"
+                        />
+                        <div class="invalid-feedback">Please provide a valid zip.</div>
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-4 mb-3">
+                        <label for="validationCustom05">Codigo postal</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="validationCustom05"
+                          name="postal_code"
+                          [(ngModel)]="postal_code"
+                        />
+                        <div class="invalid-feedback">Please provide a valid zip.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                  </div>
+                </form>
+        </div>
+      </div>
+    </div>
+
     <div class="container row direcciones mb-4">
       <div
         class="form-check col-md-2 mr-3 address-detail"
@@ -54,112 +143,7 @@
       </div>
     </div>
   </div>
-  <div class="new-address" *ngIf="showAddForm == true">
-    <hr *ngIf="showAddForm == true" />
-    <div class="add-address" *ngIf="showAddForm == true">
-      <form class="needs-validation" novalidate (ngSubmit)="addAddress()">
-        <!-- <div class="form-row">
-          <div class="col-md-6 mb-3">
-            <label for="validationCustom01">Nombre y apellidos</label>
-            <input
-              type="text"
-              class="form-control"
-              id="validationCustom01"
-              name="name_lastname"
-              [(ngModel)]="name_lastname"
-            />
-            <div class="valid-feedback">Looks good!</div>
-          </div>
-        </div> -->
-        <div class="form-row">
-         
-          <div class="col-md-6 mb-3">
-            <label for="validationCustom03">Ciudad</label>
-            <input
-              type="text"
-              class="form-control"
-              id="validationCustom03"
-              name="city"
-              [(ngModel)]="city"
-            />
-            <div class="invalid-feedback">Please provide a valid city.</div>
-          </div>
-          <div class="col-md-6 mb-3">
-            <label for="validationCustom03">Direccion</label>
-            <input
-              type="text"
-              class="form-control"
-              id="validationCustom03"
-              name="address"
-              placeholder=""
-              [(ngModel)]="address"
-            />
-            <div class="invalid-feedback">Please provide a valid city.</div>
-          </div>
-          <div class="col-md-3 mb-3">
-            <label for="validationCustom04">Provincia</label>
-            <!-- <select class="custom-select" id="validationCustom04" required>
-                <option selected disabled value="">Choose...</option>
-                <option>...</option>
-              </select> -->
-            <input
-              type="text"
-              class="form-control"
-              id="validationCustom03"
-              name="state"
-              placeholder=""
-              [(ngModel)]="state"
-            />
-
-            <div class="invalid-feedback">Please select a valid state.</div>
-          </div>
-          <div class="col-md-3 mb-3">
-            <label for="validationCustom05">Pais</label>
-            <input
-              type="text"
-              class="form-control"
-              id="validationCustom05"
-              name="country"
-              [(ngModel)]="country"
-            />
-            <div class="invalid-feedback">Please provide a valid zip.</div>
-          </div>
-          <div class="col-md-3 mb-3">
-            <label for="validationCustom05">Codigo postal</label>
-            <input
-              type="text"
-              class="form-control"
-              id="validationCustom05"
-              name="postal_code"
-              [(ngModel)]="postal_code"
-            />
-            <div class="invalid-feedback">Please provide a valid zip.</div>
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              value=""
-              id="invalidCheck"
-              required
-            />
-            <label class="form-check-label" for="invalidCheck">
-              Agree to terms and conditions
-            </label>
-            <div class="invalid-feedback">
-              You must agree before submitting.
-            </div>
-          </div>
-        </div>
-        <button class="btn btn-primary" type="submit">Submit form</button>
-        <button class="btn btn-secondary" type="" (click)="cancelar()">
-          Cancelar
-        </button>
-      </form>
-    </div>
-  </div>
+  
 
   <div class="step2" [ngClass]="{ disabled: disabledStep2 }">
     <h2>PASO 2 : VERIFICACION DE PEDIDO Y DATOS DE ENVIO</h2>
@@ -172,26 +156,26 @@
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="inputNombres">Nombres</label>
-                  <input type="text" class="form-control" id="inputNombres">
+                  <input type="text" class="form-control" id="inputNombres" name="customer_name" [(ngModel)]="customer_name" disabled>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputApellidos">Apellidos</label>
-                  <input type="text" class="form-control" id="inputApellidos">
+                  <input type="text" class="form-control" id="inputApellidos" name="customer_lastName" [(ngModel)]="customer_lastName" disabled>
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="inputCedula">C.I/R.U.C</label>
-                  <input type="text" class="form-control" id="inputCedula">
+                  <input type="text" class="form-control" id="inputCedula" name="customer_dni" [(ngModel)]="customer_dni" [disabled]="disabledInput">
                 </div>
                 <div class="form-group col-md-6">
                   <label for="inputTelefono">Teléfono</label>
-                  <input type="text" class="form-control" id="inputTelefono">
+                  <input type="text" class="form-control" id="inputTelefono" name="customer_phone" [(ngModel)]="customer_phone" [disabled]="disabledInput">
                 </div>
               </div>
               <div class="form-group">
                 <label for="inputCorreo">Correo</label>
-                <input type="email" class="form-control" id="inputCorreo" placeholder="example@email.com">
+                <input type="email" class="form-control" id="inputCorreo" placeholder="example@email.com" name="customer_email" [(ngModel)]="customer_email" disabled>
               </div>
               <div class="form-group">
                 <label for="inputAddress">Direccion</label>
@@ -212,9 +196,7 @@
                   </table>
                 </div>
                
-                <!-- <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"> -->
               </div>
-              <!-- <button type="submit" class="btn btn-primary">Sign in</button> -->
             </form>
            
             <ng-template #showMessage>
@@ -266,10 +248,10 @@
               Iva: <b style="font-size: 15px">$0.00</b>
             </h6>
             <h6>
-              Envío<span>(Tarifa fija):</span> <b>$3.50</b>
+              Envío<span>(Tarifa fija):</span> <b>{{tarifaFija}}</b>
             </h6>
             <h5>
-              Total: <b style="font-size: 20px">{{ total +3.50 | currency }}</b>
+              Total: <b style="font-size: 20px">{{ total +tarifaFija | currency }}</b>
             </h5>
             <hr />
             <button
@@ -346,7 +328,7 @@
           type="submit"
           onfocus="this.blur()"
         >
-          Pagar {{ total | currency }}
+          Pagar {{ total+tarifaFija | currency }}
         </button>
       </form>
       <button

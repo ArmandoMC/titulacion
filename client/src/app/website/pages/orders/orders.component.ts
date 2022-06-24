@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 import {CheckoutService} from '../../../services/checkout.service';
 import {AuthService} from '../../../services/auth.service';
 import {CustomerService} from '../../../services/customer.service';
 import { switchMap,tap } from 'rxjs/operators';
 import { Customer } from 'src/app/models/customer.model';
 import { OrderPayment } from 'src/app/models/order.model';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-orders',
@@ -13,6 +16,9 @@ import { OrderPayment } from 'src/app/models/order.model';
 })
 export class OrdersComponent implements OnInit {
 
+  idUsuario:number;
+  idCliente:number;
+  user:User;
   orders:any[]=[];
   detailOrder:any[]=[];
   direccion:string;
@@ -21,25 +27,56 @@ export class OrdersComponent implements OnInit {
   constructor(
     private checkoutService:CheckoutService,
     private authService:AuthService,
-    private customerService:CustomerService
-  ) { }
+    private customerService:CustomerService,
+    private router:Router,
+    private location:Location
+  ) { 
+  }
 
   ngOnInit(): void {
     this.authService.user$
-      .pipe(
-        switchMap((user)=>this.customerService.getClient(user.id)),
-        switchMap((client)=>this.checkoutService.getOrderByCustomer(client.id)),
-        // tap(()=>{})
-  
-      )
-      .subscribe(orders=>{
-        console.log('ordenes del cliente:', orders)
-        if(orders){
-          this.orders=orders;
+    .pipe(
+      switchMap((user)=>this.customerService.getClient(user.id))
+    )
+    
+    
+    .subscribe(cliente=>{
+      // this.idUsuario=usu.id;
+      
+        this.checkoutService.getOrderByCustomer(cliente.id).subscribe()
+        
+    });
+    
+     
+       
+    
+    this.checkoutService.orders$.subscribe(dt=>{
+        // console.log('es dt:',dt)
+        // dt.forEach(item=>{
+        //   if(item.bandera=true){
+        //     this.router.navigate(['/orders'])
+        //   }
+        // })
+        if(dt){
+          this.orders=dt;
+          // this.router.navigateByUrl('/orders',{skipLocationChange:true}).then(()=>{
+          //   this.router.navigate([decodeURI(this.location.path())])
+          // })
 
         }
-      });
 
+      
+        
+      })
+      // this.refesh();
+
+
+        // switchMap((user)=>this.customerService.getClient(user.id)),
+        // switchMap((client)=>this.checkoutService.getOrderByCustomer(client.id)),
+        // tap(()=>{})
+     
+
+      // this.checkoutService.getOrderByCustomer()
   }
   verDetalle(id:number,idAddress:number){
     this.checkoutService.getOrderDetail(id).subscribe(data=>{
@@ -57,6 +94,12 @@ export class OrdersComponent implements OnInit {
     this.checkoutService.getAddressByOrderId(idAddress).subscribe(dt=>{
       console.log('nombre dir:',dt.address)
       this.direccion=dt.address;
+    })
+  }
+
+  refesh(){
+    this.checkoutService.orders$.subscribe(dt=>{
+      this.orders=dt;
     })
   }
 

@@ -44,7 +44,7 @@ export class ProductDetailComponent implements OnInit {
           this.productStock = data.stock;
           this.listarOferta();
           this.storeService.myCart$.subscribe(cart=>{
-            const encontrado = cart.find((element) => element.id === this.product?.id);
+            const encontrado = cart.find((element) => element.id === this.product.id);
             if (encontrado) {
               this.agregado = true;
               this.seleccionado = '' + encontrado.oferta;

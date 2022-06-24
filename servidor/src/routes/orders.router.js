@@ -58,6 +58,18 @@ const addressService=new AddressService();
 //     }
 //   }
 // );
+router.get('/ultimoId',
+  // validatorHandler(getOrderSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      // const { id } = req.params;
+      const idOrder=await service.getUltimoId();
+      res.status(201).json({ idOrder});
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 router.post('/',
   // passport.authenticate('jwt', { session: false }),
   // validatorHandler(createOrderSchema, 'body'),
@@ -143,18 +155,20 @@ router.get('/pending',
     }
   }
 );
-router.get('/:id',
+router.get('/completed',
   // validatorHandler(getOrderSchema, 'params'),
   async (req, res, next) => {
     try {
-      const { id } = req.params;
-      const order = await servicePago.findOne(id);
-      res.json(order);
+      // const { id } = req.params;
+      const orders = await servicePago.findCompleted();
+      res.json(orders);
     } catch (error) {
       next(error);
     }
   }
 );
+
+
 
 router.get('/customer/:id',
   // validatorHandler(getOrderSchema, 'params'),
@@ -224,9 +238,9 @@ router.put('/confirm/:id',
   async (req, res, next) => {
     try {
       const {id} = req.params;
-      const {status}=req.body;
-      console.log('item recibido en ruta',id,"y status recibod:",status)
-      const orderConfirmada = await servicePago.checkItem(id,status);
+      const {confirmation}=req.body;
+      console.log('item recibido en ruta',id,"y confirmation recibod:",confirmation)
+      const orderConfirmada = await servicePago.checkItem(id,confirmation);
      
       console.log('(orden):',orderConfirmada)
       res.status(201).json(orderConfirmada);
@@ -236,16 +250,17 @@ router.put('/confirm/:id',
   }
 );
 
-router.delete('/:id',
-  validatorHandler(getOrderSchema, 'params'),
+router.delete('/delete/:id',
+  // validatorHandler(getOrderSchema, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
-      await service.delete(id);
-      res.status(201).json({ id });
+      const idOrder=await service.deleteOrder(id);
+      res.status(201).json({ idOrder});
     } catch (error) {
       next(error);
     }
   }
 );
+
 module.exports = router;

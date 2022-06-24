@@ -63,13 +63,20 @@ export class CheckoutComponent implements OnInit {
   orderData!: any;
   cart: Product[] = [];
   total: number = 0;
+  //variable spara customer
   customer: Customer;
   customer_name: string;
+  customer_lastName: string;
+  customer_email: string;
+  customer_dni: string;
+  customer_phone: string;
   customer_id: number = 0;
+  disabledInput:boolean;
+  ///////////////77
   address_id: number = 0;
   addressSelected: Address;
-  status: string = 'Procesando';
-
+  status: string = 'Procesado';
+  tarifaFija:number=3.50;
   newOrder: OrderPayment;
   disabledStep1: boolean = false;
   disabledStep2: boolean = true;
@@ -93,6 +100,7 @@ export class CheckoutComponent implements OnInit {
       .pipe(
         tap((data) => {
           this.idUsuario = data.id;
+          this.customer_email=data.email;
           console.log('user_id', this.idUsuario);
 
           this.customerService.getClient(this.idUsuario).subscribe((data) => {
@@ -100,7 +108,16 @@ export class CheckoutComponent implements OnInit {
             if (data) {
               this.customer = data;
               this.customer_id = this.customer.id;
+              this.customer_name=this.customer.name;
+              this.customer_lastName=this.customer.last_name;
               console.log('customer_id', this.customer_id);
+              if(this.customer.dni!="" && this.customer.phone!=""){
+                this.disabledInput=true;
+                this.customer_dni=this.customer.dni;
+                this.customer_phone=this.customer.phone;
+              }else{
+                this.disabledInput=false;
+              }
             }
           });
         })
@@ -186,11 +203,12 @@ export class CheckoutComponent implements OnInit {
       const newOrder: CreateOrderDTO = {
         customer_id: this.customer.id,
         address_id: this.address_id,
-        total: this.total,
+        total: (this.total+this.tarifaFija),
         status: this.status,
         token: token.id,
         name: this.customer.name,
       };
+      console.log('ordensita',newOrder)
       this.checkoutService
         .sendPayment(newOrder)
         .pipe(
@@ -216,6 +234,11 @@ export class CheckoutComponent implements OnInit {
           console.log('ultima data:', data)
          
         });
+        
+        this.customerService.updateDniAndPhone(this.customer_id,this.customer_dni,this.customer_phone)
+        .subscribe(datos=>{
+          console.log('dni y phone de cliente actualizados',datos)
+        })
       // .subscribe();
     } catch (e) {
       //TODO: Nuestra api devolver un "client_secret" que es un token unico por intencion de pago

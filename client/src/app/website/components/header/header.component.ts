@@ -51,7 +51,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     },error=>{});
 
     this.storeService.myCart$.subscribe(data => {
+      if(data){
         this.counter=data.reduce((sum,item)=>sum+item.oferta,0);
+      }
       // this.products=products.length;
     });
     // this.conteo();
