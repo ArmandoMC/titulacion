@@ -49,8 +49,24 @@ router.patch('/:id',
     try {
       const { id } = req.params;
       const body = req.body;
-      const category = await service.update(id, body);
-      res.json(category);
+      const user = await service.update(id, body);
+      console.log('user actualizado',user)
+      res.json(user);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+router.put('/update-email/:id',
+  validatorHandler(getUserSchema, 'params'),
+  // validatorHandler(updateUserSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+      const user = await service.updateEmail(id, body);
+      console.log('email de user actualizado',user)
+      res.json(user);
     } catch (error) {
       next(error);
     }

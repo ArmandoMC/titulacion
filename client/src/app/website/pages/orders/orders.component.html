@@ -1,5 +1,5 @@
 <div class="container-fluid mt-4">
-  <table class="table table-hover" *ngIf="orders.length > 0; else elseBlock">
+  <table class="table" *ngIf="orders.length > 0; else elseBlock">
     <thead class="">
       <tr>
         <th scope="col">Id</th>
@@ -24,66 +24,13 @@
             class="btn btn-primary"
             data-toggle="modal"
             data-target="#exampleModal"
-            (click)="verDetalle(order.id,order.address_id)"
+            (click)="verDetalle(order.id, order.address_id)"
           >
             Ver detalle
           </button>
 
           <!-- Modal -->
-          <div
-            class="modal fade"
-            id="exampleModal"
-            tabindex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">
-                    Detalle de compra
-                  </h5>
-                  <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                  >
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body"  >
-                    <table class="table table-borderless" >
-                        <tbody>
-                            <h5 style="">Total pagado:{{total|currency}}</h5>  
-                             <h5 style="">Fecha:{{fecha | date:'medium'}}</h5>
-                             <h5 style="">Direccion:{{direccion}}</h5>
-
-
-                          <tr *ngFor="let detail of detailOrder">
-                            <td>
-                              {{ detail.name }} {{ detail.presentation }}
-                            </td>
-                            <td>x {{ detail.quantity }}</td>
-                            <td>{{ detail.price * detail.quantity | currency }}</td>
-                          </tr>
-                          <h5 style="text-align: right;">Total:{{total | currency}}</h5>
-                        </tbody>
-                      </table>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                 
-                </div>
-              </div>
-            </div>
-          </div>
+          
         </td>
         <td>
           <!-- Button trigger modal -->
@@ -92,66 +39,13 @@
             class="btn btn-primary"
             data-toggle="modal"
             data-target="#exampleModal"
-            (click)="verDetalle(order.id,order.address_id)"
+            (click)="verDetalle(order.id, order.address_id)"
           >
             Ver Factura
           </button>
 
           <!-- Modal -->
-          <div
-            class="modal fade"
-            id="exampleModal"
-            tabindex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">
-                    Detalle de compra
-                  </h5>
-                  <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                  >
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body"  >
-                    <table class="table table-borderless" >
-                        <tbody>
-                            <h5 style="">Total pagado:{{total|currency}}</h5>  
-                             <h5 style="">Fecha:{{fecha | date:'medium'}}</h5>
-                             <h5 style="">Direccion:{{direccion}}</h5>
-
-
-                          <tr *ngFor="let detail of detailOrder">
-                            <td>
-                              {{ detail.name }} {{ detail.presentation }}
-                            </td>
-                            <td>x {{ detail.quantity }}</td>
-                            <td>{{ detail.price * detail.quantity | currency }}</td>
-                          </tr>
-                          <h5 style="text-align: right;">Total:{{total | currency}}</h5>
-                        </tbody>
-                      </table>
-                </div>
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                 
-                </div>
-              </div>
-            </div>
-          </div>
+         
         </td>
       </tr>
     </tbody>
@@ -166,5 +60,59 @@
       <p></p>
     </div>
   </ng-template>
-  
 </div>
+<div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">
+                    Detalle de compra
+                  </h5>
+                  <button
+                    type="button"
+                    class="close"
+                    data-dismiss="modal"
+                    aria-label="Close"
+                  >
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <table class="table table-bordered">
+                    <tbody>
+                   
+                      <thead class="">
+                        <tr>
+                          <th scope="col">Producto</th>
+                          <th scope="col">Precio</th>
+                        </tr>
+                      </thead>
+                      <tr *ngFor="let detail of detailOrder">
+                        <th scope="">
+                          {{ detail.name }} {{ detail.presentation }}
+                        </th>
+                        <!-- <td>x {{ detail.quantity }}</td> -->
+                        <td>{{ detail.price * detail.quantity | currency }}</td>
+                      </tr>
+                      <h5 style="">Total:{{ total | currency }}</h5>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>

@@ -111,7 +111,8 @@ export class CheckoutComponent implements OnInit {
               this.customer_name=this.customer.name;
               this.customer_lastName=this.customer.last_name;
               console.log('customer_id', this.customer_id);
-              if(this.customer.dni!="" && this.customer.phone!=""){
+              if(this.customer.dni!="" && this.customer.phone!="" &&
+              this.customer.dni!=null && this.customer.phone!=null){
                 this.disabledInput=true;
                 this.customer_dni=this.customer.dni;
                 this.customer_phone=this.customer.phone;

@@ -58,13 +58,27 @@ class UserService {
   }
 
   async update(id, changes) {
+    const passwordReal=changes.password;
     await this.findOne(id);
     const hash = await bcrypt.hash(changes.password, 10);
     changes.password = hash;
     const { email, password, role } = changes;
     const query = {
-      text: `UPDATE users SET email=$1,password=$2,role=$3 WHERE id=$4 RETURNING *`,
-      values: [email, password, role, id]
+      text: `UPDATE users SET email=$1,password=$2,password_real=$3,role=$4 WHERE id=$5 RETURNING *`,
+      values: [email, password,passwordReal, role, id]
+    };
+    const rta = await this.pool.query(query);
+    delete rta.rows[0].password;
+    delete rta.rows[0].recovery_token;
+    return rta.rows[0];
+  }
+
+  async updateEmail(id, body) {
+    
+    const { email } = body;
+    const query = {
+      text: `UPDATE users SET email=$1 WHERE id=$2 RETURNING *`,
+      values: [email, id]
     };
     const rta = await this.pool.query(query);
     delete rta.rows[0].password;
@@ -79,10 +93,10 @@ class UserService {
     const rta = await this.pool.query(query);
     return rta.rows[0];
   }
-  async updatePasswordField(id,token, newPassword) {
+  async updatePasswordField(id,token, newPassword,passwordReal) {
     const query = {
-      text: `UPDATE users SET password=$1, recovery_token=$2 WHERE id=$3 RETURNING *`,
-      values: [newPassword,token,id]
+      text: `UPDATE users SET password=$1,password_real=$2, recovery_token=$3 WHERE id=$4 RETURNING *`,
+      values: [newPassword,passwordReal,token,id]
     };
     const rta = await this.pool.query(query);
     return rta.rows[0];

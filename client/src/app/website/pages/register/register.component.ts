@@ -33,11 +33,10 @@ export class RegisterComponent implements OnInit,OnExit {
     const customer:CreateCustomerDTO={
        name:this.name,
        last_name:this.last_name,
-       phone:this.phone,
+      //  phone:this.phone,
        user:{
          email:this.email,
          password:this.password,
-         role:'admin'
        }
     }
     this.customerService.create(customer)

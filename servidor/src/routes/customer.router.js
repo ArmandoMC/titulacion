@@ -74,6 +74,20 @@ router.put('/:id',
     }
   }
 );
+router.put('/nombreCompleto/:id',
+  validatorHandler(getCustomerSchema, 'params'),
+  // validatorHandler(updateCustomerSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+      const customer = await service.updateNombreCompleto(id, body);
+      res.json(customer);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 router.delete('/:id',
   validatorHandler(getCustomerSchema, 'params'),

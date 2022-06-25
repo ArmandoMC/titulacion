@@ -6,8 +6,8 @@ export interface Customer{
   name:string;
   last_name:string;
   dni?:string;
-  phone:string;
-  user:{
+  phone?:string;
+  user?:{
     email:string;
     password:string;
     role?:string;
@@ -15,6 +15,9 @@ export interface Customer{
 
 }
 
-export interface CreateCustomerDTO extends Omit<Customer,'id'>{
+export interface CreateCustomerDTO extends Omit<Customer,'id'|'dni' |'phone'>{
+
+}
+export interface UpdateCustomerDTO extends Omit<Customer,'id'|'user'>{
 
 }

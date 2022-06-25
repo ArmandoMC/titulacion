@@ -1,6 +1,303 @@
-<div *ngIf="user">
+<!-- <div *ngIf="user">
   <h1>My profile</h1>
   <p>Email: {{ user.email }}</p>
   <p>Role: {{ user.role }}</p>
   <a *ngIf="user.role=='admin'" routerLink="/cms">Ir al CMS</a>
+</div> -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+
+    </div>
+    <div class="col-md-6">
+      <h4 class="title-perfil">Inicio de sesión y seguridad</h4>
+      <div class="container perfil">
+        <div class="form-row nombreCompleto">
+          <div class="form-group col-md-8">
+            <span><b>Nombre:</b></span> <br>
+            <span>{{name}} {{last_name}}</span>
+
+          </div>
+          <div class="form-group col-md-4 text-center">
+            <button class="btn btn-secondary my-auto" 
+            data-toggle="modal" data-target="#editarNombreCompleto"
+            >Editar</button>
+          </div>
+        </div>
+        <hr>
+        <div class="form-row">
+          <div class="form-group col-md-8">
+            <span><b>Cédula:</b></span> <br>
+            <span>{{dni}}</span>
+
+          </div>
+          <div class="form-group col-md-4 text-center">
+            <button class="btn btn-secondary my-auto" data-toggle="modal" data-target="#editarDni"
+            >
+              {{existeDni==true ? 'Editar':'Agregar'}}
+            </button>
+          </div>
+        </div>
+        <hr>
+        <div class="form-row">
+          <div class="form-group col-md-8">
+            <span><b>Teléfono:</b></span> <br>
+            <span>{{phone}}</span>
+
+          </div>
+          <div class="form-group col-md-4 text-center">
+            <button class="btn btn-secondary my-auto"  data-toggle="modal" data-target="#editarPhone">
+              {{existePhone==true ? 'Editar':'Agregar'}}
+            </button>
+          </div>
+        </div>
+        <hr>
+        <div class="form-row">
+          <div class="form-group col-md-8">
+            <span><b>E-mail:</b></span> <br>
+            <span>{{email}}</span>
+
+          </div>
+          <div class="form-group col-md-4 text-center">
+            <button class="btn btn-secondary my-auto" data-toggle="modal" data-target="#editarEmail"
+            >Editar</button>
+          </div>
+        </div>
+        <hr>
+        <div class="form-row">
+          <div class="form-group col-md-8">
+            <span><b>Contraseña:</b></span> <br>
+            <input type="password" name="" id="" [(ngModel)]="password" style="border: 0;" onfocus="this.blur()">
+          </div>
+          <div class="form-group col-md-4 text-center">
+            <button class="btn btn-secondary my-auto" data-toggle="modal" data-target="#editarPassword"
+            >Editar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+
+    </div>
+  </div>
+</div>
+<!-- Modal para editar nombre completo -->
+<div class="modal fade" id="editarNombreCompleto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar nombre</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>        
+            <form (ngSubmit)="editarNombreCompleto()">
+              <div class="modal-body">
+                <div class="form-row">
+                  <div class="form-group col mb-3">
+                    <label for="">Nombres</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="validationCustom03"
+                      name="name"
+                      placeholder=""
+                      [(ngModel)]="name"
+                    />
+                    <div class="invalid-feedback">Please provide a valid name.</div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col mb-3">
+                    <label for="">Apellidos</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="validationCustom03"
+                      name="last_name"
+                      [(ngModel)]="last_name"
+                    />
+                    <div class="invalid-feedback">Please provide a valid lastName.</div>
+                  </div>
+                </div>
+               </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" >Save changes</button>
+              </div>
+            </form>
+    </div>
+  </div>
+</div>
+<!-- Modal para editar dni -->
+<div class="modal fade" id="editarDni" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar nombre</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>        
+            <form (ngSubmit)="editarNombreCompleto()">
+              <div class="modal-body">
+                <div class="form-row">
+                  <div class="form-group col mb-3">
+                    <label for="">Cédula</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="validationCustom03"
+                      name="dni"
+                      placeholder=""
+                      [(ngModel)]="dni"
+                    />
+                    <div class="invalid-feedback">Please provide a valid dni.</div>
+                  </div>
+                </div>
+               
+               </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" >Save changes</button>
+              </div>
+            </form>
+    </div>
+  </div>
+</div>
+<!-- Modal para editar telefono -->
+<div class="modal fade" id="editarPhone" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar Telefono</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>        
+            <form (ngSubmit)="editarNombreCompleto()">
+              <div class="modal-body">
+                <div class="form-row">
+                  <div class="form-group col mb-3">
+                    <label for="">Telefono</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="validationCustom03"
+                      name="phone"
+                      placeholder=""
+                      [(ngModel)]="phone"
+                    />
+                    <div class="invalid-feedback">Please provide a valid phone.</div>
+                  </div>
+                </div>
+               
+               </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" >Save changes</button>
+              </div>
+            </form>
+    </div>
+  </div>
+</div>
+<!-- Modal para editar email -->
+<div class="modal fade" id="editarEmail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar email</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>        
+            <form (ngSubmit)="editarEmail()">
+              <div class="modal-body">
+                <div class="form-row">
+                  <div class="form-group col mb-3">
+                    <label for="">Email</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="validationCustom03"
+                      name="email"
+                      placeholder=""
+                      [(ngModel)]="email"
+                      
+                    />
+                    <div class="invalid-feedback">Please provide a valid email.</div>
+                  </div>
+                </div>
+               </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" >Save changes</button>
+              </div>
+            </form>
+    </div>
+  </div>
+</div>
+<!-- Modal para editar password -->
+<div class="modal fade" id="editarPassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar password</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>        
+            <form (ngSubmit)="editarUser()">
+              <div class="modal-body">
+                <div class="form-row">
+                  <div class="form-group col mb-3">
+                    <label for="">Contraseña actual</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="validationCustom03"
+                      name="password"
+                      placeholder=""
+                      [(ngModel)]="password"
+                      disabled
+                    />
+                    <div class="invalid-feedback">Please provide a valid password.</div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6 mb-3">
+                    <label for="">Nueva contraseña</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="validationCustom03"
+                      name="password_aux"
+                      placeholder=""
+                      [(ngModel)]="password_aux"
+
+                    />
+                    <div class="invalid-feedback">Please provide a valid password.</div>
+                  </div>
+                  <div class="form-group col-md-6 mb-3">
+                    <label for="">Repetir contraseña</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="validationCustom03"
+                      name="password_aux"
+                      placeholder=""
+                      [(ngModel)]="password_aux"
+                    />
+                    <div class="invalid-feedback">Please provide a valid password.</div>
+                  </div>
+                </div>
+               
+               </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" >Save changes</button>
+              </div>
+            </form>
+    </div>
+  </div>
 </div>

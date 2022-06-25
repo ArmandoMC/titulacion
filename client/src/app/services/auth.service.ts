@@ -13,6 +13,7 @@ import { StoreService } from './store.service';
 })
 export class AuthService {
   private API_URL = 'http://localhost:3000/api/auth';
+  private API_URL2 = 'http://localhost:3000/api/users';
   us: User = {
     id: 0,
     email: '',
@@ -84,15 +85,22 @@ export class AuthService {
         })
       );
   }
+  updateEmail(id: number,email:string) {
+    return this.http.put<User>(`${this.API_URL2}/update-email/${id}`,{email})
+    .pipe(
+      tap((user)=>{
+        user.isLoggedIn=true;
+        this.user.next(user);
+      })
+    )
+  }
  
 //   setCurrentUser(currentUser: Auth) {
 //       this.user.next(currentUser);
 //     // }
 // }
 
-// logout(){
-//   localStorage.removeItem('session');
-// }
+
 // isValidtoken() {
 //   return !!localStorage.getItem('session');
 // }

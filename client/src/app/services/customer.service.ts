@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Customer ,CreateCustomerDTO} from '../models/customer.model';
+import { Customer ,CreateCustomerDTO,UpdateCustomerDTO} from '../models/customer.model';
 
 @Injectable()
 export class CustomerService {
@@ -18,6 +18,10 @@ export class CustomerService {
   }
   updateDniAndPhone(id: number,dni:string,phone:string) {
     return this.http.put<Customer>(`${this.API_URL}/${id}`,{dni,phone});
+  }
+  updateNombreCompleto(id:number,dto:UpdateCustomerDTO){
+    return this.http.put<Customer>(`${this.API_URL}/nombreCompleto/${id}`,dto);
+
   }
   
 }

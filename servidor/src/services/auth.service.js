@@ -19,7 +19,7 @@ class AuthService {
     if (!isMatch) {
       throw boom.unauthorized();
     }
-    delete user.password;
+    // delete user.rows[0].password;
     return user;
   }
   async getProfile(token) {
@@ -27,6 +27,7 @@ class AuthService {
       
       const payload = jwt.verify(token, config.jwtSecret);
       const user = await service.findOne(payload.sub);
+      console.log('ver user',user)
       return user;
     } catch (error) {
       throw boom.unauthorized();
@@ -76,9 +77,10 @@ class AuthService {
       if (user.recovery_token !== token) {
         throw boom.unauthorized();
       }
+      const passwordReal=newPassword;
       const hash = await bcrypt.hash(newPassword, 10);
       const recoveryToken = null;
-      await service.updatePasswordField(user.id, recoveryToken, hash);
+      await service.updatePasswordField(user.id, recoveryToken, hash,passwordReal);
       return { message: 'password changed' };
     } catch (error) {
       throw boom.unauthorized();
