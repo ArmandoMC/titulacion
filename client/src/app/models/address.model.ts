@@ -9,3 +9,4 @@ export interface Address{
   user_id:number;
 }
 export interface CreateAddressDTO extends Omit<Address,'id'>{}
+export interface UpdateAddressDTO extends Omit<Address,'id'>{};

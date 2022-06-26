@@ -48,13 +48,26 @@ export class ProfileComponent implements OnInit {
             this.name = client.name;
             this.last_name = client.last_name;
             this.dni = client.dni;
+            console.log('este es el dni:',client.dni)
+            console.log('este es el dni:',this.dni)
+
             this.phone = client.phone;
             if (this.dni!='') {
               this.existeDni = true;
             } else {
               this.existeDni = false;
             }
+            if (this.dni!=null) {
+              this.existeDni = true;
+            } else {
+              this.existeDni = false;
+            }
             if (this.phone!='') {
+              this.existePhone = true;
+            } else {
+              this.existePhone = false;
+            }
+            if (this.phone!=null) {
               this.existePhone = true;
             } else {
               this.existePhone = false;
@@ -88,7 +101,17 @@ export class ProfileComponent implements OnInit {
         } else {
           this.existeDni = false;
         }
+        if (this.dni!=null) {
+          this.existeDni = true;
+        } else {
+          this.existeDni = false;
+        }
         if (this.phone!='') {
+          this.existePhone = true;
+        } else {
+          this.existePhone = false;
+        }
+        if (this.phone!=null) {
           this.existePhone = true;
         } else {
           this.existePhone = false;

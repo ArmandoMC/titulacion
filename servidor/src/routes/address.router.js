@@ -2,7 +2,7 @@ const express = require('express');
 
 const AddressService = require('../services/address.service');
 const validatorHandler = require('../middlewares/validator.handler');
-const { updateUserSchema, createUserSchema, getUserSchema } = require('../schemas/user.schema');
+const { createAddressSchema,updateAddressSchema,getAddressSchema } = require('../schemas/address.schema');
 
 const router = express.Router();
 const service = new AddressService();
@@ -42,9 +42,9 @@ router.post('/',
   }
 );
 
-router.patch('/:id',
-  validatorHandler(getUserSchema, 'params'),
-  validatorHandler(updateUserSchema, 'body'),
+router.put('/:id',
+  validatorHandler(getAddressSchema, 'params'),
+  validatorHandler(updateAddressSchema, 'body'),
   async (req, res, next) => {
     try {
       const { id } = req.params;
@@ -58,7 +58,7 @@ router.patch('/:id',
 );
 
 router.delete('/:id',
-  validatorHandler(getUserSchema, 'params'),
+  validatorHandler(getAddressSchema, 'params'),
   async (req, res, next) => {
     try {
       const { id } = req.params;

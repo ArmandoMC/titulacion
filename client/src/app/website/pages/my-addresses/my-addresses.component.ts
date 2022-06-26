@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { tap } from 'rxjs/operators';
-import { Address, CreateAddressDTO } from 'src/app/models/address.model';
+import { Address, CreateAddressDTO, UpdateAddressDTO } from 'src/app/models/address.model';
 import{AddressService} from '../../../services/address.service';
 import{AuthService} from '../../../services/auth.service';
 import{CustomerService} from '../../../services/customer.service';
@@ -13,24 +13,20 @@ export class MyAddressesComponent implements OnInit {
 
   addresses: Address[] = [];
   idUsuario: number;
-  customer_id:number=0;
-
-  name_lastname: string;
-  telefono: string;
+  modoEdit:boolean=false;
+  //variables para editar direccion
+  idAddress:number;
   city: string;
   address: string;
   state: string;
   country: string;
   postal_code: string;
-  showAddForm: boolean = false;
-  showStep1: boolean = true;
-  showStep2: boolean = false;
-  showStep3: boolean = false;
-  address_id:number=0;
-
-  disabledStep1:boolean=false;
-  disabledStep2:boolean=false;
-  btn_selected:boolean;
+  //variables para crear una direccion nueva
+  dirNueva:string;
+  cityNueva:string;
+  stateNuevo:string;
+  countryNuevo:string;
+  postal_codeNuevo:string;
 
   constructor(
     private addressService:AddressService,
@@ -39,59 +35,86 @@ export class MyAddressesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.btn_selected=false;
-    // this.authService.user$
-    // .subscribe(data=>{
-    //   this.idUsuario = data.id;
-    //   this.addressService.getAllAddress(this.idUsuario).subscribe();
+    this.authService.user$
+    .subscribe(data=>{
+      this.idUsuario = data.id;
+      this.addressService.getAllAddress(this.idUsuario).subscribe();
 
-    // });
-
-    
-    // this.addressService.addresses$.subscribe((data) => {
-    //     this.addresses = data;
-      
-    // });
+    });
+    this.addressService.addresses$.subscribe(data=>{
+      this.addresses=data;
+    })
   }
-  // changeColor=[false,false,false]
+
+  addAddress() {
+    const dto: CreateAddressDTO = {
+      address: this.dirNueva,
+      city: this.cityNueva,
+      state: this.stateNuevo,
+      country: this.countryNuevo,
+      postal_code: this.postal_codeNuevo,
+      user_id: this.idUsuario,
+    }
   
-  // cambiarEstado(){
-  // }
-  // addAddress() {
-  //   const newAddress: CreateAddressDTO = {
-  //     name_lastname: this.name_lastname,
-  //     telefono: this.telefono,
-  //     address: this.address,
-  //     city: this.city,
-  //     state: this.state,
-  //     country: this.country,
-  //     postal_code: this.postal_code,
-  //     user_id: this.idUsuario,
-  //   };
-  //   this.addressService.create(newAddress).subscribe((data) => {
-  //       console.log('direccion añadida');
-  //     },
-  //     (error) => {console.log('error al agregar difeccion');
-  //   }
-  //   );
-  //   this.showAddForm = false;
-  // }
-  // capturar() {
-  //   this.showAddForm = true;
-  // }
-  // cancelar() {
-  //   this.showAddForm = false;
-  // }
-  // goToStep2(addressId:number) {
-  //   // this.showStep1=false;
-  //   this.showStep2=true;
-  //   // this.btn_selected=true;
-  //   this.addressService.updateVector(addressId); 
+
+    this.addressService.create(dto).subscribe((data) => {
+        console.log('direccion añadida',data);
+        this.dirNueva="";
+        this.cityNueva="";
+        this.stateNuevo="";
+        this.countryNuevo="";
+        this.postal_codeNuevo="";
+      },
+      (error) => console.log('')
+    );
+  } 
+  editar(id:number){
+
+    const item=this.addresses.find(item=>item.id===id);
+    if(item){
+      this.address=item.address;
+      this.city=item.city;
+      this.state=item.state;
+      this.country=item.country;
+      this.postal_code=item.postal_code;
+      this.idAddress=item.id;
+    }
+   
+  }
+
+  editarAddress(){
     
-  //   console.log('addres_id',addressId)
-  // }
-  // bactToStep1(){
-  //  this.showStep1=true;
-  //  this.showStep2=false;
-  // }
+    const dto:UpdateAddressDTO={
+      address:this.address,
+      city:this.city,
+      state:this.state,
+      country:this.country,
+      postal_code:this.postal_code,
+      user_id:this.idUsuario
+    }
+    
+    this.addressService.editar(this.idAddress,dto).subscribe(direccion=>{
+      console.log('direccion actualizada',direccion);
+      this.address="";
+      this.city="";
+      this.state="";
+      this.country="";
+      this.postal_code="";
+    })
+  }
+
+  eliminar(id:number){
+    this.idAddress=id;
+    
+    this.addressService.delete(this.idAddress).subscribe(data=>{
+      console.log('direccion eliminada:',data)
+     
+    })
+    const indice=this.addresses.findIndex(ad=>ad.id===id);
+    if(indice!=-1){
+      this.addresses.splice(indice,1);
+    }
+  }
 }
+  
+

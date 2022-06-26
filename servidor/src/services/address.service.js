@@ -42,7 +42,7 @@ class AddressService {
     // const query = `SELECT total,id_transaccion,status,ad.address FROM orders as or JOIN address as ad ON or.address_id=ad.id WHERE or.customer_id=${id}`;
 
     const address = await this.pool.query(query);
-    console.log('dir:',address.rows)
+    console.log('dir:',address.rows[0])
     if (address.rows.length === 0) {
       return [];
       // throw boom.notFound('address not found');
@@ -53,16 +53,14 @@ class AddressService {
 
   async update(id, changes) {
     await this.findOne(id);
-    const hash = await bcrypt.hash(changes.password, 10);
-    changes.password = hash;
-    const { email, password, role } = changes;
+
+    const { address,city,state,country,postal_code,user_id } = changes;
     const query = {
-      text: `UPDATE users SET email=$1,password=$2,role=$3 WHERE id=$4 RETURNING *`,
-      values: [email, password, role, id]
+      text: `UPDATE address SET address=$1,city=$2,state=$3,country=$4,postal_code=$5,user_id=$6 WHERE id=$7 RETURNING *`,
+      values: [address, city, state, country,postal_code,user_id,id]
     };
     const rta = await this.pool.query(query);
-    delete rta.rows[0].password;
-    delete rta.rows[0].recovery_token;
+    console.log('direccion editada:',rta.rows[0])
     return rta.rows[0];
   }
   async updateRecoveryField(id, recoveryToken) {
@@ -83,13 +81,12 @@ class AddressService {
   }
 
   async delete(id) {
-    await this.findOne(id);
     const query = {
-      text: `DELETE FROM users WHERE id=$1`,
+      text: `DELETE FROM address WHERE id=$1`,
       values: [id]
     }
-    await this.pool.query(query);
-    return { id };
+    const rta=await this.pool.query(query);
+    return rta.rows[0];
   }
 }
 
