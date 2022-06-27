@@ -87,11 +87,11 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Editar nombre completo</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" #botonCerrarNC>
           <span aria-hidden="true">&times;</span>
         </button>
       </div>        
-            <form (ngSubmit)="editarNombreCompleto()">
+            <form #editNombreApellido="ngForm" (ngSubmit)="editarNombreCompleto(editNombreApellido)">
               <div class="modal-body">
                 <div class="form-row">
                   <div class="form-group col mb-3">
@@ -99,12 +99,15 @@
                     <input
                       type="text"
                       class="form-control"
-                      id="validationCustom03"
                       name="name"
                       placeholder=""
+                      #refNombre="ngModel"
                       [(ngModel)]="name"
-                    />
-                    <div class="invalid-feedback">Please provide a valid name.</div>
+                      [ngClass]="{'is-invalid':refNombre.errors && refNombre.touched}"
+                      required 
+                      />
+                       <div [hidden]="!refNombre.errors?.required" class="invalid-feedback">
+                      Nombre requerido</div>
                   </div>
                 </div>
                 <div class="form-row">
@@ -113,17 +116,20 @@
                     <input
                       type="text"
                       class="form-control"
-                      id="validationCustom03"
                       name="last_name"
+                      #refApellido="ngModel"
                       [(ngModel)]="last_name"
-                    />
-                    <div class="invalid-feedback">Please provide a valid lastName.</div>
+                      [ngClass]="{'is-invalid':refApellido.errors && refApellido.touched}"
+                      required 
+                      />
+                       <div [hidden]="!refApellido.errors?.required" class="invalid-feedback">
+                      Apellido requerido</div>
                   </div>
                 </div>
                </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" >Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" >Guardar cambios</button>
               </div>
             </form>
     </div>
@@ -135,11 +141,11 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Editar cédula</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" #botonCerrarDni>
           <span aria-hidden="true">&times;</span>
         </button>
       </div>        
-            <form (ngSubmit)="editarNombreCompleto()">
+            <form #editDni="ngForm" (ngSubmit)="editarDni(editDni)">
               <div class="modal-body">
                 <div class="form-row">
                   <div class="form-group col mb-3">
@@ -147,19 +153,22 @@
                     <input
                       type="text"
                       class="form-control"
-                      id="validationCustom03"
                       name="dni"
                       placeholder=""
+                      #refDni="ngModel"
                       [(ngModel)]="dni"
-                    />
-                    <div class="invalid-feedback">Please provide a valid dni.</div>
+                      [ngClass]="{'is-invalid':refDni.errors && refDni.touched}"
+                      required 
+                      />
+                       <div [hidden]="!refDni.errors?.required" class="invalid-feedback">
+                      Cédula requerida</div>
                   </div>
                 </div>
                
                </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" >Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" >Guardar cambios</button>
               </div>
             </form>
     </div>
@@ -171,11 +180,11 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Editar teléfono</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" #botonCerrarPhone>
           <span aria-hidden="true">&times;</span>
         </button>
       </div>        
-            <form (ngSubmit)="editarNombreCompleto()">
+            <form #editTelefono="ngForm" (ngSubmit)="editarPhone(editTelefono)">
               <div class="modal-body">
                 <div class="form-row">
                   <div class="form-group col mb-3">
@@ -183,19 +192,22 @@
                     <input
                       type="text"
                       class="form-control"
-                      id="validationCustom03"
                       name="phone"
                       placeholder=""
+                      #refTelefono="ngModel"
                       [(ngModel)]="phone"
-                    />
-                    <div class="invalid-feedback">Please provide a valid phone.</div>
+                      [ngClass]="{'is-invalid':refTelefono.errors && refTelefono.touched}"
+                      required 
+                      />
+                       <div [hidden]="!refTelefono.errors?.required" class="invalid-feedback">
+                      Teléfono requerido</div>
                   </div>
                 </div>
                
                </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" >Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" >Guardar cambios</button>
               </div>
             </form>
     </div>
@@ -207,11 +219,11 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Editar email</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" #botonCerrarEmail>
           <span aria-hidden="true">&times;</span>
         </button>
       </div>        
-            <form (ngSubmit)="editarEmail()">
+            <form #emailForm="ngForm" (ngSubmit)="editarEmail(emailForm)">
               <div class="modal-body">
                 <div class="form-row">
                   <div class="form-group col mb-3">
@@ -219,19 +231,21 @@
                     <input
                       type="text"
                       class="form-control"
-                      id="validationCustom03"
                       name="email"
                       placeholder=""
+                      #refEmail="ngModel"
                       [(ngModel)]="email"
-                      
-                    />
-                    <div class="invalid-feedback">Please provide a valid email.</div>
+                      [ngClass]="{'is-invalid':refEmail.errors && refEmail.touched}"
+                      required 
+                      />
+                       <div [hidden]="!refEmail.errors?.required" class="invalid-feedback">
+                      Email requerido</div>
                   </div>
                 </div>
                </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" >Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" >Guardar cambios</button>
               </div>
             </form>
     </div>
@@ -243,11 +257,11 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Editar contraseña</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" #botonCerrarContrasena>
           <span aria-hidden="true">&times;</span>
         </button>
       </div>        
-            <form (ngSubmit)="editarUser()">
+            <form #contrasenaForm="ngForm" (ngSubmit)="editarContrasena(contrasenaForm)">
               <div class="modal-body">
                 <div class="form-row">
                   <div class="form-group col mb-3">
@@ -255,13 +269,14 @@
                     <input
                       type="password"
                       class="form-control"
-                      id="validationCustom03"
                       name="password"
                       placeholder=""
+                      #refContrasena="ngModel"
                       [(ngModel)]="password"
                       disabled
-                    />
-                    <div class="invalid-feedback">Please provide a valid password.</div>
+                      required 
+                      />
+                      
                   </div>
                 </div>
                 <div class="form-row">
@@ -270,32 +285,37 @@
                     <input
                       type="password"
                       class="form-control"
-                      id="validationCustom03"
                       name="password_aux"
                       placeholder=""
+                      #refPasswordAux="ngModel"
                       [(ngModel)]="password_aux"
-
-                    />
-                    <div class="invalid-feedback">Please provide a valid password.</div>
+                      [ngClass]="{'is-invalid':refPasswordAux.errors && refPasswordAux.touched}"
+                      required 
+                      />
+                       <div [hidden]="!refPasswordAux.errors?.required" class="invalid-feedback">
+                      Nueva contraseña requerida</div>
                   </div>
                   <div class="form-group col-md-6 mb-3">
                     <label for="">Repetir contraseña</label>
                     <input
                       type="password"
                       class="form-control"
-                      id="validationCustom03"
                       name="password_aux"
                       placeholder=""
+                      #refPasswordAux2="ngModel"
                       [(ngModel)]="password_aux"
-                    />
-                    <div class="invalid-feedback">Please provide a valid password.</div>
+                      [ngClass]="{'is-invalid':refPasswordAux2.errors && refPasswordAux2.touched}"
+                      required 
+                      />
+                       <div [hidden]="!refPasswordAux2.errors?.required" class="invalid-feedback">
+                      Nueva contraseña requerida</div>
                   </div>
                 </div>
                
                </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" >Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary" >Guardar cambios</button>
               </div>
             </form>
     </div>

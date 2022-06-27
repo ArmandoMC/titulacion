@@ -4,41 +4,90 @@
       <div class="col-md-6 mx-auto">
         <div class="card">
           <div class="card-header">
-            <h4>Login</h4>
+            <h4>Registro</h4>
           </div>
           <div class="card-body">
-            <form (ngSubmit)="createCustomer()">
+            <form #registerForm="ngForm" (ngSubmit)="createCustomer(registerForm)">
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="names">Nombres</label>
-                  <input type="text" class="form-control" name="name" [(ngModel)]="name" required>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="name"
+                    #nameNombres="ngModel"
+                    [(ngModel)]="name"
+                    [ngClass]="{'is-invalid':nameNombres.errors && nameNombres.touched}"
+                    required />
+                     <div [hidden]="!nameNombres.errors?.required" class="invalid-feedback">
+                    Nombres requerido</div>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="apellidos">Apellidos</label>
-                  <input type="text" class="form-control" name="last_name" [(ngModel)]="last_name" required>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="last_name"
+                    #nameApellidos="ngModel"
+                    [(ngModel)]="last_name"
+                    [ngClass]="{'is-invalid':nameApellidos.errors && nameApellidos.touched}"
+                    required />
+                   <div [hidden]="!nameApellidos.errors?.required" class="invalid-feedback">
+                    Apellidos requeridos</div>
                 </div>
               </div>
               <div class="form-row">
-                <div class="form-group col-md-6">
-                  <label for="phone">Telefono</label>
-                  <input type="text" class="form-control" name="phone" [(ngModel)]="phone" required>
-                </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col">
                   <label for="email">Email</label>
-                  <input type="email" class="form-control" name="email" [(ngModel)]="email" required>
+                  <input
+                    type="email"
+                    class="form-control"
+                    name="email"
+                    #nameEmail="ngModel"
+                    [(ngModel)]="email"
+                    [ngClass]="{'is-invalid':nameEmail.errors && nameEmail.touched}"
+                    required />
+                    <div [hidden]="!nameEmail.errors?.required" class="invalid-feedback">
+                      Email requerido</div>
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="password">Contraseña</label>
-                  <input type="password" class="form-control" name="password" [(ngModel)]="password" required>
+                  <input
+                    type="password"
+                    class="form-control"
+                    name="password"
+                    #nameContrasena="ngModel"
+                    [(ngModel)]="password"
+                    [ngClass]="{'is-invalid':nameContrasena.errors && nameContrasena.touched}"
+                    required 
+                    minlength="8"
+                    />
+                    <div [hidden]="!nameContrasena.errors?.required" class="invalid-feedback">
+                      Contraseña requerida</div>
+                    <div [hidden]="!nameContrasena.errors?.minlength" class="invalid-feedback">
+                        Se requiere al menos 8 caracteres</div>
                 </div>
                 <div class="form-group col-md-6">
                   <label for="repeatPassword">Repetir Contraseña</label>
-                  <input type="password" class="form-control" name="repeatPassword">
+                  <input
+                    type="password"
+                    class="form-control"
+                    name="repeatPassword"
+                    #nameRepeatContrasena="ngModel"
+                    [(ngModel)]="password"
+                    [ngClass]="{'is-invalid':nameRepeatContrasena.errors && nameRepeatContrasena.touched}"
+                    required 
+                    minlength="8"
+                    />
+                    <div [hidden]="!nameRepeatContrasena.errors?.required" class="invalid-feedback">
+                      Contraseña requerida</div>
+                    <div [hidden]="!nameRepeatContrasena.errors?.minlength" class="invalid-feedback">
+                      Se requiere al menos 8 caracteres</div>
                 </div>
-              </div>      
-               <input type="submit" value="Entrar" class="btn btn-success btn-block">
+              </div>
+              <button type="submit" class="btn btn-success">Registrame</button>
             </form>
           </div>
         </div>
@@ -46,4 +95,3 @@
     </div>
   </div>
 </section>
-

@@ -60,7 +60,7 @@ router.patch('/:id',
     }
   }
 );
-router.put('/:id',
+router.put('/updateDniAndPhone/:id',
   validatorHandler(getCustomerSchema, 'params'),
   // validatorHandler(updateCustomerSchema, 'body'),
   async (req, res, next) => {
@@ -74,7 +74,7 @@ router.put('/:id',
     }
   }
 );
-router.put('/nombreCompleto/:id',
+router.patch('/nombreCompleto/:id',
   validatorHandler(getCustomerSchema, 'params'),
   // validatorHandler(updateCustomerSchema, 'body'),
   async (req, res, next) => {
@@ -82,6 +82,34 @@ router.put('/nombreCompleto/:id',
       const { id } = req.params;
       const body = req.body;
       const customer = await service.updateNombreCompleto(id, body);
+      res.json(customer);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+router.patch('/updateDni/:id',
+  validatorHandler(getCustomerSchema, 'params'),
+  // validatorHandler(updateCustomerSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+      const customer = await service.updateDni(id, body);
+      res.json(customer);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+router.patch('/updatePhone/:id',
+  validatorHandler(getCustomerSchema, 'params'),
+  // validatorHandler(updateCustomerSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+      const customer = await service.updatePhone(id, body);
       res.json(customer);
     } catch (error) {
       next(error);

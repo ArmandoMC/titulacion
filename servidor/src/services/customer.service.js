@@ -93,16 +93,42 @@ class CustomerService {
     return rta.rows[0];
   }
   async updateNombreCompleto(id, changes) {
-    const { name, last_name,dni,phone } = changes;
+    const { name, lastName} = changes;
     const query = {
-      text: `UPDATE customers SET name=$1,last_name=$2,dni=$3,phone=$4 WHERE user_id=$5 RETURNING *`,
-      values: [name,last_name,dni, phone, id]
+      text: `UPDATE customers SET name=$1,last_name=$2 WHERE user_id=$3 RETURNING *`,
+      values: [name,lastName,id]
     };
     const rta = await this.pool.query(query);
     if (rta.rows.length===0) {
-      throw boom.notFound('customer no se pudo actualizar');
+      throw boom.notFound('nombre completo de customer no se pudo actualizar');
     }
-    console.log('customer actualizado:',rta.rows[0])
+    console.log('nombre completo de customer actualizado:',rta.rows[0])
+    return rta.rows[0];
+  }
+  async updateDni(id, changes) {
+    const { dni } = changes;
+    const query = {
+      text: `UPDATE customers SET dni=$1 WHERE user_id=$2 RETURNING *`,
+      values: [dni, id]
+    };
+    const rta = await this.pool.query(query);
+    if (rta.rows.length===0) {
+      throw boom.notFound('dni no se pudo actualizar');
+    }
+    console.log('dni actualizado:',rta.rows[0])
+    return rta.rows[0];
+  }
+  async updatePhone(id, changes) {
+    const { phone } = changes;
+    const query = {
+      text: `UPDATE customers SET phone=$1 WHERE user_id=$2 RETURNING *`,
+      values: [phone, id]
+    };
+    const rta = await this.pool.query(query);
+    if (rta.rows.length===0) {
+      throw boom.notFound('phone no se pudo actualizar');
+    }
+    console.log('phone actualizado:',rta.rows[0])
     return rta.rows[0];
   }
 

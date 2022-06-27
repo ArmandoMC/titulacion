@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CreateCustomerDTO } from 'src/app/models/customer.model';
@@ -12,7 +13,8 @@ import{OnExit} from '../../../guards/exit.guard';
 })
 export class RegisterComponent implements OnInit,OnExit {
 
-  
+  @ViewChild('registerForm') registerForm:NgForm;
+  @ViewChild('botonCerrar') botonCerrar:ElementRef;
   name:string;
   last_name:string;
   phone:string;
@@ -28,24 +30,28 @@ export class RegisterComponent implements OnInit,OnExit {
 
   ngOnInit(): void {
   }
-  createCustomer(){
+  createCustomer(f:NgForm){
 
-    const customer:CreateCustomerDTO={
-       name:this.name,
-       last_name:this.last_name,
-      //  phone:this.phone,
-       user:{
-         email:this.email,
-         password:this.password,
-       }
+    if(!f.valid){
+
+    }else{
+      const customer:CreateCustomerDTO={
+        name:this.name,
+        last_name:this.last_name,
+        user:{
+          email:this.email,
+          password:this.password,
+        }
+     }
+     this.customerService.create(customer)
+     .subscribe(data=>{
+     console.log( data);
+     this.router.navigate(['/login']);
+ 
+     },err=>console.log(err))
+ 
     }
-    this.customerService.create(customer)
-    .subscribe(data=>{
-    console.log( data);
-    this.router.navigate(['/login']);
-
-    },err=>console.log(err))
-
+    
 
   }
 

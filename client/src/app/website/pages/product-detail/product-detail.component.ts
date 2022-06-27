@@ -19,6 +19,7 @@ export class ProductDetailComponent implements OnInit {
   listaOferta: number[] = [];
   cantidad = 0;
   agregado: boolean = false;
+  isStock:boolean;
   seleccionado: string = '' + 1;
   constructor(
     private route: ActivatedRoute,
@@ -42,6 +43,11 @@ export class ProductDetailComponent implements OnInit {
         if (data) {
           this.product = data;
           this.productStock = data.stock;
+          if(this.productStock>5){
+            this.isStock=true;
+          }else{
+            this.isStock=false;
+          }
           this.listarOferta();
           this.storeService.myCart$.subscribe(cart=>{
             const encontrado = cart.find((element) => element.id === this.product.id);

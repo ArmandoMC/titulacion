@@ -1,8 +1,8 @@
 <div class="container-fluid page-product ">
-  <button (click)="goToBack()" class="btn btn-success">Back</button>
+  <button (click)="goToBack()" class="btn btn-success">Volver</button>
   <div class="row detail" *ngIf="product">
     <!-- <div class="row"> -->
-    <div class="col-5">
+    <div class="col-lg-5 col-sm-12">
       <div class="gallery">
         <!-- <swiper>
                         <ng-template> -->
@@ -11,7 +11,7 @@
                     </swiper>> -->
       </div>
     </div>
-    <div class="col-4">
+    <div class="col-lg-4 col-sm-12">
       <div>
         <h1>{{ product?.name }} {{product?.presentation}} </h1>
         <hr>
@@ -20,7 +20,7 @@
         <p>{{ product?.description }}</p>
       </div>
     </div>
-    <div class="col-3 carrito">
+    <div class="col-lg-3 col-sm-12 carrito">
       <div class="info-carrito">
         <h4 class="price">{{product?.price | currency}}</h4>
         <h4 class="stock">En stock</h4>
@@ -36,6 +36,9 @@
           <button (click)="onAddToShoppingCart()" class="btn btn-primary btn-block">
             {{ agregado == true ? "En el carrito" : "Add to cart" }}
           </button>
+          <div class="alert alert-success mt-3" role="alert">
+            {{isStock==true? 'En stock':'Últimas unidades'}}
+          </div>
         </div>
       </div>      
     </div>

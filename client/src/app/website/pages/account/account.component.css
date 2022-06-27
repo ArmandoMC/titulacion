@@ -3,6 +3,7 @@
     border-style: groove;
     border-width: 1px;
     border-radius: 5px;
+    padding-bottom: 38px;
 }
 .mis-direcciones {
     border-color:#ced5db;
@@ -29,4 +30,17 @@
 .link-mis-pedidos{
     text-decoration: none;
     color: black;
+}
+
+
+@media (min-width:360px)   OR (max-width:428px){
+    .datos{
+        margin-bottom: 10px;
+    }
+    .direcciones{
+        margin-bottom: 10px;
+    }
+    .ordenes{
+        margin-bottom: 10px;
+    }
 }

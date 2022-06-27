@@ -6,3 +6,9 @@
 .btn-pago{
     display: block;
 }
+.carroVacio{
+    border: 1px solid;
+    border-color: rgb(216, 210, 210);
+    border-radius: 10px;
+    
+}

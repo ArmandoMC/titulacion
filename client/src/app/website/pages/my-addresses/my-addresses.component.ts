@@ -1,9 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+// import { FlashMessageService,FlashMessage } from 'angular2-flash-message';
 import { tap } from 'rxjs/operators';
 import { Address, CreateAddressDTO, UpdateAddressDTO } from 'src/app/models/address.model';
 import{AddressService} from '../../../services/address.service';
 import{AuthService} from '../../../services/auth.service';
 import{CustomerService} from '../../../services/customer.service';
+
+
+
 @Component({
   selector: 'app-my-addresses',
   templateUrl: './my-addresses.component.html',
@@ -11,6 +16,10 @@ import{CustomerService} from '../../../services/customer.service';
 })
 export class MyAddressesComponent implements OnInit {
 
+  @ViewChild('addressForm') addressForm:NgForm;
+  @ViewChild('editForm') editForm:NgForm;
+  @ViewChild('botonCerrar') botonCerrar:ElementRef;
+  @ViewChild('botonCerrarEditar') botonCerrarEditar:ElementRef;
   addresses: Address[] = [];
   idUsuario: number;
   modoEdit:boolean=false;
@@ -31,7 +40,8 @@ export class MyAddressesComponent implements OnInit {
   constructor(
     private addressService:AddressService,
     private authService:AuthService,
-    private customerService:CustomerService
+    private customerService:CustomerService,
+    // private flashMessages:FlashMessageService,
   ) { }
 
   ngOnInit(): void {
@@ -46,27 +56,35 @@ export class MyAddressesComponent implements OnInit {
     })
   }
 
-  addAddress() {
-    const dto: CreateAddressDTO = {
-      address: this.dirNueva,
-      city: this.cityNueva,
-      state: this.stateNuevo,
-      country: this.countryNuevo,
-      postal_code: this.postal_codeNuevo,
-      user_id: this.idUsuario,
-    }
-  
+  // flash=new FlashMessage();
 
-    this.addressService.create(dto).subscribe((data) => {
-        console.log('direccion añadida',data);
-        this.dirNueva="";
-        this.cityNueva="";
-        this.stateNuevo="";
-        this.countryNuevo="";
-        this.postal_codeNuevo="";
-      },
-      (error) => console.log('')
-    );
+  addAddress(f:NgForm) {
+
+    if(!f.valid){
+      // this.flash.message='Por favor llenar el formulario correctamente';
+      // this.flash.isSuccess=true;
+      // this.flash.timeoutInMS=50000;
+      // this.flashMessages.display(this.flash);
+    }else{
+
+      const dto: CreateAddressDTO = {
+        address: this.dirNueva,
+        city: this.cityNueva,
+        state: this.stateNuevo,
+        country: this.countryNuevo,
+        postal_code: this.postal_codeNuevo,
+        user_id: this.idUsuario,
+      }
+      this.addressService.create(dto).subscribe((data) => {
+          console.log('direccion añadida',data);
+         
+          this.addressForm.resetForm();
+          this.cerrarModalAdd();
+        },
+        (error) => console.log('')
+      );
+    }
+
   } 
   editar(id:number){
 
@@ -82,25 +100,28 @@ export class MyAddressesComponent implements OnInit {
    
   }
 
-  editarAddress(){
+  editarAddress(f:NgForm){
     
-    const dto:UpdateAddressDTO={
-      address:this.address,
-      city:this.city,
-      state:this.state,
-      country:this.country,
-      postal_code:this.postal_code,
-      user_id:this.idUsuario
+    if(!f.valid){
+
+    }else{
+      const dto:UpdateAddressDTO={
+        address:this.address,
+        city:this.city,
+        state:this.state,
+        country:this.country,
+        postal_code:this.postal_code,
+        user_id:this.idUsuario
+      }
+      
+      this.addressService.editar(this.idAddress,dto).subscribe(direccion=>{
+        console.log('direccion actualizada',direccion);
+      
+        this.editForm.resetForm();
+        this.cerrarModalEdit();
+      })
     }
     
-    this.addressService.editar(this.idAddress,dto).subscribe(direccion=>{
-      console.log('direccion actualizada',direccion);
-      this.address="";
-      this.city="";
-      this.state="";
-      this.country="";
-      this.postal_code="";
-    })
   }
 
   eliminar(id:number){
@@ -114,6 +135,12 @@ export class MyAddressesComponent implements OnInit {
     if(indice!=-1){
       this.addresses.splice(indice,1);
     }
+  }
+  private cerrarModalAdd(){
+    this.botonCerrar.nativeElement.click();
+  }
+  private cerrarModalEdit(){
+    this.botonCerrarEditar.nativeElement.click();
   }
 }
   

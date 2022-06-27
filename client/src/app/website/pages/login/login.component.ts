@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import {User} from '../../../models/user.model';
 import{AuthService} from '../../../services/auth.service';
 import Swal from 'sweetalert2';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -11,6 +12,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  
+  @ViewChild('loginForm') loginForm:NgForm;
+
   email: string;
   password: string;
   token='';
@@ -27,23 +31,26 @@ export class LoginComponent implements OnInit {
   
   }
 
-  login() {
-    this.authService.login(this.email, this.password)
-    .subscribe(()=>{
+  login(f:NgForm) {
+    if(!f.valid){
 
-      // this.usuario=user;
-      // console.log(user);
-      // this.logueado.emit();
-      this.router.navigate(['/home']);
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Ingreso exitoso',
-        showConfirmButton: false,
-        timer: 1500
-      })
+    }else{
+      this.authService.login(this.email, this.password)
+      .subscribe(()=>{
+  
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Ingreso exitoso',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        this.router.navigate(['/home']);
 
-    },err=>{console.error('hubo un error al hacer login')});
+  
+      },err=>{console.error('hubo un error al hacer login')});
+    }
+    
   }
 
   // getProfile(){

@@ -22,7 +22,7 @@ import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { MyAddressesComponent } from './pages/my-addresses/my-addresses.component';
 import { AccountComponent } from './pages/account/account.component';
 import { OrdersComponent } from './pages/orders/orders.component';
-
+// import { FlashMessageModule } from 'angular2-flash-message';
 
 @NgModule({
   declarations: [
@@ -38,7 +38,7 @@ import { OrdersComponent } from './pages/orders/orders.component';
     CheckoutComponent,
     MyAddressesComponent,
     AccountComponent,
-    OrdersComponent,
+    OrdersComponent
     
   ],
   imports: [

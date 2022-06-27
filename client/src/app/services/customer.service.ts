@@ -17,10 +17,18 @@ export class CustomerService {
     return this.http.get<Customer>(`${this.API_URL}/${id}`);
   }
   updateDniAndPhone(id: number,dni:string,phone:string) {
-    return this.http.put<Customer>(`${this.API_URL}/${id}`,{dni,phone});
+    return this.http.put<Customer>(`${this.API_URL}/updateDniAndPhone/${id}`,{dni,phone});
   }
-  updateNombreCompleto(id:number,dto:UpdateCustomerDTO){
-    return this.http.put<Customer>(`${this.API_URL}/nombreCompleto/${id}`,dto);
+  updateNombreCompleto(id:number,name:string,lastName:string){
+    return this.http.patch<Customer>(`${this.API_URL}/nombreCompleto/${id}`,{name,lastName});
+
+  }
+  updateDni(id:number,dni:string){
+    return this.http.patch<Customer>(`${this.API_URL}/updateDni/${id}`,{dni});
+
+  }
+  updatePhone(id:number,phone:string){
+    return this.http.patch<Customer>(`${this.API_URL}/updatePhone/${id}`,{phone});
 
   }
   
