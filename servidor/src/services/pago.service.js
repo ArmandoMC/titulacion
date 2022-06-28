@@ -104,7 +104,7 @@ class PagoService {
     // });
     //  return rta;
   }
-  async find(id) {
+  async findDetail(id) {
     const query = {
       text:`SELECT op.product_id,op.quantity,p.name,p.presentation,p.price FROM orders_products op INNER JOIN products p ON op.product_id=p.id WHERE order_id=$1 `,
       values:[id]
@@ -117,7 +117,9 @@ class PagoService {
   async findOne(id) {
     const query =
     {
-      text: `SELECT * FROM orders WHERE id=$1`,
+      text: `SELECT ord.id,ord.total,ord.status,ord.created_at,ord.sale_id,ad.address,c.name,c.dni,c.phone,us.email,s.num_factura FROM orders ord INNER JOIN customers c ON ord.customer_id=c.id 
+      INNER JOIN users us On c.user_id=us.id
+      INNER JOIN address ad ON ord.address_id=ad.id INNER JOIN sales s ON ord.sale_id=s.id_sale WHERE ord.id=$1`,
       values: [id]
     };
     const order = await this.pool.query(query);

@@ -10,10 +10,10 @@ class SalesService {
   }
   async createVenta(data) {
     
-    const{status}=data;
+    const{status,created_at}=data;
     const statement = {
-      text: `INSERT INTO sales(status) VALUES($1) RETURNING *`,
-      values: [status]
+      text: `INSERT INTO sales(status,created_at) VALUES($1,$2) RETURNING *`,
+      values: [status,created_at]
     };
     const newVenta = await this.pool.query(statement);
 

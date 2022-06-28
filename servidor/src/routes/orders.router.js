@@ -17,14 +17,6 @@ const servicePago=new PagoService();
 const serviceSales=new SalesService();
 const addressService=new AddressService();
 
-// router.get('/', async (req, res, next) => {
-//   try {
-//     const orders = await service.find(req.query);
-//     res.json(orders);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
 
 // router.post('/',
 //   passport.authenticate('jwt', { session: false }),
@@ -58,13 +50,33 @@ const addressService=new AddressService();
 //     }
 //   }
 // );
-router.get('/ultimoId',
+// router.get('/ultimoId',
+//   // validatorHandler(getOrderSchema, 'params'),
+//   async (req, res, next) => {
+//     try {
+//       // const { id } = req.params;
+//       const idOrder=await service.getUltimoId();
+//       res.status(201).json({ idOrder});
+//     } catch (error) {
+//       next(error);
+//     }
+//   }
+// );
+router.get('/:id',
   // validatorHandler(getOrderSchema, 'params'),
   async (req, res, next) => {
     try {
-      // const { id } = req.params;
-      const idOrder=await service.getUltimoId();
-      res.status(201).json({ idOrder});
+      const { id } = req.params;
+      console.log('id de ordensita recibid:',id)
+      const order = await servicePago.findOne(id);
+      const detailOrder=await servicePago.findDetail(order.id)
+      console.log('orden encontraba en bd:',order)
+      res.json({
+        order:order,
+        detail:detailOrder
+      }
+       
+      );
     } catch (error) {
       next(error);
     }
@@ -117,7 +129,7 @@ router.get('/detail/:id',
       const{id}=req.params;
       console.log('id de order recibido:',id)
       
-      const result=await servicePago.find(id)
+      const result=await servicePago.findDetail(id)
       console.log('resultado',result)
       res.json(result);
     } catch (error) {
@@ -126,23 +138,7 @@ router.get('/detail/:id',
   }
 );
 
-// router.post('/create-checkout-session', async (req, res) => {
-//   const session = await stripe.checkout.sessions.create({
-//     line_items: [
-//       {
-//         // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-//         price: '34',
-//         quantity: 1,
-//       },
-//     ],
-//     mode: 'payment',
-//     success_url: `${YOUR_DOMAIN}?success=true`,
-//     cancel_url: `${YOUR_DOMAIN}?canceled=true`,
-//   });
-//   console.log('lalalalallalal')
 
-//   res.redirect(303, session.url);
-// });
 router.get('/pending',
   // validatorHandler(getOrderSchema, 'params'),
   async (req, res, next) => {

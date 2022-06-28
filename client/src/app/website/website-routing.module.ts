@@ -11,7 +11,7 @@ import { ProductDetailComponent } from './pages/product-detail/product-detail.co
 import { LayoutComponent } from './components/layout/layout.component';
 import { MyAddressesComponent } from './pages/my-addresses/my-addresses.component';
 import { OrdersComponent } from './pages/orders/orders.component';
-
+import { InvoiceComponent } from './pages/invoice/invoice.component';
 
 import { HomeComponent } from './pages/home/home.component';
 import {AuthGuard} from '../guards/auth.guard';
@@ -39,6 +39,10 @@ const routes: Routes = [
           preload:true
         }
 
+      },
+      {
+        path: 'factura/order/:id',
+        component: InvoiceComponent,
       },
       {
         path: 'product/:id',
@@ -71,6 +75,7 @@ const routes: Routes = [
         canActivate:[CheckoutGuard],
         component: CheckoutComponent,
       },
+     
       // {
       //   path: 'checkout/address',
       //   // canActivate:[CheckoutGuard],

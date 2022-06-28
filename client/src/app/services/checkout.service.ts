@@ -29,10 +29,6 @@ export class CheckoutService {
 
   }
 
-  getVectorOrder(){
-    return this.myOrders;
-  }
-
   getOrderByCustomer(id: number): Observable<any> {
     return this.http.get<OrderPayment>(`${this.API}/orders/customer/${id}`)
     .pipe(
@@ -52,6 +48,9 @@ export class CheckoutService {
 
   getOrderDetail(id: number): Observable<any> {
     return this.http.get<any>(`${this.API}/orders/detail/${id}`)
+  }
+  getOrder(id: string) {
+    return this.http.get<any>(`${this.API}/orders/${id}`)
   }
 
   sendPayment(dto: CreateOrderDTO):Observable<any> {

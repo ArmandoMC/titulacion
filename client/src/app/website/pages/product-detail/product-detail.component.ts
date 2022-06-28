@@ -61,21 +61,7 @@ export class ProductDetailComponent implements OnInit {
 
          
         }
-      });
-
-      // this.storeService.myCart$.subscribe(data=>{
-      //   if(this.productId){
-      //     const encontrado = data.find((element) => element.id === this.productId);
-      //     if (encontrado) {
-      //       this.agregado = true;
-      //       this.seleccionado = '' + encontrado.oferta;
-      //     } else {
-      //       this.agregado = false;
-      //     }
-        
-      //   }
-       
-      // })
+      });  
   }
 
   onAddToShoppingCart() {

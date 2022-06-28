@@ -47,36 +47,14 @@ export class OrdersComponent implements OnInit {
         
     });
     
-     
-       
-    
+
     this.checkoutService.orders$.subscribe(dt=>{
-        // console.log('es dt:',dt)
-        // dt.forEach(item=>{
-        //   if(item.bandera=true){
-        //     this.router.navigate(['/orders'])
-        //   }
-        // })
+      
         if(dt){
           this.orders=dt;
-          // this.router.navigateByUrl('/orders',{skipLocationChange:true}).then(()=>{
-          //   this.router.navigate([decodeURI(this.location.path())])
-          // })
-
         }
-
-      
-        
       })
-      // this.refesh();
-
-
-        // switchMap((user)=>this.customerService.getClient(user.id)),
-        // switchMap((client)=>this.checkoutService.getOrderByCustomer(client.id)),
-        // tap(()=>{})
-     
-
-      // this.checkoutService.getOrderByCustomer()
+      
   }
   verDetalle(id:number,idAddress:number){
     this.checkoutService.getOrderDetail(id).subscribe(data=>{
@@ -96,11 +74,6 @@ export class OrdersComponent implements OnInit {
       this.direccion=dt.address;
     })
   }
-
-  refesh(){
-    this.checkoutService.orders$.subscribe(dt=>{
-      this.orders=dt;
-    })
-  }
+  
 
 }

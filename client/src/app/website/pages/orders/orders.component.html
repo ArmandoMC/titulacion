@@ -12,7 +12,6 @@
     </thead>
     <tbody>
       <tr *ngFor="let order of orders; let indice = index">
-        <!-- <th scope="row">{{ indice + 1 }}</th> -->
         <td>{{ order.id }}</td>
         <td>{{ order.total | currency }}</td>
         <td>{{ order.id_transaccion }}</td>
@@ -28,22 +27,15 @@
           >
             Ver detalle
           </button>
-
-          <!-- Modal -->
         </td>
         <td>
-          <!-- Button trigger modal -->
           <button
             type="button"
             class="btn btn-primary"
-            data-toggle="modal"
-            data-target="#exampleModal"
-            (click)="verDetalle(order.id, order.address_id)"
+            [routerLink]="['/factura/order',order.id]"
           >
             Ver Factura
           </button>
-
-          <!-- Modal -->
         </td>
       </tr>
     </tbody>
@@ -81,25 +73,25 @@
       </div>
       <div class="modal-body">
         <table class="table table-bordered">
-          <tbody>
-            <thead class="">
-              <tr>
-                <th scope="col">Producto</th>
-                <th scope="col">Precio</th>
-              </tr>
-            </thead>
-            <tr *ngFor="let detail of detailOrder">
-              <th scope="">{{ detail.name }} {{ detail.presentation }}</th>
-              <!-- <td>x {{ detail.quantity }}</td> -->
-              <td>{{ detail.price * detail.quantity | currency }}</td>
+          <thead>
+            <tr>
+              <th scope="col">Producto</th>
+              <th scope="col">Cantidad</th>
             </tr>
-            <h5 style="">Total:{{ total | currency }}</h5>
+          </thead>
+          <tbody>
+            <tr *ngFor="let detail of detailOrder">
+              <td>{{ detail.name }} {{ detail.presentation }}</td>
+              <!-- <td>x {{ detail.quantity }}</td> -->
+              <td>x {{detail.quantity}}</td>
+            </tr>
+            <!-- <h5 style="">Total:{{ total | currency }}</h5> -->
           </tbody>
         </table>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
-          Close
+          Cerrar
         </button>
       </div>
     </div>
