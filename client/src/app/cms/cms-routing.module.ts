@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TasksComponent } from './pages/tasks/tasks.component';
 import { GridComponent } from './pages/grid/grid.component';
+import { CustomersComponent } from './pages/customers/customers.component';
 import { PendingOrdersComponent } from './pages/pending-orders/pending-orders.component';
 import { CompletedOrdersComponent } from './pages/completed-orders/completed-orders.component';
 import { LayoutComponent } from './components/layout/layout.component';
@@ -23,6 +24,10 @@ const routes: Routes = [
       {
         path: 'tasks',
         component: TasksComponent,
+      },
+      {
+        path: 'customers',
+        component: CustomersComponent,
       },
       {
         path: 'orders/pendientes',

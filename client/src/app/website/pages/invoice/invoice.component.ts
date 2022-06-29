@@ -3,6 +3,9 @@ import { switchMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import {CheckoutService} from '../../../services/checkout.service';
 import { OrderPayment } from 'src/app/models/order.model';
+import jsPDF from 'jspdf';
+
+import autoTable from 'jspdf-autotable';
 @Component({
   selector: 'app-invoice',
   templateUrl: './invoice.component.html',
@@ -28,6 +31,7 @@ export class InvoiceComponent implements OnInit {
   numFactura:string;
   fechaFactura:Date;
   total:number;
+  isVisible:boolean=false;
   ///
   tarifaFija:number=3.50;
 
@@ -70,6 +74,45 @@ export class InvoiceComponent implements OnInit {
       }
      
     })
+
+  }
+
+  imprimir(){
+    
+    const doc = new jsPDF('p','mm','letter');
+    const logo = new Image();
+    logo.src = '../../../../assets/images/car.jpg';
+    doc.setFont('bold');
+    doc.text('SISTEMA WEB DIMA',80,10)
+    doc.setFontSize(8)
+    doc.text('Factura N°'+this.numFactura,163,10)
+    doc.setFontSize(10)
+    doc.text('Venta al por menor de yogurt y lácteos',81,20)
+    doc.text('Tel.: 0989792475 - 072184087',85,30)
+    doc.text('E-mail: lacteosdima@gmail.com',85,40)
+    // doc.text('SISTEMA WEB DIMA',doc.internal.pageSize.width,50,null,null,{align:'center'})
+    doc.addImage(logo, 'JPG', 5, 5,30,30);
+    autoTable(doc,{margin:{top:40}})
+    autoTable(doc, {
+      head: [['FACTURAR A']],
+      body: [
+        ['Señor(a)  :'+this.nameCustomer],
+        ['Cédula    :'+this.dniCustomer],
+        ['Dirección :'+this.orderAddress],
+        ['Teléfono  :'+this.phoneCustomer],
+        ['E-mail      :'+this.emailCustomer],
+
+      ],
+    })
+
+    autoTable(doc,{margin:{top:70}})
+    autoTable(doc,{html:'#formFactura'},)
+   
+    autoTable(doc,{html:'#formTotales'});
+    doc.setFontSize(18);
+    // doc.text('Gracias por su compra!!',80,200)
+
+    doc.save('Prueba.pdf');
 
   }
 

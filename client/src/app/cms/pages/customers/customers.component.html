@@ -1,1 +1,280 @@
-<p>customers works!</p>
+<div class="container-fluid">
+    <div class="form-row">
+        <div class="form-group">
+            <button class="btn btn-primary" data-toggle="modal"
+            data-target="#addClient">Nuevo cliente</button>
+        </div>
+        
+    </div>
+    <div class="form-row">
+        <div class="form-group">
+            <input type="search" name="buscar" id="" placeholder="buscar">
+        </div>
+    </div>
+
+    <table class="table table-bordered" *ngIf="customers.length > 0; else elseBlock">
+        <thead class="">
+          <tr>
+            <!-- <th scope="col">#</th> -->
+            <th scope="col">Cédula</th>
+            <th scope="col">Nombres</th>
+            <th scope="col">Apellidos</th>
+            <th scope="col">E-mail </th>
+            <th scope="col">Teléfono</th>
+            <th scope="col">Opciones</th>
+            <!-- <th scope="col">Confirmacion</th> -->
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of customers; let indice = index">
+            <!-- <th scope="row">{{ indice + 1 }}</th> -->
+            <td>{{c.dni }}</td>
+            <td>{{c.name }}</td>
+            <td>{{c.last_name}}</td>
+            <td>{{c.email}}</td>
+            <td>{{c.phone}}</td>
+            <td><button class="btn btn-primary">Eliminar</button></td>
+           
+            <!-- <td><button class="btn btn-danger" (click)="confirmarOrden(order.id)" >Confirmar</button> </td> -->
+           
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #elseBlock>
+        <div class="div">
+          <h3>No hay clientes registrados</h3>
+          
+          <p></p>
+        </div>
+      </ng-template>
+</div>
+
+<div
+  class="modal fade"
+  id="addClient"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Agregar nueva cliente
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          #botonCerrar
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <!-- <flash-message messagePositioning="top-right"></flash-message> -->
+
+      <form #clientForm="ngForm" (ngSubmit)="addClient(clientForm)">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group col-md-6 mb-3">
+              <label for="validationCustom03">Nombres</label>
+              <input
+                type="text"
+                class="form-control"
+                name="name"
+                placeholder=""
+                #refName="ngModel"
+                [(ngModel)]="client.name"
+                [ngClass]="{'is-invalid':refName.errors && refName.touched}"
+                required />
+                 <div [hidden]="!refName.errors?.required" class="invalid-feedback">
+                Npmbre requerido</div>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label for="">Apellidos</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="lastName"
+                  #refLastName="ngModel"
+                  [(ngModel)]="client.last_name"
+                  [ngClass]="{'is-invalid':refLastName.errors && refLastName.touched}"
+                  required />
+                   <div [hidden]="!refLastName.errors?.required" class="invalid-feedback">
+                  Apellidos requeridos</div>
+              </div>
+          </div>
+          <div class="form-row">
+          
+            <div class="form-group col-md-6 mb-3">
+              <label for="">Cédula</label>
+              <input
+                type="text"
+                class="form-control"
+                name="dni"
+                placeholder=""
+                #refDni="ngModel"
+                [(ngModel)]="client.dni"
+                [ngClass]="{'is-invalid':refDni.errors && refDni.touched}"
+                required />
+                 <div [hidden]="!refDni.errors?.required" class="invalid-feedback">
+                Dni requerido</div>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+              <label for="">Teléfono</label>
+              <input
+                type="text"
+                class="form-control"
+                name="phone"
+                #refPhone="ngModel"
+                [(ngModel)]="client.phone"
+                [ngClass]="{'is-invalid':refPhone.errors && refPhone.touched}"
+                required />
+                 <div [hidden]="!refPhone.errors?.required" class="invalid-feedback">
+                Teléfono requerido</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col mb-3">
+              <label for="">E-mail</label>
+              <input
+                type="text"
+                class="form-control"
+                name="email"
+                #refEmail="ngModel"
+                [(ngModel)]="client.user.email"
+                [ngClass]="{'is-invalid':refEmail.errors && refEmail.touched}"
+                required 
+                minlength="6"
+                />
+                 <div [hidden]="!refEmail.errors?.required" class="invalid-feedback">
+               E-mail requerido</div>
+                 <div [hidden]="!refEmail.errors?.minlength" class="invalid-feedback">
+                Debe contener 6 caracteres</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col mb-3">
+              <label for="validationCustom03">Direccion</label>
+              <input
+                type="text"
+                class="form-control"
+                name="dirNueva"
+                placeholder=""
+                #nameAddress="ngModel"
+                [(ngModel)]="address.address"
+                [ngClass]="{'is-invalid':nameAddress.errors && nameAddress.touched}"
+                required />
+                 <div [hidden]="!nameAddress.errors?.required" class="invalid-feedback">
+                Dirección requerida</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-4 mb-3">
+              <label for="">Ciudad</label>
+              <input
+                type="text"
+                class="form-control"
+                name="cityNueva"
+                #nameCity="ngModel"
+                [(ngModel)]="address.city"
+                [ngClass]="{'is-invalid':nameCity.errors && nameCity.touched}"
+                required />
+                 <div [hidden]="!nameCity.errors?.required" class="invalid-feedback">
+                Ciudad requerida</div>
+            </div>
+            <div class="form-group col-md-4 mb-3">
+              <label for="">Provincia</label>
+              <input
+                type="text"
+                class="form-control"
+                name="stateNuevo"
+                placeholder=""
+                #nameState="ngModel"
+                [(ngModel)]="address.state"
+                [ngClass]="{'is-invalid':nameState.errors && nameState.touched}"
+                required />
+                 <div [hidden]="!nameState.errors?.required" class="invalid-feedback">
+                Provincia requerida</div>
+            </div>
+            <div class="form-group col-md-4 mb-3">
+              <label for="">Pais</label>
+              <input
+                type="text"
+                class="form-control"
+                name="countryNuevo"
+                #nameCountry="ngModel"
+                [(ngModel)]="address.country"
+                [ngClass]="{'is-invalid':nameCountry.errors && nameCountry.touched}"
+                required />
+                 <div [hidden]="!nameCountry.errors?.required" class="invalid-feedback">
+                País requerido</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-4 mb-3">
+              <label for="">Codigo postal</label>
+              <input
+                type="text"
+                class="form-control"
+                name="postal_codeNuevo"
+                #namePostalCode="ngModel"
+                [(ngModel)]="address.postal_code"
+                [ngClass]="{'is-invalid':namePostalCode.errors && namePostalCode.touched}"
+                required 
+                minlength="6"
+                />
+                 <div [hidden]="!namePostalCode.errors?.required" class="invalid-feedback">
+                Código postal requerido</div>
+                 <div [hidden]="!namePostalCode.errors?.minlength" class="invalid-feedback">
+                Debe contener 6 caracteres</div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="">Contraseña</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="contrasena"
+                  #refContrasena="ngModel"
+                  [(ngModel)]="client.user.password"
+                  [ngClass]="{'is-invalid':refContrasena.errors && refContrasena.touched}"
+                  required 
+                  minlength="8"
+                  />
+                   <div [hidden]="!refContrasena.errors?.required" class="invalid-feedback">
+                Contraseña requerida</div>
+                   <div [hidden]="!refContrasena.errors?.minlength" class="invalid-feedback">
+                Se require de al menos 8 caracteres</div>
+              </div>
+              <div class="form-group col-md-6 mb-3">
+                <label for="">Repetir contraseña</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="contrasena"
+                  #refRepeatContrasena="ngModel"
+                  [(ngModel)]="client.user.password"
+                  [ngClass]="{'is-invalid':refRepeatContrasena.errors && refRepeatContrasena.touched}"
+                  required />
+                   <div [hidden]="!refRepeatContrasena.errors?.required" class="invalid-feedback">
+                 Contraseña requerida</div>
+                 <div [hidden]="!refContrasena.errors?.minlength" class="invalid-feedback">
+                    Se require de al menos 8 caracteres</div>
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" >
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

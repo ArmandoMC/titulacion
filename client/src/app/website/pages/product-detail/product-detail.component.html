@@ -27,7 +27,7 @@
         <div class="form-group">
           <label for="text">Cantidad</label>
           <p>
-            <select  name="miselect" [(ngModel)]="seleccionado" class="select">
+            <select  name="miselect" [(ngModel)]="seleccionado" class="select" [disabled]="isDisabled">
               <option  [value]="item" *ngFor="let item of listaOferta" >
                 {{ item }}
               </option>

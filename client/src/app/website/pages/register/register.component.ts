@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit,OnExit {
         last_name:this.last_name,
         user:{
           email:this.email,
-          password:this.password,
+          password:this.password
         }
      }
      this.customerService.create(customer)

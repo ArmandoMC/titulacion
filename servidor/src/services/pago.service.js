@@ -143,6 +143,21 @@ class PagoService {
     }
     return orders.rows;
   }
+  async findOneForUpdateConfirmation(id,confirmation) {
+    // const {confirmation}=body;
+    const query =
+    {
+      text: `UPDATE orders SET confirmation=$1 WHERE id=$2 RETURNING *`,
+      values:[confirmation,id]
+    };
+    const orders = await this.pool.query(query);
+    if (orders.rows.length === 0) {
+      // throw boom.notFound('orden not found');
+      return [];
+
+    }
+    return orders.rows;
+  }
   async findCompleted() {
     const confirmation=true;
     const query =

@@ -16,7 +16,7 @@ header {
   border-bottom: 1px solid rgba(21, 99, 157, 0.16);
 }
 nav {
-  grid-area: nav;
+  /* grid-area: nav; */
   border-right: 1px solid rgba(21, 99, 157, 0.16);
   background-color: #fff;
 }
@@ -32,7 +32,7 @@ nav a {
 }
 main {
   grid-area: content;
-  background-color: #f3f8fb;
+  /* background-color: #f3f8fb; */
   padding: 1em;
 }
 .cuerpo{

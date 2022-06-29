@@ -5,6 +5,7 @@
         <th scope="col">Id</th>
         <th scope="col">Total</th>
         <th scope="col">Id transaccion</th>
+        <th scope="col">Fecha</th>
         <th scope="col">Estado</th>
         <th scope="col">Detalle</th>
         <th scope="col">Factura</th>
@@ -15,6 +16,7 @@
         <td>{{ order.id }}</td>
         <td>{{ order.total | currency }}</td>
         <td>{{ order.id_transaccion }}</td>
+        <td>{{ order.created_at | date:'short' }}</td>
         <td>{{ order.status }}</td>
         <td>
           <!-- Button trigger modal -->
@@ -32,6 +34,7 @@
           <button
             type="button"
             class="btn btn-primary"
+            target="_blank"
             [routerLink]="['/factura/order',order.id]"
           >
             Ver Factura
@@ -72,7 +75,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <table class="table table-bordered">
+        <table class="table table-bordered text-center">
           <thead>
             <tr>
               <th scope="col">Producto</th>

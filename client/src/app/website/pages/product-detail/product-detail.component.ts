@@ -21,6 +21,7 @@ export class ProductDetailComponent implements OnInit {
   agregado: boolean = false;
   isStock:boolean;
   seleccionado: string = '' + 1;
+  isDisabled:boolean;
   constructor(
     private route: ActivatedRoute,
     private productsService: ProductsService,
@@ -53,9 +54,11 @@ export class ProductDetailComponent implements OnInit {
             const encontrado = cart.find((element) => element.id === this.product.id);
             if (encontrado) {
               this.agregado = true;
+              this.isDisabled=true;
               this.seleccionado = '' + encontrado.oferta;
             } else {
               this.agregado = false;
+              this.isDisabled=false;
             }
           })
 

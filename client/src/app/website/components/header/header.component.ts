@@ -17,7 +17,7 @@ import { CartService } from 'src/app/services/cart.service';
 export class HeaderComponent implements OnInit, OnDestroy {
   isLoggedIn: boolean=false;
   loggedInUser: string;
-
+  role:string;
   subscription: Subscription;
   counter:Number = 0;
   categories: Category[] = [];
@@ -45,6 +45,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         if(data){
           this.isLoggedIn = data.isLoggedIn;
           this.loggedInUser = data.email;
+          this.role=data.role;
         }else{
           this.isLoggedIn=false;
         }
@@ -75,6 +76,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.categoriesService.getAll().subscribe((data) => {
       this.categories = data;
     });
+  }
+  goCMS(){
+    this.router.navigate(['/cms']);
   }
   // conteo(){
   //   this.counter=this.products.reduce((sum,item)=>sum+item.oferta,0);

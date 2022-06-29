@@ -62,6 +62,30 @@ const addressService=new AddressService();
 //     }
 //   }
 // );
+router.get('/pending',
+  // validatorHandler(getOrderSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      // const { id } = req.params;
+      const orders = await servicePago.findPending();
+      res.json(orders);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+router.get('/completed',
+  // validatorHandler(getOrderSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      // const { id } = req.params;
+      const orders = await servicePago.findCompleted();
+      res.json(orders);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 router.get('/:id',
   // validatorHandler(getOrderSchema, 'params'),
   async (req, res, next) => {
@@ -82,6 +106,26 @@ router.get('/:id',
     }
   }
 );
+
+router.put('/confirm/:id',
+  // validatorHandler(addItemSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const {id} = req.params;
+      const {confirmation}=req.body;
+      console.log('item recibido en ruta',id,"y confirmation recibod:",confirmation)
+      const orderConfirmada = await servicePago.findOneForUpdateConfirmation(id,confirmation);
+     
+      console.log('(orden):',orderConfirmada)
+      res.status(201).json(orderConfirmada);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
+
+
 router.post('/',
   // passport.authenticate('jwt', { session: false }),
   // validatorHandler(createOrderSchema, 'body'),
@@ -139,30 +183,8 @@ router.get('/detail/:id',
 );
 
 
-router.get('/pending',
-  // validatorHandler(getOrderSchema, 'params'),
-  async (req, res, next) => {
-    try {
-      // const { id } = req.params;
-      const orders = await servicePago.findPending();
-      res.json(orders);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-router.get('/completed',
-  // validatorHandler(getOrderSchema, 'params'),
-  async (req, res, next) => {
-    try {
-      // const { id } = req.params;
-      const orders = await servicePago.findCompleted();
-      res.json(orders);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
+
+
 
 
 
@@ -229,22 +251,6 @@ router.put('/:id',
 //   }
 // );
 
-router.put('/confirm/:id',
-  // validatorHandler(addItemSchema, 'body'),
-  async (req, res, next) => {
-    try {
-      const {id} = req.params;
-      const {confirmation}=req.body;
-      console.log('item recibido en ruta',id,"y confirmation recibod:",confirmation)
-      const orderConfirmada = await servicePago.checkItem(id,confirmation);
-     
-      console.log('(orden):',orderConfirmada)
-      res.status(201).json(orderConfirmada);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
 
 router.delete('/delete/:id',
   // validatorHandler(getOrderSchema, 'params'),

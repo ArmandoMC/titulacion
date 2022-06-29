@@ -13,6 +13,10 @@ export class CustomerService {
   create(data: CreateCustomerDTO) {
     return this.http.post<Customer>(`${this.API_URL}`, data);
   }
+  getAll(){
+    return this.http.get<any[]>(`${this.API_URL}`);
+
+  }
   getClient(id: number) {
     return this.http.get<Customer>(`${this.API_URL}/${id}`);
   }

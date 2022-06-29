@@ -18,6 +18,10 @@ export interface Customer{
 export interface CreateCustomerDTO extends Omit<Customer,'id'|'dni' |'phone'>{
 
 }
+
+export interface CreateCustomerDTOByAdmin extends Omit<Customer,'id'>{
+
+}
 export interface UpdateCustomerDTO extends Omit<Customer,'id'|'user'>{
 
 }

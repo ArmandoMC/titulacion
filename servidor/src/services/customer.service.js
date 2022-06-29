@@ -58,6 +58,17 @@ class CustomerService {
     return rta.rows[0];
   }
 
+  async findAll() {
+    const query = {
+      text: `SELECT c.name,c.last_name,c.dni,c.phone,us.email FROM customers c INNER JOIN users us ON c.user_id=us.id`
+    };
+    const customer = await this.pool.query(query);
+    if (customer.rows.length===0) {
+      return [];
+      // throw boom.notFound('customer not found');
+    }
+    return customer.rows;
+  }
   async findOne(id) {
     const query = {
       text: `SELECT * FROM customers WHERE id=$1`,

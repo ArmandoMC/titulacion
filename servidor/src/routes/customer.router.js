@@ -10,7 +10,7 @@ const service = new CustomerService();
 
 router.get('/', async (req, res, next) => {
   try {
-    const customers = await service.find();
+    const customers = await service.findAll();
     res.json(customers);
   } catch (error) {
     next(error);
