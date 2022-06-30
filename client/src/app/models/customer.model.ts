@@ -9,7 +9,7 @@ export interface Customer{
   phone?:string;
   user?:{
     email:string;
-    password:string;
+    password?:string;
     role?:string;
   }
 
@@ -22,6 +22,6 @@ export interface CreateCustomerDTO extends Omit<Customer,'id'|'dni' |'phone'>{
 export interface CreateCustomerDTOByAdmin extends Omit<Customer,'id'>{
 
 }
-export interface UpdateCustomerDTO extends Omit<Customer,'id'|'user'>{
+export interface UpdateCustomerDTO extends Omit<Customer,'id'>{
 
 }

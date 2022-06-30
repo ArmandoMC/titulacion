@@ -14,6 +14,9 @@ export class UserService {
   ) { }
 
 
+  getUser(id:number){
+    return this.http.get<User>(`${this.API_URL}/${id}`);
+  }
   updatePassword(id: number,dto:UpdateUserDTO) {
     return this.http.patch<User>(`${this.API_URL}/${id}`,dto);
   }

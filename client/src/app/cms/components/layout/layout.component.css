@@ -1,4 +1,4 @@
-.contenedor {
+/* .contenedor {
   display: grid;
   height: 100vh;
   grid-template-columns: 220px 1fr;
@@ -6,21 +6,21 @@
   grid-template-areas:
     "header header header"
     "nav content content";
-}
-header {
+} */
+/* header {
   grid-area: header;
   background-color: #3e51b5;
   color: white;
   padding: 1em;
   box-shadow: 1px 2px 4px 0 rgb(21 99 157 / 16%);
   border-bottom: 1px solid rgba(21, 99, 157, 0.16);
-}
-nav {
+} */
+/* nav { */
   /* grid-area: nav; */
-  border-right: 1px solid rgba(21, 99, 157, 0.16);
-  background-color: #fff;
-}
-nav a {
+  /* border-right: 1px solid rgba(21, 99, 157, 0.16); */
+  /* background-color: #fff; */
+/* } */
+/* nav a {
   margin: 0;
   padding: 0;
   padding: 1em;
@@ -29,13 +29,60 @@ nav a {
   display: block;
   text-decoration: none;
   color: #000;
-}
-main {
-  grid-area: content;
+} */
+/* main { */
+  /* grid-area: content; */
   /* background-color: #f3f8fb; */
-  padding: 1em;
+  /* padding: 1em; */
+/* } */
+/* .cuerpo{
+  padding:0px 0px;
+  margin:0px 0px; */
+/* } */
+nav{
+  height: 10vh;
+}
+aside{
+  width: 15%;
+  display: block;
+  height: auto;
+  float: left;
+  height: 90vh;
+  border-right: 1px solid rgb(197, 195, 195);
+}
+aside ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+aside ul li{
+  width: 100%;
+  height: auto;
+  padding-top:10px;
+  padding-bottom: 10px;
+  text-align: center;
+  padding-right: auto;
+  /* border: 1px solid; */
+}
+aside ul li{
+
+}
+main{
+  float: right;
+  margin-top: 0;
+  /* display: inline-block; */
+  width: 85%;
+  height: 90vh;
+  /* height: auto; */
+}
+.cuerpo div{
+  /* border:1px solid; */
+  width: 100%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin:0;
 }
 .cuerpo{
-  padding:0px 0px;
-  margin:0px 0px;
+  padding: 0;
 }

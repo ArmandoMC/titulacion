@@ -45,7 +45,37 @@ router.post('/',
     }
   }
 );
+router.post('/by-admin',
+  validatorHandler(createCustomerSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const body = req.body;
+      console.log('body de customer:', body)
+      const newCustomerWithUser = await service.createByAdmin(body);
+      
+      // console.log('customer creado:',newCustomerWithUser)
+      res.status(201).json(newCustomerWithUser);
+    } catch (error) {
+      console.log('hubo un error');
+      next(error);
+    }
+  }
+);
 
+router.put('/:id',
+  validatorHandler(getCustomerSchema, 'params'),
+  // validatorHandler(updateCustomerSchema, 'body'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const body = req.body;
+      const customer = await service.update2(id, body);
+      res.json(customer);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 router.patch('/:id',
   validatorHandler(getCustomerSchema, 'params'),
   validatorHandler(updateCustomerSchema, 'body'),

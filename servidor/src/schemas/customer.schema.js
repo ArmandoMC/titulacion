@@ -22,10 +22,11 @@ const createCustomerSchema = Joi.object({
 });
 
 const updateCustomerSchema = Joi.object({
-  name,
-  last_name,
-  phone,
-  userId
+  name:name.required(),
+  last_name:last_name.required(),
+  dni:dni.required(),
+  phone:phone.required(),
+  // userId
 });
 
 const getCustomerSchema = Joi.object({
