@@ -33,7 +33,7 @@
               </option>
             </select>
           </p>
-          <button (click)="onAddToShoppingCart()" class="btn btn-primary btn-block">
+          <button (click)="onAddToShoppingCart()" class="btn btn-primary btn-block" [disabled]="isDisabled">
             {{ agregado == true ? "En el carrito" : "Add to cart" }}
           </button>
           <div class="alert alert-success mt-3" role="alert">

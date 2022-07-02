@@ -51,7 +51,7 @@ export class ProductsComponent {
     brand_id: 0,
     status_id: 0,
   };
-
+  filterProduct:string="";
   // limit=5;
   // offset=0;
   statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init';

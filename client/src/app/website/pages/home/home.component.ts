@@ -15,7 +15,8 @@ export class HomeComponent implements OnInit {
   limit=5;
   offset=0;
   productId:string | null=null;
-
+  seleccionado="mayor a menor";
+  vector=['todos','mayor a menor','menor a mayor']
   constructor(
     private productsService:ProductsService,
     private route:ActivatedRoute
@@ -30,10 +31,10 @@ export class HomeComponent implements OnInit {
 
       },err=>{'hubo erro de parametros'});
       
-      this.route.queryParamMap.subscribe(params=>{
-        this.productId=params.get('product');
-        console.log(this.productId);
-      })
+      // this.route.queryParamMap.subscribe(params=>{
+      //   this.productId=params.get('product');
+      //   // console.log(this.productId);
+      // })
   }
 
   onLoadMore(){
@@ -42,6 +43,35 @@ export class HomeComponent implements OnInit {
       this.pro=this.pro.concat(data);
       this.offset+=this.limit;
     });
+  }
+  onSelect(event:Event){
+    // let query=null;
+    
+    const item=event.target as HTMLSelectElement;
+
+    if(item.value=="mayor a menor"){
+      console.log('value mayor a menor:',item.value)
+      this.productsService.getProductsDeMayorAMenor().subscribe(data=>{
+        this.pro=null;
+
+        this.pro=data;
+
+      })
+    }else{
+      console.log('value menor a mayor:',item.value)
+      this.productsService.getProductsDeMenorAMayor().subscribe(data=>{
+        this.pro=null;
+        this.pro=data;
+      })
+    }
+    // if(ele.value="menor a mayor"){
+    //   console.log('value:',ele.value)
+    //   this.productsService.getProductsDeMayorAMenor().subscribe(data=>{
+    //     this.pro=null;
+    //     this.pro=data;
+    //   }
+    //   )
+    // }
   }
 
 }

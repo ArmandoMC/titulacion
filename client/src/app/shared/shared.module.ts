@@ -9,6 +9,7 @@ import { HighlightDirective } from './directives/highlight.directive';
 import { ImgComponent } from './components/img/img.component';
 import { SwiperModule } from 'swiper/angular';
 import { FormsModule } from '@angular/forms';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { FormsModule } from '@angular/forms';
     ReversePipe,
     TimeAgoPipe,
     HighlightDirective,
+    FilterPipe,
   ],
   imports: [
     CommonModule, 

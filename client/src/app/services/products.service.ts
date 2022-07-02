@@ -33,6 +33,27 @@ export class ProductsService {
     return this.http.get<Product[]>(`${this.API_URL}/products`,{params})
 
   }
+  getProductsDeMenorAMayor(limit?:number, offset?:number){
+    let params=new HttpParams();
+    if(limit && offset!=null){
+      params=params.set('limit',limit);
+      params=params.set('offset',offset);
+    }
+    return this.http.get<Product[]>(`${this.API_URL}/products`,{params})
+    .pipe(
+      tap((products)=>{
+       products.sort((a,b)=> a.price - b.price)
+      })
+    )
+  }
+  getProductsDeMayorAMenor(){
+    return this.http.get<Product[]>(`${this.API_URL}/products`)
+    .pipe(
+      tap((products)=>{
+       products.sort((a,b)=> b.price - a.price)
+      })
+    )
+  }
   getProduct(id:string){
     return this.http.get<Product>(`${this.API_URL}/products/${id}`)
     .pipe(
@@ -67,7 +88,6 @@ export class ProductsService {
     return this.http.get<Product[]>(`${this.API_URL}/products`,{
       params:{limit,offset}
     });
-
   }
 
   // updateImagen(id:string,file:Blob){

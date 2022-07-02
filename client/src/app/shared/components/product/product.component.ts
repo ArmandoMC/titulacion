@@ -41,7 +41,6 @@ export class ProductComponent implements OnInit {
   constructor(
     private storeService:StoreService
   ) {
-// this.verificar(this.products);
    }
 
    ngOnInit(): void {
@@ -50,16 +49,10 @@ export class ProductComponent implements OnInit {
        
 
      })
-    //  this.agregado=false;
    }
 
   onAddToCart(){
-  //  this.agregado=true;
-
-  //  const indice=this.products.findIndex(p=>p.id==this.product.id)
-  //      if(indice!=-1){
-  //        this.agregado=false;
-  //      }else
+ 
         this.addedProduct.emit(this.product);
 
   //        this.agregado=true;
@@ -68,14 +61,14 @@ export class ProductComponent implements OnInit {
   onShowDetail(){
     this.showProduct.emit(this.product.id);
   }
-  verificar(products:Product[]){
-    const indice=products.findIndex(p=>p.id==this.product.id)
-       if(indice!=-1){
-         this.agregado=false;
-       }else{
-        // this.addedProduct.emit(this.product);
+  // verificar(products:Product[]){
+  //   const indice=products.findIndex(p=>p.id==this.product.id)
+  //      if(indice!=-1){
+  //        this.agregado=false;
+  //      }else{
+  //       // this.addedProduct.emit(this.product);
 
-         this.agregado=true;
-       }
-  }
+  //        this.agregado=true;
+  //      }
+  // }
 }

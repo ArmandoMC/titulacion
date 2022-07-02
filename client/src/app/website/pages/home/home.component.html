@@ -1,3 +1,14 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <select name="" id=""  (change)="onSelect($event)">
+                <option *ngFor="let v of vector" [value]="v">
+                    {{v}}
+                </option>
+            </select>
+        </div>
+    </div>
+</div>
 <app-products 
 [productId]="productId"
 [products]="pro" 
