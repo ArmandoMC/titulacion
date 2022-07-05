@@ -14,20 +14,33 @@ class ProductsService {
 
 
   async create(data) {
-    const { name, description, sleeveColor, flavor, presentation, packaging, stock,
-      wholesalePrice, sellingPrice, image, publicId, categoryId,
-      brandId, statusId } = data;
+    const { name, description, sleeve_color, flavor, presentation, packaging, stock,
+      purchase_price, price, image, public_id, category_id,
+      brand, provider_id } = data;
     const query = {
       text: `INSERT INTO products
-      (name,description,sleeve_color,flavor,presentation,packaging,stock,wholesale_price,
-        selling_price,image,public_id,category_id,brand_id,status_id) 
+      (name,description,sleeve_color,flavor,presentation,packaging,stock,purchase_price,
+        price,image,public_id,category_id,brand,provider_id) 
         VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14) RETURNING *`,
-      values: [name, description,sleeveColor, flavor, presentation, packaging, stock,
-        wholesalePrice, sellingPrice, image, publicId, categoryId,
-        brandId, statusId]
+      values: [name, description,sleeve_color, flavor, presentation, packaging, stock,
+        purchase_price, price, image, public_id, category_id,
+        brand, provider_id]
     };
     const newProduct = await this.pool.query(query);
-    return newProduct.rows[0];
+    if(newProduct.rows.length===0){
+      throw boom.notFound('product no insertado');
+    }
+    const product=newProduct.rows[0];
+    const cod='P00'+product.id;
+    const query2={
+      text:`UPDATE products SET cod_product=$1 WHERE id=$2 RETURNING *`,
+      values:[cod,product.id]
+    }
+    const updateCodProduct = await this.pool.query(query2);
+    if(updateCodProduct.rows.length===0){
+      throw boom.notFound('codigo de producto no se pudo actualizar');
+    }
+    return updateCodProduct.rows[0];
   }
 
   async find(query) {
@@ -44,6 +57,18 @@ class ProductsService {
     return products.rows;
   }
 
+  async findUltimoId() {
+
+    const query = {
+      text: `SELECT max(id) FROM products`
+    };
+    const product = await this.pool.query(query);
+    console.log('ultimo id obtenido:',product.rows[0])
+    if (product.rows.length === 0) {
+      throw boom.notFound('product not found');
+    }
+    return product.rows[0];
+  }
   async findOne(id) {
 
     const query = {
@@ -60,12 +85,19 @@ class ProductsService {
   async update(id, changes) {
 
     await this.findOne(id);
-    const { name, image, description, price, categoryId } = changes;
-    const query = {
-      text: `UPDATE products SET name=$1, image=$2,description=$3,price=$4,category_id=$5 WHERE id=$6 RETURNING *`,
-      values: [name, image, description, price, categoryId, id]
+
+     const { name, description, sleeve_color, flavor, presentation, packaging, stock,
+      purchase_price, price, image,public_id, category_id,
+      brand, provider_id } = changes;
+   
+    const query2 = {
+      text: `UPDATE products SET name=$1,description=$2,sleeve_color=$3,flavor=$4,presentation=$5,
+      packaging=$6,stock=$7,purchase_price=$8,price=$9,image=$10,public_id=$11,category_id=$12,brand=$13,
+      provider_id=$14 WHERE id=$15 RETURNING *`,
+      values: [name, description,sleeve_color,flavor,presentation,packaging,stock,purchase_price,
+         price,image,public_id, category_id, brand,provider_id,id]
     };
-    const rta = await pool.query(query);
+    const rta = await pool.query(query2);
     return rta.rows[0];
   }
   async updateImagen(id, changes) {
@@ -99,8 +131,8 @@ class ProductsService {
       text: `DELETE FROM products WHERE id=$1`,
       values: [id]
     }
-    await this.pool.query(query);
-    return { id };
+   await this.pool.query(query);
+    return {id};
   }
 
 }

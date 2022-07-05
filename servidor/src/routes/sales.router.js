@@ -89,24 +89,6 @@ router.get('/detail/:id',
   }
 );
 
-// router.post('/create-checkout-session', async (req, res) => {
-//   const session = await stripe.checkout.sessions.create({
-//     line_items: [
-//       {
-//         // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-//         price: '34',
-//         quantity: 1,
-//       },
-//     ],
-//     mode: 'payment',
-//     success_url: `${YOUR_DOMAIN}?success=true`,
-//     cancel_url: `${YOUR_DOMAIN}?canceled=true`,
-//   });
-//   console.log('lalalalallalal')
-
-//   res.redirect(303, session.url);
-// });
-
 router.get('/:id',
   // validatorHandler(getOrderSchema, 'params'),
   async (req, res, next) => {

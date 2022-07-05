@@ -24,10 +24,9 @@ class SalesService {
     const venta = newVenta.rows[0];
     console.log('venta creada: ',venta)
 
-    const numFactura=venta.codigo+venta.id_sale;
+    const numFactura='000-000-000000'+venta.id_sale;
     // console.log('codigo venta:',venta.codigo)
-    console.log('numero de venta:',venta.id_sale)
-    console.log('numero de factura combinado:',numFactura)
+    console.log('numero de factura :',numFactura)
     const statement2 = {
       text: `UPDATE sales SET num_factura=$1 WHERE id_sale=${venta.id_sale} RETURNING *`,
       values: [numFactura]

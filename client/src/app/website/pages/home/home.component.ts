@@ -45,8 +45,6 @@ export class HomeComponent implements OnInit {
     });
   }
   onSelect(event:Event){
-    // let query=null;
-    
     const item=event.target as HTMLSelectElement;
 
     if(item.value=="mayor a menor"){
@@ -64,14 +62,6 @@ export class HomeComponent implements OnInit {
         this.pro=data;
       })
     }
-    // if(ele.value="menor a mayor"){
-    //   console.log('value:',ele.value)
-    //   this.productsService.getProductsDeMayorAMenor().subscribe(data=>{
-    //     this.pro=null;
-    //     this.pro=data;
-    //   }
-    //   )
-    // }
   }
 
 }

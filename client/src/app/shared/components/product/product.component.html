@@ -8,26 +8,34 @@
 <!-- <button (click)="onShowDetail()">Ver detalle</button> -->
 <!-- <button (click)="onAddToCart()">Add cart</button> -->
 <div class="card mb-3">
-    <a [routerLink]="['/product',product.id]">
-        <app-img [img]="product.image"></app-img>
-    </a>    <div class="card-body">
-      <h5 class="card-title text-center">{{product.name}} {{product.presentation}}</h5>
-      <p class="card-text text-center"><b>Proalim</b> </p>
-      <p class="card-text">{{product.price | currency:'$'}}</p>
-      <!-- <button class="btn btn-primary float-left" (click)="onAddToCart()">
+  <a [routerLink]="['/product', product.id]">
+    <app-img [img]="product.image"></app-img>
+  </a>
+  <div class="card-body text-center">
+    <h5 class="card-title">
+      {{ product.name }} {{product.sleeve_color}} {{ product.presentation }} {{product.flavor}}
+    </h5>
+    <p class="card-text text-center"><b>Proalim</b></p>
+    <p class="card-text">{{ product.price | currency: "$" }}</p>
+    <!-- <button class="btn btn-primary float-left" (click)="onAddToCart()">
         {{agregado==true?'En el carrito':'Agregar cart'}}
       </button> -->
-      <!-- <button class="btn btn-primary float-left" (click)="onAddToCart()">
+    <!-- <button class="btn btn-primary float-left" (click)="onAddToCart()">
         Ver producto
       </button> -->
-      <button class="btn btn-primary" [routerLink]="['/product',product.id]">Ver producto</button>
+    <button
+      class="btn btn-primary"
+      [routerLink]="['/product', product.id]"
+    >
+      Ver producto
+    </button>
 
-      <!-- <div class="form-group">
+    <!-- <div class="form-group">
         <label for="text">elija cantidad</label>
         <input type="number" class="form-control" name="cantidad" [(ngModel)]="cantidad" required>
       </div> -->
-     
-      <!-- <a routerLink="." [queryParams]="{product:product.id}">Ver detalle</a> -->
 
-    </div>
+    <!-- <a routerLink="." [queryParams]="{product:product.id}">Ver detalle</a> -->
   </div>
+</div>
+<br>

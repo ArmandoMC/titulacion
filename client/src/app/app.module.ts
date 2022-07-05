@@ -11,6 +11,7 @@ import { CustomerService } from './services/customer.service';
 import { TimeInterceptor } from './interceptors/time.interceptor';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { StoreService } from './services/store.service';
+import { ProvidersService } from './services/providers.service';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {QuicklinkModule} from 'ngx-quicklink';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -36,7 +37,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
    
     
   ],
-  providers: [AuthService, CustomerService,StoreService,
+  providers: [AuthService, CustomerService,StoreService,ProvidersService,
     {provide: HTTP_INTERCEPTORS, useClass: TimeInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true}
   ],

@@ -45,11 +45,11 @@
   </table>
   <p></p>
   <ng-template #elseBlock>
-    <div class="div">
-      <h3>No hay pedidos todavia</h3>
-      <button class="btn btn-primary" [routerLink]="['/home']">
-        Empezar a comprar
-      </button>
+    <div class="container orderVacias text-center">
+      <h3>No tienes compras todavía</h3>
+      <img src="../../../../assets/images/shop.png" alt=""> <br>
+      <br>
+      <button class="btn btn-primary" [routerLink]="['/home']">Empezar a comprar</button>
       <p></p>
     </div>
   </ng-template>

@@ -48,8 +48,9 @@ export class ProductsComponent {
     image: '',
     public_id: '',
     category_id: 0,
-    brand_id: 0,
-    status_id: 0,
+    brand: '',
+    provider_id:0,
+    status: '',
   };
   filterProduct:string="";
   // limit=5;

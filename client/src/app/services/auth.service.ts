@@ -68,6 +68,8 @@ export class AuthService {
 
   logout() {
     this.tokenService.removeToken();
+    this.user.next(null as User);
+
     // this.storeService.setCurrentUser({user:{},token:''} as  Auth);
   }
 

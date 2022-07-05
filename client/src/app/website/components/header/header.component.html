@@ -7,12 +7,12 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <form class="form-inline">
-      <input class="form-control ml-lg-5" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
+      <!-- <input class="form-control ml-lg-5" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Search</button> -->
     </form>
     <ul class="navbar-nav">
       <li class="nav-item ">
-        <a routerLinkActive="active" routerLink="/home" class="nav-link">All</a>
+        <a routerLinkActive="active" routerLink="/home" class="nav-link">Todos</a>
       </li>
       <!-- <li *ngFor="let item of categories" class="nav-item">
         <a [routerLink]="['/category',item.id]" class="nav-link" routerLinkActive="active">{{item.name}}</a>
@@ -28,7 +28,7 @@
       </li> -->
       <li *ngIf="isLoggedIn" class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-          Hello,{{loggedInUser}}
+          Hola,{{loggedInUser}}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item"  routerLink="/account">Mi cuenta</a>
@@ -42,6 +42,9 @@
       <!-- <li *ngIf="isLoggedIn" class="nav-item">
         <a class="nav-link" style="cursor: pointer" (click)="logout()">Salir</a>
       </li> -->
+      <li class="nav-item">
+        <a class="nav-link " routerLink="/orders">Mis Compras</a>
+      </li>
       <li class="nav-item cart">
         <a class="nav-link " routerLink="/my-cart">Cart</a>
         <span class="counter">{{counter}} </span>

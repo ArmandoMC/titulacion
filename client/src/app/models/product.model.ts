@@ -5,6 +5,7 @@ export interface Category{
 
 export interface Product{
   id:string;
+  cod_product?:string;
   name:string;
   description:string;
   sleeve_color:string;
@@ -16,10 +17,11 @@ export interface Product{
   purchase_price:number;
   price:number;
   image:string;
-  public_id:string;
+  public_id?:string;
   category_id:number;
-  brand_id:number;
-  status_id:number;
+  brand:string;
+  provider_id:number;
+  status:string;
   subtotal?:number;
   taxes?:number;
 }
@@ -31,8 +33,8 @@ export interface Product2{
   price:number;
   categoryId:number;
 }
-export interface CreateProductDTO2 extends Omit<Product2,'id'>{}
+export interface CreateProductDTO2 extends Omit<Product2,'id'|'status'>{}
 
 export interface CreateProductDTO extends Omit<Product,'id'>{}
 
-export interface UpdateProductDTO extends Partial< CreateProductDTO>{}
+export interface UpdateProductDTO extends Partial<CreateProductDTO>{}

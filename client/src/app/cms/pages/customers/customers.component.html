@@ -1,16 +1,14 @@
 <div class="container-fluid">
-    <div class="form-row">
+    <!-- <div class="form-row"> -->
         <div class="form-group">
             <button class="btn btn-primary" data-toggle="modal"
             data-target="#addClient">Nuevo cliente</button>
         </div>
         
-    </div>
-    <div class="form-row">
+    <!-- </div> -->
         <div class="form-group">
-            <input type="search" name="buscar" id="" placeholder="buscar">
+            <input type="search" name="buscar" id="" placeholder="buscar" [(ngModel)]="filterCustomer">
         </div>
-    </div>
 
     <table class="table table-bordered" *ngIf="customers.length > 0; else elseBlock">
         <thead class="">
@@ -89,7 +87,7 @@
                 name="name"
                 placeholder=""
                 #refName="ngModel"
-                [(ngModel)]="client.name"
+                [(ngModel)]="client2.name"
                 [ngClass]="{'is-invalid':refName.errors && refName.touched}"
                 required />
                  <div [hidden]="!refName.errors?.required" class="invalid-feedback">
@@ -102,7 +100,7 @@
                   class="form-control"
                   name="lastName"
                   #refLastName="ngModel"
-                  [(ngModel)]="client.last_name"
+                  [(ngModel)]="client2.last_name"
                   [ngClass]="{'is-invalid':refLastName.errors && refLastName.touched}"
                   required />
                    <div [hidden]="!refLastName.errors?.required" class="invalid-feedback">
@@ -119,7 +117,7 @@
                 name="dni"
                 placeholder=""
                 #refDni="ngModel"
-                [(ngModel)]="client.dni"
+                [(ngModel)]="client2.dni"
                 [ngClass]="{'is-invalid':refDni.errors && refDni.touched}"
                 required />
                  <div [hidden]="!refDni.errors?.required" class="invalid-feedback">
@@ -132,7 +130,7 @@
                 class="form-control"
                 name="phone"
                 #refPhone="ngModel"
-                [(ngModel)]="client.phone"
+                [(ngModel)]="client2.phone"
                 [ngClass]="{'is-invalid':refPhone.errors && refPhone.touched}"
                 required />
                  <div [hidden]="!refPhone.errors?.required" class="invalid-feedback">
@@ -147,7 +145,7 @@
                 class="form-control"
                 name="email"
                 #refEmail="ngModel"
-                [(ngModel)]="client.user.email"
+                [(ngModel)]="client2.user.email"
                 [ngClass]="{'is-invalid':refEmail.errors && refEmail.touched}"
                 required 
                 minlength="8"
@@ -243,7 +241,7 @@
                   class="form-control"
                   name="contrasena"
                   #refContrasena="ngModel"
-                  [(ngModel)]="client.user.password"
+                  [(ngModel)]="client2.user.password"
                   [ngClass]="{'is-invalid':refContrasena.errors && refContrasena.touched}"
                   required 
                   minlength="8"
@@ -260,7 +258,7 @@
                   class="form-control"
                   name="contrasena"
                   #refRepeatContrasena="ngModel"
-                  [(ngModel)]="client.user.password"
+                  [(ngModel)]="client2.user.password"
                   [ngClass]="{'is-invalid':refRepeatContrasena.errors && refRepeatContrasena.touched}"
                   required />
                    <div [hidden]="!refRepeatContrasena.errors?.required" class="invalid-feedback">

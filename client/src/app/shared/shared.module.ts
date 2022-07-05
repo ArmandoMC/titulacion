@@ -34,6 +34,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     ImgComponent,
     ReversePipe,
     TimeAgoPipe,
+    FilterPipe,
     HighlightDirective,
   ],
 })

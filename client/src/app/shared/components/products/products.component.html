@@ -29,7 +29,11 @@
     <app-product class="col-lg-3 col-md-6 col-sm-6" [product]="p" *ngFor="let p of products | filter:filterProduct"
       (addedProduct)="onAddToShoppingCart($event)" (showProduct)="onShowDetail($event)">
     </app-product>
-    <button type="button" (click)="onLoadMore()" class="btn btn-secondary btn-lg btn-block">Ver mas</button>
+    
+  
+  </div>
+  <div class="ver-mas mx-auto mb-3">
+    <button type="button" (click)="onLoadMore()" class="btn btn-success btn-block">Ver mas</button>
   </div>
 </div>
 <div class="product-detail" [ngClass]="{'active':showProductDetail}">

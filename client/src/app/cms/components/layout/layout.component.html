@@ -83,19 +83,23 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" routerLink="/home">Home <span class="sr-only">(current)</span></a>
       </li>
     
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">
-          Dropdown link
+    
+      <li *ngIf="isLoggedIn" class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+          Hola,{{loggedInUser}}
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item"  routerLink="/account">Mi cuenta</a>
+          <a *ngIf="role=='admin'" class="dropdown-item" style="cursor: pointer" (click)="goToHome()">Ir al Home</a>
+          <a class="dropdown-item" style="cursor: pointer" (click)="logout()">Salir</a>
+          <!-- <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a> -->
         </div>
       </li>
+
     </ul>
   </div>
 </nav>
@@ -120,7 +124,7 @@
                 <a routerLink="orders/pendientes">Ventas pendientes</a>
               </div>
               <div>
-                <a routerLink="orders/pendientes">Ventas compeltadas</a>
+                <a routerLink="orders/finalizadas">Ventas completadas</a>
               </div>
             </div>
           </div>
@@ -145,7 +149,7 @@
         
     </li>
     <li><a routerLink="customers">Customers</a></li>
-    <li><a routerLink="customers">Products</a></li>
+    <li><a routerLink="products">Products</a></li>
   </ul>
 </aside>
 <main>

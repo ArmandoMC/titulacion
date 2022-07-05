@@ -17,6 +17,18 @@ export class CustomersComponent implements OnInit {
   @ViewChild('botonCerrarAdd') botonCerrarAdd:ElementRef;
   @ViewChild('botonCerrarEdit') botonCerrarEdit:ElementRef;
   idUsuario:number;
+  client2:Customer={
+    id:0,
+    name:'',
+    last_name:'',
+    dni:'',
+    phone:'',
+    user:{
+      email:'',
+      password:''
+    }
+  }
+  /**/
   client:Customer={
     id:0,
     name:'',
@@ -37,6 +49,7 @@ export class CustomersComponent implements OnInit {
     user_id:0
   }
   customers:any[]=[];
+  filterCustomer:string="";
   constructor(
     private customerService:CustomerService,
     private userService:UserService,
@@ -61,13 +74,13 @@ export class CustomersComponent implements OnInit {
 
     }else{
       const newCustomer:any={
-        name:this.client.name,
-        last_name:this.client.last_name,
-        dni:this.client.dni,
-        phone:this.client.phone,
+        name:this.client2.name,
+        last_name:this.client2.last_name,
+        dni:this.client2.dni,
+        phone:this.client2.phone,
         user:{
-          email:this.client.user.email,
-          password:this.client.user.password
+          email:this.client2.user.email,
+          password:this.client2.user.password
         }
       }
       this.customerService.createByAdmin(newCustomer).subscribe(cliente=>{
@@ -78,13 +91,7 @@ export class CustomersComponent implements OnInit {
 
     }
   }
-  updateClient(f:NgForm){
-    if(!f.valid){
-
-    }else{
-
-    }
-  }
+  
   deleteClient(id:number){
     this.customerService.deleteClient(id).subscribe(data=>{
       console.log('client eliminado:', data)
@@ -104,8 +111,7 @@ export class CustomersComponent implements OnInit {
       this.client.dni=item.dni;
       this.client.phone=item.phone;
       this.client.user.email=item.email;
-      // this.client.=item.postal_code;
-      // this.idAddress=item.id;
+    
     }
    
   }

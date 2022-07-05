@@ -14,3 +14,7 @@
 .active{
   transform: translateX(0%);
 }
+.ver-mas{
+  max-width: 170px;
+  
+}
