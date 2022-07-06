@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GridComponent } from './grid.component';
+import { ConfirmOrderComponent } from './confirm-order.component';
 
-describe('GridComponent', () => {
-  let component: GridComponent;
-  let fixture: ComponentFixture<GridComponent>;
+describe('ConfirmOrderComponent', () => {
+  let component: ConfirmOrderComponent;
+  let fixture: ComponentFixture<ConfirmOrderComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GridComponent ]
+      declarations: [ ConfirmOrderComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GridComponent);
+    fixture = TestBed.createComponent(ConfirmOrderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

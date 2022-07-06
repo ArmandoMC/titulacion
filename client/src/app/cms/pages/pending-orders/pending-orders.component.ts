@@ -25,18 +25,18 @@ export class PendingOrdersComponent implements OnInit {
     })
   }
 
-  confirmarOrden(id:number){
-    const confirmation=true;
-    this.checkoutService.confirmOrder(id,confirmation).subscribe(data=>{
+  // confirmarOrden(id:number){
+  //   const status='En camino';
+  //   this.checkoutService.confirmOrder(id,status).subscribe(data=>{
 
-    })
+  //   })
   
-    const indice=this.ordersPending.findIndex(item=>item.id===id);
-    if(indice!=-1){
-      this.ordersPending.splice(indice,1);
-    }
+  //   const indice=this.ordersPending.findIndex(item=>item.id===id);
+  //   if(indice!=-1){
+  //     this.ordersPending.splice(indice,1);
+  //   }
    
 
-  }
+  // }
 
 }

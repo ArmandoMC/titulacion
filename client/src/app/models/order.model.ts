@@ -20,5 +20,5 @@ export interface OrderPayment{
   
   
 }
-export interface CreateOrderDTO extends Omit<OrderPayment,'id'>{}
+export interface CreateOrderDTO extends Omit<OrderPayment,'id'|'status'>{}
 export interface UpdateOrderDTO extends Omit<OrderPayment,'id'|'name'|'amount'|'stripe_id'|'localizator'>{}

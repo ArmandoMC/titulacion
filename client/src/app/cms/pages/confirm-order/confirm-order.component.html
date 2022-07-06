@@ -1,0 +1,24 @@
+<div class="container mt-3">
+    <div class="card">
+        <h5 class="card-header"><button class="btn btn-primary" [routerLink]="['/cms/orders/pendientes']"><i class="fa fa-arrow-left" aria-hidden="true"></i>
+          Pedidos</button></h5>
+        <div class="card-body text-center">
+          <!-- <h5 class="card-title">Special title treatment</h5> -->
+          <div class="form-row">
+            <div class="form-group mx-auto" *ngIf="estado=='Preparando tu pedido'">
+                <button class="btn btn-danger" routerLink="/cms/orders/pendientes" (click)="confirmarOrden()">Pedido enviado</button> <br>
+                <!-- <button class="btn btn-danger">Pedido entregado</button> -->
+                <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
+                <span>Clic para cambiar el estado a pedido enviado</span>
+            </div>
+            <div class="form-group mx-auto" *ngIf="estado=='Pedido en camino'">
+                <button class="btn btn-danger" routerLink="/cms/orders/en-camino" (click)="confirmarOrden()">Pedido entregado</button> <br>
+                <!-- <button class="btn btn-danger">Pedido entregado</button> -->
+                <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
+                <span>Clic para cambiar el estado a pedido entregado</span>
+            </div>
+          </div>
+          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+        </div>
+      </div>
+</div>

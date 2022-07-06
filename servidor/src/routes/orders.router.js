@@ -74,6 +74,18 @@ router.get('/pending',
     }
   }
 );
+router.get('/ontheway',
+  // validatorHandler(getOrderSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      // const { id } = req.params;
+      const orders = await servicePago.findOnTheWay();
+      res.json(orders);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 router.get('/completed',
   // validatorHandler(getOrderSchema, 'params'),
   async (req, res, next) => {
@@ -86,6 +98,7 @@ router.get('/completed',
     }
   }
 );
+
 router.get('/:id',
   // validatorHandler(getOrderSchema, 'params'),
   async (req, res, next) => {
@@ -107,14 +120,14 @@ router.get('/:id',
   }
 );
 
-router.put('/confirm/:id',
+router.put('/pending/confirm/:id',
   // validatorHandler(addItemSchema, 'body'),
   async (req, res, next) => {
     try {
       const {id} = req.params;
-      const {confirmation}=req.body;
-      console.log('item recibido en ruta',id,"y confirmation recibod:",confirmation)
-      const orderConfirmada = await servicePago.findOneForUpdateConfirmation(id,confirmation);
+      const {status}=req.body;
+      console.log('item recibido en ruta',id,"y confirmation recibod:",status)
+      const orderConfirmada = await servicePago.findOneForUpdateStatus(id,status);
      
       console.log('(orden):',orderConfirmada)
       res.status(201).json(orderConfirmada);
@@ -193,7 +206,7 @@ router.get('/customer/:id',
   async (req, res, next) => {
     try {
       const { id } = req.params;
-      console.log('id de customer:',id)
+      console.log('id cust:',id)
       const orders = await servicePago.findOrdersByCustomer(id);
       // const or=await addressService.findOne(id)
       res.json(orders);
@@ -207,7 +220,7 @@ router.get('/address/:id',
   async (req, res, next) => {
     try {
       const { id } = req.params;
-      console.log('id de customer:',id)
+      console.log('id de addreess:',id)
       const orders = await servicePago.findAddressByOrderId(id);
       // const or=await addressService.findOne(id)
       res.json(orders);

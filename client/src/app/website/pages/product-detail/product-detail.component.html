@@ -34,7 +34,7 @@
             </select>
           </p>
           <button (click)="onAddToShoppingCart()" class="btn btn-primary btn-block" [disabled]="isDisabled">
-            {{ agregado == true ? "En el carrito" : "Add to cart" }}
+            <i class="fa fa-cart-plus" aria-hidden="true"></i> {{ agregado == true ? "En el carrito" : "Agregar al carrito" }}
           </button>
           <div class="alert alert-success mt-3" role="alert">
             {{isStock==true? 'En stock':'Últimas unidades'}}

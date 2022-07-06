@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import { CreateOrderDTO, OrderPayment, UpdateOrderDTO } from '../models/order.model';
 import { Product } from '../models/product.model';
 import {AuthService} from './auth.service';
+import { Address } from '../models/address.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -34,13 +35,12 @@ export class CheckoutService {
     .pipe(
       tap((ord)=>{
         this.myOrders=ord;
-        
         this.orders.next(this.myOrders);
       })
     )
   }
-  getAddressByOrderId(id: number): Observable<any> {
-    return this.http.get<any>(`${this.API}/orders/address/${id}`)
+  getAddressByOrderId(id: number) {
+    return this.http.get<Address>(`${this.API}/orders/address/${id}`)
   }
   registerPurchaseDetail(id:number,products:Product[]):Observable<any> {
     return this.http.post<any>(`${this.API}/orders/detail/${id}`,products);
@@ -50,7 +50,7 @@ export class CheckoutService {
     return this.http.get<any>(`${this.API}/orders/detail/${id}`)
   }
   getOrder(id: string) {
-    return this.http.get<any>(`${this.API}/orders/${id}`)
+    return this.http.get<OrderPayment>(`${this.API}/orders/${id}`)
   }
 
   sendPayment(dto: CreateOrderDTO):Observable<any> {
@@ -90,6 +90,10 @@ export class CheckoutService {
       })
     )
   }
+  getAllOnTheWayOrders(){
+    return this.http.get<OrderPayment[]>(`${this.API}/orders/ontheway`)
+  
+  }
   getAllCompletedOrders(){
     return this.http.get<OrderPayment[]>(`${this.API}/orders/completed`)
   
@@ -101,8 +105,8 @@ export class CheckoutService {
   //   return this.http.post<OrderPayment>(`${this.API}/orders`, data)
   // }
 
-  confirmOrder(id:number,confirmation:boolean) {
-    return this.http.put<OrderPayment>(`${this.API}/orders/confirm/${id}`,{confirmation})
+  confirmOrder(id:number,status:string) {
+    return this.http.put<OrderPayment>(`${this.API}/orders/pending/confirm/${id}`,{status})
     // .pipe(
     //   tap(data=>{
     //     const indice= this.myOrders.findIndex(p=>p.id===data.id);

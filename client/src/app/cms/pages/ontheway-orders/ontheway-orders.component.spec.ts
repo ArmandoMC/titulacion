@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TasksComponent } from './tasks.component';
+import { OnthewayOrdersComponent } from './ontheway-orders.component';
 
-describe('TasksComponent', () => {
-  let component: TasksComponent;
-  let fixture: ComponentFixture<TasksComponent>;
+describe('OnthewayOrdersComponent', () => {
+  let component: OnthewayOrdersComponent;
+  let fixture: ComponentFixture<OnthewayOrdersComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TasksComponent ]
+      declarations: [ OnthewayOrdersComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TasksComponent);
+    fixture = TestBed.createComponent(OnthewayOrdersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

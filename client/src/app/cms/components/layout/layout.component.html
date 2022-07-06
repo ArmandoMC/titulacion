@@ -105,8 +105,7 @@
 </nav>
 <aside>
   <ul>
-    <li><a routerLink="grid">Grid page</a></li>
-    <li><a routerLink="tasks">Tasks page</a></li>
+    <li><a routerLink="dashboard">Dashboard</a></li>
     <li>
       <div class="accordion" id="accordionExample">
         <div class="card">
@@ -121,13 +120,17 @@
           <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
             <div class="card-body cuerpo" >
               <div>
-                <a routerLink="orders/pendientes">Ventas pendientes</a>
+                <a routerLink="orders/pendientes">Pedidos pendientes</a>
               </div>
               <div>
-                <a routerLink="orders/finalizadas">Ventas completadas</a>
+                <a routerLink="orders/en-camino">Pedidos en camino</a>
+              </div>
+              <div>
+                <a routerLink="orders/finalizadas">Pedidos entregados</a>
               </div>
             </div>
           </div>
+          
         </div>
         
         <div class="card">

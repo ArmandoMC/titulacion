@@ -12,7 +12,7 @@ class PagoService {
     this.pool.on('error', (err) => console.error(err));
   }
   async create(data) {
-    const{customer_id,address_id,total,status,token,name}=data;
+    const{customer_id,address_id,total,token,name}=data;
     const responseMethod = await this.generatePaymentMethod(token) //TODO: 🔴 Token magico!
     const resPaymentIntent = await this.generatePaymentIntent(
       {
@@ -23,8 +23,8 @@ class PagoService {
     )
 
     const query = {
-      text: `INSERT INTO orders(customer_id,address_id,total,id_transaccion,status) VALUES($1,$2,$3,$4,$5) RETURNING *`,
-      values: [customer_id,address_id,total,resPaymentIntent.id,status]
+      text: `INSERT INTO orders(customer_id,address_id,total,id_transaccion) VALUES($1,$2,$3,$4) RETURNING *`,
+      values: [customer_id,address_id,total,resPaymentIntent.id]
     };
 
     const order = await this.pool.query(query);
@@ -106,7 +106,7 @@ class PagoService {
   }
   async findDetail(id) {
     const query = {
-      text:`SELECT op.product_id,op.quantity,p.name,p.presentation,p.price FROM orders_products op INNER JOIN products p ON op.product_id=p.id WHERE order_id=$1 `,
+      text:`SELECT op.order_id,op.product_id,op.quantity,p.name,p.presentation,p.price FROM orders_products op INNER JOIN products p ON op.product_id=p.id WHERE op.order_id=$1 `,
       values:[id]
     };
     const orders = await this.pool.query(query);
@@ -129,41 +129,52 @@ class PagoService {
     return order.rows[0];
   }
   async findPending() {
-    const confirmation=false;
+    const status='Preparando tu pedido';
     const query =
     {
-      text: `SELECT ord.id,ord.customer_id,ord.total,ord.id_transaccion,ord.status,ord.created_at, c.name FROM orders ord INNER JOIN customers c ON ord.customer_id=c.id WHERE ord.confirmation=$1`,
-      values:[confirmation]
+      text: `SELECT ord.id,ord.customer_id,ord.total,ord.id_transaccion,ord.status,ord.created_at, c.name FROM orders ord INNER JOIN customers c ON ord.customer_id=c.id WHERE ord.status=$1`,
+      values:[status]
     };
     const orders = await this.pool.query(query);
     if (orders.rows.length === 0) {
-      // throw boom.notFound('orden not found');
       return [];
-
     }
     return orders.rows;
   }
-  async findOneForUpdateConfirmation(id,confirmation) {
-    // const {confirmation}=body;
+  async findOneForUpdateStatus(id,status) {
     const query =
     {
-      text: `UPDATE orders SET confirmation=$1 WHERE id=$2 RETURNING *`,
-      values:[confirmation,id]
+      text: `UPDATE orders SET status=$1 WHERE id=$2 RETURNING *`,
+      values:[status,id]
     };
     const orders = await this.pool.query(query);
     if (orders.rows.length === 0) {
-      // throw boom.notFound('orden not found');
       return [];
-
     }
-    return orders.rows;
+    return orders.rows[0];
   }
   async findCompleted() {
-    const confirmation=true;
+    const status='Pedido entregado';
     const query =
     {
-      text:  `SELECT ord.id,ord.customer_id,ord.total,ord.id_transaccion,ord.status,ord.created_at, c.name FROM orders ord INNER JOIN customers c ON ord.customer_id=c.id WHERE ord.confirmation=$1`,
-      values:[confirmation]
+      text:  `SELECT ord.id,ord.customer_id,ord.total,ord.id_transaccion,ord.status,ord.created_at, c.name FROM orders ord INNER JOIN customers c ON ord.customer_id=c.id WHERE ord.status=$1`,
+      values:[status]
+    };
+    const orders = await this.pool.query(query);
+    if (orders.rows.length === 0) {
+      // throw boom.notFound('orden not found');
+      return [];
+
+    }
+    return orders.rows;
+  }
+  
+  async findOnTheWay() {
+    const status='Pedido en camino';
+    const query =
+    {
+      text:  `SELECT ord.id,ord.customer_id,ord.total,ord.id_transaccion,ord.status,ord.created_at, c.name FROM orders ord INNER JOIN customers c ON ord.customer_id=c.id WHERE ord.status=$1`,
+      values:[status]
     };
     const orders = await this.pool.query(query);
     if (orders.rows.length === 0) {
@@ -191,7 +202,7 @@ class PagoService {
   async findAddressByOrderId(id) {
     const query =
     {
-      text: `SELECT ad.address FROM address ad WHERE ad.id=$1`,
+      text: `SELECT * FROM address WHERE id=$1`,
       values: [id]
     };
     const order = await this.pool.query(query);

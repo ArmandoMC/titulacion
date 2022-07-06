@@ -8,6 +8,7 @@ import { switchMap,tap } from 'rxjs/operators';
 import { Customer } from 'src/app/models/customer.model';
 import { OrderPayment } from 'src/app/models/order.model';
 import { User } from 'src/app/models/user.model';
+import { Address } from 'src/app/models/address.model';
 
 @Component({
   selector: 'app-orders',
@@ -16,6 +17,7 @@ import { User } from 'src/app/models/user.model';
 })
 export class OrdersComponent implements OnInit {
 
+  idOrder:number;
   idUsuario:number;
   idCliente:number;
   user:User;
@@ -24,12 +26,21 @@ export class OrdersComponent implements OnInit {
   direccion:string;
   fecha:Date;
   total:number;
+  estado:string;
+  dirEnvio:Address={
+    id:0,
+  address:'',
+  city:'',
+  state:'',
+  country:'',
+  postal_code:'',
+  user_id:0
+  };
   constructor(
     private checkoutService:CheckoutService,
     private authService:AuthService,
     private customerService:CustomerService,
     private router:Router,
-    private location:Location
   ) { 
   }
 
@@ -57,22 +68,27 @@ export class OrdersComponent implements OnInit {
       
   }
   verDetalle(id:number,idAddress:number){
+    
     this.checkoutService.getOrderDetail(id).subscribe(data=>{
       if(data){
+        console.log('detalle de orden',data)
         this.detailOrder=data;
         
       }
-    }
-    )
+    })
+   
     const dato=this.orders.find(or=>or.id===id);
     if(dato){
       this.fecha=dato.created_at;
       this.total=dato.total;
+      this.estado=dato.status;
+      this.idOrder=dato.id;
     }
     this.checkoutService.getAddressByOrderId(idAddress).subscribe(dt=>{
-      console.log('nombre dir:',dt.address)
-      this.direccion=dt.address;
+      console.log('direccion del backen:',dt)
+      this.dirEnvio=dt;
     })
+    
   }
   
 

@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TasksComponent } from './pages/tasks/tasks.component';
-import { GridComponent } from './pages/grid/grid.component';
 import { CustomersComponent } from './pages/customers/customers.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { PendingOrdersComponent } from './pages/pending-orders/pending-orders.component';
 import { CompletedOrdersComponent } from './pages/completed-orders/completed-orders.component';
 import { LayoutComponent } from './components/layout/layout.component';
+import { OnthewayOrdersComponent } from './pages/ontheway-orders/ontheway-orders.component';
+import { ConfirmOrderComponent } from './pages/confirm-order/confirm-order.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { InvoiceComponent } from './pages/invoice/invoice.component';
 
 const routes: Routes = [
   {
@@ -15,18 +17,13 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'grid',
+        redirectTo: 'dashboard',
         pathMatch: 'full',
       },
       {
-        path: 'grid',
-        component: GridComponent,
+        path: 'dashboard',
+        component: DashboardComponent,
       },
-      {
-        path: 'tasks',
-        component: TasksComponent,
-      },
-      
       {
         path: 'products',
         component: ProductsComponent,
@@ -40,8 +37,28 @@ const routes: Routes = [
         component: PendingOrdersComponent,
       },
       {
+        path: 'orders/pendientes/confirm/:id',
+        component: ConfirmOrderComponent,
+      },
+      {
         path: 'orders/finalizadas',
-        component: CompletedOrdersComponent,
+        component:CompletedOrdersComponent,
+      },
+      {
+        path: 'orders/finalizadas/confirm/:id',
+        component: ConfirmOrderComponent,
+      },
+      {
+        path: 'orders/en-camino',
+        component: OnthewayOrdersComponent,
+      },
+      {
+        path: 'orders/en-camino/confirm/:id',
+        component: ConfirmOrderComponent,
+      },
+      {
+        path: 'factura/order/:id',
+        component: InvoiceComponent,
       },
     ],
   },

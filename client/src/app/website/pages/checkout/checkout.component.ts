@@ -205,7 +205,6 @@ export class CheckoutComponent implements OnInit {
         customer_id: this.customer.id,
         address_id: this.address_id,
         total: (this.total+this.tarifaFija),
-        status: this.status,
         token: token.id,
         name: this.customer.name,
       };
@@ -236,11 +235,12 @@ export class CheckoutComponent implements OnInit {
          
         });
         
-        this.customerService.updateDniAndPhone(this.customer_id,this.customer_dni,this.customer_phone)
-        .subscribe(datos=>{
-          console.log('dni y phone de cliente actualizados',datos)
-        })
-      // .subscribe();
+        if(this.disabledInput=false){
+          this.customerService.updateDniAndPhone(this.customer_id,this.customer_dni,this.customer_phone)
+          .subscribe(datos=>{
+            console.log('dni y phone de cliente actualizados',datos)
+          })
+        }
     } catch (e) {
       //TODO: Nuestra api devolver un "client_secret" que es un token unico por intencion de pago
       //TODO: SDK de stripe se encarga de verificar si el banco necesita autorizar o no

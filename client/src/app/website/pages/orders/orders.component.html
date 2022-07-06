@@ -4,20 +4,20 @@
       <tr>
         <th scope="col">Id</th>
         <th scope="col">Total</th>
-        <th scope="col">Id transaccion</th>
-        <th scope="col">Fecha</th>
+        <!-- <th scope="col">Id transaccion</th> -->
+        <th scope="col">Fecha de pedido</th>
         <th scope="col">Estado</th>
         <th scope="col">Detalle</th>
-        <th scope="col">Factura</th>
+        <!-- <th scope="col">Factura</th> -->
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let order of orders; let indice = index">
         <td>{{ order.id }}</td>
         <td>{{ order.total | currency }}</td>
-        <td>{{ order.id_transaccion }}</td>
+        <!-- <td>{{ order.id_transaccion }}</td> -->
         <td>{{ order.created_at | date:'short' }}</td>
-        <td>{{ order.status }}</td>
+        <td> <button class="btn btn-warning">{{ order.status }}</button> </td>
         <td>
           <!-- Button trigger modal -->
           <button
@@ -30,7 +30,7 @@
             Ver detalle
           </button>
         </td>
-        <td>
+        <!-- <td>
           <button
             type="button"
             class="btn btn-primary"
@@ -39,7 +39,7 @@
           >
             Ver Factura
           </button>
-        </td>
+        </td> -->
       </tr>
     </tbody>
   </table>
@@ -75,8 +75,31 @@
         </button>
       </div>
       <div class="modal-body">
-        <table class="table table-bordered text-center">
+        <table class="table table-borderless text-center">
           <thead>
+            <tr>
+              <th scope="col">Número de orden</th>
+              <th scope="col">Fecha del pedido</th>
+              <th scope="col">Estado</th>
+              <th scope="col">Total compra</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{idOrder}}</td>
+              <td>{{fecha| date:'short'}}</td>
+              <td><button class="btn btn-warning">{{estado}}</button></td>
+              <td>{{total | currency:'$'}}</td>
+            </tr>
+            <!-- <h5 style="">Total:{{ total | currency }}</h5> -->
+          </tbody>
+        </table>
+        <table class="table table-bordered text-center mt-3">
+          <thead>
+            <tr>
+              
+              <th>Detalles del pedido</th>
+            </tr>
             <tr>
               <th scope="col">Producto</th>
               <th scope="col">Cantidad</th>
@@ -85,10 +108,33 @@
           <tbody>
             <tr *ngFor="let detail of detailOrder">
               <td>{{ detail.name }} {{ detail.presentation }}</td>
-              <!-- <td>x {{ detail.quantity }}</td> -->
               <td>x {{detail.quantity}}</td>
             </tr>
-            <!-- <h5 style="">Total:{{ total | currency }}</h5> -->
+            <tr>
+              <td colspan="1">
+              </td>
+              <th>Total: {{total | currency:'$'}}</th>
+              </tr>
+          </tbody>
+        </table>
+        <table class="table table-borderless text-center dt-envioYFact">
+          <thead>
+            <tr style="border: 1px solid  rgb(216, 210, 210);">
+              <td colspan="1"></td>
+              <th>Detalles De Envío y Facturación</th>
+            </tr>
+            <tr>
+              <th>Dirección de envío</th>
+              <th>Método de envío</th>
+              <th>Método de pago</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{dirEnvio.address}} <br> {{dirEnvio.city}} - {{dirEnvio.state}} - {{dirEnvio.country}}</td>
+              <td>Envío estándar (1-2 días) </td>
+              <td>Tarjeta de crédito/débito</td>
+            </tr>
           </tbody>
         </table>
       </div>

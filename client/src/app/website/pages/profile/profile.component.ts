@@ -116,10 +116,9 @@ export class ProfileComponent implements OnInit {
       this.customerService.updateDni(this.idUsuario,this.dni).subscribe(data=>{
         console.log('dni actualizado',data)
         this.dni = data.dni;
-
+        this.existeDni=true;
         this.cerrarModalDni();
       })
-
     }
   }
   editarPhone(f:NgForm){
@@ -129,7 +128,7 @@ export class ProfileComponent implements OnInit {
       this.customerService.updatePhone(this.idUsuario,this.phone).subscribe(data=>{
         console.log('phone actualziado',data)
         this.phone = data.phone;
-
+        this.existePhone=true;
         this.cerrarModalPhone();
       })
     }
