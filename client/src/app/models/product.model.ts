@@ -19,7 +19,8 @@ export interface Product{
   image:string;
   public_id?:string;
   category_id:number;
-  brand:string;
+  subcategory_id:number;
+  brand_id:number;
   provider_id:number;
   status:string;
   subtotal?:number;

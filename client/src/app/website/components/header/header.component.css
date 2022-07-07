@@ -1,5 +1,7 @@
+/* body{background-color: #482b9c !important;} */
+
 .form-inline{
-  width: 50%;
+  width: 25%;
 }
 .form-inline input{
   width: 55%;
@@ -11,7 +13,7 @@ nav{
 ul{
   /* margin-right: 0; */
   /* width: 350px; */
-  margin-left:auto;
+  /* margin-left:auto; */
 }
 .cart{
   width: 90px;
@@ -32,4 +34,7 @@ ul{
   border:1px solid #ACD9B2 !important;
   color:#ACD9B2;
   border-radius: 5px;
+}
+.datos-usuario{
+  
 }

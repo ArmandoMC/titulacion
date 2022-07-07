@@ -48,7 +48,8 @@ export class ProductsComponent {
     image: '',
     public_id: '',
     category_id: 0,
-    brand: '',
+    subcategory_id:0,
+    brand_id: 0,
     provider_id:0,
     status: '',
   };

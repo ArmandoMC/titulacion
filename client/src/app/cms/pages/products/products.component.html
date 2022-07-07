@@ -179,7 +179,7 @@ aria-hidden="true"
       </div>
       <div class="form-row">
         <div class="form-group col-md-6">
-          <label for="">color funda</label>
+          <label for="">Color funda</label>
           <!-- <select name="miSelect" id="" (change)="onSelect($event)">
             <option value="" *ngFor="let c of colores" [value]="c">
               {{c}}
@@ -208,7 +208,7 @@ aria-hidden="true"
         </div>
       </div>
       <div class="form-row">
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-4">
           <label for="">Sabor</label>
           <input
             type="text"
@@ -221,7 +221,7 @@ aria-hidden="true"
             <div [hidden]="!refFlavor.errors?.required" class="invalid-feedback">
           Sabor requerido</div>
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-4">
           <label for="">Categoria</label>
           <div>
             <select name="" id="" >
@@ -230,17 +230,16 @@ aria-hidden="true"
               </option>
             </select>
           </div>
-         
-          <!-- <input
-           
-            class="form-control"
-            name="category_id"
-            #refCategoria="ngModel"
-            [(ngModel)]="category_id"
-            [ngClass]="{'is-invalid':refCategoria.errors && refCategoria.touched}"
-            required />
-            <div [hidden]="!refCategoria.errors?.required" class="invalid-feedback">
-          Categoria requerida</div> -->
+        </div>
+        <div class="form-group col-md-4">
+          <label for="">Subcategoria</label>
+          <div>
+            <select name="" id="" >
+              <option [value]="subcat" *ngFor="let subcat of vectorSubCat" (click)="capturarSubCategoriaAlInsertar(subcat)">
+                {{subcat}}
+              </option>
+            </select>
+          </div>
         </div>
       </div>
       <div class="form-row">
@@ -259,22 +258,11 @@ aria-hidden="true"
         </div>
         <div class="form-group col-md-6">
           <label for="">Marca</label>
-          <!-- <select name="" id="" >
-            <option [value]="br" *ngFor="let br of brands" (click)="capturarMarca(br.id)">
-              {{br.name}}
+          <select name="" id="" >
+            <option [value]="br" *ngFor="let br of vectorBrand" (click)="capturarBrandAlInsertar(br)">
+              {{br}}
             </option>
-          </select> -->
-    
-          <input
-           
-            class="form-control"
-            name="brand_id"
-            #refMarca="ngModel"
-            [(ngModel)]="name_brand"
-            [ngClass]="{'is-invalid':refMarca.errors && refMarca.touched}"
-            required />
-            <div [hidden]="!refMarca.errors?.required" class="invalid-feedback">
-          Marca requerida</div>
+          </select>
         </div>
       </div>
       <div class="form-row">
@@ -300,17 +288,6 @@ aria-hidden="true"
               </option>
             </select>
           </div>
-         
-          <!-- <input
-            
-            class="form-control"
-            name="status_id"
-            #refStatus="ngModel"
-            [(ngModel)]="status_id"
-            [ngClass]="{'is-invalid':refStatus.errors && refStatus.touched}"
-            required />
-            <div [hidden]="!refStatus.errors?.required" class="invalid-feedback">
-         Estado requerido</div> -->
         </div>
       </div>
     
@@ -450,11 +427,6 @@ aria-hidden="true"
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="">color funda</label>
-          <!-- <select name="miSelect" id="" (change)="onSelect($event)">
-            <option value="" *ngFor="let c of colores" [value]="c">
-              {{c}}
-            </option>
-          </select> -->
           <input
             type="text"
             class="form-control"
@@ -502,18 +474,16 @@ aria-hidden="true"
                 {{cat}}
               </option>
             </select>
-        
-         
-          <!-- <input
-           
-            class="form-control"
-            name="category_id"
-            #refCategoria="ngModel"
-            [(ngModel)]="category_id"
-            [ngClass]="{'is-invalid':refCategoria.errors && refCategoria.touched}"
-            required />
-            <div [hidden]="!refCategoria.errors?.required" class="invalid-feedback">
-          Categoria requerida</div> -->
+        </div>
+        <div class="form-group col-md-6">
+          <label for="">SubCategoria</label>
+          
+            <!-- <input class="input-cat" type="text" name="cat_seleccionada" [(ngModel)]="cat_seleccionada"/> -->
+            <select name="subcat_seleccionada" id="ss" [(ngModel)]="subcat_seleccionada" class="select-cat">
+              <option [value]="subcat" *ngFor="let subcat of vectorSubCat" (click)="capturarSubCategoria(subcat)">
+                {{subcat}}
+              </option>
+            </select>
         </div>
       </div>
       <div class="form-row">
@@ -532,15 +502,13 @@ aria-hidden="true"
         </div>
         <div class="form-group col-md-6">
           <label for="">Marca</label>   
-          <input
-            class="form-control"
-            name="brand"
-            #refEditMarca="ngModel"
-            [(ngModel)]="product.brand"
-            [ngClass]="{'is-invalid':refEditMarca.errors && refEditMarca.touched}"
-            required />
-            <div [hidden]="!refEditMarca.errors?.required" class="invalid-feedback">
-          Marca requerida</div>
+          <div>
+            <select name="brand_seleccionada" id="" [(ngModel)]="brand_seleccionada">
+              <option [value]="br" *ngFor="let br of vectorBrand" (click)="capturarBrand(br)">
+                {{br}}
+              </option>
+            </select>
+          </div>
         </div>
       </div>
       <div class="form-row">

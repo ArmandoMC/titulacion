@@ -15,13 +15,12 @@
       </thead>
       <tbody>
         <tr *ngFor="let order of ordersPending; let indice = index">
-          <!-- <th scope="row">{{ indice + 1 }}</th> -->
           <td>{{ order.id }}</td>
           <td>{{ order.name }}</td>
           <td>{{ order.total | currency }}</td>
           <td>{{ order.created_at | date:'short' }}</td>
           <td>{{ order.id_transaccion }}</td>
-          <td><button class="btn btn-warning">{{order.status}}</button></td>
+          <td><span class="badge badge-warning">{{order.status}}</span></td>
           <td><button class="btn btn-success" [routerLink]="['/cms/orders/pendientes/confirm',order.id]">Envio</button> </td>
           <td><button type="button" class="btn btn-primary" [routerLink]="['/cms/factura/order',order.id]">
             Detalle del pedido

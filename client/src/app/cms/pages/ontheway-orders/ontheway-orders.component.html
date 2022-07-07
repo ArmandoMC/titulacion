@@ -23,7 +23,7 @@
           <td>{{ order.total | currency }}</td>
           <td>{{ order.created_at | date:'short' }}</td>
           <td>{{ order.id_transaccion }}</td>
-          <td> <button class="btn btn-primary">{{ order.status }}</button></td>
+          <td><span class="badge badge-warning">{{order.status}}</span></td>
           <td> <button class="btn btn-success" [routerLink]="['/cms/orders/en-camino/confirm',order.id]">Envio</button></td>
           <td> <button class="btn btn-info">Detalles del pedido</button></td>
           <!-- <td><button class="btn btn-danger" (click)="confirmarOrden(order.id)" >Confirmar</button> </td> -->

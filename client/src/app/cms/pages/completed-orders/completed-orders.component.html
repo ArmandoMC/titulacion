@@ -16,13 +16,12 @@
       </thead>
       <tbody>
         <tr *ngFor="let order of ordersCompleted; let indice = index">
-          <!-- <th scope="row">{{ indice + 1 }}</th> -->
           <td>{{ order.id }}</td>
           <td>{{ order.name }}</td>
           <td>{{ order.total | currency }}</td>
           <td>{{ order.created_at | date:'short' }}</td>
           <td>{{ order.id_transaccion }}</td>
-          <td><button class="btn btn-success">{{ order.status }}</button></td>
+          <td><span class="badge badge-warning">{{order.status}}</span></td>
           <td><button class="btn btn-info">Detalle del pedido </button></td>
          
         </tr>

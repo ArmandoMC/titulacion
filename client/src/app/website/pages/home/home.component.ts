@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import { SubCategory } from 'src/app/models/category';
 
 import { Product } from 'src/app/models/product.model';
 import { ProductsService } from '../../../services/products.service';
+import { CategoriesService } from '../../../services/categories.service';
 
 @Component({
   selector: 'app-home',
@@ -11,23 +13,27 @@ import { ProductsService } from '../../../services/products.service';
 })
 export class HomeComponent implements OnInit {
 
+  subcategories:SubCategory[]=[{id:0,name:'Todos'}];
+  idSubcategoria:number=null;
+  productsBySubcat:Product[]=[];
   pro: Product[] = [];
   limit=5;
   offset=0;
   productId:string | null=null;
   seleccionado="mayor a menor";
-  vector=['todos','mayor a menor','menor a mayor']
+  vector=['Clasificación por defecto','mayor a menor','menor a mayor']
   constructor(
     private productsService:ProductsService,
+    private categoriesService:CategoriesService,
     private route:ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.productsService.getAllProducts(this.limit,this.offset)
+    this.productsService.getAllProducts()
       .subscribe(data => {
-        // console.log(data);
+        console.log(data);
         this.pro = data;
-        this.offset+=this.limit;
+        // this.offset+=this.limit;
 
       },err=>{'hubo erro de parametros'});
       
@@ -35,14 +41,19 @@ export class HomeComponent implements OnInit {
       //   this.productId=params.get('product');
       //   // console.log(this.productId);
       // })
+      this.categoriesService.getAllSubcategories().subscribe(data=>{
+        this.subcategories=this.subcategories.concat(data);
+      })
   }
 
   onLoadMore(){
-    this.productsService.getAllProducts(this.limit,this.offset)
-    .subscribe(data => {
-      this.pro=this.pro.concat(data);
-      this.offset+=this.limit;
-    });
+      this.productsService.getAllProducts()
+      .subscribe(data => {
+        this.pro=this.pro.concat(data);
+        // this.offset+=this.limit;
+      });
+    
+   
   }
   onSelect(event:Event){
     const item=event.target as HTMLSelectElement;
@@ -55,13 +66,40 @@ export class HomeComponent implements OnInit {
         this.pro=data;
 
       })
-    }else{
+    }else if(item.value=="menor a mayor"){
       console.log('value menor a mayor:',item.value)
       this.productsService.getProductsDeMenorAMayor().subscribe(data=>{
         this.pro=null;
         this.pro=data;
       })
+    }else{
+      this.productsService.getAllProducts()
+      .subscribe(data => {
+        console.log(data);
+        this.pro = data;
+      })
     }
   }
 
+  obtener(id:number){
+    this.idSubcategoria=id;
+    if(id===0){
+      console.log('id sub',id)
+      this.productsService.getAllProducts()
+      .subscribe(data => {
+        this.pro=data;
+        // this.offset+=this.limit;
+
+      });
+    }else{
+      this.productsService.getBySubCategory(this.idSubcategoria).subscribe(data=>{
+        // this.productsBySubcat=data;
+        this.pro=null;
+        this.pro=data;
+        // this.offset+=this.limit;
+
+      })
+    }
+    
+  }
 }

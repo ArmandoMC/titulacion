@@ -21,6 +21,30 @@ async (req, res, next) => {
     next(error);
   }
 });
+router.get('/subcategories',
+// passport.authenticate('jwt', { session: false }),
+// checkRoles('admin','seller'),
+async (req, res, next) => {
+  try {
+    const categories = await service.findSubCategories();
+    res.json(categories);
+  } catch (error) {
+    next(error);
+  }
+});
+router.get('/subcategory/:id',
+// passport.authenticate('jwt', { session: false }),
+// checkRoles('admin','seller'),
+async (req, res, next) => {
+  try {
+    const {id}=req.params;
+    const{limit,offset}=req.query;
+    const categories = await service.findProductsBySubCat(id,limit,offset);
+    res.json(categories);
+  } catch (error) {
+    next(error);
+  }
+});
 
 router.get('/:id',
 passport.authenticate('jwt', { session: false }),

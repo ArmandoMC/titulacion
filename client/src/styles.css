@@ -2,5 +2,8 @@
 
 @import '~swiper/swiper-bundle';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body { height: 100%;    background-color: rgb(172, 161, 161) !important;
+}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
+
+

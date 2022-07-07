@@ -154,30 +154,30 @@
             <form>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="inputNombres">Nombres</label>
+                  <label for="inputNombres">Nombres<span style="color: red;"> *</span></label>
                   <input type="text" class="form-control" id="inputNombres" name="customer_name" [(ngModel)]="customer_name" disabled>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputApellidos">Apellidos</label>
+                  <label for="inputApellidos">Apellidos<span style="color: red;"> *</span></label>
                   <input type="text" class="form-control" id="inputApellidos" name="customer_lastName" [(ngModel)]="customer_lastName" disabled>
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="inputCedula">C.I/R.U.C</label>
+                  <label for="inputCedula">C.I/R.U.C<span style="color: red;"> *</span></label>
                   <input type="text" class="form-control" id="inputCedula" name="customer_dni" [(ngModel)]="customer_dni" [disabled]="disabledInput">
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputTelefono">Teléfono</label>
+                  <label for="inputTelefono">Teléfono<span style="color: red;"> *</span></label>
                   <input type="text" class="form-control" id="inputTelefono" name="customer_phone" [(ngModel)]="customer_phone" [disabled]="disabledInput">
                 </div>
               </div>
               <div class="form-group">
-                <label for="inputCorreo">Correo</label>
+                <label for="inputCorreo">Correo<span style="color: red;"> *</span></label>
                 <input type="email" class="form-control" id="inputCorreo" placeholder="example@email.com" name="customer_email" [(ngModel)]="customer_email" disabled>
               </div>
               <div class="form-group">
-                <label for="inputAddress">Direccion</label>
+                <label for="inputAddress">Direccion<span style="color: red;"> *</span></label>
                 <div class="tabla">
                   <table class="table">
                     <tbody *ngIf="addressSelected; else showMessage">
@@ -300,28 +300,23 @@
           <div id="nombre"></div>
         </div> -->
         <div class="form-group">
-          <label for="inputNombre">Nombre del titular</label>
+          <label for="inputNombre">Nombre del titular<span style="color: red;"> *</span></label>
           <input type="text" class="form-control titular" id="" placeholder="">
         </div>
         <div class="form-group">
-          <label>Número de tarjeta</label>
+          <label>Número de tarjeta<span style="color: red;"> *</span></label>
           <div id="card"></div>
         </div>
         <hr />
         <div class="form-group">
-          <label>CVC</label>
+          <label>CVC<span style="color: red;"> *</span></label>
           <div id="cvc"></div>
         </div>
         <hr />
         <div class="form-group">
-          <label>Fecha de vencimiento</label>
+          <label>Fecha de vencimiento<span style="color: red;"> *</span></label>
           <div id="exp"></div>
         </div>
-        <div class="terms">
-          <!-- <a href="">Links</a>
-          <a href="">Links</a> -->
-        </div>
-
         <button
           class="btn btn-success btn-block"
           type="submit"
@@ -338,7 +333,6 @@
       >
         Regresar al paso 2
       </button>
-      <!-- <button  class="btn btn-primary" type="submit">Siguiente</button> -->
     </div>
   </div>
 </div>

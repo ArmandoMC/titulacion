@@ -27,6 +27,14 @@ export class ProductsService {
     }
     return this.http.get<Product[]>(`${this.API_URL}/categories/${categoryId}/products`,{params});
   }
+  getBySubCategory(id:number,limit?:number, offset?:number){
+    let params=new HttpParams();
+    if(limit && offset!=null){
+      params=params.set('limit',limit);
+      params=params.set('offset',offset);
+    }
+    return this.http.get<Product[]>(`${this.API_URL}/categories/subcategory/${id}`,{params});
+  }
   getAllProducts(limit?:number, offset?:number){
     let params=new HttpParams();
     if(limit && offset!=null){
@@ -42,13 +50,28 @@ export class ProductsService {
     )
 
   }
-  getProductsDeMenorAMayor(limit?:number, offset?:number){
-    let params=new HttpParams();
-    if(limit && offset!=null){
-      params=params.set('limit',limit);
-      params=params.set('offset',offset);
-    }
-    return this.http.get<Product[]>(`${this.API_URL}/products`,{params})
+  // getAllProductsBySubcategorySeleccionada(limit?:number, offset?:number){
+  //   let params=new HttpParams();
+  //   if(limit && offset!=null){
+  //     params=params.set('limit',limit);
+  //     params=params.set('offset',offset);
+  //   }
+  //   return this.http.get<Product[]>(`${this.API_URL}/products`,{params})
+  //   .pipe(
+  //     tap((products)=>{
+  //       this.myProducts=products;
+  //       this.products.next(this.myProducts);
+  //     })
+  //   )
+
+  // }
+  getProductsDeMenorAMayor(){
+    // let params=new HttpParams();
+    // if(limit && offset!=null){
+    //   params=params.set('limit',limit);
+    //   params=params.set('offset',offset);
+    // }
+    return this.http.get<Product[]>(`${this.API_URL}/products`)
     .pipe(
       tap((products)=>{
        products.sort((a,b)=> a.price - b.price)
@@ -111,7 +134,7 @@ export class ProductsService {
   }
   createProductAndUpdateImage(name:string,description:string,sleeve_color:string,flavor:string,
     presentation:string,  packaging:string,  stock:number,  purchase_price:number, price:number,
-    image:File,category_id:number,  brand:string,provider_id:number){
+    image:File,category_id:number,subcategory_id:number,  brand_id:number,provider_id:number){
     
       const dt=new FormData();
     dt.append('name',name);
@@ -125,7 +148,8 @@ export class ProductsService {
     dt.append('price',  price.toString());
     dt.append('image',image);
     dt.append('category_id',category_id.toString());
-    dt.append('brand',brand);
+    dt.append('subcategory_id',subcategory_id.toString());
+    dt.append('brand_id',brand_id.toString());
     dt.append('provider_id',provider_id.toString());
     
     return this.http.post<Product>(`${this.API_URL}/products`,dt)
@@ -142,8 +166,7 @@ export class ProductsService {
   }
   update(id:string,name:string,description:string,sleeve_color:string,flavor:string,presentation:string,
     packaging:string,stock:number,purchase_price:number,price:number,image:File,image_url:string,hayFoto:string,
-    public_id:string,
-    category_id:number,brand:string,provider_id:number){
+    public_id:string,category_id:number,subcategory_id:number, brand_id:number,provider_id:number){
       const dt=new FormData();
         dt.append('name',name);
         dt.append('description',description);
@@ -159,7 +182,8 @@ export class ProductsService {
         dt.append('hayFoto',hayFoto);
         dt.append('public_id',public_id);
         dt.append('category_id',category_id.toString());
-        dt.append('brand',brand);
+        dt.append('subcategory_id',subcategory_id.toString());
+        dt.append('brand_id',brand_id.toString());
         dt.append('provider_id',provider_id.toString());
       
    
@@ -198,6 +222,10 @@ export class ProductsService {
       })
     )
 
+  }
+  getCount(){
+    return this.http.get<any>(`${this.API_URL}/products/count`);
+ 
   }
 
 

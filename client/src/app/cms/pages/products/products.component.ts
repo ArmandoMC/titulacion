@@ -1,10 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ProductsService } from '../../../services/products.service';
 import { CategoriesService } from '../../../services/categories.service';
-import { Category } from 'src/app/models/category';
-// import { BrandService } from 'src/app/services/brand.service';
+import { Category, SubCategory } from 'src/app/models/category';
+import { BrandService } from 'src/app/services/brand.service';
 import { ProvidersService } from 'src/app/services/providers.service';
-// import { Brand } from 'src/app/models/brand.model';
+import { Brand } from 'src/app/models/brand.model';
 import { Status } from 'src/app/models/status.model';
 import { StatusService } from 'src/app/services/status.service';
 import { NgForm } from '@angular/forms';
@@ -40,12 +40,15 @@ export class ProductsComponent implements OnInit {
   price: number;
   image?: File = new File([], '');
   category_id: number;
-  name_brand: string;
+  subcategory_id: number;
+  brand_id: number;
   // brand_id: number;
   // status_id: number;
   provider_id: number;
   /////////////
   categories: Category[] = [];
+  subcategories: SubCategory[] = [];
+  brands: Brand[] = [];
   categoria:Category={
     id:0,name:'Lacteos'
   };
@@ -69,22 +72,28 @@ export class ProductsComponent implements OnInit {
     price: 0,
     image: '',
     category_id: 0,
-    brand: '',
+    subcategory_id:0,
+    brand_id: 0,
     provider_id: 0,
     status: '',
   };
   image_url: string;
   cat_seleccionada: string;
+  subcat_seleccionada: string;
   prov_seleccionado: string;
+  brand_seleccionada:string;
   hayFoto: string = 'No';
   vectorCat:string[]=[];
+  vectorSubCat:string[]=[];
   vectorProv:string[]=[];
+  vectorBrand:string[]=[];
   insertarUno:boolean;
   constructor(
     private productsService: ProductsService,
     private categoriesService: CategoriesService,
     private providersService: ProvidersService,
-    private statusService: StatusService
+    private statusService: StatusService,
+    private brandService: BrandService,
   ) {
     // this.cat_seleccionada=this.categoria;
     this.insertarUno=false;
@@ -108,6 +117,37 @@ export class ProductsComponent implements OnInit {
         this.vectorCat=null;
         this.categories.forEach((item)=>{
           this.vectorCat.push(item.name);
+        })
+      }
+      
+    });
+    this.categoriesService.getAllSubcategories().subscribe((data) => {
+      this.subcategories= data;
+      console.log('subactegorias recatadas',this.subcategories)
+      if(this.insertarUno=true){
+        this.vectorSubCat.push('Seleccionar');
+        this.subcategories.forEach((item)=>{
+          this.vectorSubCat.push(item.name);
+        })
+      }else{
+        this.vectorSubCat=null;
+        this.subcategories.forEach((item)=>{
+          this.vectorSubCat.push(item.name);
+        })
+      }
+      
+    });
+    this.brandService.getAll().subscribe((data) => {
+      this.brands= data;
+      if(this.insertarUno=true){
+        this.vectorBrand.push('Seleccionar');
+        this.brands.forEach((item)=>{
+          this.vectorBrand.push(item.name);
+        })
+      }else{
+        this.vectorBrand=null;
+        this.brands.forEach((item)=>{
+          this.vectorBrand.push(item.name);
         })
       }
       
@@ -146,7 +186,8 @@ export class ProductsComponent implements OnInit {
           this.price,
           this.image,
           this.category_id,
-          this.name_brand,
+          this.subcategory_id,
+          this.brand_id,
           this.provider_id
         )
         .subscribe((data) => {
@@ -172,7 +213,8 @@ export class ProductsComponent implements OnInit {
       this.product.purchase_price = item.purchase_price;
       this.product.price = item.price;
       this.product.category_id = item.category_id;
-      this.product.brand = item.brand;
+      this.product.subcategory_id = item.subcategory_id;
+      this.product.brand_id= item.brand_id;
       this.product.image = item.image;
       this.image_url = item.image;
       this.product.public_id = item.public_id;
@@ -182,9 +224,17 @@ export class ProductsComponent implements OnInit {
       if(cat){
         this.cat_seleccionada=cat.name;
       }
+      const subcat=this.subcategories.find(c=>c.id===this.product.subcategory_id);
+      if(subcat){
+        this.subcat_seleccionada=subcat.name;
+      }
       const prov=this.providers.find(pr=>pr.id===this.product.provider_id);
       if(prov){
         this.prov_seleccionado=prov.name;
+      }
+      const brand=this.brands.find(pr=>pr.id===this.product.brand_id);
+      if(brand){
+        this.brand_seleccionada=brand.name;
       }
     }
   }
@@ -209,7 +259,8 @@ export class ProductsComponent implements OnInit {
           this.hayFoto,
           this.product.public_id,
           this.product.category_id,
-          this.product.brand,
+          this.product.subcategory_id,
+          this.product.brand_id,
           this.product.provider_id
         )
         .subscribe((data) => {
@@ -247,6 +298,13 @@ export class ProductsComponent implements OnInit {
       this.product.category_id=cat.id;
     }
   }
+  capturarSubCategoria(name: string) {
+    this.subcat_seleccionada=name;
+    const subcat=this.subcategories.find(c=>c.name===this.subcat_seleccionada);
+    if(subcat){
+      this.product.subcategory_id=subcat.id;
+    }
+  }
   capturarProvider(name: string) {
     this.prov_seleccionado=name;
     const prov=this.providers.find(c=>c.name===this.prov_seleccionado);
@@ -254,16 +312,42 @@ export class ProductsComponent implements OnInit {
       this.product.provider_id=prov.id;
     }
   }
+  capturarBrand(name: string) {
+    this.brand_seleccionada=name;
+    const brand=this.brands.find(c=>c.name===this.brand_seleccionada);
+    if(brand){
+      this.product.brand_id=brand.id;
+    }
+  }
   capturarCategoriaAlInsertar(name: string) {
     const cat=this.categories.find(c=>c.name===name);
     if(cat){
       this.category_id=cat.id;
+      console.log('id categoria seleccionada:',this.category_id)
+    }
+  }
+  capturarSubCategoriaAlInsertar(name: string) {
+    const subcat=this.subcategories.find(c=>c.name===name);
+    if(subcat){
+      this.subcategory_id=subcat.id;
+      console.log('id subcategoria seleccionada:',this.subcategory_id)
+
     }
   }
   capturarProviderAlInsertar(name: string) {
     const prov=this.providers.find(c=>c.name===name);
     if(prov){
       this.provider_id=prov.id;
+      console.log('id provider seleccionado:',this.provider_id)
+
+    }
+  }
+  capturarBrandAlInsertar(name: string) {
+    const brand=this.brands.find(c=>c.name===name);
+    if(brand){
+      this.brand_id=brand.id;
+      console.log('id mrca seleccionada:',this.brand_id)
+
     }
   }
   

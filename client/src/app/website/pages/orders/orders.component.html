@@ -1,48 +1,51 @@
 <div class="container-fluid mt-4">
-  <table class="table" *ngIf="orders.length > 0; else elseBlock">
-    <thead class="">
-      <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Total</th>
-        <!-- <th scope="col">Id transaccion</th> -->
-        <th scope="col">Fecha de pedido</th>
-        <th scope="col">Estado</th>
-        <th scope="col">Detalle</th>
-        <!-- <th scope="col">Factura</th> -->
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let order of orders; let indice = index">
-        <td>{{ order.id }}</td>
-        <td>{{ order.total | currency }}</td>
-        <!-- <td>{{ order.id_transaccion }}</td> -->
-        <td>{{ order.created_at | date:'short' }}</td>
-        <td> <button class="btn btn-warning">{{ order.status }}</button> </td>
-        <td>
-          <!-- Button trigger modal -->
-          <button
-            type="button"
-            class="btn btn-primary"
-            data-toggle="modal"
-            data-target="#exampleModal"
-            (click)="verDetalle(order.id, order.address_id)"
-          >
-            Ver detalle
-          </button>
-        </td>
-        <!-- <td>
-          <button
-            type="button"
-            class="btn btn-primary"
-            target="_blank"
-            [routerLink]="['/factura/order',order.id]"
-          >
-            Ver Factura
-          </button>
-        </td> -->
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table" *ngIf="orders.length > 0; else elseBlock">
+      <thead class="">
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Total</th>
+          <!-- <th scope="col">Id transaccion</th> -->
+          <th scope="col">Fecha de pedido</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Detalle</th>
+          <!-- <th scope="col">Factura</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders; let indice = index">
+          <td>{{ order.id }}</td>
+          <td>{{ order.total | currency }}</td>
+          <!-- <td>{{ order.id_transaccion }}</td> -->
+          <td>{{ order.created_at | date:'short' }}</td>
+          <td><span class="badge badge-warning">{{order.status}}</span></td>
+          <td>
+            <!-- Button trigger modal -->
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-toggle="modal"
+              data-target="#exampleModal"
+              (click)="verDetalle(order.id, order.address_id)"
+            >
+              Ver detalle
+            </button>
+          </td>
+          <!-- <td>
+            <button
+              type="button"
+              class="btn btn-primary"
+              target="_blank"
+              [routerLink]="['/factura/order',order.id]"
+            >
+              Ver Factura
+            </button>
+          </td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
   <p></p>
   <ng-template #elseBlock>
     <div class="container orderVacias text-center">
@@ -88,7 +91,7 @@
             <tr>
               <td>{{idOrder}}</td>
               <td>{{fecha| date:'short'}}</td>
-              <td><button class="btn btn-warning">{{estado}}</button></td>
+              <td><span class="badge badge-warning">{{estado}}</span></td>
               <td>{{total | currency:'$'}}</td>
             </tr>
             <!-- <h5 style="">Total:{{ total | currency }}</h5> -->

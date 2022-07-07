@@ -37,6 +37,17 @@ router.get('/ultimoId',
     }
   }
 );
+router.get('/count',
+  // validatorHandler(getProductSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      const product = await service.count();
+      res.json(product);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 router.get('/:id',
   validatorHandler(getProductSchema, 'params'),
   async (req, res, next) => {
@@ -60,10 +71,10 @@ router.post('/',
       if (result != null) {
         console.log(result)
         const { name, description, sleeve_color, flavor, presentation, packaging, stock,
-          purchase_price, price, category_id, brand, provider_id } = req.body;
+          purchase_price, price, category_id,subcategory_id, brand_id, provider_id } = req.body;
         const newProduct = {
           name, description, sleeve_color, flavor, presentation, packaging, stock,
-          purchase_price, price, image: result.url, public_id: result.public_id, category_id, brand, provider_id
+          purchase_price, price, image: result.url, public_id: result.public_id, category_id,subcategory_id, brand_id, provider_id
         };
         const pro = await service.create(newProduct);
         await fs.unlink(req.file.path);

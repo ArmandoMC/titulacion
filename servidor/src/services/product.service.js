@@ -15,16 +15,16 @@ class ProductsService {
 
   async create(data) {
     const { name, description, sleeve_color, flavor, presentation, packaging, stock,
-      purchase_price, price, image, public_id, category_id,
-      brand, provider_id } = data;
+      purchase_price, price, image, public_id, category_id,subcategory_id,
+      brand_id, provider_id } = data;
     const query = {
       text: `INSERT INTO products
       (name,description,sleeve_color,flavor,presentation,packaging,stock,purchase_price,
-        price,image,public_id,category_id,brand,provider_id) 
-        VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14) RETURNING *`,
+        price,image,public_id,category_id,subcategory_id,brand_id,provider_id) 
+        VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15) RETURNING *`,
       values: [name, description,sleeve_color, flavor, presentation, packaging, stock,
-        purchase_price, price, image, public_id, category_id,
-        brand, provider_id]
+        purchase_price, price, image, public_id, category_id,subcategory_id,
+        brand_id, provider_id]
     };
     const newProduct = await this.pool.query(query);
     if(newProduct.rows.length===0){
@@ -81,6 +81,19 @@ class ProductsService {
     }
     return product.rows[0];
   }
+  async count() {
+
+    const query = {
+      text: `SELECT count(*) FROM products`,
+    };
+    const total = await this.pool.query(query);
+    if (total.rows.length === 0) {
+      throw boom.notFound('product not found');
+    }
+    console.log('numeo de prod:',total)
+    return total.rows[0];
+  }
+
 
   async update(id, changes) {
 

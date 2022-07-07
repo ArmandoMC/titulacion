@@ -24,8 +24,9 @@ export class ProductComponent implements OnInit {
     image: '',
     public_id: '',
     category_id: 0,
+    subcategory_id:0,
     provider_id:0,
-    brand:'',
+    brand_id:0,
     status:'',
 
 

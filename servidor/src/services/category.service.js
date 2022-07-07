@@ -28,6 +28,31 @@ class CategoryService {
     return categories.rows;
 
   }
+  async findSubCategories() {
+
+    const query = 'SELECT * FROM subcategories';
+    const subcategories = await this.pool.query(query);
+    return subcategories.rows;
+
+  }
+  async findProductsBySubCat(id) {
+
+    // const { limit, offset } = query;
+    let sql;
+    // if (limit && offset) {
+    //   sql = {
+    //     text: `SELECT * FROM products p LIMIT ${limit} OFFSET ${offset}WHERE p.subcategory_id=${id}`,
+    //   };
+    // }else{
+       sql = {
+          text: `SELECT * FROM products WHERE subcategory_id=$1`,
+          values: [id]
+        };      
+    // }
+    const products = await this.pool.query(sql);
+    // console.log(products.rows);
+    return products.rows;
+  }
 
   async findOne(id) {
     const query = {
@@ -44,18 +69,18 @@ class CategoryService {
 
     const { limit, offset } = query;
     let statement;
-    if (limit && offset!=null) {
-      statement ={
+    if (limit && offset != null) {
+      statement = {
         text: `SELECT * FROM products WHERE category_id=$1 LIMIT ${limit} OFFSET ${offset}`,
         values: [id]
       }
-    }else{
-      statement ={
+    } else {
+      statement = {
         text: `SELECT * FROM products WHERE category_id=$1`,
         values: [id]
       }
     }
-    
+
     const products = await this.pool.query(statement);
     if (products.rows.length === 0) {
       return [];

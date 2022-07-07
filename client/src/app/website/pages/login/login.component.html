@@ -12,7 +12,7 @@
             <div class="card-body">
               <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
                 <div class="form-group">
-                  <label for="email">Email</label>
+                  <label for="email">Email<span style="color: red;"> *</span></label>
                   <input
                     type="email"
                     class="form-control"
@@ -26,7 +26,7 @@
                     Email requerido</div>
                 </div>
                 <div class="form-group">
-                  <label for="password">Contraseña</label>
+                  <label for="password">Contraseña<span style="color: red;"> *</span></label>
                   <input
                     type="password"
                     class="form-control"
