@@ -1,0 +1,253 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <button
+              class="btn btn-primary"
+              data-toggle="modal"
+              data-target="#addProduct"
+            >
+              Nueva marca
+            </button>
+          </div>
+          <div class="form-group">
+            <input
+              type="search"
+              name=""
+              id=""
+              placeholder="Buscar marca por nombre.."
+              [(ngModel)]="filterBrand"
+            />
+          </div>
+        </div>
+        <table
+          class="table table-bordered"
+          *ngIf="brands.length > 0; else elseBlock"
+        >
+          <thead class="">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">DEscripción</th>
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let br of brands | filter: filterBrand;let i=index">
+              <td>{{ i+1 }}</td>
+              <td>{{ br.name }}</td>
+              <td>{{ br.description }}</td>
+              <td>
+                <button
+                  class="btn btn-secondary"
+                  (click)="edit(br.id)"
+                  data-toggle="modal"
+                  data-target="#editCategory"
+                >
+                  Editar
+                </button>
+                <button
+                  class="btn btn-danger float-right"
+                  (click)="deleteBrand(br.id)"
+                >
+                  Eliminar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <ng-template #elseBlock>
+          <div class="div">
+            <h3>No hay marcas registradas</h3>
+    
+            <p></p>
+          </div>
+        </ng-template>
+    
+        <!-- <div class="container-fluid"> -->
+      </div>
+</div>
+
+<!-- Modal Agregar marca -->
+<div
+class="modal fade"
+id="addProduct"
+tabindex="-1"
+aria-labelledby="exampleModalLabel"
+aria-hidden="true"
+>
+<div class="modal-dialog modal-md">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">
+        Agregar nueva marca
+      </h5>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="modal"
+        aria-label="Close"
+        #botonCerrarAdd
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <!-- <flash-message messagePositioning="top-right"></flash-message> -->
+
+    <form
+      #addForm="ngForm"
+      (ngSubmit)="createBrand(addForm)"
+      class="form-addBrand"
+    >
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="nombre"
+            #refName="ngModel"
+            [(ngModel)]="brand.name"
+            [ngClass]="{
+              'is-invalid': refName.errors && refName.touched
+            }"
+            required
+          />
+          <div
+            [hidden]="!refName.errors?.required"
+            class="invalid-feedback"
+          >
+            Nombre requerido
+          </div>
+        </div>
+        
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="">Descripción</label>
+            <input
+              type="text"
+              class="form-control"
+              name="stock"
+              #refDesc="ngModel"
+              [(ngModel)]="brand.description"
+              [ngClass]="{
+                'is-invalid': refDesc.errors && refDesc.touched
+              }"
+              required
+            />
+            <div
+              [hidden]="!refDesc.errors?.required"
+              class="invalid-feedback"
+            >
+              Descripción requerida
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+        >
+          Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+
+<!-- Modal Editar marca -->
+<div
+class="modal fade"
+id="editCategory"
+tabindex="-1"
+aria-labelledby="exampleModalLabel"
+aria-hidden="true"
+>
+<div class="modal-dialog modal-md">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">
+        Editar marca
+      </h5>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="modal"
+        aria-label="Close"
+        #botonCerrarEdit
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+    <!-- <flash-message messagePositioning="top-right"></flash-message> -->
+
+    <form
+      #editForm="ngForm"
+      (ngSubmit)="editarBrand(editForm)"
+      class="form-addBrand"
+    >
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="editName"
+            #refEditName="ngModel"
+            [(ngModel)]="editBrand.name"
+            [ngClass]="{
+              'is-invalid': refEditName.errors && refEditName.touched
+            }"
+            required
+          />
+          <div
+            [hidden]="!refEditName.errors?.required"
+            class="invalid-feedback"
+          >
+            Nombre requerido
+          </div>
+        </div>
+        
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="">Descripción</label>
+            <input
+              type="text"
+              class="form-control"
+              name="editCat"
+              #refEditDesc="ngModel"
+              [(ngModel)]="editBrand.description"
+              [ngClass]="{
+                'is-invalid': refEditDesc.errors && refEditDesc.touched
+              }"
+              required
+            />
+            <div
+              [hidden]="!refEditDesc.errors?.required"
+              class="invalid-feedback"
+            >
+              Descripción requerida
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+        >
+          Cancelar
+        </button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>

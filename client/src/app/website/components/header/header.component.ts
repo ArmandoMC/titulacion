@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { StoreService } from '../../../services/store.service';
 import { CategoriesService } from '../../../services/categories.service';
-import { Category } from 'src/app/models/category';
+import { Category } from 'src/app/models/category.model';
 import { User } from 'src/app/models/user.model';
 import { Product } from 'src/app/models/product.model';
 import { CartService } from 'src/app/services/cart.service';

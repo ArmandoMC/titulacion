@@ -25,7 +25,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let c of customers; let indice = index">
+          <tr *ngFor="let c of customers | filter:filterCustomer">
             <!-- <th scope="row">{{ indice + 1 }}</th> -->
             <td>{{c.dni }}</td>
             <td>{{c.name }}</td>

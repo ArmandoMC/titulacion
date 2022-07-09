@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ProductsService } from '../../../services/products.service';
 import { CategoriesService } from '../../../services/categories.service';
-import { Category, SubCategory } from 'src/app/models/category';
+import { Category, SubCategory } from 'src/app/models/category.model';
 import { BrandService } from 'src/app/services/brand.service';
 import { ProvidersService } from 'src/app/services/providers.service';
 import { Brand } from 'src/app/models/brand.model';
@@ -42,20 +42,15 @@ export class ProductsComponent implements OnInit {
   category_id: number;
   subcategory_id: number;
   brand_id: number;
-  // brand_id: number;
-  // status_id: number;
   provider_id: number;
   /////////////
   categories: Category[] = [];
   subcategories: SubCategory[] = [];
   brands: Brand[] = [];
   categoria:Category={
-    id:0,name:'Lacteos'
+    id:0,name:'Lacteos',description:''
   };
-  // brands: Brand[] = [{id:0,name:'Seleccionar'}];
-  providers: Provider[] = [{ id: 0, name: 'Seleccionar' }];
-  // status: Status[] = [{ id: 0, name: 'Seleccionar' }];
-  // colores: any[] = ['Seleccionar', 'Roja', 'Azul', 'Ninguno'];
+  providers: Provider[] = [{ id: 0, name: 'Seleccionar',ruc:''}];
   products: Product[] = [];
   product: Product = {
     id: '',
@@ -88,6 +83,8 @@ export class ProductsComponent implements OnInit {
   vectorProv:string[]=[];
   vectorBrand:string[]=[];
   insertarUno:boolean;
+  //Filtrado
+  filterProduct:string="";
   constructor(
     private productsService: ProductsService,
     private categoriesService: CategoriesService,

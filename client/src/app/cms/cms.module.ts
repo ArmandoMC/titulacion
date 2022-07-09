@@ -13,6 +13,10 @@ import { CompletedOrdersComponent } from './pages/completed-orders/completed-ord
 import { OnthewayOrdersComponent } from './pages/ontheway-orders/ontheway-orders.component';
 import { ConfirmOrderComponent } from './pages/confirm-order/confirm-order.component';
 import { InvoiceComponent } from './pages/invoice/invoice.component';
+import { FilterPipe } from './pipes/filter.pipe';
+import { CategoriesComponent } from './pages/categories/categories.component';
+import { BrandsComponent } from './pages/brands/brands.component';
+import { ProvidersComponent } from './pages/providers/providers.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +31,10 @@ import { InvoiceComponent } from './pages/invoice/invoice.component';
     OnthewayOrdersComponent,
     ConfirmOrderComponent,
     InvoiceComponent,
+    FilterPipe,
+    CategoriesComponent,
+    BrandsComponent,
+    ProvidersComponent
     
   ],
   imports: [

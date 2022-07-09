@@ -12,10 +12,10 @@ class CategoryService {
   }
   async create(data) {
 
-    const { name, image } = data;
+    const { name, description } = data;
     const query = {
-      text: `INSERT INTO categories(name,image) VALUES($1,$2) RETURNING *`,
-      values: [name, image]
+      text: `INSERT INTO categories(name,description) VALUES($1,$2) RETURNING *`,
+      values: [name, description]
     };
     const newCategory = await this.pool.query(query);
     return newCategory.rows[0];
@@ -92,10 +92,10 @@ class CategoryService {
 
   async update(id, changes) {
     await this.findOne(id);
-    const { name, image } = changes;
+    const { name, description } = changes;
     const query = {
-      text: `UPDATE categories SET name=$1, image=$2 WHERE id=$3 RETURNING *`,
-      values: [name, image, id]
+      text: `UPDATE categories SET name=$1, description=$2 WHERE id=$3 RETURNING *`,
+      values: [name, description, id]
     };
     const rta = await this.pool.query(query);
     return rta.rows[0];

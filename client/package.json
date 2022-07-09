@@ -28,6 +28,8 @@
     "jquery": "^3.6.0",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.25",
+    "ngx-paginate": "^2.0.1",
+    "ngx-pagination": "^6.0.2",
     "ngx-quicklink": "^0.2.7",
     "popper.js": "^1.16.1",
     "rxjs": "~6.6.0",

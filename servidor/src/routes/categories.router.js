@@ -81,8 +81,8 @@ router.get('/:id/products',
 );
 
 router.post('/',
-  passport.authenticate('jwt', { session: false }),
-  checkRoles('admin'),
+  // passport.authenticate('jwt', { session: false }),
+  // checkRoles('admin'),
   validatorHandler(createCategorySchema, 'body'),
   async (req, res, next) => {
     try {
@@ -95,8 +95,8 @@ router.post('/',
   }
 );
 
-router.patch('/:id',
-checkRoles('admin','seller'),
+router.put('/:id',
+// checkRoles('admin','seller'),
   validatorHandler(getCategorySchema, 'params'),
   validatorHandler(updateCategorySchema, 'body'),
   async (req, res, next) => {
@@ -112,7 +112,7 @@ checkRoles('admin','seller'),
 );
 
 router.delete('/:id',
-checkRoles('admin','seller'),
+// checkRoles('admin','seller'),
   validatorHandler(getCategorySchema, 'params'),
   async (req, res, next) => {
     try {

@@ -15,7 +15,7 @@ import { ProvidersService } from './services/providers.service';
 import {NotFoundComponent} from './not-found/not-found.component';
 import {QuicklinkModule} from 'ngx-quicklink';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 
@@ -34,7 +34,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     QuicklinkModule,
     BrowserAnimationsModule,
-   
+    NgxPaginationModule,
     
   ],
   providers: [AuthService, CustomerService,StoreService,ProvidersService,

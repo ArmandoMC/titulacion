@@ -23,6 +23,7 @@ import { MyAddressesComponent } from './pages/my-addresses/my-addresses.componen
 import { AccountComponent } from './pages/account/account.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { InvoiceComponent } from './pages/invoice/invoice.component';
+import { FilterPipe } from '../shared/pipes/filter.pipe';
 // import { FlashMessageModule } from 'angular2-flash-message';
 
 @NgModule({
@@ -49,7 +50,7 @@ import { InvoiceComponent } from './pages/invoice/invoice.component';
     SwiperModule,
     SharedModule,
     QuicklinkModule,
-    FormsModule,
+    FormsModule
   
   ],
   providers:[AuthGuard,CheckoutGuard]

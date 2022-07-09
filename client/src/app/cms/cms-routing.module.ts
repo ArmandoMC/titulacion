@@ -9,6 +9,9 @@ import { OnthewayOrdersComponent } from './pages/ontheway-orders/ontheway-orders
 import { ConfirmOrderComponent } from './pages/confirm-order/confirm-order.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { InvoiceComponent } from './pages/invoice/invoice.component';
+import { CategoriesComponent } from './pages/categories/categories.component';
+import { BrandsComponent } from './pages/brands/brands.component';
+import { ProvidersComponent } from './pages/providers/providers.component';
 
 const routes: Routes = [
   {
@@ -31,6 +34,18 @@ const routes: Routes = [
       {
         path: 'customers',
         component: CustomersComponent,
+      },
+      {
+        path: 'categories',
+        component: CategoriesComponent,
+      },
+      {
+        path: 'brands',
+        component: BrandsComponent,
+      },
+      {
+        path: 'providers',
+        component: ProvidersComponent,
       },
       {
         path: 'orders/pendientes',

@@ -10,35 +10,35 @@ class ProviderService {
     this.pool.on('error', (err) => console.error(err));
 
   }
-  // async create(data) {
+  async create(data) {
 
-  //   const { name, image } = data;
-  //   const query = {
-  //     text: `INSERT INTO categories(name,image) VALUES($1,$2) RETURNING *`,
-  //     values: [name, image]
-  //   };
-  //   const newCategory = await this.pool.query(query);
-  //   return newCategory.rows[0];
-  // }
+    const { name, ruc } = data;
+    const query = {
+      text: `INSERT INTO providers(name,ruc) VALUES($1,$2) RETURNING *`,
+      values: [name, ruc]
+    };
+    const newProvider = await this.pool.query(query);
+    return newProvider.rows[0];
+  }
 
   async find() {
 
     const query = 'SELECT * FROM providers';
-    const brands = await this.pool.query(query);
-    return brands.rows;
+    const providers = await this.pool.query(query);
+    return providers.rows;
 
   }
 
   async findOne(id) {
     const query = {
-      text: `SELECT * FROM categories WHERE id=$1`,
+      text: `SELECT * FROM providers WHERE id=$1`,
       values: [id]
     };
-    const category = await this.pool.query(query);
-    if (category.rows.length === 0) {
-      throw boom.notFound('category not found');
+    const provider = await this.pool.query(query);
+    if (provider.rows.length === 0) {
+      throw boom.notFound('provider not found');
     }
-    return category.rows[0];
+    return provider.rows[0];
   }
   async findByCategory(id, query) {
 
@@ -67,10 +67,10 @@ class ProviderService {
 
   async update(id, changes) {
     await this.findOne(id);
-    const { name, image } = changes;
+    const { name, ruc } = changes;
     const query = {
-      text: `UPDATE categories SET name=$1, image=$2 WHERE id=$3 RETURNING *`,
-      values: [name, image, id]
+      text: `UPDATE providers SET name=$1, ruc=$2 WHERE id=$3 RETURNING *`,
+      values: [name, ruc, id]
     };
     const rta = await this.pool.query(query);
     return rta.rows[0];
@@ -79,7 +79,7 @@ class ProviderService {
   async delete(id) {
     await this.findOne(id);
     const query = {
-      text: `DELETE FROM categories WHERE id=$1`,
+      text: `DELETE FROM providers WHERE id=$1`,
       values: [id]
     }
     await this.pool.query(query);

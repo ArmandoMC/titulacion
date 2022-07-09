@@ -10,6 +10,7 @@ import {
 import { StoreService } from '../../../services/store.service';
 import { ProductsService } from '../../../services/products.service';
 import { CartService } from 'src/app/services/cart.service';
+import { PageState } from 'src/app/models/pageState.model';
 
 @Component({
   selector: 'app-products',
@@ -54,10 +55,12 @@ export class ProductsComponent {
     status: '',
   };
   filterProduct:string="";
+  pageActual:any=1;
   // limit=5;
   // offset=0;
   statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init';
 
+ 
   constructor(
     private storeService: StoreService,
     private productsService: ProductsService,
@@ -65,6 +68,22 @@ export class ProductsComponent {
   ) {
     this.myShoppingCart = this.storeService.getShoppingCart();
   }
+  // page:PageState={
+  //   currentPage:1,
+  //   pageSize:5,
+  //   totalItems:20
+  // }
+  // textToShow:string;
+  // currentChange;
+  // pageChange(pageState: PageState, isPageSizeChange = false) {
+  //   this.textToShow = `Page changed. Reload data with new paging values, isPageSizeChange: ${isPageSizeChange}`;
+  //   console.log(pageState);
+  //   this.currentChange = undefined;
+  //   setTimeout(() => {
+  //     this.currentChange = pageState;
+  //   }, 125);
+
+  // }
 
   // ngOnInit(): void {
   //   this.productsService.getAllProducts(this.limit,this.offset)

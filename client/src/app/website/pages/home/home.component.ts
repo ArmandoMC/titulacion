@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import { SubCategory } from 'src/app/models/category';
+import { SubCategory } from 'src/app/models/category.model';
 
 import { Product } from 'src/app/models/product.model';
 import { ProductsService } from '../../../services/products.service';
@@ -13,7 +13,7 @@ import { CategoriesService } from '../../../services/categories.service';
 })
 export class HomeComponent implements OnInit {
 
-  subcategories:SubCategory[]=[{id:0,name:'Todos'}];
+  subcategories:SubCategory[]=[{id:0,name:'Todos',description:''}];
   idSubcategoria:number=null;
   productsBySubcat:Product[]=[];
   pro: Product[] = [];
@@ -29,11 +29,11 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.productsService.getAllProducts()
+    this.productsService.getAllProducts(this.limit,this.offset)
       .subscribe(data => {
         console.log(data);
         this.pro = data;
-        // this.offset+=this.limit;
+        this.offset+=this.limit;
 
       },err=>{'hubo erro de parametros'});
       
@@ -47,11 +47,21 @@ export class HomeComponent implements OnInit {
   }
 
   onLoadMore(){
-      this.productsService.getAllProducts()
+    if(this.idSubcategoria==null){
+      this.productsService.getAllProducts(this.limit,this.offset)
       .subscribe(data => {
         this.pro=this.pro.concat(data);
+        this.offset+=this.limit;
+      });
+    }
+    if(this.idSubcategoria==0){
+      this.productsService.getAllProducts()
+      .subscribe(data => {
+        this.pro=data;
         // this.offset+=this.limit;
       });
+    }
+     
     
    
   }
