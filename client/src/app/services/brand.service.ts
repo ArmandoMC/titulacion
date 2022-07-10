@@ -52,4 +52,8 @@ export class BrandService {
   delete(id:number){
     return this.http.delete<number>(`${this.API_URL}/${id}`);
   }
+  getCount(){
+    return this.http.get<any>(`${this.API_URL}/count`)
+
+  }
 }

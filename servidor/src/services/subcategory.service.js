@@ -3,7 +3,7 @@ const boom = require('@hapi/boom');
 const pool = require('../libs/postgres.pool');
 
 
-class BrandService {
+class SubcategoryService {
 
   constructor() {
     this.pool = pool;
@@ -14,55 +14,65 @@ class BrandService {
 
     const { name, description } = data;
     const query = {
-      text: `INSERT INTO brands(name,description) VALUES($1,$2) RETURNING *`,
+      text: `INSERT INTO subcategories(name,description) VALUES($1,$2) RETURNING *`,
       values: [name, description]
     };
-    const newBrand = await this.pool.query(query);
-    return newBrand.rows[0];
+    const newSubcategory = await this.pool.query(query);
+    return newSubcategory.rows[0];
   }
 
   async find() {
 
-    const query = 'SELECT * FROM brands';
-    const brands = await this.pool.query(query);
-    return brands.rows;
+    const query = 'SELECT * FROM subcategories';
+    const categories = await this.pool.query(query);
+    return categories.rows;
 
   }
-  async findCount() {
+  async findSubCategories() {
 
-    const query = 'SELECT count(*) FROM brands';
-    const brands = await this.pool.query(query);
-    return brands.rows[0];
+    const query = 'SELECT * FROM subcategories';
+    const subcategories = await this.pool.query(query);
+    return subcategories.rows;
 
+  }
+  async findProductsBySubCat(id) {
+
+    const sql= {
+          text: `SELECT * FROM products WHERE subcategory_id=$1`,
+          values: [id]
+        };      
+    const products = await this.pool.query(sql);
+    // console.log(products.rows);
+    return products.rows;
   }
 
   async findOne(id) {
     const query = {
-      text: `SELECT * FROM brands WHERE id=$1`,
+      text: `SELECT * FROM subcategories WHERE id=$1`,
       values: [id]
     };
-    const brand = await this.pool.query(query);
-    if (brand.rows.length === 0) {
-      throw boom.notFound('brand not found');
+    const category = await this.pool.query(query);
+    if (category.rows.length === 0) {
+      throw boom.notFound('subcategory not found');
     }
-    return brand.rows[0];
+    return category.rows[0];
   }
   async findByCategory(id, query) {
 
     const { limit, offset } = query;
     let statement;
-    if (limit && offset!=null) {
-      statement ={
+    if (limit && offset != null) {
+      statement = {
         text: `SELECT * FROM products WHERE category_id=$1 LIMIT ${limit} OFFSET ${offset}`,
         values: [id]
       }
-    }else{
-      statement ={
+    } else {
+      statement = {
         text: `SELECT * FROM products WHERE category_id=$1`,
         values: [id]
       }
     }
-    
+
     const products = await this.pool.query(statement);
     if (products.rows.length === 0) {
       return [];
@@ -76,7 +86,7 @@ class BrandService {
     await this.findOne(id);
     const { name, description } = changes;
     const query = {
-      text: `UPDATE brands SET name=$1, description=$2 WHERE id=$3 RETURNING *`,
+      text: `UPDATE subcategories SET name=$1, description=$2 WHERE id=$3 RETURNING *`,
       values: [name, description, id]
     };
     const rta = await this.pool.query(query);
@@ -86,7 +96,7 @@ class BrandService {
   async delete(id) {
     await this.findOne(id);
     const query = {
-      text: `DELETE FROM brands WHERE id=$1`,
+      text: `DELETE FROM subcategories WHERE id=$1`,
       values: [id]
     }
     await this.pool.query(query);
@@ -95,4 +105,4 @@ class BrandService {
 
 }
 
-module.exports = BrandService;
+module.exports = SubcategoryService;

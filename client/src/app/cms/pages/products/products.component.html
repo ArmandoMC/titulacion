@@ -1,77 +1,107 @@
+<div class="container-fluid">
+  <div class="form-group">
+    <h4>Productos</h4>
+    <span>Lista de productos activos</span>
+  </div>
+</div>
 <div class="container">
-      <div class="form-group">
-        <button
-          class="btn btn-primary"
-          (click)="getUltimoId()"
-          data-toggle="modal"
-          data-target="#addProduct"
-        >
-          Nuevo producto
+  <div class="form-inline mb-3">
+   
+    <div class="form-group w-50">
+      <input
+        type="search"
+        name=""
+        id=""
+        placeholder="Buscar producto por nombre.."
+        #txtSearch
+        (keyup)="onSearchPokemon(txtSearch.value)"
+      />
+    </div>
+    <div class="form-group w-50" style="">
+      <button
+        class="btn btn-primary ml-auto"
+        (click)="getUltimoId()"
+        data-toggle="modal"
+        data-target="#addProduct"
+      >
+        Nuevo producto
+      </button>
+    </div>
+  </div>
+
+  <table
+    class="table table-bordered"
+    *ngIf="products.length > 0; else elseBlock"
+  >
+    <thead class="">
+      <tr>
+        <!-- <th scope="col">#</th> -->
+        <th scope="col">Código</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Presentación</th>
+        <th scope="col">Stock</th>
+        <th scope="col">Precio de compra</th>
+        <th scope="col">Precio de venta</th>
+        <th scope="col">Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pro of products | filtro: page:search">
+        <!-- <th scope="row">{{ indice + 1 }}</th> -->
+        <td>{{ pro.cod_product }}</td>
+        <td>{{ pro.name }}</td>
+        <td>{{ pro.presentation }}</td>
+        <td>{{ pro.stock }}</td>
+        <td>{{ pro.purchase_price }}</td>
+        <td>{{ pro.price }}</td>
+        <td>
+          <button
+            class="btn btn-secondary"
+            (click)="edit(pro.id)"
+            data-toggle="modal"
+            data-target="#editProduct"
+          >
+            Editar
+          </button>
+          <button
+            class="btn btn-danger float-right"
+            (click)="deleteProduct(pro.id)"
+          >
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+    <nav aria-label="Page navigation example" class="text-right">
+      <ul class="pagination">
+        <li class="page-item mr-3">
+          <button aria-label="Previous" class="btn btn-secondary" (click)="prevPage()">
+            <span aria-hidden="true"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Anterior</span>
+          </button>
+        </li>
+        
+        <li class="page-item">
+          <button  aria-label="Next" class="btn btn-secondary"
+          (click)="nextPage()"
+          [disabled]="(products | filtro: page:search).length === 0">
+            <span aria-hidden="true">Siguiente <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            </span>
         </button>
-      </div>
-      <div class="form-group">
-        <input
-          type="search"
-          name=""
-          id=""
-          placeholder="Buscar producto por nombre.."
-          [(ngModel)]="filterProduct"
-        />
-      </div>
-    <table
-      class="table table-bordered"
-      *ngIf="products.length > 0; else elseBlock"
-    >
-      <thead class="">
-        <tr>
-          <!-- <th scope="col">#</th> -->
-          <th scope="col">Código</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Presentación</th>
-          <th scope="col">Stock</th>
-          <th scope="col">Precio de compra</th>
-          <th scope="col">Precio de venta</th>
-          <th scope="col">Opciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let pro of products | filter: filterProduct">
-          <!-- <th scope="row">{{ indice + 1 }}</th> -->
-          <td>{{ pro.cod_product }}</td>
-          <td>{{ pro.name }}</td>
-          <td>{{ pro.presentation }}</td>
-          <td>{{ pro.stock }}</td>
-          <td>{{ pro.purchase_price }}</td>
-          <td>{{ pro.price }}</td>
-          <td>
-            <button
-              class="btn btn-secondary"
-              (click)="edit(pro.id)"
-              data-toggle="modal"
-              data-target="#editProduct"
-            >
-              Editar
-            </button>
-            <button
-              class="btn btn-danger float-right"
-              (click)="deleteProduct(pro.id)"
-            >
-              Eliminar
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <ng-template #elseBlock>
-      <div class="div">
-        <h3>No hay productos registrados</h3>
+        </li>
+      </ul>
+    </nav>
+  <!-- </div> -->
+  <ng-template #elseBlock>
+    <div class="div">
+      <h3>No hay productos registrados</h3>
 
-        <p></p>
-      </div>
-    </ng-template>
+      <p></p>
+    </div>
+  </ng-template>
 
-    <!-- <div class="container-fluid"> -->
-  
+  <!-- <div class="container-fluid"> -->
 
   <!-- Modal agregar producto -->
   <div

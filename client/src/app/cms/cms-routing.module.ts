@@ -12,6 +12,7 @@ import { InvoiceComponent } from './pages/invoice/invoice.component';
 import { CategoriesComponent } from './pages/categories/categories.component';
 import { BrandsComponent } from './pages/brands/brands.component';
 import { ProvidersComponent } from './pages/providers/providers.component';
+import { SubcategoriesComponent } from './pages/subcategories/subcategories.component';
 
 const routes: Routes = [
   {
@@ -38,6 +39,10 @@ const routes: Routes = [
       {
         path: 'categories',
         component: CategoriesComponent,
+      },
+      {
+        path: 'subcategories',
+        component: SubcategoriesComponent,
       },
       {
         path: 'brands',

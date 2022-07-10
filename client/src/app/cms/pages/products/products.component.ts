@@ -14,6 +14,7 @@ import {
   CreateProductDTO,
   UpdateProductDTO,
 } from 'src/app/models/product.model';
+import { SubcategoriesService } from 'src/app/services/subcategories.service';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -50,7 +51,7 @@ export class ProductsComponent implements OnInit {
   categoria:Category={
     id:0,name:'Lacteos',description:''
   };
-  providers: Provider[] = [{ id: 0, name: 'Seleccionar',ruc:''}];
+  providers: Provider[] = [{ id: 0, name: 'Seleccionar',ruc:'',address:'',phone:''}];
   products: Product[] = [];
   product: Product = {
     id: '',
@@ -85,9 +86,15 @@ export class ProductsComponent implements OnInit {
   insertarUno:boolean;
   //Filtrado
   filterProduct:string="";
+
+  // public pokemons: any[] = [];
+  public page: number = 0;
+  public search: string = '';
+
   constructor(
     private productsService: ProductsService,
     private categoriesService: CategoriesService,
+    private subcategoriesService: SubcategoriesService,
     private providersService: ProvidersService,
     private statusService: StatusService,
     private brandService: BrandService,
@@ -118,7 +125,7 @@ export class ProductsComponent implements OnInit {
       }
       
     });
-    this.categoriesService.getAllSubcategories().subscribe((data) => {
+    this.subcategoriesService.getAll().subscribe((data) => {
       this.subcategories= data;
       console.log('subactegorias recatadas',this.subcategories)
       if(this.insertarUno=true){
@@ -163,6 +170,19 @@ export class ProductsComponent implements OnInit {
         })
       }
     });
+  }
+  nextPage() {
+    this.page += 4;
+  }
+
+  prevPage() {
+    if ( this.page > 0 )
+      this.page -= 4;
+  }
+
+  onSearchPokemon( search: string ) {
+    this.page = 0;
+    this.search = search;
   }
 
   createProduct(f: NgForm) {

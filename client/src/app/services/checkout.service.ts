@@ -26,8 +26,6 @@ export class CheckoutService {
     private authService:AuthService
 
   ) { 
-    // this.authService.user$.subscribe()
-
   }
 
   getOrderByCustomer(id: number): Observable<any> {
@@ -98,10 +96,7 @@ export class CheckoutService {
     return this.http.get<OrderPayment[]>(`${this.API}/orders/completed`)
   
   }
-
- 
-
-  // generateOrder(data:CreateOrderDTO) {
+    // generateOrder(data:CreateOrderDTO) {
   //   return this.http.post<OrderPayment>(`${this.API}/orders`, data)
   // }
 
@@ -119,5 +114,17 @@ export class CheckoutService {
        
       
     //   })
+  }
+  getCountPendings(){
+    return this.http.get<any>(`${this.API}/orders/count`)
+
+  }
+  getCountOnTheWay(){
+    return this.http.get<any>(`${this.API}/orders/count`)
+
+  }
+  getCountCompleted(){
+    return this.http.get<any>(`${this.API}/orders/count`)
+
   }
 }

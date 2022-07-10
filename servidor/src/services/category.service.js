@@ -28,6 +28,13 @@ class CategoryService {
     return categories.rows;
 
   }
+  async findCount() {
+
+    const query = 'SELECT count(*) FROM categories';
+    const categories = await this.pool.query(query);
+    return categories.rows[0];
+
+  }
   async findSubCategories() {
 
     const query = 'SELECT * FROM subcategories';

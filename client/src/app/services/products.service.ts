@@ -27,13 +27,9 @@ export class ProductsService {
     }
     return this.http.get<Product[]>(`${this.API_URL}/categories/${categoryId}/products`,{params});
   }
-  getBySubCategory(id:number,limit?:number, offset?:number){
-    let params=new HttpParams();
-    if(limit && offset!=null){
-      params=params.set('limit',limit);
-      params=params.set('offset',offset);
-    }
-    return this.http.get<Product[]>(`${this.API_URL}/categories/subcategory/${id}`,{params});
+  getBySubCategory(id:number){
+    
+    return this.http.get<Product[]>(`${this.API_URL}/subcategories/${id}`);
   }
   getAllProducts(limit?:number, offset?:number){
     let params=new HttpParams();

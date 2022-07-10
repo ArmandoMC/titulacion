@@ -5,6 +5,7 @@ import { SubCategory } from 'src/app/models/category.model';
 import { Product } from 'src/app/models/product.model';
 import { ProductsService } from '../../../services/products.service';
 import { CategoriesService } from '../../../services/categories.service';
+import { SubcategoriesService } from 'src/app/services/subcategories.service';
 
 @Component({
   selector: 'app-home',
@@ -25,6 +26,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private productsService:ProductsService,
     private categoriesService:CategoriesService,
+    private subcategoriesService:SubcategoriesService,
     private route:ActivatedRoute
   ) { }
 
@@ -41,7 +43,7 @@ export class HomeComponent implements OnInit {
       //   this.productId=params.get('product');
       //   // console.log(this.productId);
       // })
-      this.categoriesService.getAllSubcategories().subscribe(data=>{
+      this.subcategoriesService.getAll().subscribe(data=>{
         this.subcategories=this.subcategories.concat(data);
       })
   }
@@ -102,7 +104,7 @@ export class HomeComponent implements OnInit {
 
       });
     }else{
-      this.productsService.getBySubCategory(this.idSubcategoria).subscribe(data=>{
+      this.subcategoriesService.getProductsBySubCategory(this.idSubcategoria).subscribe(data=>{
         // this.productsBySubcat=data;
         this.pro=null;
         this.pro=data;

@@ -1,7 +1,11 @@
+<div class="container-fluid">
+  <div class="form-group">
+    <h4>Proveedores</h4>
+    <span>Lista de proveedores</span>
+  </div>
+</div>
 <div class="container">
-  <div class="row">
-    <div class="col">
-      <div class="form-group">
+    <div class="form-group">
         <button
           class="btn btn-primary"
           data-toggle="modal"
@@ -19,10 +23,8 @@
           [(ngModel)]="filterProvider"
         />
       </div>
-    </div>
     <table
       class="table table-bordered"
-      *ngIf="providers.length > 0; else elseBlock"
     >
       <thead class="">
         <tr>
@@ -65,7 +67,6 @@
         <p></p>
       </div>
     </ng-template>
-  </div>
 </div>
 
 <!-- Modal Agregar proveedor -->
@@ -99,7 +100,7 @@
         class="form-addProvider"
       >
         <div class="form-row">
-          <div class="form-group col-md-12">
+          <div class="form-group col-md-6">
             <label for="">Nombre</label>
             <input
               type="text"
@@ -116,9 +117,7 @@
               Nombre requerido
             </div>
           </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-12">
+          <div class="form-group col-md-6">
             <label for="">R.U.C</label>
             <input
               type="text"
@@ -133,6 +132,42 @@
             />
             <div [hidden]="!refDesc.errors?.required" class="invalid-feedback">
               R.U.C requerido
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="">Dirección</label>
+            <input
+              type="text"
+              class="form-control"
+              name="address"
+              #refAddress="ngModel"
+              [(ngModel)]="provider.address"
+              [ngClass]="{
+                'is-invalid': refAddress.errors && refAddress.touched
+              }"
+              required
+            />
+            <div [hidden]="!refAddress.errors?.required" class="invalid-feedback">
+             Dirección requerida
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="">Teléfono</label>
+            <input
+              type="text"
+              class="form-control"
+              name="phone"
+              #refPhone="ngModel"
+              [(ngModel)]="provider.phone"
+              [ngClass]="{
+                'is-invalid': refPhone.errors && refPhone.touched
+              }"
+              required
+            />
+            <div [hidden]="!refPhone.errors?.required" class="invalid-feedback">
+             Teléfono requerido
             </div>
           </div>
         </div>
@@ -176,7 +211,7 @@
         class="form-addProvider"
       >
         <div class="form-row">
-          <div class="form-group col-md-12">
+          <div class="form-group col-md-6">
             <label for="">Name</label>
             <input
               type="text"
@@ -196,9 +231,7 @@
               Nombre requerido
             </div>
           </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-12">
+          <div class="form-group col-md-6">
             <label for="">R.U.C</label>
             <input
               type="text"
@@ -219,11 +252,53 @@
             </div>
           </div>
         </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="">Dirección</label>
+            <input
+              type="text"
+              class="form-control"
+              name="editAdress"
+              #refEditAddr="ngModel"
+              [(ngModel)]="editProvider.address"
+              [ngClass]="{
+                'is-invalid': refEditAddr.errors && refEditAddr.touched
+              }"
+              required
+            />
+            <div
+              [hidden]="!refEditAddr.errors?.required"
+              class="invalid-feedback"
+            >
+              Dirección requerida
+            </div>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="">Teléfono</label>
+            <input
+              type="text"
+              class="form-control"
+              name="editPhone"
+              #refEditPhone="ngModel"
+              [(ngModel)]="editProvider.phone"
+              [ngClass]="{
+                'is-invalid': refEditPhone.errors && refEditPhone.touched
+              }"
+              required
+            />
+            <div
+              [hidden]="!refEditPhone.errors?.required"
+              class="invalid-feedback"
+            >
+             Teléfono requerido
+            </div>
+          </div>
+        </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">
             Cancelar
           </button>
-          <button type="submit" class="btn btn-primary">Guardar</button>
+          <button type="submit" class="btn btn-primary">Guardar cambios</button>
         </div>
       </form>
     </div>

@@ -105,10 +105,16 @@ class CustomerService {
     const rta = await this.pool.query(query);
     return rta.rows[0];
   }
+  async findCount() {
+
+    const query = `SELECT count(*) FROM users WHERE role='customer'`;
+    const rta = await this.pool.query(query);
+    return rta.rows[0];
+  }
 
   async findAll() {
     const query = {
-      text: `SELECT c.id,c.name,c.last_name,c.dni,c.phone,us.email FROM customers c INNER JOIN users us ON c.user_id=us.id`
+      text: `SELECT c.id,c.name,c.last_name,c.dni,c.phone,us.email FROM customers c INNER JOIN users us ON c.user_id=us.id WHERE us.role='customer'`
       // text: `SELECT * FROM customers c INNER JOIN users us ON c.user_id=us.id`
     };
     const customers = await this.pool.query(query);

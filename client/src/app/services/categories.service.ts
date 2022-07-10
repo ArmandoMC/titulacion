@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import{HttpClient,HttpParams} from '@angular/common/http';
-import { Category, CreateCategoryDTO, SubCategory } from '../models/category.model';
+import { Category, CreateCategoryDTO,CreateSubCategoryDTO, SubCategory } from '../models/category.model';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -14,6 +14,7 @@ export class CategoriesService {
   private myCategories: Category[]=[];
   private categories= new BehaviorSubject<Category[]>([]);
   categories$ = this.categories.asObservable();
+  
   constructor(
     private http:HttpClient
   ) { }
@@ -54,14 +55,12 @@ export class CategoriesService {
       })
     )
   }
-
   delete(id:number){
     return this.http.delete<number>(`${this.API_URL}/${id}`);
   }
-  //subcategorias
-    
-
-  getAllSubcategories(){
-    return this.http.get<SubCategory[]>(`${this.API_URL}/subcategories`,{});
+  getCount(){
+    return this.http.get<any>(`${this.API_URL}/count`);
+ 
   }
+
 }

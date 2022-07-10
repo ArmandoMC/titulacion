@@ -12,10 +12,10 @@ class ProviderService {
   }
   async create(data) {
 
-    const { name, ruc } = data;
+    const { name, ruc,address,phone } = data;
     const query = {
-      text: `INSERT INTO providers(name,ruc) VALUES($1,$2) RETURNING *`,
-      values: [name, ruc]
+      text: `INSERT INTO providers(name,ruc,address,phone) VALUES($1,$2,$3,$4) RETURNING *`,
+      values: [name, ruc,address,phone]
     };
     const newProvider = await this.pool.query(query);
     return newProvider.rows[0];
@@ -67,10 +67,10 @@ class ProviderService {
 
   async update(id, changes) {
     await this.findOne(id);
-    const { name, ruc } = changes;
+    const { name, ruc,address,phone } = changes;
     const query = {
-      text: `UPDATE providers SET name=$1, ruc=$2 WHERE id=$3 RETURNING *`,
-      values: [name, ruc, id]
+      text: `UPDATE providers SET name=$1, ruc=$2,address=$3,phone=$4 WHERE id=$5 RETURNING *`,
+      values: [name, ruc,address,phone, id]
     };
     const rta = await this.pool.query(query);
     return rta.rows[0];

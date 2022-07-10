@@ -90,20 +90,34 @@ class PagoService {
     JOIN users U ON C.user_id=U.id WHERE U.id=$1`,
       values: [userId]
     };
-
     const rta = await this.pool.query(query);
     return rta.rows;
-    // const orders=await models.Order.findAll({
-    //   where:{
-    //     '$customer.user.id$':userId
-    //   },
-    //   include:[{
-    //     association:'customer',
-    //     include:['user']
-    //   }]
-    // });
-    //  return rta;
   }
+  async findCountPendings() {
+
+    const query = {
+      text: `SELECT count(*) FROM orders WHERE status='Preparando tu pedido'`
+    };
+    const rta = await this.pool.query(query);
+    return rta.rows[0];
+  }
+  async findCountOnTheway() {
+
+    const query = {
+      text: `SELECT count(*) FROM orders WHERE status='Pedido en camino'`
+    };
+    const rta = await this.pool.query(query);
+    return rta.rows[0];
+  }
+  async findCountCompleted() {
+
+    const query = {
+      text: `SELECT count(*) FROM orders WHERE status='Pedido entregado'`
+    };
+    const rta = await this.pool.query(query);
+    return rta.rows[0];
+  }
+  
   async findDetail(id) {
     const query = {
       text:`SELECT op.order_id,op.product_id,op.quantity,p.name,p.presentation,p.price FROM orders_products op INNER JOIN products p ON op.product_id=p.id WHERE op.order_id=$1 `,

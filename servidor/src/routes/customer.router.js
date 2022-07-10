@@ -16,6 +16,14 @@ router.get('/', async (req, res, next) => {
     next(error);
   }
 });
+router.get('/count', async (req, res, next) => {
+  try {
+    const customers = await service.findCount();
+    res.json(customers);
+  } catch (error) {
+    next(error);
+  }
+});
 
 router.get('/:id',
   validatorHandler(getCustomerSchema, 'params'),

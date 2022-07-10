@@ -1,131 +1,125 @@
-<div class="container">
-    <div class="row">
-        <div class="col">
-          <div class="form-group">
-            <button
-              class="btn btn-primary"
-              data-toggle="modal"
-              data-target="#addProduct"
-            >
-              Nueva categoría
-            </button>
-          </div>
-          <div class="form-group">
-            <input
-              type="search"
-              name=""
-              id=""
-              placeholder="Buscar categoria por nombre.."
-              [(ngModel)]="filterCategory"
-            />
-          </div>
-        </div>
-        <table
-          class="table table-bordered"
-          *ngIf="categories.length > 0; else elseBlock"
-        >
-          <thead class="">
-            <tr>
-              <!-- <th scope="col">#</th> -->
-              <th scope="col">#</th>
-              <th scope="col">Nombre</th>
-              <th scope="col">DEscripción</th>
-              <th scope="col">Opciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let cat of categories | filter: filterCategory;let i=index">
-              <!-- <th scope="row">{{ indice + 1 }}</th> -->
-              <td>{{ i+1 }}</td>
-              <td>{{ cat.name }}</td>
-              <td>{{ cat.description }}</td>
-              <td>
-                <button
-                  class="btn btn-secondary"
-                  (click)="edit(cat.id)"
-                  data-toggle="modal"
-                  data-target="#editCategory"
-                >
-                  Editar
-                </button>
-                <button
-                  class="btn btn-danger float-right"
-                  (click)="deleteCategory(cat.id)"
-                >
-                  Eliminar
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <ng-template #elseBlock>
-          <div class="div">
-            <h3>No hay categorias registradas</h3>
-    
-            <p></p>
-          </div>
-        </ng-template>
-    
-        <!-- <div class="container-fluid"> -->
-      </div>
+<div class="container-fluid">
+  <div class="form-group">
+    <h4>Categorías</h4>
+    <span>Lista de categorías</span>
+  </div>
 </div>
+<div class="container">
+  <div class="form-group">
+    <button
+      class="btn btn-primary"
+      data-toggle="modal"
+      data-target="#addCategory"
+    >
+      Nueva categoría
+    </button>
+  </div>
+  <div class="form-group">
+    <input
+      type="search"
+      name=""
+      id=""
+      placeholder="Buscar categoria por nombre.."
+      [(ngModel)]="filterCategory"
+    />
+  </div>
+  <table
+    class="table table-bordered"
+  >
+    <thead class="">
+      <tr>
+        <!-- <th scope="col">#</th> -->
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">DEscripción</th>
+        <th scope="col">Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let cat of categories | filter: filterCategory; let i = index"
+      >
+        <td>{{ i + 1 }}</td>
+        <td>{{ cat.name }}</td>
+        <td>{{ cat.description }}</td>
+        <td>
+          <button
+            class="btn btn-secondary"
+            (click)="edit(cat.id)"
+            data-toggle="modal"
+            data-target="#editCategory"
+          >
+            Editar
+          </button>
+          <button
+            class="btn btn-danger float-right"
+            (click)="deleteCategory(cat.id)"
+          >
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ng-template #elseBlock>
+    <div class="div">
+      <h3>No hay categorias registradas</h3>
+
+      <p></p>
+    </div>
+  </ng-template>
+</div>
+
 <!--Modal Agregar categoria -->
 <div
-class="modal fade"
-id="addProduct"
-tabindex="-1"
-aria-labelledby="exampleModalLabel"
-aria-hidden="true"
+  class="modal fade"
+  id="addCategory"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
 >
-<div class="modal-dialog modal-md">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">
-        Agregar nueva categoría
-      </h5>
-      <button
-        type="button"
-        class="close"
-        data-dismiss="modal"
-        aria-label="Close"
-        #botonCerrarAdd
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Agregar nueva categoría
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          #botonCerrarAdd
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form
+        #addForm="ngForm"
+        (ngSubmit)="createCategory(addForm)"
+        class="form-addCategory"
       >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-
-    <!-- <flash-message messagePositioning="top-right"></flash-message> -->
-
-    <form
-      #addForm="ngForm"
-      (ngSubmit)="createCategory(addForm)"
-      class="form-addCategory"
-    >
-      <div class="form-row">
-        <div class="form-group col-md-12">
-          <label for="">Name</label>
-          <input
-            type="text"
-            class="form-control"
-            name="nombre"
-            #refName="ngModel"
-            [(ngModel)]="category.name"
-            [ngClass]="{
-              'is-invalid': refName.errors && refName.touched
-            }"
-            required
-          />
-          <div
-            [hidden]="!refName.errors?.required"
-            class="invalid-feedback"
-          >
-            Nombre requerido
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              name="nombre"
+              #refName="ngModel"
+              [(ngModel)]="category.name"
+              [ngClass]="{
+                'is-invalid': refName.errors && refName.touched
+              }"
+              required
+            />
+            <div [hidden]="!refName.errors?.required" class="invalid-feedback">
+              Nombre requerido
+            </div>
           </div>
         </div>
-        
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-12">
+        <div class="form-row">
+          <div class="form-group col-md-12">
             <label for="">Descripción</label>
             <input
               type="text"
@@ -138,86 +132,73 @@ aria-hidden="true"
               }"
               required
             />
-            <div
-              [hidden]="!refDesc.errors?.required"
-              class="invalid-feedback"
-            >
+            <div [hidden]="!refDesc.errors?.required" class="invalid-feedback">
               Descripción requerida
             </div>
           </div>
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-dismiss="modal"
-        >
-          Cancelar
-        </button>
-        <button type="submit" class="btn btn-primary">Guardar</button>
-      </div>
-    </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
 </div>
 
 <!--Modal Editar categoria -->
 <div
-class="modal fade"
-id="editCategory"
-tabindex="-1"
-aria-labelledby="exampleModalLabel"
-aria-hidden="true"
+  class="modal fade"
+  id="editCategory"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
 >
-<div class="modal-dialog modal-md">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">
-        Editar categoría
-      </h5>
-      <button
-        type="button"
-        class="close"
-        data-dismiss="modal"
-        aria-label="Close"
-        #botonCerrarEdit
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar categoría</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          #botonCerrarEdit
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form
+        #editForm="ngForm"
+        (ngSubmit)="editarCategory(editForm)"
+        class="form-addCategory"
       >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-
-    <!-- <flash-message messagePositioning="top-right"></flash-message> -->
-
-    <form
-      #editForm="ngForm"
-      (ngSubmit)="editarCategory(editForm)"
-      class="form-addCategory"
-    >
-      <div class="form-row">
-        <div class="form-group col-md-12">
-          <label for="">Name</label>
-          <input
-            type="text"
-            class="form-control"
-            name="editName"
-            #refEditName="ngModel"
-            [(ngModel)]="editCategory.name"
-            [ngClass]="{
-              'is-invalid': refEditName.errors && refEditName.touched
-            }"
-            required
-          />
-          <div
-            [hidden]="!refEditName.errors?.required"
-            class="invalid-feedback"
-          >
-            Nombre requerido
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              name="editName"
+              #refEditName="ngModel"
+              [(ngModel)]="editCategory.name"
+              [ngClass]="{
+                'is-invalid': refEditName.errors && refEditName.touched
+              }"
+              required
+            />
+            <div
+              [hidden]="!refEditName.errors?.required"
+              class="invalid-feedback"
+            >
+              Nombre requerido
+            </div>
           </div>
         </div>
-        
-      </div>
-      <div class="form-row">
-        <div class="form-group col-md-12">
+        <div class="form-row">
+          <div class="form-group col-md-12">
             <label for="">Descripción</label>
             <input
               type="text"
@@ -237,18 +218,14 @@ aria-hidden="true"
               Descripción requerida
             </div>
           </div>
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-dismiss="modal"
-        >
-          Cancelar
-        </button>
-        <button type="submit" class="btn btn-primary">Guardar</button>
-      </div>
-    </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
 </div>

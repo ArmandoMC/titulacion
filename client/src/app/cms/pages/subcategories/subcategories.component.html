@@ -1,74 +1,78 @@
 <div class="container-fluid">
   <div class="form-group">
-    <h4>Marcas</h4>
-    <span>Lista de marcas</span>
+    <h4>Subcategorías</h4>
+    <span>Lista de subcategorías</span>
   </div>
 </div>
 <div class="container">
-  <div class="form-group">
-    <button
-      class="btn btn-primary"
-      data-toggle="modal"
-      data-target="#addBrand"
-    >
-      Nueva marca
-    </button>
-  </div>
-  <div class="form-group">
-    <input
-      type="search"
-      name=""
-      id=""
-      placeholder="Buscar marca por nombre.."
-      [(ngModel)]="filterBrand"
-    />
-  </div>
-  <table class="table table-bordered">
-    <thead class="">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">DEscripción</th>
-        <th scope="col">Opciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let br of brands | filter: filterBrand; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>{{ br.name }}</td>
-        <td>{{ br.description }}</td>
-        <td>
-          <button
-            class="btn btn-secondary"
-            (click)="edit(br.id)"
-            data-toggle="modal"
-            data-target="#editBrand"
-          >
-            Editar
-          </button>
-          <button
-            class="btn btn-danger float-right"
-            (click)="deleteBrand(br.id)"
-          >
-            Eliminar
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <ng-template #elseBlock>
-    <div class="div">
-      <h3>No hay marcas registradas</h3>
-
-      <p></p>
+    <div class="form-group">
+      <button
+        class="btn btn-primary"
+        data-toggle="modal"
+        data-target="#addSubcategory"
+      >
+        Nueva subcategoría
+      </button>
     </div>
-  </ng-template>
+    <div class="form-group">
+      <input
+        type="search"
+        name=""
+        id=""
+        placeholder="Buscar subcategoria por nombre.."
+        [(ngModel)]="filterSubcategory"
+      />
+    </div>
+    <table
+      class="table table-bordered"
+    >
+      <thead class="">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Descripción</th>
+          <th scope="col">Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let subcat of subcategories | filter: filterSubcategory; let i = index"
+        >
+          <td>{{ i + 1 }}</td>
+          <td>{{ subcat.name }}</td>
+          <td>{{ subcat.description }}</td>
+          <td>
+            <button
+              class="btn btn-secondary"
+              (click)="edit(subcat.id)"
+              data-toggle="modal"
+              data-target="#editSubcategory"
+            >
+              Editar
+            </button>
+            <button
+              class="btn btn-danger float-right"
+              (click)="delete(subcat.id)"
+            >
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #elseBlock>
+      <div class="div">
+        <h3>No hay subcategorias registradas</h3>
+  
+        <p></p>
+      </div>
+    </ng-template>
 </div>
 
-<!-- Modal Agregar marca -->
+<!-- Agregar subcategoria -->
 <div
   class="modal fade"
-  id="addBrand"
+  id="addSubcategory"
   tabindex="-1"
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
@@ -76,7 +80,9 @@
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Agregar nueva marca</h5>
+        <h5 class="modal-title" id="exampleModalLabel">
+          Agregar nueva subcategoría
+        </h5>
         <button
           type="button"
           class="close"
@@ -87,13 +93,10 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-
-      <!-- <flash-message messagePositioning="top-right"></flash-message> -->
-
       <form
         #addForm="ngForm"
-        (ngSubmit)="createBrand(addForm)"
-        class="form-addBrand"
+        (ngSubmit)="createSubcategory(addForm)"
+        class="form-addSubcategory"
       >
         <div class="form-row">
           <div class="form-group col-md-12">
@@ -103,7 +106,7 @@
               class="form-control"
               name="nombre"
               #refName="ngModel"
-              [(ngModel)]="brand.name"
+              [(ngModel)]="subcategory.name"
               [ngClass]="{
                 'is-invalid': refName.errors && refName.touched
               }"
@@ -122,7 +125,7 @@
               class="form-control"
               name="stock"
               #refDesc="ngModel"
-              [(ngModel)]="brand.description"
+              [(ngModel)]="subcategory.description"
               [ngClass]="{
                 'is-invalid': refDesc.errors && refDesc.touched
               }"
@@ -144,10 +147,10 @@
   </div>
 </div>
 
-<!-- Modal Editar marca -->
+<!--Modal Editar categoria -->
 <div
   class="modal fade"
-  id="editBrand"
+  id="editSubcategory"
   tabindex="-1"
   aria-labelledby="exampleModalLabel"
   aria-hidden="true"
@@ -155,7 +158,7 @@
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Editar marca</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Editar subcategoría</h5>
         <button
           type="button"
           class="close"
@@ -168,8 +171,8 @@
       </div>
       <form
         #editForm="ngForm"
-        (ngSubmit)="editarBrand(editForm)"
-        class="form-addBrand"
+        (ngSubmit)="editarSubcategory(editForm)"
+        class="form-addSubcategory"
       >
         <div class="form-row">
           <div class="form-group col-md-12">
@@ -179,7 +182,7 @@
               class="form-control"
               name="editName"
               #refEditName="ngModel"
-              [(ngModel)]="editBrand.name"
+              [(ngModel)]="editSubcategory.name"
               [ngClass]="{
                 'is-invalid': refEditName.errors && refEditName.touched
               }"
@@ -201,7 +204,7 @@
               class="form-control"
               name="editCat"
               #refEditDesc="ngModel"
-              [(ngModel)]="editBrand.description"
+              [(ngModel)]="editSubcategory.description"
               [ngClass]="{
                 'is-invalid': refEditDesc.errors && refEditDesc.touched
               }"

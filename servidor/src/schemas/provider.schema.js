@@ -3,18 +3,24 @@ const Joi = require('joi');
 const id = Joi.number().integer();
 const name = Joi.string().min(3);
 const ruc=Joi.string();
-const description=Joi.string();
-const image = Joi.string().uri();
+const address=Joi.string();
+const phone=Joi.string().min(10).max(10);
+// const description=Joi.string();
+// const image = Joi.string().uri();
 const limit = Joi.number().integer();
 const offset = Joi.number().integer();
 const createProviderSchema = Joi.object({
   name: name.required(),
-  ruc:ruc.required()
+  ruc:ruc.required(),
+  address:address.required(),
+  phone:phone.required()
 });
 
 const updateProviderSchema = Joi.object({
   name: name.required(),
-  ruc:ruc.required()
+  ruc:ruc.required(),
+  address:address.required(),
+  phone:phone.required()
 });
 
 const getProviderSchema = Joi.object({

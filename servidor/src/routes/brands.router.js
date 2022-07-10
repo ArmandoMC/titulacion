@@ -22,6 +22,18 @@ async (req, res, next) => {
   }
 });
 
+router.get('/count',
+// passport.authenticate('jwt', { session: false }),
+// checkRoles('admin','seller'),
+async (req, res, next) => {
+  try {
+    const brands = await service.findCount();
+    res.json(brands);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.post('/',
   // passport.authenticate('jwt', { session: false }),
   // checkRoles('admin'),

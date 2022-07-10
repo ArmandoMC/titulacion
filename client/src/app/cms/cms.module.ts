@@ -17,6 +17,8 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { CategoriesComponent } from './pages/categories/categories.component';
 import { BrandsComponent } from './pages/brands/brands.component';
 import { ProvidersComponent } from './pages/providers/providers.component';
+import { SubcategoriesComponent } from './pages/subcategories/subcategories.component';
+import { FiltroPipe } from './pipes/filtro.pipe';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { ProvidersComponent } from './pages/providers/providers.component';
     FilterPipe,
     CategoriesComponent,
     BrandsComponent,
-    ProvidersComponent
+    ProvidersComponent,
+    SubcategoriesComponent,
+    FiltroPipe
     
   ],
   imports: [

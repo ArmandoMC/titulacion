@@ -97,4 +97,8 @@ export class CustomerService {
     )
 
   }
+  getCount(){
+    return this.http.get<any>(`${this.API_URL}/count`);
+ 
+  }
 }

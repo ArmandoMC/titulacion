@@ -98,6 +98,17 @@ router.get('/completed',
     }
   }
 );
+router.get('/count',
+  // validatorHandler(getOrderSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      const orders = await servicePago.findCountPendings();
+      res.json(orders);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 router.get('/:id',
   // validatorHandler(getOrderSchema, 'params'),

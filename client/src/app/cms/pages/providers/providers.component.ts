@@ -19,12 +19,16 @@ export class ProvidersComponent implements OnInit {
   provider:Provider={
     id:0,
     name:'',
-    ruc:''
+    ruc:'',
+    address:'',
+    phone:''
   }
   editProvider:Provider={
     id:0,
     name:'',
-    ruc:''
+    ruc:'',
+    address:'',
+    phone:''
   }
   idProvider:number=0;
   filterProvider:string="";
@@ -39,7 +43,6 @@ export class ProvidersComponent implements OnInit {
       this.providers=data;
     })
   }
-
   
   createProvider(f:NgForm){
     if(!f.valid){
@@ -47,7 +50,9 @@ export class ProvidersComponent implements OnInit {
     }else{
       const dto:CreateProviderDTO={
         name:this.provider.name,
-        ruc:this.provider.ruc
+        ruc:this.provider.ruc,
+        address:this.provider.address,
+        phone:this.provider.phone
       }
       this.providersService.create(dto).subscribe(data=>{
         console.log('proveedor creado:',data)
@@ -62,6 +67,8 @@ export class ProvidersComponent implements OnInit {
       this.idProvider = item.id;
       this.editProvider.name=item.name;
       this.editProvider.ruc=item.ruc;
+      this.editProvider.address=item.address;
+      this.editProvider.phone=item.phone;
     }
 
   }
@@ -71,7 +78,9 @@ export class ProvidersComponent implements OnInit {
     }else{
       const dto:CreateProviderDTO={
         name:this.editProvider.name,
-        ruc:this.editProvider.ruc
+        ruc:this.editProvider.ruc,
+        address:this.editProvider.address,
+        phone:this.editProvider.phone
       }
       this.providersService.update(this.idProvider,dto).subscribe(data=>{
         console.log('proveedor editado:',data)
