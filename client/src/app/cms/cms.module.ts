@@ -19,7 +19,11 @@ import { BrandsComponent } from './pages/brands/brands.component';
 import { ProvidersComponent } from './pages/providers/providers.component';
 import { SubcategoriesComponent } from './pages/subcategories/subcategories.component';
 import { FiltroPipe } from './pipes/filtro.pipe';
-
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import { AddProductComponent } from './pages/add-product/add-product.component';
+import { EditProductComponent } from './pages/edit-product/edit-product.component';
+import { AddCustomerComponent } from './pages/add-customer/add-customer.component';
+import { EditCustomerComponent } from './pages/edit-customer/edit-customer.component';
 @NgModule({
   declarations: [
     
@@ -38,13 +42,18 @@ import { FiltroPipe } from './pipes/filtro.pipe';
     BrandsComponent,
     ProvidersComponent,
     SubcategoriesComponent,
-    FiltroPipe
+    FiltroPipe,
+    AddProductComponent,
+    EditProductComponent,
+    AddCustomerComponent,
+    EditCustomerComponent
     
   ],
   imports: [
     CommonModule,
     CmsRoutingModule,
     FormsModule,
+    ScrollingModule
     
   ]
 })

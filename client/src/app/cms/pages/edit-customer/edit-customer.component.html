@@ -1,0 +1,174 @@
+<div class="container-fluid">
+  <div class="form-group">
+    <h4>Cliente</h4>
+    <span>Editar</span>
+  </div>
+</div>
+
+<!-- Editar cliente -->
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title" id="exampleModalLabel">Editar cliente</h5>
+        </div>
+        <form #editForm="ngForm" (ngSubmit)="editarCliente(editForm)">
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-3">
+                <label>Nombres</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="name"
+                  placeholder=""
+                  #refNewName="ngModel"
+                  [(ngModel)]="client.name"
+                  [ngClass]="{
+                    'is-invalid': refNewName.errors && refNewName.touched
+                  }"
+                  required
+                  [disabled]="isDisabled"
+                />
+                <div
+                  [hidden]="!refNewName.errors?.required"
+                  class="invalid-feedback"
+                >
+                  Npmbre requerido
+                </div>
+              </div>
+              <div class="form-group col-md-6 mb-3">
+                <label for="">Apellidos</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="lastName"
+                  #refNewLastName="ngModel"
+                  [(ngModel)]="client.last_name"
+                  [ngClass]="{
+                    'is-invalid':
+                      refNewLastName.errors && refNewLastName.touched
+                  }"
+                  required
+                  [disabled]="isDisabled"
+                />
+                <div
+                  [hidden]="!refNewLastName.errors?.required"
+                  class="invalid-feedback"
+                >
+                  Apellidos requeridos
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6 mb-3">
+                <label>Cédula</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="dni"
+                  placeholder=""
+                  #refNewDni="ngModel"
+                  [(ngModel)]="client.dni"
+                  [ngClass]="{
+                    'is-invalid': refNewDni.errors && refNewDni.touched
+                  }"
+                  required
+                  [disabled]="isDisabled"
+                />
+                <div
+                  [hidden]="!refNewDni.errors?.required"
+                  class="invalid-feedback"
+                >
+                  Cédula requerida
+                </div>
+              </div>
+              <div class="form-group col-md-6 mb-3">
+                <label>Teléfono</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="phone"
+                  #refNewPhone="ngModel"
+                  [(ngModel)]="client.phone"
+                  [ngClass]="{
+                    'is-invalid': refNewPhone.errors && refNewPhone.touched
+                  }"
+                  required
+                  [disabled]="isDisabled"
+                />
+                <div
+                  [hidden]="!refNewPhone.errors?.required"
+                  class="invalid-feedback"
+                >
+                  Teléfono requerido
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col mb-3">
+                <label for="">E-mail</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="email"
+                  #refNewEmail="ngModel"
+                  [(ngModel)]="client.user.email"
+                  [ngClass]="{
+                    'is-invalid': refNewEmail.errors && refNewEmail.touched
+                  }"
+                  required
+                  [disabled]="isDisabled"
+                  minlength="8"
+                />
+                <div
+                  [hidden]="!refNewEmail.errors?.required"
+                  class="invalid-feedback"
+                >
+                  E-mail requerido
+                </div>
+                <div
+                  [hidden]="!refNewEmail.errors?.minlength"
+                  class="invalid-feedback"
+                >
+                  Debe contener 8 caracteres
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="container-fluid">
+                <div class="form-row text-center">
+                  <div class="form-group col-md-6" *ngIf="isDisabled==true">
+                    <button  class="btn btn-primary" (click)="habilitar()">
+                      Editar
+                    </button> <br>
+                    <span>Clic para editar este cliente</span>
+                  </div>
+                  <div class="form-group col-md-6" *ngIf="isDisabled==false">
+                    <button  type="submit" class="btn btn-primary">
+                      Guardar cambios
+                    </button> <br>
+                    <span>Clic para guardar cambios</span>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <button
+                    type="button"
+                    class="btn btn-secondary"
+                    (click)="deleteClient()"
+                  >
+                    Eliminar
+                  </button> <br>
+                  <span>Clic para eliminar este cliente</span>
+    
+                </div>
+               
+                </div>
+              </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

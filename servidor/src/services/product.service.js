@@ -100,15 +100,15 @@ class ProductsService {
     await this.findOne(id);
 
      const { name, description, sleeve_color, flavor, presentation, packaging, stock,
-      purchase_price, price, image,public_id, category_id,
-      brand, provider_id } = changes;
+      purchase_price, price, image,public_id, category_id,subcategory_id,
+      brand_id, provider_id } = changes;
    
     const query2 = {
       text: `UPDATE products SET name=$1,description=$2,sleeve_color=$3,flavor=$4,presentation=$5,
-      packaging=$6,stock=$7,purchase_price=$8,price=$9,image=$10,public_id=$11,category_id=$12,brand=$13,
-      provider_id=$14 WHERE id=$15 RETURNING *`,
+      packaging=$6,stock=$7,purchase_price=$8,price=$9,image=$10,public_id=$11,category_id=$12,subcategory_id=$13,brand_id=$14,
+      provider_id=$15 WHERE id=$16 RETURNING *`,
       values: [name, description,sleeve_color,flavor,presentation,packaging,stock,purchase_price,
-         price,image,public_id, category_id, brand,provider_id,id]
+         price,image,public_id, category_id,subcategory_id, brand_id,provider_id,id]
     };
     const rta = await pool.query(query2);
     return rta.rows[0];

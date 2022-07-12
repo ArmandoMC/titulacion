@@ -13,6 +13,11 @@ import { CategoriesComponent } from './pages/categories/categories.component';
 import { BrandsComponent } from './pages/brands/brands.component';
 import { ProvidersComponent } from './pages/providers/providers.component';
 import { SubcategoriesComponent } from './pages/subcategories/subcategories.component';
+import { AddProductComponent } from './pages/add-product/add-product.component';
+import { EditProductComponent } from './pages/edit-product/edit-product.component';
+import { AddCustomerComponent } from './pages/add-customer/add-customer.component';
+import { EditCustomerComponent } from './pages/edit-customer/edit-customer.component';
+import { SalesComponent } from './pages/sales/sales.component';
 
 const routes: Routes = [
   {
@@ -33,9 +38,27 @@ const routes: Routes = [
         component: ProductsComponent,
       },
       {
+        path: 'products/add',
+        component: AddProductComponent,
+      },
+      
+      {
         path: 'customers',
         component: CustomersComponent,
       },
+      {
+        path: 'customers/add',
+        component: AddCustomerComponent,
+      },
+      {
+        path: 'products/:id',
+        component: EditProductComponent,
+      },
+      {
+        path: 'customers/:id',
+        component: EditCustomerComponent,
+      },
+      
       {
         path: 'categories',
         component: CategoriesComponent,
@@ -79,6 +102,10 @@ const routes: Routes = [
       {
         path: 'factura/order/:id',
         component: InvoiceComponent,
+      },
+      {
+        path: 'ventas',
+        component: SalesComponent,
       },
     ],
   },

@@ -98,11 +98,33 @@ router.get('/completed',
     }
   }
 );
-router.get('/count',
+router.get('/count-pendings',
   // validatorHandler(getOrderSchema, 'params'),
   async (req, res, next) => {
     try {
       const orders = await servicePago.findCountPendings();
+      res.json(orders);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+router.get('/count-ontheway',
+  // validatorHandler(getOrderSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      const orders = await servicePago.findCountOnTheway();
+      res.json(orders);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+router.get('/count-completed',
+  // validatorHandler(getOrderSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      const orders = await servicePago.findCountCompleted();
       res.json(orders);
     } catch (error) {
       next(error);

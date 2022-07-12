@@ -17,39 +17,11 @@ export class CustomersComponent implements OnInit {
   @ViewChild('botonCerrarAdd') botonCerrarAdd:ElementRef;
   @ViewChild('botonCerrarEdit') botonCerrarEdit:ElementRef;
   idUsuario:number;
-  client2:Customer={
-    id:0,
-    name:'',
-    last_name:'',
-    dni:'',
-    phone:'',
-    user:{
-      email:'',
-      password:''
-    }
-  }
-  /**/
-  client:Customer={
-    id:0,
-    name:'',
-    last_name:'',
-    dni:'',
-    phone:'',
-    user:{
-      email:'',
-      password:''
-    }
-  }
-  address:CreateAddressDTO={
-    address:'',
-    city:'',
-    state:'',
-    country:'',
-    postal_code:'',
-    user_id:0
-  }
   customers:any[]=[];
   filterCustomer:string="";
+  public page: number = 0;
+  public search: string = '';
+  public numPagina: number = 1;
   constructor(
     private customerService:CustomerService,
     private userService:UserService,
@@ -61,91 +33,27 @@ export class CustomersComponent implements OnInit {
     this.authService.user$.subscribe(user=>{
       this.idUsuario=user.id;
     })
-
-
     this.customerService.getAll().subscribe()
     this.customerService.customers$.subscribe(data=>{
       this.customers=data;
       console.log('vector de any:',this.customers)
     })
   }
-  addClient(f:NgForm){
-    if(!f.valid){
-
-    }else{
-      const newCustomer:any={
-        name:this.client2.name,
-        last_name:this.client2.last_name,
-        dni:this.client2.dni,
-        phone:this.client2.phone,
-        user:{
-          email:this.client2.user.email,
-          password:this.client2.user.password
-        }
-      }
-      this.customerService.createByAdmin(newCustomer).subscribe(cliente=>{
-        console.log('cliente creado:', cliente)
-        this.clientForm.resetForm();
-        this.cerrarModalAdd();
-      })
-
-    }
-  }
-  
-  deleteClient(id:number){
-    this.customerService.deleteClient(id).subscribe(data=>{
-      console.log('client eliminado:', data)
-    })
-    const indice=this.customers.findIndex(cli=>cli.id===id);
-    this.customers.splice(indice,1);
+  nextPage() {
+    this.page += 4;
+    this.numPagina+=1;
   }
 
-  editar(id:number){
-
-    const item=this.customers.find(item=>item.id===id);
-    if(item){
-      this.client.id=id;
-      console.log('id cliente',this.client.id)
-      this.client.name=item.name;
-      this.client.last_name=item.last_name;
-      this.client.dni=item.dni;
-      this.client.phone=item.phone;
-      this.client.user.email=item.email;
-    
-    }
-   
-  }
-  editarCliente(f:NgForm){
-    
-    if(!f.valid){
-
-    }else{
-      const dto:UpdateCustomerDTO={
-        name:this.client.name,
-        last_name:this.client.last_name,
-        dni:this.client.dni,
-        phone:this.client.phone,
-        user:{
-          email:this.client.user.email, 
-        }
-      }
-      
-      this.customerService.updateClient(this.client.id,dto).subscribe(client=>{
-        console.log('cliente actualizado',client);
-        this.editForm.resetForm();
-        this.cerrarModalEdit();
-      
-        // this.editForm.resetForm();
-        // this.cerrarModalEdit();
-      })
-    }
-    
-  }
-  private cerrarModalAdd(){
-    this.botonCerrarAdd.nativeElement.click();
-  }
-  private cerrarModalEdit(){
-    this.botonCerrarEdit.nativeElement.click();
+  prevPage() {
+    if ( this.page > 0 )
+      this.page -= 4;
+    if(this.numPagina>1){
+        this.numPagina-=1;
+     }
   }
 
+  onSearch( search: string ) {
+    this.page = 0;
+    this.search = search;
+  }
 }

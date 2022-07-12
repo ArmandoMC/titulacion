@@ -40,6 +40,7 @@ export class ProductsService {
     return this.http.get<Product[]>(`${this.API_URL}/products`,{params})
     .pipe(
       tap((products)=>{
+        products.sort((a,b)=> Number(a.id) - Number(b.id))
         this.myProducts=products;
         this.products.next(this.myProducts);
       })

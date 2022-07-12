@@ -5,26 +5,26 @@
   </div>
 </div>
 <div class="container">
-  <div class="form-group">
-    <button
-      class="btn btn-primary"
-      data-toggle="modal"
-      data-target="#addClient"
-    >
-      Nuevo cliente
-    </button>
+  <div class="form-inline mb-3">
+    <div class="form-group w-50">
+      <input
+        type="search"
+        name="buscar"
+        id=""
+        placeholder="Buscar por nombre"
+        #txtSearch
+        (keyup)="onSearch(txtSearch.value)"
+      />
+    </div>
+    <div class="form-group w-50">
+      <button
+        class="btn btn-primary ml-auto"
+       routerLink="/cms/customers/add"
+      >
+        Nuevo cliente
+      </button>
+    </div>
   </div>
-
-  <div class="form-group">
-    <input
-      type="search"
-      name="buscar"
-      id=""
-      placeholder="buscar"
-      [(ngModel)]="filterCustomer"
-    />
-  </div>
-
   <table
     class="table table-bordered"
   >
@@ -39,15 +39,16 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let c of customers | filter: filterCustomer">
-        <!-- <th scope="row">{{ indice + 1 }}</th> -->
+      <tr *ngFor="let c of customers | filtro:page:search"
+      [ngStyle]="{height:'70px'}">
         <td>{{ c.dni }}</td>
         <td>{{ c.name }}</td>
         <td>{{ c.last_name }}</td>
         <td>{{ c.email }}</td>
         <td>{{ c.phone }}</td>
         <td>
-          <button
+          <button class="btn btn-info" [routerLink]="['/cms/customers',c.user_id]">Detalles</button>
+          <!-- <button
             class="btn btn-secondary"
             (click)="editar(c.id)"
             data-toggle="modal"
@@ -60,11 +61,31 @@
             (click)="deleteClient(c.id)"
           >
             Eliminar
-          </button>
+          </button> -->
         </td>
       </tr>
     </tbody>
   </table>
+  <nav aria-label="Page navigation example" class="text-right">
+    <ul class="pagination">
+      <li class="page-item">
+        <span aria-label="Previous" class="btn border" (click)="prevPage()">
+          <span aria-hidden="true"><i class="fa fa-angle-double-left" aria-hidden="true"></i> </span>
+        </span>
+      </li>
+      <li class="page-item active" aria-current="page">
+        <a class="page-link">{{numPagina}}</a>
+      </li>
+      <li class="page-item">
+        <button aria-label="Next" class="btn border"
+        (click)="nextPage()"
+        [disabled]="(customers | filtro: page:search).length === 0">
+          <span aria-hidden="true"><i class="fa fa-angle-double-right" aria-hidden="true"></i>
+          </span>
+      </button>
+      </li>
+    </ul>
+  </nav>
   <ng-template #elseBlock>
     <div class="div">
       <h3>No hay clientes registrados</h3>
@@ -72,480 +93,4 @@
       <p></p>
     </div>
   </ng-template>
-</div>
-<!-- Modal agregar cliente -->
-<div
-  class="modal fade"
-  id="addClient"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
-  #botonCerrarAdd
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">
-          Agregar nueva cliente
-        </h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-          #botonCerrarAdd
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form #addForm="ngForm" (ngSubmit)="addClient(addForm)">
-        <div class="modal-body">
-          <div class="form-row">
-            <div class="form-group col-md-6 mb-3">
-              <label for="">Nombres</label>
-              <input
-                type="text"
-                class="form-control"
-                name="name"
-                placeholder=""
-                #refName="ngModel"
-                [(ngModel)]="client2.name"
-                [ngClass]="{ 'is-invalid': refName.errors && refName.touched }"
-                required
-              />
-              <div
-                [hidden]="!refName.errors?.required"
-                class="invalid-feedback"
-              >
-                Nombre requerido
-              </div>
-            </div>
-            <div class="form-group col-md-6 mb-3">
-              <label for="">Apellidos</label>
-              <input
-                type="text"
-                class="form-control"
-                name="lastName"
-                #refLastName="ngModel"
-                [(ngModel)]="client2.last_name"
-                [ngClass]="{
-                  'is-invalid': refLastName.errors && refLastName.touched
-                }"
-                required
-              />
-              <div
-                [hidden]="!refLastName.errors?.required"
-                class="invalid-feedback"
-              >
-                Apellidos requeridos
-              </div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6 mb-3">
-              <label for="">Cédula</label>
-              <input
-                type="text"
-                class="form-control"
-                name="dni"
-                placeholder=""
-                #refDni="ngModel"
-                [(ngModel)]="client2.dni"
-                [ngClass]="{ 'is-invalid': refDni.errors && refDni.touched }"
-                required
-              />
-              <div [hidden]="!refDni.errors?.required" class="invalid-feedback">
-                Dni requerido
-              </div>
-            </div>
-            <div class="form-group col-md-6 mb-3">
-              <label for="">Teléfono</label>
-              <input
-                type="text"
-                class="form-control"
-                name="phone"
-                #refPhone="ngModel"
-                [(ngModel)]="client2.phone"
-                [ngClass]="{
-                  'is-invalid': refPhone.errors && refPhone.touched
-                }"
-                required
-              />
-              <div
-                [hidden]="!refPhone.errors?.required"
-                class="invalid-feedback"
-              >
-                Teléfono requerido
-              </div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col mb-3">
-              <label for="">E-mail</label>
-              <input
-                type="text"
-                class="form-control"
-                name="email"
-                #refEmail="ngModel"
-                [(ngModel)]="client2.user.email"
-                [ngClass]="{
-                  'is-invalid': refEmail.errors && refEmail.touched
-                }"
-                required
-                minlength="8"
-              />
-              <div
-                [hidden]="!refEmail.errors?.required"
-                class="invalid-feedback"
-              >
-                E-mail requerido
-              </div>
-              <div
-                [hidden]="!refEmail.errors?.minlength"
-                class="invalid-feedback"
-              >
-                Debe contener 8 caracteres
-              </div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col mb-3">
-              <label>Direccion</label>
-              <input
-                type="text"
-                class="form-control"
-                name="dirNueva"
-                placeholder=""
-                #nameAddress="ngModel"
-                [(ngModel)]="address.address"
-                [ngClass]="{
-                  'is-invalid': nameAddress.errors && nameAddress.touched
-                }"
-                required
-              />
-              <div
-                [hidden]="!nameAddress.errors?.required"
-                class="invalid-feedback"
-              >
-                Dirección requerida
-              </div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-4 mb-3">
-              <label for="">Ciudad</label>
-              <input
-                type="text"
-                class="form-control"
-                name="cityNueva"
-                #nameCity="ngModel"
-                [(ngModel)]="address.city"
-                [ngClass]="{
-                  'is-invalid': nameCity.errors && nameCity.touched
-                }"
-                required
-              />
-              <div
-                [hidden]="!nameCity.errors?.required"
-                class="invalid-feedback"
-              >
-                Ciudad requerida
-              </div>
-            </div>
-            <div class="form-group col-md-4 mb-3">
-              <label for="">Provincia</label>
-              <input
-                type="text"
-                class="form-control"
-                name="stateNuevo"
-                placeholder=""
-                #nameState="ngModel"
-                [(ngModel)]="address.state"
-                [ngClass]="{
-                  'is-invalid': nameState.errors && nameState.touched
-                }"
-                required
-              />
-              <div
-                [hidden]="!nameState.errors?.required"
-                class="invalid-feedback"
-              >
-                Provincia requerida
-              </div>
-            </div>
-            <div class="form-group col-md-4 mb-3">
-              <label>País</label>
-              <input
-                type="text"
-                class="form-control"
-                name="countryNuevo"
-                #nameCountry="ngModel"
-                [(ngModel)]="address.country"
-                [ngClass]="{
-                  'is-invalid': nameCountry.errors && nameCountry.touched
-                }"
-                required
-              />
-              <div
-                [hidden]="!nameCountry.errors?.required"
-                class="invalid-feedback"
-              >
-                País requerido
-              </div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-4 mb-3">
-              <label for="">Codigo postal</label>
-              <input
-                type="text"
-                class="form-control"
-                name="postal_codeNuevo"
-                #namePostalCode="ngModel"
-                [(ngModel)]="address.postal_code"
-                [ngClass]="{
-                  'is-invalid': namePostalCode.errors && namePostalCode.touched
-                }"
-                required
-                minlength="6"
-              />
-              <div
-                [hidden]="!namePostalCode.errors?.required"
-                class="invalid-feedback"
-              >
-                Código postal requerido
-              </div>
-              <div
-                [hidden]="!namePostalCode.errors?.minlength"
-                class="invalid-feedback"
-              >
-                Debe contener 6 caracteres
-              </div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6 mb-3">
-              <label>Contraseña</label>
-              <input
-                type="password"
-                class="form-control"
-                name="contrasena"
-                #refContrasena="ngModel"
-                [(ngModel)]="client2.user.password"
-                [ngClass]="{
-                  'is-invalid': refContrasena.errors && refContrasena.touched
-                }"
-                required
-                minlength="8"
-              />
-              <div
-                [hidden]="!refContrasena.errors?.required"
-                class="invalid-feedback"
-              >
-                Contraseña requerida
-              </div>
-              <div
-                [hidden]="!refContrasena.errors?.minlength"
-                class="invalid-feedback"
-              >
-                Se require de al menos 8 caracteres
-              </div>
-            </div>
-            <div class="form-group col-md-6 mb-3">
-              <label for="">Repetir contraseña</label>
-              <input
-                type="password"
-                class="form-control"
-                name="contrasena"
-                #refRepeatContrasena="ngModel"
-                [(ngModel)]="client2.user.password"
-                [ngClass]="{
-                  'is-invalid':
-                    refRepeatContrasena.errors && refRepeatContrasena.touched
-                }"
-                required
-              />
-              <div
-                [hidden]="!refRepeatContrasena.errors?.required"
-                class="invalid-feedback"
-              >
-                Contraseña requerida
-              </div>
-              <div
-                [hidden]="!refContrasena.errors?.minlength"
-                class="invalid-feedback"
-              >
-                Se require de al menos 8 caracteres
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            Cancelar
-          </button>
-          <button type="submit" class="btn btn-primary">Guardar</button>
-        </div>
-      </form>
-    </div>
-  </div>
- 
-</div>
-
-<!-- Modal editar cliente -->
-<div
-class="modal fade"
-id="editClient"
-tabindex="-1"
-aria-labelledby="exampleModalLabel"
-aria-hidden="true"
-#botonCerrarEdit
->
-<div class="modal-dialog">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">Editar cliente</h5>
-      <button
-        type="button"
-        class="close"
-        data-dismiss="modal"
-        aria-label="Close"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <form #editForm="ngForm" (ngSubmit)="editarCliente(editForm)">
-      <div class="modal-body">
-        <div class="form-row">
-          <div class="form-group col-md-6 mb-3">
-            <label>Nombres</label>
-            <input
-              type="text"
-              class="form-control"
-              name="name"
-              placeholder=""
-              #refNewName="ngModel"
-              [(ngModel)]="client.name"
-              [ngClass]="{
-                'is-invalid': refNewName.errors && refNewName.touched
-              }"
-              required
-            />
-            <div
-              [hidden]="!refNewName.errors?.required"
-              class="invalid-feedback"
-            >
-              Npmbre requerido
-            </div>
-          </div>
-          <div class="form-group col-md-6 mb-3">
-            <label for="">Apellidos</label>
-            <input
-              type="text"
-              class="form-control"
-              name="lastName"
-              #refNewLastName="ngModel"
-              [(ngModel)]="client.last_name"
-              [ngClass]="{
-                'is-invalid':
-                  refNewLastName.errors && refNewLastName.touched
-              }"
-              required
-            />
-            <div
-              [hidden]="!refNewLastName.errors?.required"
-              class="invalid-feedback"
-            >
-              Apellidos requeridos
-            </div>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-6 mb-3">
-            <label>Cédula</label>
-            <input
-              type="text"
-              class="form-control"
-              name="dni"
-              placeholder=""
-              #refNewDni="ngModel"
-              [(ngModel)]="client.dni"
-              [ngClass]="{
-                'is-invalid': refNewDni.errors && refNewDni.touched
-              }"
-              required
-            />
-            <div
-              [hidden]="!refNewDni.errors?.required"
-              class="invalid-feedback"
-            >
-              Cédula requerida
-            </div>
-          </div>
-          <div class="form-group col-md-6 mb-3">
-            <label>Teléfono</label>
-            <input
-              type="text"
-              class="form-control"
-              name="phone"
-              #refNewPhone="ngModel"
-              [(ngModel)]="client.phone"
-              [ngClass]="{
-                'is-invalid': refNewPhone.errors && refNewPhone.touched
-              }"
-              required
-            />
-            <div
-              [hidden]="!refNewPhone.errors?.required"
-              class="invalid-feedback"
-            >
-              Teléfono requerido
-            </div>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col mb-3">
-            <label for="">E-mail</label>
-            <input
-              type="text"
-              class="form-control"
-              name="email"
-              #refNewEmail="ngModel"
-              [(ngModel)]="client.user.email"
-              [ngClass]="{
-                'is-invalid': refNewEmail.errors && refNewEmail.touched
-              }"
-              required
-              minlength="8"
-            />
-            <div
-              [hidden]="!refNewEmail.errors?.required"
-              class="invalid-feedback"
-            >
-              E-mail requerido
-            </div>
-            <div
-              [hidden]="!refNewEmail.errors?.minlength"
-              class="invalid-feedback"
-            >
-              Debe contener 8 caracteres
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-dismiss="modal"
-        >
-          Cancelar
-        </button>
-        <button type="submit" class="btn btn-primary">
-          Guardar cambios
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
 </div>

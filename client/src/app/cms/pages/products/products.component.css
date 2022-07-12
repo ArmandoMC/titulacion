@@ -11,3 +11,34 @@
 .container-fluid{
     background-color: #FAF9F9;
 }
+.table-fixed{
+    /* width: 100%; */
+}
+/* .table-fixed tbody{
+    height: 300px;
+    overflow-y: auto;
+    width: 100% !important;
+} */
+/* .viewport{
+    height: 300px;
+    width: 1120px;
+    margin: 0 !important;
+} */
+
+/* .table-fixed thead,
+.table-fixed tbody,
+.table-fixed td,
+.table-fixed th{
+    display: block;
+} */
+/* .table-fixed tbody td,
+.table-fixed thead>tr>th{
+    float: left;
+    border-bottom-width: 0;
+} */
+/* .table-fixed tbody tr{
+    margin: 0 !important;
+}
+.table-fixed tbody tr{
+    padding: 0 !important;
+} */

@@ -116,15 +116,15 @@ export class CheckoutService {
     //   })
   }
   getCountPendings(){
-    return this.http.get<any>(`${this.API}/orders/count`)
+    return this.http.get<any>(`${this.API}/orders/count-pendings`)
 
   }
   getCountOnTheWay(){
-    return this.http.get<any>(`${this.API}/orders/count`)
+    return this.http.get<any>(`${this.API}/orders/count-ontheway`)
 
   }
   getCountCompleted(){
-    return this.http.get<any>(`${this.API}/orders/count`)
+    return this.http.get<any>(`${this.API}/orders/count-completed`)
 
   }
 }

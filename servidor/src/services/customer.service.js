@@ -96,12 +96,11 @@ class CustomerService {
     // delete newCustomer.user.password;
     return {customer:newCustomer.rows[0],
             user:us};
-
   }
-
-  async findClientByUser(userId) {
-
-    const query = `SELECT C.id,name, last_name,dni,phone FROM customers C JOIN users U ON C.user_id=${userId} `;
+  async findClientByUser(id) {
+    const query ={
+      text: `SELECT C.id,C.name, C.last_name,C.dni,C.phone,U.email FROM customers C JOIN users U ON C.user_id=U.id WHERE C.user_id=$1`,
+    values:[id]};
     const rta = await this.pool.query(query);
     return rta.rows[0];
   }
@@ -114,7 +113,7 @@ class CustomerService {
 
   async findAll() {
     const query = {
-      text: `SELECT c.id,c.name,c.last_name,c.dni,c.phone,us.email FROM customers c INNER JOIN users us ON c.user_id=us.id WHERE us.role='customer'`
+      text: `SELECT c.id,c.name,c.last_name,c.dni,c.phone,c.user_id,us.email FROM customers c INNER JOIN users us ON c.user_id=us.id where us.role='customer'`
       // text: `SELECT * FROM customers c INNER JOIN users us ON c.user_id=us.id`
     };
     const customers = await this.pool.query(query);

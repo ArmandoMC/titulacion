@@ -6,7 +6,6 @@
 </div>
 <div class="container">
   <div class="form-inline mb-3">
-   
     <div class="form-group w-50">
       <input
         type="search"
@@ -14,28 +13,19 @@
         id=""
         placeholder="Buscar producto por nombre.."
         #txtSearch
-        (keyup)="onSearchPokemon(txtSearch.value)"
+        (keyup)="onSearch(txtSearch.value)"
       />
     </div>
-    <div class="form-group w-50" style="">
-      <button
-        class="btn btn-primary ml-auto"
-        (click)="getUltimoId()"
-        data-toggle="modal"
-        data-target="#addProduct"
-      >
+    <div class="form-group w-50">
+      <button class="btn btn-primary ml-auto" routerLink="/cms/products/add">
         Nuevo producto
       </button>
     </div>
   </div>
 
-  <table
-    class="table table-bordered"
-    *ngIf="products.length > 0; else elseBlock"
-  >
+  <table class="table table-bordered table-fixed mb-3">
     <thead class="">
       <tr>
-        <!-- <th scope="col">#</th> -->
         <th scope="col">Código</th>
         <th scope="col">Nombre</th>
         <th scope="col">Presentación</th>
@@ -45,9 +35,12 @@
         <th scope="col">Opciones</th>
       </tr>
     </thead>
+
     <tbody>
-      <tr *ngFor="let pro of products | filtro: page:search">
-        <!-- <th scope="row">{{ indice + 1 }}</th> -->
+      <tr
+        *ngFor="let pro of products | filtro: page:search"
+        [ngStyle]="{ height: '70px' }"
+      >
         <td>{{ pro.cod_product }}</td>
         <td>{{ pro.name }}</td>
         <td>{{ pro.presentation }}</td>
@@ -55,759 +48,45 @@
         <td>{{ pro.purchase_price }}</td>
         <td>{{ pro.price }}</td>
         <td>
-          <button
-            class="btn btn-secondary"
-            (click)="edit(pro.id)"
-            data-toggle="modal"
-            data-target="#editProduct"
-          >
-            Editar
-          </button>
-          <button
-            class="btn btn-danger float-right"
-            (click)="deleteProduct(pro.id)"
-          >
-            Eliminar
+          <button class="btn btn-info" [routerLink]="['/cms/products',pro.id]">
+            Detalles
           </button>
         </td>
       </tr>
     </tbody>
   </table>
-
-    <nav aria-label="Page navigation example" class="text-right">
-      <ul class="pagination">
-        <li class="page-item mr-3">
-          <button aria-label="Previous" class="btn btn-secondary" (click)="prevPage()">
-            <span aria-hidden="true"><i class="fa fa-angle-double-left" aria-hidden="true"></i> Anterior</span>
-          </button>
-        </li>
-        
-        <li class="page-item">
-          <button  aria-label="Next" class="btn btn-secondary"
+  <nav aria-label="Page navigation example" class="text-right">
+    <ul class="pagination">
+      <li class="page-item">
+        <span aria-label="Previous" class="btn border" (click)="prevPage()">
+          <span aria-hidden="true"
+            ><i class="fa fa-angle-double-left" aria-hidden="true"></i>
+          </span>
+        </span>
+      </li>
+      <li class="page-item active" aria-current="page">
+        <a class="page-link">{{ numPagina }}</a>
+      </li>
+      <li class="page-item">
+        <button
+          aria-label="Next"
+          class="btn border"
           (click)="nextPage()"
-          [disabled]="(products | filtro: page:search).length === 0">
-            <span aria-hidden="true">Siguiente <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            </span>
+          [disabled]="(products | filtro: page:search).length === 0"
+        >
+          <span aria-hidden="true"
+            ><i class="fa fa-angle-double-right" aria-hidden="true"></i>
+          </span>
         </button>
-        </li>
-      </ul>
-    </nav>
-  <!-- </div> -->
-  <ng-template #elseBlock>
-    <div class="div">
-      <h3>No hay productos registrados</h3>
-
-      <p></p>
-    </div>
-  </ng-template>
-
-  <!-- <div class="container-fluid"> -->
-
-  <!-- Modal agregar producto -->
-  <div
-    class="modal fade"
-    id="addProduct"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">
-            Agregar nuevo producto
-          </h5>
-          <button
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-            #botonCerrarAdd
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-
-        <!-- <flash-message messagePositioning="top-right"></flash-message> -->
-
-        <form
-          #addForm="ngForm"
-          (ngSubmit)="createProduct(addForm)"
-          class="form-addProduct"
-        >
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="">Código</label>
-              <input
-                type="text"
-                class="form-control"
-                name="codigo"
-                #refCodigo="ngModel"
-                [(ngModel)]="codigo"
-                [ngClass]="{
-                  'is-invalid': refCodigo.errors && refCodigo.touched
-                }"
-                required
-                disabled
-              />
-              <div
-                [hidden]="!refCodigo.errors?.required"
-                class="invalid-feedback"
-              >
-                Codigo requerido
-              </div>
-            </div>
-            <div class="form-group col-md-6">
-              <label for="">Stock</label>
-              <input
-                type="text"
-                class="form-control"
-                name="stock"
-                #refStock="ngModel"
-                [(ngModel)]="stock"
-                [ngClass]="{
-                  'is-invalid': refStock.errors && refStock.touched
-                }"
-                required
-              />
-              <div
-                [hidden]="!refStock.errors?.required"
-                class="invalid-feedback"
-              >
-                Stock requerido
-              </div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="">Nombre</label>
-              <input
-                type="text"
-                class="form-control"
-                name="name"
-                #refName="ngModel"
-                [(ngModel)]="name"
-                [ngClass]="{ 'is-invalid': refName.errors && refName.touched }"
-                required
-              />
-              <div
-                [hidden]="!refName.errors?.required"
-                class="invalid-feedback"
-              >
-                Nombre requerido
-              </div>
-            </div>
-            <div class="form-group col-md-6">
-              <label for="">Precio de compra</label>
-              <input
-                type="text"
-                class="form-control"
-                name="purchase_price"
-                #refPurchasePrice="ngModel"
-                [(ngModel)]="purchase_price"
-                [ngClass]="{
-                  'is-invalid':
-                    refPurchasePrice.errors && refPurchasePrice.touched
-                }"
-                required
-              />
-              <div
-                [hidden]="!refPurchasePrice.errors?.required"
-                class="invalid-feedback"
-              >
-                Precio de compra requerido
-              </div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="">Descripcion</label>
-              <textarea
-                name="description"
-                id=""
-                rows="2"
-                [(ngModel)]="description"
-                class="w-100"
-                #refDescription="ngModel"
-                [(ngModel)]="description"
-                [ngClass]="{
-                  'is-invalid': refDescription.errors && refDescription.touched
-                }"
-                required
-              >
-              </textarea>
-              <!-- <input
-            type="text"
-            class="form-control"
-            name="description"
-            #refDescription="ngModel"
-            [(ngModel)]="description"
-            [ngClass]="{'is-invalid':refDescription.errors && refDescription.touched}"
-            required /> -->
-              <div
-                [hidden]="!refDescription.errors?.required"
-                class="invalid-feedback"
-              >
-                Descripción requerida
-              </div>
-            </div>
-            <div class="form-group col-md-6">
-              <label for="">Precio de venta</label>
-              <input
-                step="0.1"
-                type="number"
-                class="form-control"
-                name="price"
-                #refPrice="ngModel"
-                [(ngModel)]="price"
-                [ngClass]="{
-                  'is-invalid': refPrice.errors && refPrice.touched
-                }"
-                required
-              />
-              <div
-                [hidden]="!refPrice.errors?.required"
-                class="invalid-feedback"
-              >
-                Precio de venta requerido
-              </div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="">Color funda</label>
-              <!-- <select name="miSelect" id="" (change)="onSelect($event)">
-            <option value="" *ngFor="let c of colores" [value]="c">
-              {{c}}
-            </option>
-          </select> -->
-              <input
-                type="text"
-                class="form-control"
-                name="sleeve_color"
-                placeholder="( opcional )"
-                [(ngModel)]="sleeve_color"
-              />
-            </div>
-            <div class="form-group col-md-6">
-              <label for="">Imagen</label>
-              <input
-                type="file"
-                class="form-control"
-                (change)="onPhotoSelected($event)"
-                name="image"
-                required
-              />
-              <!-- <div [hidden]="!refImage.errors?.required" class="invalid-feedback">
-          Imagen requerida</div> -->
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-4">
-              <label for="">Sabor</label>
-              <input
-                type="text"
-                class="form-control"
-                name="flavor"
-                #refFlavor="ngModel"
-                [(ngModel)]="flavor"
-                [ngClass]="{
-                  'is-invalid': refFlavor.errors && refFlavor.touched
-                }"
-                required
-              />
-              <div
-                [hidden]="!refFlavor.errors?.required"
-                class="invalid-feedback"
-              >
-                Sabor requerido
-              </div>
-            </div>
-            <div class="form-group col-md-4">
-              <label for="">Categoria</label>
-              <div>
-                <select name="" id="">
-                  <option
-                    [value]="cat"
-                    *ngFor="let cat of vectorCat"
-                    (click)="capturarCategoriaAlInsertar(cat)"
-                  >
-                    {{ cat }}
-                  </option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group col-md-4">
-              <label for="">Subcategoria</label>
-              <div>
-                <select name="" id="">
-                  <option
-                    [value]="subcat"
-                    *ngFor="let subcat of vectorSubCat"
-                    (click)="capturarSubCategoriaAlInsertar(subcat)"
-                  >
-                    {{ subcat }}
-                  </option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="">Presentacion</label>
-              <input
-                type="text"
-                class="form-control"
-                name="presentation"
-                #refPresentation="ngModel"
-                [(ngModel)]="presentation"
-                [ngClass]="{
-                  'is-invalid':
-                    refPresentation.errors && refPresentation.touched
-                }"
-                required
-              />
-              <div
-                [hidden]="!refPresentation.errors?.required"
-                class="invalid-feedback"
-              >
-                Presentación requerida
-              </div>
-            </div>
-            <div class="form-group col-md-6">
-              <label for="">Marca</label>
-              <select name="" id="">
-                <option
-                  [value]="br"
-                  *ngFor="let br of vectorBrand"
-                  (click)="capturarBrandAlInsertar(br)"
-                >
-                  {{ br }}
-                </option>
-              </select>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="">Embalaje</label>
-              <input
-                type="text"
-                class="form-control"
-                name="packaging"
-                #refEmbalaje="ngModel"
-                [(ngModel)]="packaging"
-                [ngClass]="{
-                  'is-invalid': refEmbalaje.errors && refEmbalaje.touched
-                }"
-                required
-              />
-              <div
-                [hidden]="!refEmbalaje.errors?.required"
-                class="invalid-feedback"
-              >
-                Tipo de embalaje requerido
-              </div>
-            </div>
-            <div class="form-group col-md-6">
-              <label for="">Proveedor</label>
-              <div>
-                <select name="" id="">
-                  <option
-                    [value]="pr"
-                    *ngFor="let pr of vectorProv"
-                    (click)="capturarProviderAlInsertar(pr)"
-                  >
-                    {{ pr }}
-                  </option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-            >
-              Cancelar
-            </button>
-            <button type="submit" class="btn btn-primary">Guardar</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal editar producto -->
-  <div
-    class="modal fade"
-    id="editProduct"
-    tabindex="-1"
-    aria-labelledby="exampleModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Editar producto</h5>
-          <button
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-            #botonCerrarEdit
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-
-        <!-- <flash-message messagePositioning="top-right"></flash-message> -->
-
-        <form
-          #editForm="ngForm"
-          (ngSubmit)="editProduct(editForm)"
-          class="form-editProduct"
-        >
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="">Código</label>
-              <input
-                type="text"
-                class="form-control"
-                name="codigo"
-                #refCodigo="ngModel"
-                [(ngModel)]="product.cod_product"
-                [ngClass]="{
-                  'is-invalid': refCodigo.errors && refCodigo.touched
-                }"
-                required
-                disabled
-              />
-              <div
-                [hidden]="!refCodigo.errors?.required"
-                class="invalid-feedback"
-              >
-                Codigo requerido
-              </div>
-            </div>
-            <div class="form-group col-md-6">
-              <label for="">Stock</label>
-              <input
-                type="text"
-                class="form-control"
-                name="stock"
-                #refStock="ngModel"
-                [(ngModel)]="product.stock"
-                [ngClass]="{
-                  'is-invalid': refStock.errors && refStock.touched
-                }"
-                required
-              />
-              <div
-                [hidden]="!refStock.errors?.required"
-                class="invalid-feedback"
-              >
-                Stock requerido
-              </div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="">Nombre</label>
-              <input
-                type="text"
-                class="form-control"
-                name="name"
-                #refEditName="ngModel"
-                [(ngModel)]="product.name"
-                [ngClass]="{
-                  'is-invalid': refEditName.errors && refEditName.touched
-                }"
-                required
-              />
-              <div
-                [hidden]="!refEditName.errors?.required"
-                class="invalid-feedback"
-              >
-                Nombre requerido
-              </div>
-            </div>
-            <div class="form-group col-md-6">
-              <label for="">Precio de compra</label>
-              <input
-                type="text"
-                class="form-control"
-                name="purchase_price"
-                #refEditPurchasePrice="ngModel"
-                [(ngModel)]="product.purchase_price"
-                [ngClass]="{
-                  'is-invalid':
-                    refEditPurchasePrice.errors && refEditPurchasePrice.touched
-                }"
-                required
-              />
-              <div
-                [hidden]="!refEditPurchasePrice.errors?.required"
-                class="invalid-feedback"
-              >
-                Precio de compra requerido
-              </div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="">Descripcion</label>
-              <textarea
-                name="description"
-                id=""
-                rows="2"
-                [(ngModel)]="description"
-                class="w-100"
-                #refEditDescription="ngModel"
-                [(ngModel)]="product.description"
-                [ngClass]="{
-                  'is-invalid':
-                    refEditDescription.errors && refEditDescription.touched
-                }"
-                required
-              >
-              </textarea>
-              <!-- <input
-            type="text"
-            class="form-control"
-            name="description"
-            #refDescription="ngModel"
-            [(ngModel)]="description"
-            [ngClass]="{'is-invalid':refDescription.errors && refDescription.touched}"
-            required /> -->
-              <div
-                [hidden]="!refEditDescription.errors?.required"
-                class="invalid-feedback"
-              >
-                Descripción requerida
-              </div>
-            </div>
-            <div class="form-group col-md-6">
-              <label for="">Precio de venta</label>
-              <input
-                step="0.1"
-                type="number"
-                class="form-control"
-                name="price"
-                #refEditPrice="ngModel"
-                [(ngModel)]="product.price"
-                [ngClass]="{
-                  'is-invalid': refEditPrice.errors && refEditPrice.touched
-                }"
-                required
-              />
-              <div
-                [hidden]="!refEditPrice.errors?.required"
-                class="invalid-feedback"
-              >
-                Precio de venta requerido
-              </div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="">color funda</label>
-              <input
-                type="text"
-                class="form-control"
-                name="sleeve_color"
-                placeholder="( opcional )"
-                #refEditFlavor="ngModel"
-                [(ngModel)]="product.sleeve_color"
-              />
-            </div>
-            <div class="form-group col-md-6">
-              <label for="">Imagen</label>
-              <input
-                type="file"
-                class="form-control"
-                (change)="onPhotoSelected($event)"
-                name="image"
-                required
-              />
-              <img
-                *ngIf="product.image"
-                [src]="product.image"
-                alt=""
-                width="60"
-              />
-              <!-- <div [hidden]="!refImage.errors?.required" class="invalid-feedback">
-          Imagen requerida</div> -->
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="">Sabor</label>
-              <input
-                type="text"
-                class="form-control"
-                name="flavor"
-                #refEditFlavor="ngModel"
-                [(ngModel)]="product.flavor"
-                [ngClass]="{
-                  'is-invalid': refEditFlavor.errors && refEditFlavor.touched
-                }"
-                required
-              />
-              <div
-                [hidden]="!refEditFlavor.errors?.required"
-                class="invalid-feedback"
-              >
-                Sabor requerido
-              </div>
-            </div>
-            <div class="form-group col-md-6">
-              <label for="">Categoria</label>
-
-              <!-- <input class="input-cat" type="text" name="cat_seleccionada" [(ngModel)]="cat_seleccionada"/> -->
-              <select
-                name="cat_seleccionada"
-                id="ss"
-                [(ngModel)]="cat_seleccionada"
-                class="select-cat"
-              >
-                <option
-                  [value]="cat"
-                  *ngFor="let cat of vectorCat"
-                  (click)="capturarCategoria(cat)"
-                >
-                  {{ cat }}
-                </option>
-              </select>
-            </div>
-            <div class="form-group col-md-6">
-              <label for="">SubCategoria</label>
-
-              <!-- <input class="input-cat" type="text" name="cat_seleccionada" [(ngModel)]="cat_seleccionada"/> -->
-              <select
-                name="subcat_seleccionada"
-                id="ss"
-                [(ngModel)]="subcat_seleccionada"
-                class="select-cat"
-              >
-                <option
-                  [value]="subcat"
-                  *ngFor="let subcat of vectorSubCat"
-                  (click)="capturarSubCategoria(subcat)"
-                >
-                  {{ subcat }}
-                </option>
-              </select>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="">Presentacion</label>
-              <input
-                type="text"
-                class="form-control"
-                name="presentation"
-                #refEdPresent="ngModel"
-                [(ngModel)]="product.presentation"
-                [ngClass]="{
-                  'is-invalid': refEdPresent.errors && refEdPresent.touched
-                }"
-                required
-              />
-              <div
-                [hidden]="!refEdPresent.errors?.required"
-                class="invalid-feedback"
-              >
-                Presentación requerida
-              </div>
-            </div>
-            <div class="form-group col-md-6">
-              <label for="">Marca</label>
-              <div>
-                <select
-                  name="brand_seleccionada"
-                  id=""
-                  [(ngModel)]="brand_seleccionada"
-                >
-                  <option
-                    [value]="br"
-                    *ngFor="let br of vectorBrand"
-                    (click)="capturarBrand(br)"
-                  >
-                    {{ br }}
-                  </option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="">Embalaje</label>
-              <input
-                type="text"
-                class="form-control"
-                name="packaging"
-                #refEditEmbalaje="ngModel"
-                [(ngModel)]="product.packaging"
-                [ngClass]="{
-                  'is-invalid':
-                    refEditEmbalaje.errors && refEditEmbalaje.touched
-                }"
-                required
-              />
-              <div
-                [hidden]="!refEditEmbalaje.errors?.required"
-                class="invalid-feedback"
-              >
-                Tipo de embalaje requerido
-              </div>
-            </div>
-            <div class="form-group col-md-6">
-              <label for="">Proveedor</label>
-              <div>
-                <select
-                  name="prov_seleccionado"
-                  id=""
-                  [(ngModel)]="prov_seleccionado"
-                >
-                  <option
-                    [value]="pr"
-                    *ngFor="let pr of vectorProv"
-                    (click)="capturarProvider(pr)"
-                  >
-                    {{ pr }}
-                  </option>
-                </select>
-              </div>
-
-              <!-- <input
-            
-            class="form-control"
-            name="status_id"
-            #refStatus="ngModel"
-            [(ngModel)]="status_id"
-            [ngClass]="{'is-invalid':refStatus.errors && refStatus.touched}"
-            required />
-            <div [hidden]="!refStatus.errors?.required" class="invalid-feedback">
-         Estado requerido</div> -->
-            </div>
-          </div>
-
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-dismiss="modal"
-            >
-              Cancelar
-            </button>
-            <button type="submit" class="btn btn-primary">
-              Guardar cambios
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+      </li>
+    </ul>
+  </nav>
 </div>
+
+<ng-template #elseBlock>
+  <div class="div">
+    <h3>No hay productos registrados</h3>
+
+    <p></p>
+  </div>
+</ng-template>

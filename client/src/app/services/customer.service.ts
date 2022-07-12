@@ -33,7 +33,9 @@ export class CustomerService {
           last_name:cust.last_name,
           dni:cust.dni,
           phone:cust.phone,
+          // user_id:cust.user_id,
           email:us.email
+          
         }
         this.myCustomers.push(dato);
         this.customers.next(this.myCustomers);
@@ -57,8 +59,6 @@ export class CustomerService {
   }
   deleteClient(id:number){
       return this.http.delete<Customer>(`${this.API_URL}/${id}`);
-  
-    
   }
   updateDniAndPhone(id: number,dni:string,phone:string) {
     return this.http.put<Customer>(`${this.API_URL}/updateDniAndPhone/${id}`,{dni,phone});

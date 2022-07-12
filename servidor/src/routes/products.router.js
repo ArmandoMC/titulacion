@@ -82,15 +82,6 @@ router.post('/',
         res.status(201).json(pro);
       }
       return { message: 'Error al obtener datos del frontend' }
-
-      // }
-
-      // const { name, description, sleeveColor, flavor, presentation, packaging, stock,
-      //   wholesalePrice, sellingPrice, image,publicId,categoryId, brandId, statusId } = req.body;
-
-
-      // }
-
     } catch (error) {
       next(error);
     }
@@ -122,32 +113,25 @@ router.put('/:id',
       const{hayFoto}=req.body;
       if(hayFoto==='No'){
         const { name, description, sleeve_color, flavor, presentation, packaging, stock,
-          purchase_price, price, category_id, brand, provider_id,image_url,public_id } = req.body;
+          purchase_price, price, category_id,subcategory_id, brand_id, provider_id,image_url,public_id } = req.body;
         const newProduct2 = {
           name, description, sleeve_color, flavor, presentation, packaging, stock,
-          purchase_price, price, image: image_url, public_id, category_id, brand, provider_id
+          purchase_price, price, image: image_url, public_id, category_id,subcategory_id, brand_id, provider_id
         };
         const product = await service.update(id, newProduct2);
         res.json(product);
       }else{
         const result = await cloudinary.v2.uploader.upload(req.file.path);
         const { name, description, sleeve_color, flavor, presentation, packaging, stock,
-          purchase_price, price, category_id, brand, provider_id } = req.body;
+          purchase_price, price, category_id, subcategory_id, brand_id, provider_id } = req.body;
         const newProduct = {
           name, description, sleeve_color, flavor, presentation, packaging, stock,
-          purchase_price, price, image: result.url, public_id: result.public_id, category_id, brand, provider_id
+          purchase_price, price, image: result.url, public_id: result.public_id, category_id,subcategory_id, brand_id, provider_id
         };
         const product = await service.update(id, newProduct);
 
         res.json(product);
       }
-
-      // if (req.file.path) {
-       
-      // } else {
-        
-      // }
-
     } catch (error) {
       next(error);
     }

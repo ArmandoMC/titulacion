@@ -12,6 +12,7 @@ export interface Customer{
     password?:string;
     role?:string;
   }
+  confirmation?:boolean;
 
 }
 
