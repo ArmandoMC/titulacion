@@ -142,11 +142,22 @@ class PagoService {
     }
     return order.rows[0];
   }
+  async findByFecha() {
+    const query =
+    {
+      text: `SELECT ord.id,ord.customer_id,ord.total,ord.id_transaccion,ord.status,ord.created_at,c.name,sa.num_factura FROM orders ord INNER JOIN customers c ON ord.customer_id=c.id JOIN sales sa ON ord.sale_id=sa.id_sale`
+    };
+    const orders = await this.pool.query(query);
+    if (orders.rows.length === 0) {
+      return [];
+    }
+    return orders.rows;
+  }
   async findPending() {
     const status='Preparando tu pedido';
     const query =
     {
-      text: `SELECT ord.id,ord.customer_id,ord.total,ord.id_transaccion,ord.status,ord.created_at, c.name FROM orders ord INNER JOIN customers c ON ord.customer_id=c.id WHERE ord.status=$1`,
+      text: `SELECT ord.id,ord.customer_id,ord.total,ord.id_transaccion,ord.status,ord.created_at,c.name,sa.num_factura FROM orders ord INNER JOIN customers c ON ord.customer_id=c.id JOIN sales sa ON ord.sale_id=sa.id_sale WHERE ord.status=$1`,
       values:[status]
     };
     const orders = await this.pool.query(query);

@@ -111,13 +111,13 @@ export class ProductsComponent implements OnInit {
     });
   }
   nextPage() {
-    this.page += 4;
+    this.page += 2;
     this.numPagina+=1;
   }
 
   prevPage() {
     if ( this.page > 0 )
-      this.page -= 4;
+      this.page -= 2;
     if(this.numPagina>1){
       this.numPagina-=1;
     }

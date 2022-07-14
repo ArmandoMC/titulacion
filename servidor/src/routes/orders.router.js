@@ -17,7 +17,19 @@ const servicePago=new PagoService();
 const serviceSales=new SalesService();
 const addressService=new AddressService();
 
-
+router.get('/fecha',
+  // validatorHandler(getOrderSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      const { fechaInicial,fechaFinal} = req.body;
+      console.log('fecha inicial:',fechaInicial,'fecha final:',fechaFinal)
+      const orders = await servicePago.findByFecha(req.body);
+      res.json(orders);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 // router.post('/',
 //   passport.authenticate('jwt', { session: false }),
 //   validatorHandler(createOrderSchema, 'body'),
@@ -36,20 +48,6 @@ const addressService=new AddressService();
 //   }
 // );
 
-// router.post('/',
-//   // passport.authenticate('jwt', { session: false }),
-//   // validatorHandler(createOrderSchema, 'body'),
-//   async (req, res, next) => {
-//     try {
-        
-//       const result=await servicePago.create(req.body)
-      
-//       res.status(201).json(result);
-//     } catch (error) {
-//       next(error);
-//     }
-//   }
-// );
 // router.get('/ultimoId',
 //   // validatorHandler(getOrderSchema, 'params'),
 //   async (req, res, next) => {

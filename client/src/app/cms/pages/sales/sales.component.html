@@ -1,5 +1,164 @@
-<div class="container">
-    <div class="form-group">
-        
-    </div>
+<div class="container-fluid">
+  <div class="form-group">
+    <h4>Ventas</h4>
+    <span>Lista de ventas realizadas</span>
+  </div>
 </div>
+<div class="container-fluid mt-3">
+  <div class="form-group">
+    <input
+      type="search"
+      name=""
+      id=""
+      placeholder="Buscar por nombre.."
+      #txtSearch
+      (keyup)="onSearch(txtSearch.value)"
+    />
+  </div>
+  <div class="row">
+    <div class="col-md-7">
+      <div class="form-group w-100">
+        DE:
+        <input
+          type="date"
+          name="fechaInicial"
+          id=""
+          value="2022-07-13"
+          (change)="onSelect($event)"
+        /><span class="glyphicon glyphicon-th"></span>
+
+        HASTA:
+        <input
+          type="date"
+          name="fechaFinal"
+          id=""
+          value="2022-07-13"
+          (change)="onSelect2($event)"
+        /><span class="glyphicon glyphicon-th"></span>
+        <button class="btn btn-success float-right" (click)="imprimir()">
+          Imprimir reporte
+        </button>
+      </div>
+    </div>
+    <div class="col-md-5"></div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-7">
+      <table id="tabla-ventas" class="table table-bordered">
+        <thead class="tabla-ventas-head">
+          <tr>
+            <!-- <th scope="col">#</th> -->
+            <th scope="col">#</th>
+            <th scope="col">N° Factura</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Total pagado</th>
+            <th scope="col">Fecha</th>
+            <!-- <th scope="col">Estado</th> -->
+            <!-- <th scope="col">Envio</th> -->
+            <!-- <th scope="col">Opciones</th> -->
+          </tr>
+        </thead>
+        <tbody class="tabla-ventas-body">
+          <tr
+            *ngFor="
+              let order of orders
+                | filtroFecha: fechaInicial:fechaFinal
+                | filter: search;
+              let i = index
+            "
+          >
+            <td>{{ i + 1 }}</td>
+            <td>{{ order.num_factura }}</td>
+            <td>{{ order.name }}</td>
+            <td>{{ order.total | currency }}</td>
+            <td>{{ order.created_at | date: "short" }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-5">
+      <table id="tabla-resultados" class="table table-bordered">
+        <thead class="">
+          <tr></tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let order of orders | filtroFecha: fechaInicial:fechaFinal;
+              let i = index;
+              let ultimo = last
+            "
+          >
+            <td *ngIf="ultimo">
+              <div class="card card-num">
+                <div class="card-body">N° ventas: {{ order.numVentas }}</div>
+              </div>
+            </td>
+            <td *ngIf="ultimo">
+              <div class="card card-total">
+                <div class="card-body">
+                  Total ventas: {{ order.totalVentas | currency: "$" }}
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <!-- <div *ngFor="let order of orders | filtroFecha: fechaInicial:fechaFinal;
+      let i = index;
+      let ultimo = last">
+      <div class="card" *ngIf="ultimo">
+        <div class="card-body">
+          <h4>Total: {{order.totalVentas}}</h4>
+        </div>
+      </div>
+      <div class="card" *ngIf="ultimo">
+        <div class="card-body">
+          <h4>#ventas: {{order.numVentas}}</h4>
+        </div>
+      </div>
+
+      </div> -->
+    </div>
+  </div>
+  <!-- <div class="row">
+  <div class="col">
+    <nav aria-label="Page navigation example" class="text-right">
+      <ul class="pagination">
+        <li class="page-item">
+          <span aria-label="Previous" class="btn border" (click)="prevPage()">
+            <span aria-hidden="true"
+              ><i class="fa fa-angle-double-left" aria-hidden="true"></i>
+            </span>
+          </span>
+        </li>
+        <li class="page-item active" aria-current="page">
+          <a class="page-link">{{ numPagina }}</a>
+        </li>
+        <li class="page-item">
+          <button
+            aria-label="Next"
+            class="btn border"
+            (click)="nextPage()"
+            [disabled]="(orders | filtro: page:search).length === 0"
+          >
+            <span aria-hidden="true"
+              ><i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            </span>
+          </button>
+        </li>
+      </ul>
+</nav>
+ 
+  
+  </div>
+</div> -->
+</div>
+<ng-template #elseBlock>
+  <div class="div">
+    <h3>No hay ventas</h3>
+
+    <p></p>
+  </div>
+</ng-template>

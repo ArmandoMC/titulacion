@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
-import { CreateOrderDTO, OrderPayment, UpdateOrderDTO } from '../models/order.model';
+import { CreateOrderDTO, Fecha, OrderPayment, UpdateOrderDTO } from '../models/order.model';
 import { Product } from '../models/product.model';
 import {AuthService} from './auth.service';
 import { Address } from '../models/address.model';
@@ -125,6 +125,10 @@ export class CheckoutService {
   }
   getCountCompleted(){
     return this.http.get<any>(`${this.API}/orders/count-completed`)
+
+  }
+  orderByFecha(dto:Fecha){
+    return this.http.get<OrderPayment[]>(`${this.API}/orders/fecha`)
 
   }
 }

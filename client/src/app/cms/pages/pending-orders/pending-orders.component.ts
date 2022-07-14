@@ -24,19 +24,4 @@ export class PendingOrdersComponent implements OnInit {
      this.ordersPending=dta;
     })
   }
-
-  // confirmarOrden(id:number){
-  //   const status='En camino';
-  //   this.checkoutService.confirmOrder(id,status).subscribe(data=>{
-
-  //   })
-  
-  //   const indice=this.ordersPending.findIndex(item=>item.id===id);
-  //   if(indice!=-1){
-  //     this.ordersPending.splice(indice,1);
-  //   }
-   
-
-  // }
-
 }

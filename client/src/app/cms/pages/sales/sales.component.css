@@ -1,0 +1,20 @@
+#tabla-ventas{
+    /* height: 300px; */
+    /* border:1px solid rgb(194, 4, 4) !important; */
+}
+/* .tabla-ventas-head{
+    height: 40px;
+}
+.tabla-ventas-body{
+    height: 260px;
+} */
+.card-total{
+    background-color: rgb(25, 89, 228);
+    color: white;
+    font-weight: bold;
+}
+.card-num{
+    background-color: rgb(25, 89, 228);
+    color: white;
+    font-weight: bold;
+}

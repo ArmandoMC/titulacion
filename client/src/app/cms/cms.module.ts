@@ -24,6 +24,10 @@ import { AddProductComponent } from './pages/add-product/add-product.component';
 import { EditProductComponent } from './pages/edit-product/edit-product.component';
 import { AddCustomerComponent } from './pages/add-customer/add-customer.component';
 import { EditCustomerComponent } from './pages/edit-customer/edit-customer.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { FiltroFechaPipe } from './pipes/filtro-fecha.pipe';
+import { FiltroVentasPipe } from './pipes/filtro-ventas.pipe';
+
 @NgModule({
   declarations: [
     
@@ -46,15 +50,17 @@ import { EditCustomerComponent } from './pages/edit-customer/edit-customer.compo
     AddProductComponent,
     EditProductComponent,
     AddCustomerComponent,
-    EditCustomerComponent
+    EditCustomerComponent,
+    FiltroFechaPipe,
+    FiltroVentasPipe
     
   ],
   imports: [
     CommonModule,
     CmsRoutingModule,
     FormsModule,
-    ScrollingModule
-    
+    ScrollingModule,
+    NgxChartsModule,    
   ]
 })
 export class CmsModule { }
