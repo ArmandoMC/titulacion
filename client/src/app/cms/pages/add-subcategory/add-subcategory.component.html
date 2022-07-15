@@ -1,0 +1,75 @@
+<div class="container-fluid">
+  <div class="form-group">
+    <h4>Subcategorías</h4>
+    <span>Agregar subcategoría</span>
+  </div>
+</div>
+
+<!-- Agregar subcategoria -->
+<div class="row">
+  <div class="col-md-6 mx-auto">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title">
+          Agregar nueva subcategoría
+        </h5>
+      </div>
+      <form
+        #addForm="ngForm"
+        (ngSubmit)="createSubcategory(addForm)"
+        class="form-addSubcategory"
+      >
+        <div class="card-body">
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="">Name</label>
+              <input
+                type="text"
+                class="form-control"
+                name="nombre"
+                #refName="ngModel"
+                [(ngModel)]="subcategory.name"
+                [ngClass]="{
+                  'is-invalid': refName.errors && refName.touched
+                }"
+                required
+              />
+              <div
+                [hidden]="!refName.errors?.required"
+                class="invalid-feedback"
+              >
+                Nombre requerido
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="">Descripción</label>
+              <input
+                type="text"
+                class="form-control"
+                name="stock"
+                #refDesc="ngModel"
+                [(ngModel)]="subcategory.description"
+                [ngClass]="{
+                  'is-invalid': refDesc.errors && refDesc.touched
+                }"
+                required
+              />
+              <div
+                [hidden]="!refDesc.errors?.required"
+                class="invalid-feedback"
+              >
+                Descripción requerida
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <button type="submit" class="btn btn-primary btn-block mx-auto">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

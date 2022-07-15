@@ -1,0 +1,103 @@
+<div class="container-fluid">
+  <div class="form-group">
+    <h4>Subcategorías</h4>
+    <span>Agregar subcategoría</span>
+  </div>
+</div>
+
+<!-- Editar categoria -->
+<div class="row">
+  <div class="col-md-6 mx-auto">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title" id="exampleModalLabel">Editar subcategoría</h5>
+      </div>
+      <form
+        #editForm="ngForm"
+        (ngSubmit)="editarSubcategory(editForm)"
+        class="form-addSubcategory"
+      >
+        <div class="card-body">
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="">Name</label>
+              <input
+                type="text"
+                class="form-control"
+                name="editName"
+                #refEditName="ngModel"
+                [(ngModel)]="editSubcategory.name"
+                [ngClass]="{
+                  'is-invalid': refEditName.errors && refEditName.touched
+                }"
+                required
+                [disabled]="isDisabled"
+              />
+              <div
+                [hidden]="!refEditName.errors?.required"
+                class="invalid-feedback"
+              >
+                Nombre requerido
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label for="">Descripción</label>
+              <input
+                type="text"
+                class="form-control"
+                name="editCat"
+                #refEditDesc="ngModel"
+                [(ngModel)]="editSubcategory.description"
+                [ngClass]="{
+                  'is-invalid': refEditDesc.errors && refEditDesc.touched
+                }"
+                required
+                [disabled]="isDisabled"
+              />
+              <div
+                [hidden]="!refEditDesc.errors?.required"
+                class="invalid-feedback"
+              >
+                Descripción requerida
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <div class="container-fluid">
+            <div class="form-row text-center">
+              <div class="form-group col-md-6" *ngIf="isDisabled == true">
+                <button class="btn btn-primary" (click)="habilitar()">
+                  Editar
+                </button>
+                <br />
+                <span>Clic para editar esta subcategoría</span>
+              </div>
+              <div class="form-group col-md-6" *ngIf="isDisabled == false">
+                <button type="submit" class="btn btn-primary">
+                  Guardar cambios
+                </button>
+                <br />
+                <span>Clic para guardar cambios</span>
+              </div>
+              <div class="form-group col-md-6">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  (click)="delete()"
+                >
+                  Eliminar
+                </button>
+                <br />
+                <span>Clic para eliminar este subcategoría</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

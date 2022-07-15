@@ -28,7 +28,7 @@
           <td>{{ order.id_transaccion }}</td>
           <td><span class="badge badge-warning">{{order.status}}</span></td>
           <td><button class="btn btn-success" [routerLink]="['/cms/orders/pendientes/confirm',order.id]">Envio</button> </td>
-          <td><button type="button" class="btn btn-primary" [routerLink]="['/cms/factura/order',order.id]">
+          <td><button type="button" class="btn btn-info" [routerLink]="['/cms/factura/order',order.id]">
             Detalle del pedido
           </button>
           </td>

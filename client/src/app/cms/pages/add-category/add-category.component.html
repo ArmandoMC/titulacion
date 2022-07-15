@@ -1,0 +1,70 @@
+<div class="container-fluid">
+    <div class="form-group">
+      <h4>Categorías</h4>
+      <span>Agregar categoria</span>
+    </div>
+</div>
+<!-- agregar categoria -->
+<div class="row">
+  <div class="col-md-6 mx-auto">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title">
+          Agregar nueva categoría
+        </h5>
+      </div>
+      <div class="card-body">
+        <form
+        #addForm="ngForm"
+        (ngSubmit)="createCategory(addForm)"
+        class="form-addCategory"
+      >
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              name="nombre"
+              #refName="ngModel"
+              [(ngModel)]="category.name"
+              [ngClass]="{
+                'is-invalid': refName.errors && refName.touched
+              }"
+              required
+            />
+            <div [hidden]="!refName.errors?.required" class="invalid-feedback">
+              Nombre requerido
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="">Descripción</label>
+            <input
+              type="text"
+              class="form-control"
+              name="stock"
+              #refDesc="ngModel"
+              [(ngModel)]="category.description"
+              [ngClass]="{
+                'is-invalid': refDesc.errors && refDesc.touched
+              }"
+              required
+            />
+            <div [hidden]="!refDesc.errors?.required" class="invalid-feedback">
+              Descripción requerida
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Cancelar
+          </button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>

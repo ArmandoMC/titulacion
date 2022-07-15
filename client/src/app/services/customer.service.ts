@@ -23,35 +23,35 @@ export class CustomerService {
   }
   createByAdmin(data: any) {
     return this.http.post<any>(`${this.API_URL}/by-admin`, data)
-    .pipe(
-      tap((dt)=>{
-        const cust=dt.customer;
-        const us=dt.user;
-        const dato={
-          id:cust.id,
-          name:cust.name,
-          last_name:cust.last_name,
-          dni:cust.dni,
-          phone:cust.phone,
-          // user_id:cust.user_id,
-          email:us.email
+    // .pipe(
+    //   tap((dt)=>{
+    //     const cust=dt.customer;
+    //     const us=dt.user;
+    //     const dato={
+    //       id:cust.id,
+    //       name:cust.name,
+    //       last_name:cust.last_name,
+    //       dni:cust.dni,
+    //       phone:cust.phone,
+    //       // user_id:cust.user_id,
+    //       email:us.email
           
-        }
-        this.myCustomers.push(dato);
-        this.customers.next(this.myCustomers);
+    //     }
+    //     this.myCustomers.push(dato);
+    //     this.customers.next(this.myCustomers);
 
-      })
-    )
+    //   })
+    // )
   }
   getAll(){
     return this.http.get<any[]>(`${this.API_URL}`)
-    .pipe(
-      tap((data)=>{
-       this.myCustomers=data;
-       this.customers.next(this.myCustomers);
+    // .pipe(
+    //   tap((data)=>{
+    //    this.myCustomers=data;
+    //    this.customers.next(this.myCustomers);
 
-      })
-    )
+    //   })
+    // )
 
   }
   getClient(id: number) {
@@ -75,26 +75,26 @@ export class CustomerService {
   }
   updateClient(id:number,dto:UpdateCustomerDTO){
     return this.http.put<any>(`${this.API_URL}/${id}`,dto)
-    .pipe(
-      tap((data=>{
-        const cust=data.customer;
-        const us=data.user;
+    // .pipe(
+    //   tap((data=>{
+    //     const cust=data.customer;
+    //     const us=data.user;
         
-        const indice=this.myCustomers.findIndex(cli=>cli.id===cust.id);
-        if(indice!=-1){
-          const dato={
-            id:cust.id,
-            name:cust.name,
-            last_name:cust.last_name,
-            dni:cust.dni,
-            phone:cust.phone,
-            email:us.email
-          }
-          this.myCustomers[indice]=dato;
-          this.customers.next(this.myCustomers);
-        }
-      }))
-    )
+    //     const indice=this.myCustomers.findIndex(cli=>cli.id===cust.id);
+    //     if(indice!=-1){
+    //       const dato={
+    //         id:cust.id,
+    //         name:cust.name,
+    //         last_name:cust.last_name,
+    //         dni:cust.dni,
+    //         phone:cust.phone,
+    //         email:us.email
+    //       }
+    //       this.myCustomers[indice]=dato;
+    //       this.customers.next(this.myCustomers);
+    //     }
+    //   }))
+    // )
 
   }
   getCount(){

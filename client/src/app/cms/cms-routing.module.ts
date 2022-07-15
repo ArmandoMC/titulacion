@@ -18,6 +18,10 @@ import { EditProductComponent } from './pages/edit-product/edit-product.componen
 import { AddCustomerComponent } from './pages/add-customer/add-customer.component';
 import { EditCustomerComponent } from './pages/edit-customer/edit-customer.component';
 import { SalesComponent } from './pages/sales/sales.component';
+import { AddCategoryComponent } from './pages/add-category/add-category.component';
+import { EditCategoryComponent } from './pages/edit-category/edit-category.component';
+import { AddSubcategoryComponent } from './pages/add-subcategory/add-subcategory.component';
+import { EditSubcategoryComponent } from './pages/edit-subcategory/edit-subcategory.component';
 
 const routes: Routes = [
   {
@@ -64,8 +68,24 @@ const routes: Routes = [
         component: CategoriesComponent,
       },
       {
+        path: 'categories/add',
+        component: AddCategoryComponent,
+      },
+      {
+        path: 'categories/category/:id',
+        component: EditCategoryComponent,
+      },
+      {
         path: 'subcategories',
         component: SubcategoriesComponent,
+      },
+      {
+        path: 'subcategories/add',
+        component: AddSubcategoryComponent,
+      },
+      {
+        path: 'subcategories/subcategory/:id',
+        component: EditSubcategoryComponent,
       },
       {
         path: 'brands',

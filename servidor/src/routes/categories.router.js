@@ -36,8 +36,8 @@ async (req, res, next) => {
 
 
 router.get('/:id',
-passport.authenticate('jwt', { session: false }),
-checkRoles('admin','seller','customer'),
+// passport.authenticate('jwt', { session: false }),
+// checkRoles('admin','seller','customer'),
 
   validatorHandler(getCategorySchema, 'params'),
   async (req, res, next) => {

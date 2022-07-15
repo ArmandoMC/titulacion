@@ -27,6 +27,10 @@ import { EditCustomerComponent } from './pages/edit-customer/edit-customer.compo
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { FiltroFechaPipe } from './pipes/filtro-fecha.pipe';
 import { FiltroVentasPipe } from './pipes/filtro-ventas.pipe';
+import { AddCategoryComponent } from './pages/add-category/add-category.component';
+import { EditCategoryComponent } from './pages/edit-category/edit-category.component';
+import { AddSubcategoryComponent } from './pages/add-subcategory/add-subcategory.component';
+import { EditSubcategoryComponent } from './pages/edit-subcategory/edit-subcategory.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +56,11 @@ import { FiltroVentasPipe } from './pipes/filtro-ventas.pipe';
     AddCustomerComponent,
     EditCustomerComponent,
     FiltroFechaPipe,
-    FiltroVentasPipe
+    FiltroVentasPipe,
+    AddCategoryComponent,
+    EditCategoryComponent,
+    AddSubcategoryComponent,
+    EditSubcategoryComponent
     
   ],
   imports: [

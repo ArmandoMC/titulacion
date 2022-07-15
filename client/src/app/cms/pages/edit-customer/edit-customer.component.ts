@@ -37,10 +37,11 @@ export class EditCustomerComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private userService: UserService
-  ) {}
+  ) {
+    this.isDisabled = true;
+  }
 
   ngOnInit(): void {
-    this.isDisabled = true;
     this.route.paramMap
       .pipe(
         switchMap((params) => {

@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router, ActivatedRoute, ActivationEnd } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { ProductsService } from '../../../services/products.service';
 import { CategoriesService } from '../../../services/categories.service';

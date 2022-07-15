@@ -6,11 +6,7 @@
 </div>
 <div class="container">
     <div class="form-group">
-      <button
-        class="btn btn-primary"
-        data-toggle="modal"
-        data-target="#addSubcategory"
-      >
+      <button class="btn btn-primary" routerLink="/cms/subcategories/add">
         Nueva subcategoría
       </button>
     </div>
@@ -41,21 +37,8 @@
           <td>{{ i + 1 }}</td>
           <td>{{ subcat.name }}</td>
           <td>{{ subcat.description }}</td>
-          <td>
-            <button
-              class="btn btn-secondary"
-              (click)="edit(subcat.id)"
-              data-toggle="modal"
-              data-target="#editSubcategory"
-            >
-              Editar
-            </button>
-            <button
-              class="btn btn-danger float-right"
-              (click)="delete(subcat.id)"
-            >
-              Eliminar
-            </button>
+          <td class="text-center">
+            <button class="btn btn-info" [routerLink]="['/cms/subcategories/subcategory',subcat.id]">Detalles</button>
           </td>
         </tr>
       </tbody>
@@ -69,162 +52,5 @@
     </ng-template>
 </div>
 
-<!-- Agregar subcategoria -->
-<div
-  class="modal fade"
-  id="addSubcategory"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-md">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">
-          Agregar nueva subcategoría
-        </h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-          #botonCerrarAdd
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form
-        #addForm="ngForm"
-        (ngSubmit)="createSubcategory(addForm)"
-        class="form-addSubcategory"
-      >
-        <div class="form-row">
-          <div class="form-group col-md-12">
-            <label for="">Name</label>
-            <input
-              type="text"
-              class="form-control"
-              name="nombre"
-              #refName="ngModel"
-              [(ngModel)]="subcategory.name"
-              [ngClass]="{
-                'is-invalid': refName.errors && refName.touched
-              }"
-              required
-            />
-            <div [hidden]="!refName.errors?.required" class="invalid-feedback">
-              Nombre requerido
-            </div>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-12">
-            <label for="">Descripción</label>
-            <input
-              type="text"
-              class="form-control"
-              name="stock"
-              #refDesc="ngModel"
-              [(ngModel)]="subcategory.description"
-              [ngClass]="{
-                'is-invalid': refDesc.errors && refDesc.touched
-              }"
-              required
-            />
-            <div [hidden]="!refDesc.errors?.required" class="invalid-feedback">
-              Descripción requerida
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            Cancelar
-          </button>
-          <button type="submit" class="btn btn-primary">Guardar</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
 
-<!--Modal Editar categoria -->
-<div
-  class="modal fade"
-  id="editSubcategory"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-md">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Editar subcategoría</h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-          #botonCerrarEdit
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form
-        #editForm="ngForm"
-        (ngSubmit)="editarSubcategory(editForm)"
-        class="form-addSubcategory"
-      >
-        <div class="form-row">
-          <div class="form-group col-md-12">
-            <label for="">Name</label>
-            <input
-              type="text"
-              class="form-control"
-              name="editName"
-              #refEditName="ngModel"
-              [(ngModel)]="editSubcategory.name"
-              [ngClass]="{
-                'is-invalid': refEditName.errors && refEditName.touched
-              }"
-              required
-            />
-            <div
-              [hidden]="!refEditName.errors?.required"
-              class="invalid-feedback"
-            >
-              Nombre requerido
-            </div>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-12">
-            <label for="">Descripción</label>
-            <input
-              type="text"
-              class="form-control"
-              name="editCat"
-              #refEditDesc="ngModel"
-              [(ngModel)]="editSubcategory.description"
-              [ngClass]="{
-                'is-invalid': refEditDesc.errors && refEditDesc.touched
-              }"
-              required
-            />
-            <div
-              [hidden]="!refEditDesc.errors?.required"
-              class="invalid-feedback"
-            >
-              Descripción requerida
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            Cancelar
-          </button>
-          <button type="submit" class="btn btn-primary">Guardar cambios</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
+

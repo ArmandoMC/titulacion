@@ -19,22 +19,13 @@ export class SubcategoriesService {
   ) { }
 
   create(dto:CreateSubCategoryDTO){
-    return this.http.post<SubCategory>(`${this.API_URL}`,dto)
-    .pipe(
-      tap((subcategory)=>{
-        this.mySubcategories.push(subcategory);
-        this.subcategories.next(this.mySubcategories);
-      })
-    )
+    return this.http.post<SubCategory>(`${this.API_URL}`,dto);
   }
   getAll(){
-    return this.http.get<SubCategory[]>(`${this.API_URL}`)
-    .pipe(
-      tap((subcategories)=>{
-        this.mySubcategories=subcategories;
-        this.subcategories.next(this.mySubcategories);
-      })
-    )
+    return this.http.get<SubCategory[]>(`${this.API_URL}`);
+  }
+  get(id:number){
+    return this.http.get<SubCategory[]>(`${this.API_URL}/${id}`);
   }
   getProductsBySubCategory(id:number){
     

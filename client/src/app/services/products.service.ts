@@ -11,9 +11,9 @@ import{environment} from '../../environments/environment';
 })
 export class ProductsService {
 
-  private myProducts: Product[]=[];
-  private products= new BehaviorSubject<Product[]>([]);
-  products$ = this.products.asObservable();
+  // private myProducts: Product[]=[];
+  // private products= new BehaviorSubject<Product[]>([]);
+  // products$ = this.products.asObservable();
   private API_URL='http://localhost:3000/api';
   constructor(
     private http:HttpClient,
@@ -37,15 +37,7 @@ export class ProductsService {
       params=params.set('limit',limit);
       params=params.set('offset',offset);
     }
-    return this.http.get<Product[]>(`${this.API_URL}/products`,{params})
-    .pipe(
-      tap((products)=>{
-        products.sort((a,b)=> Number(a.id) - Number(b.id))
-        this.myProducts=products;
-        this.products.next(this.myProducts);
-      })
-    )
-
+    return this.http.get<Product[]>(`${this.API_URL}/products`,{params});
   }
   // getAllProductsBySubcategorySeleccionada(limit?:number, offset?:number){
   //   let params=new HttpParams();
@@ -149,14 +141,7 @@ export class ProductsService {
     dt.append('brand_id',brand_id.toString());
     dt.append('provider_id',provider_id.toString());
     
-    return this.http.post<Product>(`${this.API_URL}/products`,dt)
-    .pipe(
-      tap((product)=>{
-        this.myProducts.push(product);
-        this.products.next(this.myProducts);
-      })
-    )
-    
+    return this.http.post<Product>(`${this.API_URL}/products`,dt);
   }
   getUltimoId(){
     return this.http.get<any>(`${this.API_URL}/products/ultimoId`,{});
@@ -184,17 +169,17 @@ export class ProductsService {
         dt.append('provider_id',provider_id.toString());
       
    
-    return this.http.put<Product>(`${this.API_URL}/products/${id}`,dt)
-    .pipe(
-      tap((product)=>{
-        const indice=this.myProducts.findIndex(p=>p.id===product.id);
-        if(indice!=-1){
-          this.myProducts[indice]=product;;
-          this.products.next(this.myProducts);
-        }
+    return this.http.put<Product>(`${this.API_URL}/products/${id}`,dt);
+    // .pipe(
+    //   tap((product)=>{
+    //     const indice=this.myProducts.findIndex(p=>p.id===product.id);
+    //     if(indice!=-1){
+    //       this.myProducts[indice]=product;;
+    //       this.products.next(this.myProducts);
+    //     }
        
-      })
-    )
+    //   })
+    // )
   }
   updateStockProducts(product:Product[]){
     return this.http.put<any>(`${this.API_URL}/products/updateStock`,product);
