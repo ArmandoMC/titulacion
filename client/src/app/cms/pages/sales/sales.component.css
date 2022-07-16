@@ -1,13 +1,4 @@
-#tabla-ventas{
-    /* height: 300px; */
-    /* border:1px solid rgb(194, 4, 4) !important; */
-}
-/* .tabla-ventas-head{
-    height: 40px;
-}
-.tabla-ventas-body{
-    height: 260px;
-} */
+
 .card-total{
     background-color: rgb(25, 89, 228);
     color: white;
@@ -17,4 +8,29 @@
     background-color: rgb(25, 89, 228);
     color: white;
     font-weight: bold;
+}
+
+.container-fluid{
+    border-bottom: 1px solid rgb(190, 190, 190);
+    height: 70px;
+    background-color: white;
+    margin: 0 !important;
+}
+.container-fluid .form-group h1,h4{
+    color: rgb(23, 108, 235);
+}
+.grupo1{
+    border:1px solid #111;
+}
+.grupo1 input{
+    border: 0;
+    width: 90%;
+}
+.grupo1 input :focus{
+    border: 0;
+    border-color: white;
+}
+.grupo1 i{
+    border: 0;
+    width: 10%;
 }

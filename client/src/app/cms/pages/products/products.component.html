@@ -1,12 +1,15 @@
 <div class="container-fluid">
   <div class="form-group">
-    <h4>Productos</h4>
-    <span>Lista de productos activos</span>
+    <h1><span style="float: left"><i class="fa fa-shopping-cart" aria-hidden="true"></i></span></h1>
+    <div class="form-group">
+      <h4 style="margin-left:60px;">Productos</h4>
+      <span class="ml-3 text-muted">Lista de productos activos</span>
+    </div>
   </div>
 </div>
-<div class="container">
+<div class="container mt-3">
   <div class="form-inline mb-3">
-    <div class="form-group w-50">
+    <div class="form-group w-50 grupo1">
       <input
         type="search"
         name=""
@@ -15,10 +18,11 @@
         #txtSearch
         (keyup)="onSearch(txtSearch.value)"
       />
+      <i class="fa fa-search" aria-hidden="true"></i>
     </div>
     <div class="form-group w-50">
       <button class="btn btn-primary ml-auto" routerLink="/cms/products/add">
-        Nuevo producto
+        <i class="fa fa-plus" aria-hidden="true"></i> Nuevo producto
       </button>
     </div>
   </div>

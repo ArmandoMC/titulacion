@@ -1,28 +1,34 @@
 <div class="container-fluid">
   <div class="form-group">
-    <h4>Proveedores</h4>
-    <span>Lista de proveedores</span>
+    <h1><span style="float: left"><i class="fa fa-users" aria-hidden="true"></i></span></h1>
+    <div class="form-group">
+      <h4 style="margin-left:65px;">Proveedores</h4>
+      <span class="ml-3 text-muted">Lista de proveedores activos</span>
+    </div>
   </div>
 </div>
-<div class="container">
-    <div class="form-group">
-        <button
-          class="btn btn-primary"
-          data-toggle="modal"
-          data-target="#addProvider"
-        >
-          Nuevo proveedor
-        </button>
-      </div>
-      <div class="form-group">
-        <input
-          type="search"
-          name=""
-          id=""
-          placeholder="Buscar proveedor por nombre.."
-          [(ngModel)]="filterProvider"
-        />
-      </div>
+<div class="container mt-3">
+  <div class="form-inline mb-3">
+    <div class="form-group w-50 grupo1">
+      <input
+        type="search"
+        name=""
+        id=""
+        placeholder="Buscar proveedor por nombre.."
+        [(ngModel)]="filterProvider"
+      /><i class="fa fa-search" aria-hidden="true"></i>
+    </div>
+    <div class="form-group w-50">
+      <button
+        class="btn btn-primary ml-auto"
+        routerLink="./add"
+      ><i class="fa fa-plus" aria-hidden="true"></i> 
+        Nuevo proveedor
+      </button>
+    </div>
+  
+  </div>
+    
     <table
       class="table table-bordered"
     >
@@ -41,21 +47,8 @@
           <td>{{ i + 1 }}</td>
           <td>{{ pr.name }}</td>
           <td>{{ pr.ruc }}</td>
-          <td>
-            <button
-              class="btn btn-secondary"
-              (click)="edit(pr.id)"
-              data-toggle="modal"
-              data-target="#editProvider"
-            >
-              Editar
-            </button>
-            <button
-              class="btn btn-danger float-right"
-              (click)="deleteProvider(pr.id)"
-            >
-              Eliminar
-            </button>
+          <td class="text-center">
+            <button class="btn btn-info" [routerLink]="['/cms/providers/provider',pr.id]">Detalles</button>
           </td>
         </tr>
       </tbody>
@@ -69,238 +62,3 @@
     </ng-template>
 </div>
 
-<!-- Modal Agregar proveedor -->
-<div
-  class="modal fade"
-  id="addProvider"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-md">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">
-          Agregar nueva proveedor
-        </h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-          #botonCerrarAdd
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      <form
-        #addForm="ngForm"
-        (ngSubmit)="createProvider(addForm)"
-        class="form-addProvider"
-      >
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="">Nombre</label>
-            <input
-              type="text"
-              class="form-control"
-              name="nombre"
-              #refName="ngModel"
-              [(ngModel)]="provider.name"
-              [ngClass]="{
-                'is-invalid': refName.errors && refName.touched
-              }"
-              required
-            />
-            <div [hidden]="!refName.errors?.required" class="invalid-feedback">
-              Nombre requerido
-            </div>
-          </div>
-          <div class="form-group col-md-6">
-            <label for="">R.U.C</label>
-            <input
-              type="text"
-              class="form-control"
-              name="ruc"
-              #refDesc="ngModel"
-              [(ngModel)]="provider.ruc"
-              [ngClass]="{
-                'is-invalid': refDesc.errors && refDesc.touched
-              }"
-              required
-            />
-            <div [hidden]="!refDesc.errors?.required" class="invalid-feedback">
-              R.U.C requerido
-            </div>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="">Dirección</label>
-            <input
-              type="text"
-              class="form-control"
-              name="address"
-              #refAddress="ngModel"
-              [(ngModel)]="provider.address"
-              [ngClass]="{
-                'is-invalid': refAddress.errors && refAddress.touched
-              }"
-              required
-            />
-            <div [hidden]="!refAddress.errors?.required" class="invalid-feedback">
-             Dirección requerida
-            </div>
-          </div>
-          <div class="form-group col-md-6">
-            <label for="">Teléfono</label>
-            <input
-              type="text"
-              class="form-control"
-              name="phone"
-              #refPhone="ngModel"
-              [(ngModel)]="provider.phone"
-              [ngClass]="{
-                'is-invalid': refPhone.errors && refPhone.touched
-              }"
-              required
-            />
-            <div [hidden]="!refPhone.errors?.required" class="invalid-feedback">
-             Teléfono requerido
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            Cancelar
-          </button>
-          <button type="submit" class="btn btn-primary">Guardar</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<!-- Modal Editar proveedor -->
-<div
-  class="modal fade"
-  id="editProvider"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-md">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Editar proveedor</h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-          #botonCerrarEdit
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-
-      <form
-        #editForm="ngForm"
-        (ngSubmit)="editarProvider(editForm)"
-        class="form-addProvider"
-      >
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="">Name</label>
-            <input
-              type="text"
-              class="form-control"
-              name="editName"
-              #refEditName="ngModel"
-              [(ngModel)]="editProvider.name"
-              [ngClass]="{
-                'is-invalid': refEditName.errors && refEditName.touched
-              }"
-              required
-            />
-            <div
-              [hidden]="!refEditName.errors?.required"
-              class="invalid-feedback"
-            >
-              Nombre requerido
-            </div>
-          </div>
-          <div class="form-group col-md-6">
-            <label for="">R.U.C</label>
-            <input
-              type="text"
-              class="form-control"
-              name="editRuc"
-              #refEditDesc="ngModel"
-              [(ngModel)]="editProvider.ruc"
-              [ngClass]="{
-                'is-invalid': refEditDesc.errors && refEditDesc.touched
-              }"
-              required
-            />
-            <div
-              [hidden]="!refEditDesc.errors?.required"
-              class="invalid-feedback"
-            >
-              R.U.C requerido
-            </div>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="">Dirección</label>
-            <input
-              type="text"
-              class="form-control"
-              name="editAdress"
-              #refEditAddr="ngModel"
-              [(ngModel)]="editProvider.address"
-              [ngClass]="{
-                'is-invalid': refEditAddr.errors && refEditAddr.touched
-              }"
-              required
-            />
-            <div
-              [hidden]="!refEditAddr.errors?.required"
-              class="invalid-feedback"
-            >
-              Dirección requerida
-            </div>
-          </div>
-          <div class="form-group col-md-6">
-            <label for="">Teléfono</label>
-            <input
-              type="text"
-              class="form-control"
-              name="editPhone"
-              #refEditPhone="ngModel"
-              [(ngModel)]="editProvider.phone"
-              [ngClass]="{
-                'is-invalid': refEditPhone.errors && refEditPhone.touched
-              }"
-              required
-            />
-            <div
-              [hidden]="!refEditPhone.errors?.required"
-              class="invalid-feedback"
-            >
-             Teléfono requerido
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            Cancelar
-          </button>
-          <button type="submit" class="btn btn-primary">Guardar cambios</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>

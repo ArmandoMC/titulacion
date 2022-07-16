@@ -9,9 +9,9 @@ export class CustomerService {
 
   private API_URL = 'http://localhost:3000/api/customers';
 
-  private myCustomers: any[]=[];
-  private customers= new BehaviorSubject<any[]>([]);
-  customers$ = this.customers.asObservable();
+  // private myCustomers: any[]=[];
+  // private customers= new BehaviorSubject<any[]>([]);
+  // customers$ = this.customers.asObservable();
 
   constructor(
     private http: HttpClient,

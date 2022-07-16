@@ -22,6 +22,7 @@ async (req, res, next) => {
   }
 });
 
+
 router.get('/count',
 // passport.authenticate('jwt', { session: false }),
 // checkRoles('admin','seller'),
@@ -33,7 +34,18 @@ async (req, res, next) => {
     next(error);
   }
 });
-
+router.get('/:id',
+// passport.authenticate('jwt', { session: false }),
+// checkRoles('admin','seller'),
+async (req, res, next) => {
+  try {
+    const {id}=req.params;
+    const brands = await service.findOne(id);
+    res.json(brands);
+  } catch (error) {
+    next(error);
+  }
+});
 router.post('/',
   // passport.authenticate('jwt', { session: false }),
   // checkRoles('admin'),

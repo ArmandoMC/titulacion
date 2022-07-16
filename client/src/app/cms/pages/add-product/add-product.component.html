@@ -1,27 +1,26 @@
 <div class="container-fluid">
-  <div class="form-group">
-    <h4>Productos</h4>
-    <span>Lista de productos activos</span>
-  </div>
+  <button class="btn btn-primary" routerLink="/cms/products">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i> Productos
+  </button>
 </div>
 
 <!--  agregar producto -->
 
-<div class="container">
+<div class="container mt-2">
   <div class="row">
-    <div class="col-md-6 mx-auto">
+    <div class="col-md-8 mx-auto">
       <div class="card">
         <div class="card-header">
           <h5 class="card-title" id="exampleModalLabel">
             Agregar nuevo producto
           </h5>
         </div>
-        <div class="card-body">
-          <form
-            #addForm="ngForm"
-            (ngSubmit)="createProduct(addForm)"
-            class="form-addProduct"
-          >
+        <form
+          #addForm="ngForm"
+          (ngSubmit)="createProduct(addForm)"
+          class="form-addProduct"
+        >
+          <div class="card-body">
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="">Código</label>
@@ -178,7 +177,7 @@
               </div>
             </div>
             <div class="form-row">
-              <div class="form-group col-md-4">
+              <div class="form-group col-md-6">
                 <label for="">Sabor</label>
                 <input
                   type="text"
@@ -198,7 +197,7 @@
                   Sabor requerido
                 </div>
               </div>
-              <div class="form-group col-md-4">
+              <div class="form-group col-md-3">
                 <label for="">Categoria</label>
                 <div>
                   <select name="" id="">
@@ -212,7 +211,7 @@
                   </select>
                 </div>
               </div>
-              <div class="form-group col-md-4">
+              <div class="form-group col-md-3">
                 <label for="">Subcategoria</label>
                 <div>
                   <select name="" id="">
@@ -250,7 +249,7 @@
                 </div>
               </div>
               <div class="form-group col-md-6">
-                <label for="">Marca</label>
+                <label for="">Marca</label> <br>
                 <select name="" id="">
                   <option
                     [value]="br"
@@ -298,19 +297,12 @@
                 </div>
               </div>
             </div>
+          </div>
 
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="modal"
-              >
-                Cancelar
-              </button>
-              <button type="submit" class="btn btn-primary">Guardar</button>
-            </div>
-          </form>
-        </div>
+          <div class="card-footer">
+            <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>

@@ -19,36 +19,18 @@ export class ProvidersService {
   ) { }
 
   create(dto:CreateProviderDTO){
-    return this.http.post<Provider>(`${this.API_URL}`,dto)
-    .pipe(
-      tap((provider)=>{
-        this.myProviders.push(provider);
-        this.providers.next(this.myProviders);
-      })
-    )
+    return this.http.post<Provider>(`${this.API_URL}`,dto);
+    
   }
   getAll(){
-    return this.http.get<Provider[]>(`${this.API_URL}`)
-    .pipe(
-      tap((providers)=>{
-        this.myProviders=providers;
-        this.providers.next(this.myProviders);
-      })
-    )
+    return this.http.get<Provider[]>(`${this.API_URL}`);
+  }
+  get(id:number){
+    return this.http.get<Provider>(`${this.API_URL}/${id}`);
   }
 
   update(id:number,dto:CreateProviderDTO){
-    return this.http.put<Provider>(`${this.API_URL}/${id}`,dto)
-    .pipe(
-      tap((provider)=>{
-        const indice=this.myProviders.findIndex(cat=>cat.id===provider.id);
-        if(indice!=-1){
-          this.myProviders[indice]=provider;
-          this.providers.next(this.myProviders);
-        }
-       
-      })
-    )
+    return this.http.put<Provider>(`${this.API_URL}/${id}`,dto);
   }
   delete(id:number){
     return this.http.delete<number>(`${this.API_URL}/${id}`);

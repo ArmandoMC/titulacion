@@ -1,26 +1,23 @@
-
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <a class="navbar-brand" href="#">Logo Dima</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item active">
-        <a class="nav-link" routerLink="/home">Home <span class="sr-only">(current)</span></a>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/home"><i class="fa fa-home" aria-hidden="true"></i> Inicio <span class="sr-only">(current)</span></a>
       </li>
     
     
       <li *ngIf="isLoggedIn" class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-          Hola,{{loggedInUser}}
+        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" 
+        aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> Hola,{{loggedInUser}}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item"  routerLink="/account">Mi cuenta</a>
           <a *ngIf="role=='admin'" class="dropdown-item" style="cursor: pointer" (click)="goToHome()">Ir al Home</a>
           <a class="dropdown-item" style="cursor: pointer" (click)="logout()">Salir</a>
-          <!-- <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a> -->
         </div>
       </li>
 
@@ -29,41 +26,41 @@
 </nav>
 <aside>
   <ul>
-    <li><a routerLink="dashboard">Dashboard</a></li>
-    <li>
+    <li routerLinkActive="active"><a routerLink="dashboard">Dashboard</a></li>
+    <li routerLinkActive="active" class="acc">
       <div class="accordion" id="accordionExample">
         <div class="card">
-          <div class="card-header" id="headingOne" style="background-color:#e3f2fd;">
+          <div class="card-header" id="headingOne">
             <h2 class="mb-0">
-              <button class="btn btn-link btn-block" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+              <button class="btn btn-block" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                PEDIDOS
               </button>
             </h2>
           </div>
       
           <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-            <div class="card-body cuerpo" >
-              <div>
+            <div class="card-body cuerpo">
+              <li routerLinkActive="active">
                 <a routerLink="orders/pendientes">Pedidos pendientes</a>
-              </div>
-              <div>
+              </li>
+              <li routerLinkActive="active">
                 <a routerLink="orders/en-camino">Pedidos en camino</a>
-              </div>
-              <div>
+              </li>
+              <li routerLinkActive="active">
                 <a routerLink="orders/finalizadas">Pedidos entregados</a>
-              </div>
+              </li>
             </div>
           </div>
         </div>
       </div>  
     </li>
-    <li><a routerLink="customers">Customers</a></li>
-    <li><a routerLink="products">Products</a></li>
-    <li><a routerLink="categories">Categorías</a></li>
-    <li><a routerLink="subcategories">Subcategorías</a></li>
-    <li><a routerLink="brands">Marcas</a></li>
-    <li><a routerLink="providers">Proveedores</a></li>
-    <li><a routerLink="ventas">Ventas</a></li>
+    <li routerLinkActive="active"><a routerLink="customers">Customers</a></li>
+    <li routerLinkActive="active"><a routerLink="products">Products</a></li>
+    <li routerLinkActive="active"><a routerLink="categories">Categorías</a></li>
+    <li routerLinkActive="active"><a routerLink="subcategories">Subcategorías</a></li>
+    <li routerLinkActive="active"><a routerLink="brands">Marcas</a></li>
+    <li routerLinkActive="active"><a routerLink="providers">Proveedores</a></li>
+    <li routerLinkActive="active"><a routerLink="ventas">Ventas</a></li>
   </ul>
 </aside>
 <main>

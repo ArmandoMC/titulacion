@@ -24,10 +24,6 @@ export class CustomersComponent implements OnInit {
       this.customers=data;
 
     })
-    // this.customerService.customers$.subscribe(data=>{
-    //   this.customers=data;
-    //   console.log('vector de any:',this.customers)
-    // })
   }
   nextPage() {
     this.page += 2;

@@ -1,0 +1,119 @@
+<div class="container-fluid">
+  <button class="btn btn-primary" routerLink="/cms/providers">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i> Proveedores
+  </button>
+</div>
+
+<!-- Agregar proveedor -->
+<div class="container mt-2">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="card-title">
+            Agregar nuevo proveedor
+          </h5>
+        </div>
+
+        <form
+          #addForm="ngForm"
+          (ngSubmit)="createProvider(addForm)"
+          class="form-addProvider"
+        >
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="">Nombre</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="nombre"
+                  #refName="ngModel"
+                  [(ngModel)]="provider.name"
+                  [ngClass]="{
+                    'is-invalid': refName.errors && refName.touched
+                  }"
+                  required
+                />
+                <div
+                  [hidden]="!refName.errors?.required"
+                  class="invalid-feedback"
+                >
+                  Nombre requerido
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="">R.U.C</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="ruc"
+                  #refDesc="ngModel"
+                  [(ngModel)]="provider.ruc"
+                  [ngClass]="{
+                    'is-invalid': refDesc.errors && refDesc.touched
+                  }"
+                  required
+                />
+                <div
+                  [hidden]="!refDesc.errors?.required"
+                  class="invalid-feedback"
+                >
+                  R.U.C requerido
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="">Dirección</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="address"
+                  #refAddress="ngModel"
+                  [(ngModel)]="provider.address"
+                  [ngClass]="{
+                    'is-invalid': refAddress.errors && refAddress.touched
+                  }"
+                  required
+                />
+                <div
+                  [hidden]="!refAddress.errors?.required"
+                  class="invalid-feedback"
+                >
+                  Dirección requerida
+                </div>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="">Teléfono</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="phone"
+                  #refPhone="ngModel"
+                  [(ngModel)]="provider.phone"
+                  [ngClass]="{
+                    'is-invalid': refPhone.errors && refPhone.touched
+                  }"
+                  required
+                />
+                <div
+                  [hidden]="!refPhone.errors?.required"
+                  class="invalid-feedback"
+                >
+                  Teléfono requerido
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-footer">
+            <button type="submit" class="btn btn-primary btn-block">
+              Guardar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

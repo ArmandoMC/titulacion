@@ -102,8 +102,10 @@ export class SalesComponent implements OnInit {
 
     //   ],
     // })
-    autoTable(doc,{margin:{top:70}})
-    autoTable(doc,{html:'#tabla-ventas'},)
+    autoTable(doc,{margin:{top:70}});
+    doc.text('REPORTE DE VENTAS',85,50);
+
+    autoTable(doc,{html:'#tabla-ventas'},);
    
     autoTable(doc,{html:'#tabla-resultados'});
     doc.setFontSize(18);

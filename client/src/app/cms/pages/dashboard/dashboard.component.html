@@ -1,73 +1,132 @@
-<div class="container-fluid">
+<div class="container-fluid inicio">
+  <div class="form-group">
+    <h1 class="icono"><span style="float: left"><i class="fa fa-tachometer" aria-hidden="true"></i></span></h1>
     <div class="form-group">
-      <h4>Dashboard</h4>
-      <span>Inicio</span>
+      <h4 style="margin-left:60px;" class="titulo">Dashboard</h4>
+      <span class="ml-3 text-muted">Inicio</span>
     </div>
   </div>
+</div>
 <div class="container">
   <div class="row mt-3">
     <div class="col-md-6 mb-3">
-       <div class="card">
-        <div class="card-body">
-            <i class="fa fa-tags" aria-hidden="true"></i> <h4>Pedidos en espera <h2 class="float-right"><b>{{totalOrdersPendings}}</b></h2></h4> 
+      <a routerLink="/cms/orders/pendientes">
+        <div class="card">
+          <div class="card-body">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <h4>
+              Pedidos en espera
+              <h2 class="float-right">
+                <b>{{ totalOrdersPendings }}</b>
+              </h2>
+            </h4>
+          </div>
         </div>
-       </div>
+      </a>
     </div>
     <div class="col-md-6 mb-3">
+      <a routerLink="/cms/orders/en-camino">
         <div class="card">
-            <div class="card-body">
-                <i class="fa fa-tags" aria-hidden="true"></i> <h4>Pedidos en camino <h2 class="float-right"><b>{{totalOrdersOnTheWay}}</b></h2></h4> 
-            </div>
-           </div>
+          <div class="card-body">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <h4>
+              Pedidos en camino
+              <h2 class="float-right">
+                <b>{{ totalOrdersOnTheWay }}</b>
+              </h2>
+            </h4>
+          </div>
+        </div>
+      </a>
     </div>
     <div class="col-md-6">
+      <a routerLink="/cms/orders/finalizadas">
         <div class="card">
-            <div class="card-body">
-                <i class="fa fa-tags" aria-hidden="true"></i> <h4>Pedidos entregados <h2 class="float-right"><b>{{totalOrdersCompleted}}</b></h2></h4> 
-            </div>
-           </div>
+          <div class="card-body">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <h4>
+              Pedidos entregados
+              <h2 class="float-right">
+                <b>{{ totalOrdersCompleted }}</b>
+              </h2>
+            </h4>
+          </div>
+        </div>
+      </a>
     </div>
     <div class="col-md-6 mb-3">
+      <a routerLink="/cms/customers">
         <div class="card">
-            <div class="card-body">
-                <i class="fa fa-tags" aria-hidden="true"></i> <h4>Clientes <h2 class="float-right"><b>{{totalCustomers}}</b></h2></h4> 
-            </div>
-           </div>
+          <div class="card-body">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <h4>
+              Clientes
+              <h2 class="float-right">
+                <b>{{ totalCustomers }}</b>
+              </h2>
+            </h4>
+          </div>
+        </div>
+      </a>
     </div>
     <div class="col-md-6 mb-3">
+      <a routerLink="/cms/products">
         <div class="card">
-            <div class="card-body">
-                <i class="fa fa-tags" aria-hidden="true"></i> <h4>Productos<h2 class="float-right"><b>{{totalProductos}}</b></h2></h4> 
-            </div>
-           </div>
+          <div class="card-body">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <h4>
+              Productos
+              <h2 class="float-right">
+                <b>{{ totalProductos }}</b>
+              </h2>
+            </h4>
+          </div>
+        </div>
+      </a>
     </div>
     <div class="col-md-6 mb-3">
+      <a routerLink="/cms/categories">
         <div class="card">
-            <div class="card-body">
-                <i class="fa fa-tags" aria-hidden="true"></i> <h4>Categorías <h2 class="float-right"><b>{{totalCategories}}</b></h2></h4> 
-            </div>
-           </div>
+          <div class="card-body">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <h4>
+              Categorías
+              <h2 class="float-right">
+                <b>{{ totalCategories }}</b>
+              </h2>
+            </h4>
+          </div>
+        </div>
+      </a>
     </div>
     <div class="col-md-6 mb-3">
+      <a routerLink="/cms/brands">
         <div class="card">
-            <div class="card-body">
-                <i class="fa fa-tags" aria-hidden="true"></i> <h4>Marcas <h2 class="float-right"><b>{{totalBrands}}</b></h2></h4> 
-            </div>
-           </div>
+          <div class="card-body">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <h4>
+              Marcas
+              <h2 class="float-right">
+                <b>{{ totalBrands }}</b>
+              </h2>
+            </h4>
+          </div>
+        </div>
+      </a>
     </div>
     <div class="col-md-6 mb-3">
-        <div class="card">
-            <div class="card-body">
-                <h3>Número de ventas</h3>
-            </div>
-           </div>
+      <div class="card">
+        <div class="card-body">
+          <h3>Número de ventas</h3>
+        </div>
+      </div>
     </div>
     <div class="col-md-6 mb-3">
-        <div class="card">
-            <div class="card-body">
-                <h3>$ Total de ventas</h3>
-            </div>
-           </div>
+      <div class="card">
+        <div class="card-body">
+          <h3>$ Total de ventas</h3>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -27,26 +27,23 @@ export class BrandService {
     )
   }
   getAll(){
-    return this.http.get<Brand[]>(`${this.API_URL}`)
-    .pipe(
-      tap((brands)=>{
-        this.myBrands=brands;
-        this.brands.next(this.myBrands);
-      })
-    )
+    return this.http.get<Brand[]>(`${this.API_URL}`);
+  }
+  get(id:number){
+    return this.http.get<Brand>(`${this.API_URL}/${id}`);
   }
   update(id:number,dto:CreateBrandDTO){
-    return this.http.put<Brand>(`${this.API_URL}/${id}`,dto)
-    .pipe(
-      tap((brand)=>{
-        const indice=this.myBrands.findIndex(cat=>cat.id===brand.id);
-        if(indice!=-1){
-          this.myBrands[indice]=brand;
-          this.brands.next(this.myBrands);
-        }
+    return this.http.put<Brand>(`${this.API_URL}/${id}`,dto);
+    // .pipe(
+    //   tap((brand)=>{
+    //     const indice=this.myBrands.findIndex(cat=>cat.id===brand.id);
+    //     if(indice!=-1){
+    //       this.myBrands[indice]=brand;
+    //       this.brands.next(this.myBrands);
+    //     }
        
-      })
-    )
+    //   })
+    // )
   }
 
   delete(id:number){

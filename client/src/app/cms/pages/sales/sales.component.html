@@ -1,20 +1,28 @@
 <div class="container-fluid">
   <div class="form-group">
-    <h4>Ventas</h4>
-    <span>Lista de ventas realizadas</span>
+    <h1><span style="float: left"><i class="fa fa-users" aria-hidden="true"></i></span></h1>
+    <div class="form-group">
+      <h4 style="margin-left:65px;">Ventas</h4>
+      <span class="ml-3 text-muted">Listado de ventas realizadas</span>
+    </div>
   </div>
 </div>
-<div class="container-fluid mt-3">
-  <div class="form-group">
-    <input
-      type="search"
-      name=""
-      id=""
-      placeholder="Buscar por nombre.."
-      #txtSearch
-      (keyup)="onSearch(txtSearch.value)"
-    />
+<div class="container mt-3">
+  <div class="row mb-3">
+    <div class="col-md-7">
+      <div class="form-group grupo1">
+        <input
+          type="search"
+          name=""
+          id=""
+          placeholder="Buscar por nombre.."
+          #txtSearch
+          (keyup)="onSearch(txtSearch.value)"
+        /><i class="fa fa-search" aria-hidden="true"></i>
+      </div>
+    </div>
   </div>
+ 
   <div class="row">
     <div class="col-md-7">
       <div class="form-group w-100">
@@ -25,7 +33,7 @@
           id=""
           value="2022-07-13"
           (change)="onSelect($event)"
-        /><span class="glyphicon glyphicon-th"></span>
+        /><i class="fa fa-calendar" aria-hidden="true"></i>
 
         HASTA:
         <input
@@ -36,7 +44,7 @@
           (change)="onSelect2($event)"
         /><span class="glyphicon glyphicon-th"></span>
         <button class="btn btn-success float-right" (click)="imprimir()">
-          Imprimir reporte
+          <i class="fa fa-print" aria-hidden="true"></i> Generar reporte
         </button>
       </div>
     </div>
@@ -48,15 +56,11 @@
       <table id="tabla-ventas" class="table table-bordered">
         <thead class="tabla-ventas-head">
           <tr>
-            <!-- <th scope="col">#</th> -->
             <th scope="col">#</th>
             <th scope="col">N° Factura</th>
             <th scope="col">Cliente</th>
             <th scope="col">Total pagado</th>
             <th scope="col">Fecha</th>
-            <!-- <th scope="col">Estado</th> -->
-            <!-- <th scope="col">Envio</th> -->
-            <!-- <th scope="col">Opciones</th> -->
           </tr>
         </thead>
         <tbody class="tabla-ventas-body">
@@ -91,7 +95,7 @@
             "
           >
             <td *ngIf="ultimo">
-              <div class="card card-num">
+              <div class="card card-num" >
                 <div class="card-body">N° ventas: {{ order.numVentas }}</div>
               </div>
             </td>

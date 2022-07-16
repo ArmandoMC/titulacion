@@ -1,0 +1,11 @@
+.container-fluid{
+    border-bottom: 1px solid rgb(190, 190, 190);
+    height: 70px;
+    background-color: white;
+    margin: 0 !important;
+    color: rgb(23, 108, 235);
+
+}
+.container-fluid button{
+    margin: 15px 0px;
+}

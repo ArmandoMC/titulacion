@@ -2,3 +2,15 @@
     background-color: #235bf5;
     color: white;
 }
+.inicio{
+    border-bottom: 1px solid rgb(190, 190, 190);
+    height: 70px;
+    background-color: white;
+    margin: 0 !important;
+}
+.icono {
+    color: rgb(23, 108, 235);
+}
+.titulo{
+    color: rgb(23, 108, 235);   
+}

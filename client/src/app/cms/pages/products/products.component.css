@@ -1,6 +1,27 @@
-/* .card{
-    width:100% !important;
-} */
+.container-fluid{
+    border-bottom: 1px solid rgb(190, 190, 190);
+    height: 70px;
+    background-color: white;
+    margin: 0 !important;
+}
+.container-fluid .form-group h1,h4{
+    color: rgb(23, 108, 235);
+}
+.grupo1{
+    border:1px solid #111;
+}
+.grupo1 input{
+    border: 0;
+    width: 90%;
+}
+.grupo1 input :focus{
+    border: 0;
+    border-color: white;
+}
+.grupo1 i{
+    border: 0;
+    width: 10%;
+}
 .modal-lg{
     max-width: 50% !important;
 }
@@ -8,37 +29,8 @@
     padding-left: 10px;
     padding-right: 10px;
 }
-.container-fluid{
-    background-color: #FAF9F9;
-}
+
 .table-fixed{
     /* width: 100%; */
 }
-/* .table-fixed tbody{
-    height: 300px;
-    overflow-y: auto;
-    width: 100% !important;
-} */
-/* .viewport{
-    height: 300px;
-    width: 1120px;
-    margin: 0 !important;
-} */
 
-/* .table-fixed thead,
-.table-fixed tbody,
-.table-fixed td,
-.table-fixed th{
-    display: block;
-} */
-/* .table-fixed tbody td,
-.table-fixed thead>tr>th{
-    float: left;
-    border-bottom-width: 0;
-} */
-/* .table-fixed tbody tr{
-    margin: 0 !important;
-}
-.table-fixed tbody tr{
-    padding: 0 !important;
-} */

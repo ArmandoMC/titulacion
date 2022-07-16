@@ -1,16 +1,15 @@
-<div class="container-fluid">
-  <div class="form-group">
-    <h4>Productos</h4>
-    <span>Editar producto</span>
-  </div>
+<div class="container-fluid c1">
+  <button class="btn btn-primary" routerLink="/cms/products">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i> Productos
+  </button>
 </div>
 <!--  editar producto -->
-<div class="container">
+<div class="container mt-2">
   <div class="row">
-    <div class="col-md-10 mx-auto">
+    <div class="col-md-8 mx-auto">
       <div class="card">
-        <div class="card-header">
-          <h5 class="card-title">Editar producto</h5>
+        <div class="card-header text-center">
+          <h5 class="card-title">Información del producto</h5>
         </div>
         <form
           #editForm="ngForm"
@@ -356,7 +355,7 @@
                 <div class="form-group col-md-6">
                   <button
                     type="button"
-                    class="btn btn-secondary"
+                    class="btn btn-danger"
                     (click)="deleteProduct()"
                   >
                     Eliminar

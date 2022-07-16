@@ -1,20 +1,21 @@
 <div class="container-fluid c1">
-  <button class="btn btn-primary" routerLink="/cms/subcategories">
-    <i class="fa fa-arrow-left" aria-hidden="true"></i> Subcategorías
+  <button class="btn btn-primary" routerLink="/cms/brands">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i> Marcas
   </button>
 </div>
-<!-- Editar categoria -->
+
+<!--  Editar marca -->
 <div class="container mt-2">
   <div class="row">
     <div class="col-md-6 mx-auto">
       <div class="card">
-        <div class="card-header">
-          <h5 class="card-title" id="exampleModalLabel">Información de subcategoría</h5>
+        <div class="card-header text-center">
+          <h5 class="card-title">Información de marca</h5>
         </div>
         <form
           #editForm="ngForm"
-          (ngSubmit)="editarSubcategory(editForm)"
-          class="form-addSubcategory"
+          (ngSubmit)="editarBrand(editForm)"
+          class="form-addBrand"
         >
           <div class="card-body">
             <div class="form-row">
@@ -25,7 +26,7 @@
                   class="form-control"
                   name="editName"
                   #refEditName="ngModel"
-                  [(ngModel)]="editSubcategory.name"
+                  [(ngModel)]="editBrand.name"
                   [ngClass]="{
                     'is-invalid': refEditName.errors && refEditName.touched
                   }"
@@ -46,9 +47,9 @@
                 <input
                   type="text"
                   class="form-control"
-                  name="editCat"
+                  name="editDesc"
                   #refEditDesc="ngModel"
-                  [(ngModel)]="editSubcategory.description"
+                  [(ngModel)]="editBrand.description"
                   [ngClass]="{
                     'is-invalid': refEditDesc.errors && refEditDesc.touched
                   }"
@@ -73,7 +74,7 @@
                     Editar
                   </button>
                   <br />
-                  <span>Clic para editar esta subcategoría</span>
+                  <span>Clic para editar esta marca</span>
                 </div>
                 <div class="form-group col-md-6" *ngIf="isDisabled == false">
                   <button type="submit" class="btn btn-primary">
@@ -91,7 +92,7 @@
                     Eliminar
                   </button>
                   <br />
-                  <span>Clic para eliminar este subcategoría</span>
+                  <span>Clic para eliminar este marca</span>
                 </div>
               </div>
             </div>

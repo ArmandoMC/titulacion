@@ -1,17 +1,16 @@
-<div class="container-fluid">
-  <div class="form-group">
-    <h4>Cliente</h4>
-    <span>Editar</span>
-  </div>
+<div class="container-fluid c1">
+  <button class="btn btn-primary" routerLink="/cms/customers">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i> Clientes
+  </button>
 </div>
 
 <!-- Editar cliente -->
-<div class="container">
+<div class="container mt-2">
   <div class="row">
     <div class="col-md-6 mx-auto">
       <div class="card">
-        <div class="card-header">
-          <h5 class="card-title">Editar cliente</h5>
+        <div class="card-header text-center">
+          <h5 class="card-title">Información del cliente</h5>
         </div>
         <form #editForm="ngForm" (ngSubmit)="editarCliente(editForm)">
           <div class="card-body">
@@ -155,7 +154,7 @@
                   <div class="form-group col-md-6">
                     <button
                     type="button"
-                    class="btn btn-secondary"
+                    class="btn btn-danger"
                     (click)="deleteClient()"
                   >
                     Eliminar

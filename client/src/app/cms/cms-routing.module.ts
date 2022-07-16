@@ -22,6 +22,10 @@ import { AddCategoryComponent } from './pages/add-category/add-category.componen
 import { EditCategoryComponent } from './pages/edit-category/edit-category.component';
 import { AddSubcategoryComponent } from './pages/add-subcategory/add-subcategory.component';
 import { EditSubcategoryComponent } from './pages/edit-subcategory/edit-subcategory.component';
+import { AddBrandComponent } from './pages/add-brand/add-brand.component';
+import { EditBrandComponent } from './pages/edit-brand/edit-brand.component';
+import { AddProviderComponent } from './pages/add-provider/add-provider.component';
+import { EditProviderComponent } from './pages/edit-provider/edit-provider.component';
 
 const routes: Routes = [
   {
@@ -92,8 +96,24 @@ const routes: Routes = [
         component: BrandsComponent,
       },
       {
+        path: 'brands/add',
+        component: AddBrandComponent,
+      },
+      {
+        path: 'brands/brand/:id',
+        component: EditBrandComponent,
+      },
+      {
         path: 'providers',
         component: ProvidersComponent,
+      },
+      {
+        path: 'providers/add',
+        component: AddProviderComponent,
+      },
+      {
+        path: 'providers/provider/:id',
+        component: EditProviderComponent,
       },
       {
         path: 'orders/pendientes',

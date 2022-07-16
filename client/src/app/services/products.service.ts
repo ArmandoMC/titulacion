@@ -37,7 +37,12 @@ export class ProductsService {
       params=params.set('limit',limit);
       params=params.set('offset',offset);
     }
-    return this.http.get<Product[]>(`${this.API_URL}/products`,{params});
+    return this.http.get<Product[]>(`${this.API_URL}/products`,{params})
+    .pipe(
+      tap((products)=>{
+       products.sort((a,b)=> Number(a.id) - Number(b.id))
+      })
+    )
   }
   // getAllProductsBySubcategorySeleccionada(limit?:number, offset?:number){
   //   let params=new HttpParams();

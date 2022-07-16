@@ -31,6 +31,10 @@ import { AddCategoryComponent } from './pages/add-category/add-category.componen
 import { EditCategoryComponent } from './pages/edit-category/edit-category.component';
 import { AddSubcategoryComponent } from './pages/add-subcategory/add-subcategory.component';
 import { EditSubcategoryComponent } from './pages/edit-subcategory/edit-subcategory.component';
+import { AddBrandComponent } from './pages/add-brand/add-brand.component';
+import { EditBrandComponent } from './pages/edit-brand/edit-brand.component';
+import { AddProviderComponent } from './pages/add-provider/add-provider.component';
+import { EditProviderComponent } from './pages/edit-provider/edit-provider.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +64,11 @@ import { EditSubcategoryComponent } from './pages/edit-subcategory/edit-subcateg
     AddCategoryComponent,
     EditCategoryComponent,
     AddSubcategoryComponent,
-    EditSubcategoryComponent
+    EditSubcategoryComponent,
+    AddBrandComponent,
+    EditBrandComponent,
+    AddProviderComponent,
+    EditProviderComponent
     
   ],
   imports: [

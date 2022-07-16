@@ -1,46 +1,22 @@
-/* .contenedor {
-  display: grid;
-  height: 100vh;
-  grid-template-columns: 220px 1fr;
-  grid-template-rows: auto 1fr;
-  grid-template-areas:
-    "header header header"
-    "nav content content";
-} */
-/* header {
-  grid-area: header;
-  background-color: #3e51b5;
-  color: white;
-  padding: 1em;
-  box-shadow: 1px 2px 4px 0 rgb(21 99 157 / 16%);
-  border-bottom: 1px solid rgba(21, 99, 157, 0.16);
-} */
-/* nav { */
-  /* grid-area: nav; */
-  /* border-right: 1px solid rgba(21, 99, 157, 0.16); */
-  /* background-color: #fff; */
-/* } */
-/* nav a {
-  margin: 0;
-  padding: 0;
-  padding: 1em;
-  cursor: pointer;
-  position: relative;
-  display: block;
-  text-decoration: none;
-  color: #000;
-} */
-/* main { */
-  /* grid-area: content; */
-  /* background-color: #f3f8fb; */
-  /* padding: 1em; */
-/* } */
-/* .cuerpo{
-  padding:0px 0px;
-  margin:0px 0px; */
-/* } */
+.active{
+  /* border-top:1px solid white !important; */
+  /* border-bottom:1px solid white !important; */
+  background-color: white !important  ;
+}
+.active a{
+  color:#2980b9 !important;
+}
 nav{
   height: 10vh;
+  
+}
+.card{
+  background-color:  #2980b9 ;
+  border: 0;
+}
+.card button{
+  color: white;
+  font-weight: bold;
 }
 aside{
   width: 15%;
@@ -63,18 +39,24 @@ aside ul li{
   padding-bottom: 10px;
   text-align: center;
   padding-right: auto;
+  background-color:  #2980b9 ;
   /* border: 1px solid; */
 }
-aside ul li{
-
+aside ul li a{
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
 }
 main{
   float: right;
-  margin-top: 0;
+  /* margin-top: 0; */
   /* display: inline-block; */
   width: 85%;
   height: 90vh;
   /* height: auto; */
+  /* background-color:  #f7f9f9 ; */
+  padding: 0 !important;
+  margin: 0 !important;
 }
 .cuerpo div{
   /* border:1px solid; */
@@ -85,4 +67,28 @@ main{
 }
 .cuerpo{
   padding: 0;
+  color: white !important;
+  background-color:  #2980b9 !important;
+
+}
+.cuerpo li{
+  color: white !important;
+
+}
+.collapse{
+  color:white !important;
+}
+
+.cuerpo li a{
+  color: #2ecc71 !important;
+  font-weight: bold;
+}
+
+.acc{
+  background-color:  #2980b9 !important;
+
+}
+.accordion{
+  /* background-color:  #2980b9 !important; */
+
 }
