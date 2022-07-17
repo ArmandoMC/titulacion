@@ -56,12 +56,12 @@ class AuthService {
     }
     const payload = { sub: user.id };
     const token = jwt.sign(payload, config.jwtRecoverySecret, { expiresIn: '15min' });
-    const link = `http://myfrontend.con/recovery?token=${token}`;
+    const link = `http://localhost:4200/recovery/new-password/${token}`;
 
     await service.updateRecoveryField(user.id, token);
     const mail = {
       from: config.smtpEmail, // sender address
-      to: `${user.email}`, // list of receivers
+      to: `${user.email}`,  // list of receivers
       subject: "Email para recuperar contraseña", // Subject line
       // text: "Hello armando 67612", // plain text body
       html: `<b>Ingresa a este link =>${link} </b>`, // html body

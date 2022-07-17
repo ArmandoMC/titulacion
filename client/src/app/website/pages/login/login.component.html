@@ -42,11 +42,12 @@
                      <div [hidden]="!nameClave.errors?.minlength" class="invalid-feedback">
                     Se requiere al menos 8 caracteres</div>
                 </div>
-                <div>
+                <div class="form-group">
                   <button type="submit" class="btn btn-success btn-block">
                     Entrar
                   </button>
                 </div>
+                <a routerLink="/recovery" style="font-size: 14px;">Olvidó su contraseña?</a>
               </form>
             </div>
           </div>

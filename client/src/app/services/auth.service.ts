@@ -96,11 +96,16 @@ export class AuthService {
       })
     )
   }
- 
+  recovery(email:string){
+    return this.http.post<any>(`${this.API_URL}/recovery`,{email});
+  }
 //   setCurrentUser(currentUser: Auth) {
 //       this.user.next(currentUser);
 //     // }
 // }
+  changePassword(token:string,newPassword:string){
+    return this.http.post<any>(`${this.API_URL}/change-password`,{token,newPassword});
+  }
 
 
 // isValidtoken() {

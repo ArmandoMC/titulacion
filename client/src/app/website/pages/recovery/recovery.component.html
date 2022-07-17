@@ -1,1 +1,57 @@
-<p>recovery works!</p>
+<div class="container" *ngIf="habilitar == false">
+  <div class="row">
+    <div class="col-md-4 mx-auto">
+      <h5 class="text-center"><b> Recuperar contraseña</b></h5>
+      <div class="text-center">
+        <span class="text-center text-muted"
+          >Informar de la dirección de correo electrónico utilizada para crear
+          su cuenta</span
+        >
+      </div>
+      <form #formEmail="ngForm" (ngSubmit)="enviar(formEmail)" class="mt-4 mb-3">
+        <div class="form-group">
+          <label for="">Dirección de email</label>
+          <input
+            type="text"
+            name="email"
+            id=""
+            class="form-control"
+            #refEmail="ngModel"
+            [(ngModel)]="email"
+            [ngClass]="{ 'is-invalid': refEmail.errors && refEmail.touched }"
+            required
+          />
+          <div [hidden]="!refEmail.errors?.required" class="invalid-feedback">
+            Email requerido
+          </div>
+        </div>
+        <button class="btn btn-success btn-block">Enviar</button>
+      </form>
+      <div class="text-center">
+        <a routerLink="/login" style="font-size: 14px;">Regresar al login <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container" *ngIf="habilitar == true">
+  <div class="row">
+    <div class="col-md-4 mx-auto">
+      <h5 class="text-center"><b>Email enviado!!</b></h5>
+      <div class="text-center">
+        <span class="text-muted"
+          >Por favor, compruebe su bandeja de entrada para obtener instrucciones
+          sobre cómo restablecer la contraseña</span
+        >
+      </div>
+      <div class="text-center mx-auto mt-3 mb-4 img">
+        <img src="../../../../assets/images/email2.png" alt="email enviado" class="imagen"/>
+      </div>
+      <div class="form group">
+        <button class="btn btn-success btn-block" routerLink="/login">Login</button>
+      </div>
+      <div class="text-center mt-3">
+        <span style="font-size: 14px;">No recibió el email? <a routerLink="/recovery" (click)="reenviar()">Reenviar</a></span>
+      </div>
+    </div>
+  </div>
+</div>

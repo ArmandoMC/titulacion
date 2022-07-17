@@ -24,6 +24,7 @@ import { AccountComponent } from './pages/account/account.component';
 import { OrdersComponent } from './pages/orders/orders.component';
 import { InvoiceComponent } from './pages/invoice/invoice.component';
 import { FilterPipe } from '../shared/pipes/filter.pipe';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 // import { FlashMessageModule } from 'angular2-flash-message';
 
 @NgModule({
@@ -41,7 +42,8 @@ import { FilterPipe } from '../shared/pipes/filter.pipe';
     MyAddressesComponent,
     AccountComponent,
     OrdersComponent,
-    InvoiceComponent
+    InvoiceComponent,
+    ResetPasswordComponent
     
   ],
   imports: [

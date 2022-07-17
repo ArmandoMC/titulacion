@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import{AuthService} from '../../../services/auth.service';
 
 @Component({
   selector: 'app-recovery',
@@ -7,9 +9,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecoveryComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild('formEmail')formEmail:NgForm;
+
+  email:string="";
+  habilitar:boolean;
+  constructor(
+    private authService:AuthService
+  ) {
+    this.habilitar=false;
+   }
 
   ngOnInit(): void {
   }
 
+  enviar(f:NgForm){
+    if(!f.valid){
+
+    }else{
+      this.authService.recovery(this.email).subscribe(data=>{
+        console.log('respuesta:', data);
+        this.habilitar=true;
+      })
+    }
+  }
+  reenviar(){
+    this.authService.recovery(this.email).subscribe(data=>{
+      console.log('respuesta:', data);
+      this.habilitar=true;
+    })
+  }
 }

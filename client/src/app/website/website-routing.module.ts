@@ -17,6 +17,7 @@ import { HomeComponent } from './pages/home/home.component';
 import {AuthGuard} from '../guards/auth.guard';
 import {ExitGuard} from '../guards/exit.guard';
 import {CheckoutGuard} from '../guards/checkout.guard';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -89,6 +90,10 @@ const routes: Routes = [
         path: 'register',
         canDeactivate:[ExitGuard],
         component: RegisterComponent,
+      },
+      {
+        path: 'recovery/new-password/:token',
+        component: ResetPasswordComponent,
       }
     ],
   }
