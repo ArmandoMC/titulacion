@@ -25,6 +25,8 @@ import { OrdersComponent } from './pages/orders/orders.component';
 import { InvoiceComponent } from './pages/invoice/invoice.component';
 import { FilterPipe } from '../shared/pipes/filter.pipe';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { MenuNosotrosComponent } from './pages/menu-nosotros/menu-nosotros.component';
+import { SugerenciasComponent } from './pages/sugerencias/sugerencias.component';
 // import { FlashMessageModule } from 'angular2-flash-message';
 
 @NgModule({
@@ -43,7 +45,9 @@ import { ResetPasswordComponent } from './pages/reset-password/reset-password.co
     AccountComponent,
     OrdersComponent,
     InvoiceComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    MenuNosotrosComponent,
+    SugerenciasComponent
     
   ],
   imports: [

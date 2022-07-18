@@ -26,6 +26,7 @@ import { AddBrandComponent } from './pages/add-brand/add-brand.component';
 import { EditBrandComponent } from './pages/edit-brand/edit-brand.component';
 import { AddProviderComponent } from './pages/add-provider/add-provider.component';
 import { EditProviderComponent } from './pages/edit-provider/edit-provider.component';
+import { MenuNosotrosComponent } from './pages/menu-nosotros/menu-nosotros.component';
 
 const routes: Routes = [
   {
@@ -146,6 +147,10 @@ const routes: Routes = [
       {
         path: 'ventas',
         component: SalesComponent,
+      },
+      {
+        path: 'menu/nosotros',
+        component: MenuNosotrosComponent,
       },
     ],
   },

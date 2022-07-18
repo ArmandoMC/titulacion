@@ -3,14 +3,13 @@ import { switchMap } from 'rxjs/operators';
 import { zip } from 'rxjs';
 
 import {
-  CreateProductDTO,
+  
   Product,
-  UpdateProductDTO,
+  
 } from 'src/app/models/product.model';
 import { StoreService } from '../../../services/store.service';
 import { ProductsService } from '../../../services/products.service';
 import { CartService } from 'src/app/services/cart.service';
-import { PageState } from 'src/app/models/pageState.model';
 
 @Component({
   selector: 'app-products',

@@ -18,6 +18,8 @@ import {AuthGuard} from '../guards/auth.guard';
 import {ExitGuard} from '../guards/exit.guard';
 import {CheckoutGuard} from '../guards/checkout.guard';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { MenuNosotrosComponent } from './pages/menu-nosotros/menu-nosotros.component';
+import { SugerenciasComponent } from './pages/sugerencias/sugerencias.component';
 
 const routes: Routes = [
   {
@@ -73,11 +75,14 @@ const routes: Routes = [
         component: CheckoutComponent,
       },
      
-      // {
-      //   path: 'checkout/address',
-      //   // canActivate:[CheckoutGuard],
-      //   component: MyAddressesComponent,
-      // },
+      {
+        path: 'home/nosotros',
+        component: MenuNosotrosComponent,
+      },
+      {
+        path: 'home/sugerencias',
+        component: SugerenciasComponent,
+      },
       {
         path: 'recovery',
         component: RecoveryComponent,
