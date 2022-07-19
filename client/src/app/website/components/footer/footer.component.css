@@ -1,0 +1,31 @@
+.container-fluid{
+    margin-top: 100px;
+    background-color: rgb(233, 227, 227);
+}
+.lista{
+    list-style: none;
+    /* display: inline; */
+}
+.lista li{
+    /* width: 33.33%; */
+    display: inline;
+}
+.l1{
+    float: left;
+}
+.l2{  
+    margin-left: 240px;
+}
+
+.l3{
+    float: right;
+}
+@media (max-width:390px){
+    .lista li{
+        width: 100%;
+        display: block;
+    }
+    .l2{
+        margin-left: 0px;
+    }
+}

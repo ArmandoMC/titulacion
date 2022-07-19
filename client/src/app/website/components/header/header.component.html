@@ -11,14 +11,14 @@
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
     </form>
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item ">
-        <a routerLinkActive="active" routerLink="/home" class="nav-link">Todos</a>
+      <li class="nav-item">
+        <a routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" routerLink="/home" class="nav-link">Todos</a>
       </li>
-      <li class="nav-item ">
-        <a routerLink="/home/sugerencias" class="nav-link">Sugerencias</a>
+      <li class="nav-item">
+        <a routerLinkActive="active" routerLink="/institucional/sugerencias" class="nav-link">Sugerencias y Consejos</a>
       </li>
-      <li class="nav-item ">
-        <a routerLink="/home/nosotros" class="nav-link">¿Quienes somos?</a>
+      <li class="nav-item">
+        <a routerLinkActive="active" routerLink="/institucional/quienes-somos" class="nav-link">¿Quienes somos?</a>
       </li>
       
     </ul>

@@ -61,8 +61,6 @@ export class ProductDetailComponent implements OnInit {
               this.isDisabled=false;
             }
           })
-
-         
         }
       });  
   }
@@ -73,8 +71,6 @@ export class ProductDetailComponent implements OnInit {
       this.storeService.addProduct(this.product);
       this.agregado = true;
     }
-
-    // this.total = this.storeService.getTotal();
   }
 
   goToBack() {

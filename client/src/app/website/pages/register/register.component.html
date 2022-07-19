@@ -1,4 +1,4 @@
-<section id="register">
+<section id="register" class="mt-4">
   <div class="container">
     <div class="row">
       <div class="col-md-6 mx-auto">
@@ -6,92 +6,152 @@
           <div class="card-header">
             <h4>Registro</h4>
           </div>
-          <div class="card-body">
-            <form #registerForm="ngForm" (ngSubmit)="createCustomer(registerForm)">
+
+          <form
+            #registerForm="ngForm"
+            (ngSubmit)="createCustomer(registerForm)"
+          >
+            <div class="card-body">
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="names">Nombres<span style="color: red;"> *</span></label>
+                  <label for="names"
+                    >Nombres<span style="color: red"> *</span></label
+                  >
                   <input
                     type="text"
                     class="form-control"
                     name="name"
                     #nameNombres="ngModel"
                     [(ngModel)]="name"
-                    [ngClass]="{'is-invalid':nameNombres.errors && nameNombres.touched}"
-                    required />
-                     <div [hidden]="!nameNombres.errors?.required" class="invalid-feedback">
-                    Nombres requerido</div>
+                    [ngClass]="{
+                      'is-invalid': nameNombres.errors && nameNombres.touched
+                    }"
+                    required
+                  />
+                  <div
+                    [hidden]="!nameNombres.errors?.required"
+                    class="invalid-feedback"
+                  >
+                    Nombres requerido
+                  </div>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="apellidos">Apellidos<span style="color: red;"> *</span></label>
+                  <label for="apellidos"
+                    >Apellidos<span style="color: red"> *</span></label
+                  >
                   <input
                     type="text"
                     class="form-control"
                     name="last_name"
                     #nameApellidos="ngModel"
                     [(ngModel)]="last_name"
-                    [ngClass]="{'is-invalid':nameApellidos.errors && nameApellidos.touched}"
-                    required />
-                   <div [hidden]="!nameApellidos.errors?.required" class="invalid-feedback">
-                    Apellidos requeridos</div>
+                    [ngClass]="{
+                      'is-invalid':
+                        nameApellidos.errors && nameApellidos.touched
+                    }"
+                    required
+                  />
+                  <div
+                    [hidden]="!nameApellidos.errors?.required"
+                    class="invalid-feedback"
+                  >
+                    Apellidos requeridos
+                  </div>
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col">
-                  <label for="email">Email<span style="color: red;"> *</span></label>
+                  <label for="email"
+                    >Email<span style="color: red"> *</span></label
+                  >
                   <input
                     type="email"
                     class="form-control"
                     name="email"
                     #nameEmail="ngModel"
                     [(ngModel)]="email"
-                    [ngClass]="{'is-invalid':nameEmail.errors && nameEmail.touched}"
-                    required />
-                    <div [hidden]="!nameEmail.errors?.required" class="invalid-feedback">
-                      Email requerido</div>
+                    [ngClass]="{
+                      'is-invalid': nameEmail.errors && nameEmail.touched
+                    }"
+                    required
+                  />
+                  <div
+                    [hidden]="!nameEmail.errors?.required"
+                    class="invalid-feedback"
+                  >
+                    Email requerido
+                  </div>
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="password">Contraseña<span style="color: red;"> *</span></label>
+                  <label for="password"
+                    >Contraseña<span style="color: red"> *</span></label
+                  >
                   <input
                     type="password"
                     class="form-control"
                     name="password"
                     #nameContrasena="ngModel"
                     [(ngModel)]="password"
-                    [ngClass]="{'is-invalid':nameContrasena.errors && nameContrasena.touched}"
-                    required 
+                    [ngClass]="{
+                      'is-invalid':
+                        nameContrasena.errors && nameContrasena.touched
+                    }"
+                    required
                     minlength="8"
-                    />
-                    <div [hidden]="!nameContrasena.errors?.required" class="invalid-feedback">
-                      Contraseña requerida</div>
-                    <div [hidden]="!nameContrasena.errors?.minlength" class="invalid-feedback">
-                        Se requiere al menos 8 caracteres</div>
+                  />
+                  <div
+                    [hidden]="!nameContrasena.errors?.required"
+                    class="invalid-feedback"
+                  >
+                    Contraseña requerida
+                  </div>
+                  <div
+                    [hidden]="!nameContrasena.errors?.minlength"
+                    class="invalid-feedback"
+                  >
+                    Se requiere al menos 8 caracteres
+                  </div>
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="repeatPassword">Repetir Contraseña<span style="color: red;"> *</span></label>
+                  <label for="repeatPassword"
+                    >Repetir Contraseña<span style="color: red"> *</span></label
+                  >
                   <input
                     type="password"
                     class="form-control"
                     name="repeatPassword"
                     #nameRepeatContrasena="ngModel"
                     [(ngModel)]="password"
-                    [ngClass]="{'is-invalid':nameRepeatContrasena.errors && nameRepeatContrasena.touched}"
-                    required 
+                    [ngClass]="{
+                      'is-invalid':
+                        nameRepeatContrasena.errors &&
+                        nameRepeatContrasena.touched
+                    }"
+                    required
                     minlength="8"
-                    />
-                    <div [hidden]="!nameRepeatContrasena.errors?.required" class="invalid-feedback">
-                      Contraseña requerida</div>
-                    <div [hidden]="!nameRepeatContrasena.errors?.minlength" class="invalid-feedback">
-                      Se requiere al menos 8 caracteres</div>
+                  />
+                  <div
+                    [hidden]="!nameRepeatContrasena.errors?.required"
+                    class="invalid-feedback"
+                  >
+                    Contraseña requerida
+                  </div>
+                  <div
+                    [hidden]="!nameRepeatContrasena.errors?.minlength"
+                    class="invalid-feedback"
+                  >
+                    Se requiere al menos 8 caracteres
+                  </div>
                 </div>
               </div>
-              <button type="submit" class="btn btn-success">Registrame</button>
-            </form>
-          </div>
+              <button type="submit" class="btn btn-success btn-block">Registrame</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
 </section>
+<app-footer></app-footer>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Sugerencias } from 'src/app/models/sugerencias.model';
+import { Sugerencias, UpdateSugerenciasDTO } from 'src/app/models/sugerencias.model';
 import {MenusService} from '../../../services/menus.service';
 @Component({
   selector: 'app-sugerencias',
@@ -8,7 +8,6 @@ import {MenusService} from '../../../services/menus.service';
 })
 export class SugerenciasComponent implements OnInit {
 
-  // sugerencias:Sugerencias[]=[];
   sugDespacho:Sugerencias={
     id:0,
     name:'',
@@ -16,9 +15,9 @@ export class SugerenciasComponent implements OnInit {
     privacidad:'',
     costos_envio:'',
     entregas:'',
-    metodo_pago:'',
     status:''
   };
+ 
   
   constructor(
     private menusService:MenusService
@@ -28,9 +27,20 @@ export class SugerenciasComponent implements OnInit {
     this.menusService.getAllSugerencias().subscribe(data=>{
       console.log('sugerencias rescatadas:',data)
       this.sugDespacho=data;
-      })
+    })
+  }
+
+  editarInfo(){
+    const dto:UpdateSugerenciasDTO={
+      description:this.sugDespacho.description,
+      costos_envio:this.sugDespacho.costos_envio,
+      entregas:this.sugDespacho.entregas,
+      metodo_pago:this.sugDespacho.metodo_pago
     }
-  
- 
+    this.menusService.updateSugerencias(this.sugDespacho.id,dto).subscribe(data=>{
+      console.log('sugerencias actualziadas:',data)
+    })
+    
+  }
 
 }

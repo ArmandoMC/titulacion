@@ -1,0 +1,11 @@
+.card{
+    /* background-color: white !important; */
+    /* border-bottom: 1px solid red; */
+
+}
+.card-header{
+    background-color: hsl(0, 0%, 100%);
+}
+.card-body p{
+    text-align: justify;
+}

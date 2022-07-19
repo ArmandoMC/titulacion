@@ -143,7 +143,6 @@
     </div>
   </div>
   
-
   <div class="step2" [ngClass]="{ disabled: disabledStep2 }">
     <h2>PASO 2 : VERIFICACION DE PEDIDO Y DATOS DE ENVIO</h2>
     <div class="row info-pedido">
@@ -294,11 +293,6 @@
           <h4 style="line-height: 90%">DIMA</h4>
           <span>tienda de productos lácteos</span>
         </div>
-
-        <!-- <div class="form-group">
-          <label>Nombre de tarjeta</label>
-          <div id="nombre"></div>
-        </div> -->
         <div class="form-group">
           <label for="inputNombre">Nombre del titular<span style="color: red;"> *</span></label>
           <input type="text" class="form-control titular" id="" placeholder="">
@@ -325,14 +319,15 @@
           Pagar {{ total+tarifaFija | currency }}
         </button>
       </form>
-      <button
+      <!-- <button
         class="btn btn-secondary mt-3"
         type="submit"
         (click)="bactToStep2()"
         onfocus="this.blur()"
       >
         Regresar al paso 2
-      </button>
+      </button> -->
     </div>
   </div>
 </div>
+<app-footer></app-footer>

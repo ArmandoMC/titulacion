@@ -20,6 +20,8 @@ import {CheckoutGuard} from '../guards/checkout.guard';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { MenuNosotrosComponent } from './pages/menu-nosotros/menu-nosotros.component';
 import { SugerenciasComponent } from './pages/sugerencias/sugerencias.component';
+import { TerminosComponent } from './pages/terminos/terminos.component';
+import { PreguntasFrecuentesComponent } from './pages/preguntas-frecuentes/preguntas-frecuentes.component';
 
 const routes: Routes = [
   {
@@ -76,12 +78,20 @@ const routes: Routes = [
       },
      
       {
-        path: 'home/nosotros',
+        path: 'institucional/quienes-somos',
         component: MenuNosotrosComponent,
       },
       {
-        path: 'home/sugerencias',
+        path: 'institucional/sugerencias',
         component: SugerenciasComponent,
+      },
+      {
+        path: 'institucional/terminos-condiciones',
+        component: TerminosComponent
+      },
+      {
+        path: 'home/preguntas-frecuentes',
+        component: PreguntasFrecuentesComponent
       },
       {
         path: 'recovery',

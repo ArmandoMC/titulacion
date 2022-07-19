@@ -67,22 +67,7 @@ export class ProductsComponent {
   ) {
     this.myShoppingCart = this.storeService.getShoppingCart();
   }
-  // page:PageState={
-  //   currentPage:1,
-  //   pageSize:5,
-  //   totalItems:20
-  // }
-  // textToShow:string;
-  // currentChange;
-  // pageChange(pageState: PageState, isPageSizeChange = false) {
-  //   this.textToShow = `Page changed. Reload data with new paging values, isPageSizeChange: ${isPageSizeChange}`;
-  //   console.log(pageState);
-  //   this.currentChange = undefined;
-  //   setTimeout(() => {
-  //     this.currentChange = pageState;
-  //   }, 125);
-
-  // }
+ 
 
   // ngOnInit(): void {
   //   this.productsService.getAllProducts(this.limit,this.offset)
@@ -140,17 +125,7 @@ export class ProductsComponent {
   // }
 
   createNewProduct() {
-    // const product: CreateProductDTO = {
-    //   name: 'nuevo producto',
-    //   image: 'http://placeimg.com/640/480',
-    //   description: 'my descripcion',
-    //   price: 999,
-    //   categoryId: 3,
-    // };
-    // this.productsService.create(product).subscribe((data) => {
-    //   // console.log('created', data);
-    //   this.products.unshift(data);
-    // });
+    
   }
 
   updateProduct() {

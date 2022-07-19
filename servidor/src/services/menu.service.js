@@ -32,7 +32,7 @@ class MenuService {
 
     const query = 'SELECT * FROM sugerencias_consejos';
     const sur = await this.pool.query(query);
-    return sur.rows;
+    return sur.rows[0];
 
   }
   async findCount() {
@@ -85,6 +85,16 @@ class MenuService {
     const query = {
       text: `UPDATE menus SET description=$1,mision=$2,vision=$3 WHERE id=$4 RETURNING *`,
       values: [description,mision,vision, id]
+    };
+    const rta = await this.pool.query(query);
+    return rta.rows[0];
+  }
+  async updateSugerencias(id, changes) {
+    await this.findOne(id);
+    const { description,costos_envio,entregas,metodo_pago } = changes;
+    const query = {
+      text: `UPDATE sugerencias_consejos SET description=$1,costos_envio=$2,entregas=$3,metodo_pago=$4 WHERE id=$5 RETURNING *`,
+      values: [description,costos_envio,entregas,metodo_pago, id]
     };
     const rta = await this.pool.query(query);
     return rta.rows[0];

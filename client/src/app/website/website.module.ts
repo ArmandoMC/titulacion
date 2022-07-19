@@ -27,6 +27,9 @@ import { FilterPipe } from '../shared/pipes/filter.pipe';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { MenuNosotrosComponent } from './pages/menu-nosotros/menu-nosotros.component';
 import { SugerenciasComponent } from './pages/sugerencias/sugerencias.component';
+import { TerminosComponent } from './pages/terminos/terminos.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { PreguntasFrecuentesComponent } from './pages/preguntas-frecuentes/preguntas-frecuentes.component';
 // import { FlashMessageModule } from 'angular2-flash-message';
 
 @NgModule({
@@ -47,7 +50,10 @@ import { SugerenciasComponent } from './pages/sugerencias/sugerencias.component'
     InvoiceComponent,
     ResetPasswordComponent,
     MenuNosotrosComponent,
-    SugerenciasComponent
+    SugerenciasComponent,
+    TerminosComponent,
+    FooterComponent,
+    PreguntasFrecuentesComponent
     
   ],
   imports: [

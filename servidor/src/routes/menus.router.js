@@ -25,7 +25,7 @@ router.get('/sugerencias',
 // checkRoles('admin','seller'),
 async (req, res, next) => {
   try {
-    const brands = await service.find();
+    const brands = await service.findAllSugerencias();
     res.json(brands);
   } catch (error) {
     next(error);
@@ -80,6 +80,22 @@ router.put('/nosotros/:id',
       const { id } = req.params;
       const body=req.body;
       const menu = await service.updateMenuNosotros(id,body);
+      res.json(menu);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+router.put('/sugerencias/:id',
+// passport.authenticate('jwt', { session: false }),
+// checkRoles('admin','seller','customer'),
+
+  // validatorHandler(getBrandSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      const body=req.body;
+      const menu = await service.updateSugerencias(id,body);
       res.json(menu);
     } catch (error) {
       next(error);

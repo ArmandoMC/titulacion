@@ -20,13 +20,6 @@
         <td>
           <div class="">
             <button (click)="restar(product.id)">-</button>
-            <!-- <select name="miselect" class="select" [ngModel]="product.oferta" #nombreSelect>
-              <option [value]="product.oferta">
-                {{ product.oferta }}
-              </option>
-              <option value="item" *ngFor="let item of listaOferta">{{item}}
-              </option>
-            </select> -->
             <input type="text" name="oferta" id="" value="{{product.oferta}}" disabled>
             <button (click)="sumar(product.id)">+</button>
           </div>
@@ -61,10 +54,8 @@
     
     [routerLink]="['/checkout']"
   >
-    Proceder al pago
+    Ir a pagar
   </button>
-  <!-- <h2>el total a pagar es: {{total}}</h2>
-  <h2>la cantidad de productos es {{cantidadTotal}}</h2> -->
   <ng-template #elseShow>
     <button *ngIf="products.length>0" [routerLink]="['/login']" class="btn btn-primary btn-login">
       Acceder a mi cuenta y pagar
@@ -76,3 +67,5 @@
   </ng-template>
 
 </div>
+<app-footer></app-footer>
+

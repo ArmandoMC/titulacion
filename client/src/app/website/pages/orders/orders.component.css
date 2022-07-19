@@ -1,3 +1,6 @@
+.container-fluid{
+    padding-bottom: 170px;
+}
 .orderVacias{
     border: 1px solid;
     border-color: rgb(216, 210, 210);

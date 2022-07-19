@@ -5,22 +5,18 @@
         <tr>
           <th scope="col">Id</th>
           <th scope="col">Total</th>
-          <!-- <th scope="col">Id transaccion</th> -->
           <th scope="col">Fecha de pedido</th>
           <th scope="col">Estado</th>
           <th scope="col">Detalle</th>
-          <!-- <th scope="col">Factura</th> -->
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let order of orders; let indice = index">
           <td>{{ order.id }}</td>
           <td>{{ order.total | currency }}</td>
-          <!-- <td>{{ order.id_transaccion }}</td> -->
           <td>{{ order.created_at | date:'short' }}</td>
           <td><span class="badge badge-warning">{{order.status}}</span></td>
           <td>
-            <!-- Button trigger modal -->
             <button
               type="button"
               class="btn btn-primary"
@@ -31,16 +27,6 @@
               Ver detalle
             </button>
           </td>
-          <!-- <td>
-            <button
-              type="button"
-              class="btn btn-primary"
-              target="_blank"
-              [routerLink]="['/factura/order',order.id]"
-            >
-              Ver Factura
-            </button>
-          </td> -->
         </tr>
       </tbody>
     </table>
@@ -57,6 +43,7 @@
     </div>
   </ng-template>
 </div>
+<app-footer></app-footer>
 <div
   class="modal fade"
   id="exampleModal"

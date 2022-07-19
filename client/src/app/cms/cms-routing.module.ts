@@ -27,6 +27,7 @@ import { EditBrandComponent } from './pages/edit-brand/edit-brand.component';
 import { AddProviderComponent } from './pages/add-provider/add-provider.component';
 import { EditProviderComponent } from './pages/edit-provider/edit-provider.component';
 import { MenuNosotrosComponent } from './pages/menu-nosotros/menu-nosotros.component';
+import { SugerenciasComponent } from './pages/sugerencias/sugerencias.component';
 
 const routes: Routes = [
   {
@@ -151,6 +152,10 @@ const routes: Routes = [
       {
         path: 'menu/nosotros',
         component: MenuNosotrosComponent,
+      },
+      {
+        path: 'menu/sugerencias',
+        component: SugerenciasComponent,
       },
     ],
   },
