@@ -30,6 +30,7 @@ import { SugerenciasComponent } from './pages/sugerencias/sugerencias.component'
 import { TerminosComponent } from './pages/terminos/terminos.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PreguntasFrecuentesComponent } from './pages/preguntas-frecuentes/preguntas-frecuentes.component';
+import { ContactoComponent } from './pages/contacto/contacto.component';
 // import { FlashMessageModule } from 'angular2-flash-message';
 
 @NgModule({
@@ -53,7 +54,8 @@ import { PreguntasFrecuentesComponent } from './pages/preguntas-frecuentes/pregu
     SugerenciasComponent,
     TerminosComponent,
     FooterComponent,
-    PreguntasFrecuentesComponent
+    PreguntasFrecuentesComponent,
+    ContactoComponent
     
   ],
   imports: [

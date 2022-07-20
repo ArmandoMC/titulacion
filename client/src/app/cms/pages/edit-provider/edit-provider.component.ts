@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router,ActivatedRoute } from '@angular/router';
 import { ProvidersService } from 'src/app/services/providers.service';
+import { AlertsService } from 'src/app/services/alerts.service';
 import { CreateProviderDTO,Provider } from 'src/app/models/provider.model';
 import {switchMap} from 'rxjs/operators';
 
@@ -11,8 +12,6 @@ import {switchMap} from 'rxjs/operators';
   styleUrls: ['./edit-provider.component.css']
 })
 export class EditProviderComponent implements OnInit {
-
-  @ViewChild('editForm')editForm:NgForm;
 
   editProvider:Provider={
     id:0,
@@ -25,6 +24,7 @@ export class EditProviderComponent implements OnInit {
   isDisabled:boolean;
   constructor(
     private providersService:ProvidersService,
+    private alertsService:AlertsService,
     private route:ActivatedRoute,
     private router:Router,
 
@@ -53,7 +53,7 @@ export class EditProviderComponent implements OnInit {
 
   editarProvider(f:NgForm){
     if(!f.valid){
-
+      this.alertsService.alertaFailTop('top-end','error','Error!!','Formulario no válido',false,1500);
     }else{
       const dto:CreateProviderDTO={
         name:this.editProvider.name,
@@ -61,19 +61,24 @@ export class EditProviderComponent implements OnInit {
         address:this.editProvider.address,
         phone:this.editProvider.phone
       }
-      this.providersService.update(this.providerId,dto).subscribe(data=>{
-        console.log('proveedor editado:',data);
-        this.editForm.resetForm();
+      this.providersService.update(this.providerId,dto).subscribe(()=>{
+        this.alertsService.alertaSuccessTop('top-end','success','Proveedor modificado',false,1500);
         this.router.navigate(['/cms/providers']);
-      })
+      },(()=>{
+        this.alertsService.alertaFailTop('top-end','error','Error!!','Error al editar proveedor',false,1500);
+      }))
     }
 
   }
   delete(){
-    this.providersService.delete(this.providerId).subscribe(data=>{
-      console.log('proveedor eliminado',data);
-      this.router.navigate(['/cms/providers']);
-
+    this.alertsService.alertaDelete('Estas seguro?','No podrás revertir los cambios','warning',true,'#3085d6',
+    '#d33','Si, eliminar').then((result) => {
+      if (result.isConfirmed) {
+        this.providersService.delete(this.providerId).subscribe(()=>{
+          this.alertsService.alertaSuccessTop('top-end','success','Proveedor eliminado',false,1500);
+          this.router.navigate(['/cms/providers']);
+        });
+      }
     });
   }
   habilitar(){

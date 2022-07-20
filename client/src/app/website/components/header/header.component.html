@@ -1,5 +1,5 @@
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a routerLink="/" class="navbar-brand" href="#">DIMA</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -12,7 +12,7 @@
     </form>
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" routerLink="/home" class="nav-link">Todos</a>
+        <a routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" routerLink="/home" class="nav-link">Productos</a>
       </li>
       <li class="nav-item">
         <a routerLinkActive="active" routerLink="/institucional/sugerencias" class="nav-link">Sugerencias y Consejos</a>
@@ -20,14 +20,17 @@
       <li class="nav-item">
         <a routerLinkActive="active" routerLink="/institucional/quienes-somos" class="nav-link">¿Quienes somos?</a>
       </li>
+      <li class="nav-item">
+        <a routerLinkActive="active" routerLink="/institucional/contacto" class="nav-link">Contáctanos</a>
+      </li>
       
     </ul>
     <ul class="navbar-nav  datos-usuario">
       <li *ngIf="!isLoggedIn" class="nav-item">
-        <a routerLink="/login"class="nav-link">Login</a>
+        <a routerLink="/login"class="nav-link">Iniciar sesión</a>
       </li>
       <li *ngIf="!isLoggedIn" class="nav-item">
-        <a routerLink="/register" class="nav-link">Register</a>
+        <a routerLink="/register" class="nav-link">Registrarse</a>
       </li>
       <li *ngIf="isLoggedIn" class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">

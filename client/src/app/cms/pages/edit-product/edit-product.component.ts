@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../../../services/products.service';
 import { CategoriesService } from '../../../services/categories.service';
 import { SubcategoriesService } from '../../../services/subcategories.service';
+import { AlertsService } from '../../../services/alerts.service';
 import { Category, SubCategory } from 'src/app/models/category.model';
 import { BrandService } from 'src/app/services/brand.service';
 import { ProvidersService } from 'src/app/services/providers.service';
@@ -66,6 +67,7 @@ export class EditProductComponent implements OnInit {
     private subcategoriesService: SubcategoriesService,
     private providersService: ProvidersService,
     private brandService: BrandService,
+    private alertsService: AlertsService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -149,7 +151,7 @@ export class EditProductComponent implements OnInit {
 
   editProduct(f: NgForm) {
     if (!f.valid) {
-
+      this.alertsService.alertaFailTop('top-end','error','Error!!','Formulario no válido',false,1500);
     } else {
       this.productsService
         .update(
@@ -175,15 +177,25 @@ export class EditProductComponent implements OnInit {
         .subscribe((data) => {
           console.log('producto modificado:', data);
           this.editForm.resetForm();
+          this.alertsService.alertaSuccessTop('top-end','success','Producto modificado',false,1500);
           this.router.navigate(['/cms/products']);
-        });
+        },(()=>{
+          this.alertsService.alertaFailTop('top-end','error','Error!!','Error al editar producto',false,1500);
+        }));
     }
   }
   deleteProduct() {
-    this.productsService.detele(this.productId).subscribe(data=>{
-      console.log('producto eliminado',data)
-      this.router.navigate(['/cms/products']);
-    })
+    this.alertsService.alertaDelete('Estas seguro?','No podrás revertir los cambios','warning',true,'#3085d6',
+    '#d33','Si, eliminar').then((result) => {
+      if (result.isConfirmed) {
+        this.productsService.detele(this.productId).subscribe(data=>{
+          console.log('producto eliminado',data)
+          this.alertsService.alertaSuccessTop('top-end','success','Producto eliminado',false,1500);
+          this.router.navigate(['/cms/products']);
+        });
+      }
+    });
+    
   }
 
 

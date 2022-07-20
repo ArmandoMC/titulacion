@@ -22,6 +22,7 @@ import { MenuNosotrosComponent } from './pages/menu-nosotros/menu-nosotros.compo
 import { SugerenciasComponent } from './pages/sugerencias/sugerencias.component';
 import { TerminosComponent } from './pages/terminos/terminos.component';
 import { PreguntasFrecuentesComponent } from './pages/preguntas-frecuentes/preguntas-frecuentes.component';
+import { ContactoComponent } from './pages/contacto/contacto.component';
 
 const routes: Routes = [
   {
@@ -88,6 +89,10 @@ const routes: Routes = [
       {
         path: 'institucional/terminos-condiciones',
         component: TerminosComponent
+      },
+      {
+        path: 'institucional/contacto',
+        component: ContactoComponent
       },
       {
         path: 'home/preguntas-frecuentes',

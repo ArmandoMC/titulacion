@@ -1,6 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { SubcategoriesService } from 'src/app/services/subcategories.service';
+import { AlertsService } from 'src/app/services/alerts.service';
 import {CreateSubCategoryDTO,SubCategory} from '../../../models/category.model';
 import {Router} from '@angular/router';
 
@@ -11,16 +12,15 @@ import {Router} from '@angular/router';
 })
 export class AddSubcategoryComponent implements OnInit {
 
-  @ViewChild('addForm') addForm: NgForm;
   subcategory:SubCategory={
     id:0,
     name:'',
     description:''
   }
-  idSubcategory:number=0;
 
   constructor(
     private subcategoriesService:SubcategoriesService,
+    private alertsService:AlertsService,
     private router:Router
 
   ) { }
@@ -30,16 +30,18 @@ export class AddSubcategoryComponent implements OnInit {
 
   createSubcategory(f: NgForm) {
     if (!f.valid) {
+      this.alertsService.alertaFailTop('top-end','error','Error!!','Formulario no válido',false,1500);
     } else {
       const dto: CreateSubCategoryDTO = {
         name: this.subcategory.name,
         description: this.subcategory.description,
       };
-      this.subcategoriesService.create(dto).subscribe((data) => {
-        console.log('subcategoria creada:', data);
-        this.addForm.resetForm();
+      this.subcategoriesService.create(dto).subscribe(() => {
+        this.alertsService.alertaSuccessTop('top-end','success','Subcategoría creada',false,1500);
         this.router.navigate(['/cms/subcategories']);
-      });
+      },(()=>{
+        this.alertsService.alertaFailTop('top-end','error','Error!!','Error al crear subcategoría',false,1500);
+      }));
     }
   }
 }

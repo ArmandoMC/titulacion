@@ -1,8 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ProvidersService } from 'src/app/services/providers.service';
 import { CreateProviderDTO,Provider } from 'src/app/models/provider.model';
 import { Router } from '@angular/router';
+import {AlertsService} from '../../../services/alerts.service';
 
 
 @Component({
@@ -12,7 +13,6 @@ import { Router } from '@angular/router';
 })
 export class AddProviderComponent implements OnInit {
 
-  @ViewChild('addForm') addForm: NgForm;
   provider:Provider={
     id:0,
     name:'',
@@ -23,6 +23,7 @@ export class AddProviderComponent implements OnInit {
 
   constructor(
     private providersService:ProvidersService,
+    private alertsService:AlertsService,
     private router: Router
 
   ) { }
@@ -32,7 +33,7 @@ export class AddProviderComponent implements OnInit {
 
   createProvider(f:NgForm){
     if(!f.valid){
-
+      this.alertsService.alertaFailTop('top-end','error','Error!!','Formulario no válido',false,1500);
     }else{
       const dto:CreateProviderDTO={
         name:this.provider.name,
@@ -40,11 +41,12 @@ export class AddProviderComponent implements OnInit {
         address:this.provider.address,
         phone:this.provider.phone
       }
-      this.providersService.create(dto).subscribe(data=>{
-        console.log('proveedor creado:',data)
-        this.addForm.resetForm();
+      this.providersService.create(dto).subscribe(()=>{
+        this.alertsService.alertaSuccessTop('top-end','success','Proveedor creado',false,1500);
         this.router.navigate(['/cms/providers']);
-      })
+      },(()=>{
+        this.alertsService.alertaFailTop('top-end','error','Error!!','Error al crear proveedor',false,1500);
+      }))
     }
   }
 }

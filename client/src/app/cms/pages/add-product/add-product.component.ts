@@ -1,7 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { AlertsService } from '../../../services/alerts.service';
 import { ProductsService } from '../../../services/products.service';
 import { CategoriesService } from '../../../services/categories.service';
 import { SubcategoriesService } from '../../../services/subcategories.service';
@@ -10,7 +10,6 @@ import { BrandService } from 'src/app/services/brand.service';
 import { ProvidersService } from 'src/app/services/providers.service';
 import { Brand } from 'src/app/models/brand.model';
 import { Provider } from 'src/app/models/provider.model';
-import { Product } from 'src/app/models/product.model';
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -18,9 +17,6 @@ import { Product } from 'src/app/models/product.model';
 })
 export class AddProductComponent implements OnInit {
   @ViewChild('addForm') addForm: NgForm;
-  @ViewChild('botonCerrarAdd') botonCerrarAdd: ElementRef;
-  @ViewChild('editForm') editForm: NgForm;
-  @ViewChild('botonCerrarEdit') botonCerrarEdit: ElementRef;
 
   photoSelected: string | ArrayBuffer | null;
   id: string;
@@ -51,27 +47,7 @@ export class AddProductComponent implements OnInit {
     name: 'Lacteos',
     description: '',
   };
-  product: Product = {
-    id: '',
-    cod_product: '',
-    name: '',
-    description: '',
-    sleeve_color: '',
-    flavor: '',
-    presentation: '',
-    packaging: '',
-    stock: 0,
-    oferta: 0,
-    purchase_price: 0,
-    price: 0,
-    image: '',
-    category_id: 0,
-    subcategory_id: 0,
-    brand_id: 0,
-    provider_id: 0,
-    status: '',
-  };
-  ultimoId:number=0;
+  
   image_url: string;
   cat_seleccionada: string;
   subcat_seleccionada: string;
@@ -81,7 +57,6 @@ export class AddProductComponent implements OnInit {
   vectorSubCat: string[] = [];
   vectorProv: string[] = [];
   vectorBrand: string[] = [];
-  insertarUno: boolean;
   //Filtrado
   filterProduct: string = '';
   constructor(
@@ -90,6 +65,7 @@ export class AddProductComponent implements OnInit {
     private subcategoriesService: SubcategoriesService,
     private providersService: ProvidersService,
     private brandService: BrandService,
+    private alertsService: AlertsService,
     private router: Router
   ) {}
 
@@ -127,8 +103,8 @@ export class AddProductComponent implements OnInit {
   }
   createProduct(f: NgForm) {
     if (!f.valid) {
+      this.alertsService.alertaFailTop('top-end','error','Error!!','Formulario no válido',false,1500);
     } else {
-      // this.insertarUno = true;
       this.productsService
         .createProductAndUpdateImage(
           this.name,
@@ -146,11 +122,13 @@ export class AddProductComponent implements OnInit {
           this.brand_id,
           this.provider_id
         )
-        .subscribe((data) => {
-          console.log('producto creado:', data);
+        .subscribe(() => {
           this.addForm.resetForm();
+          this.alertsService.alertaSuccessTop('top-end','success','Producto agregado',false,1500);
           this.router.navigate(['/cms/products']);
-        });
+        },(()=>{
+          this.alertsService.alertaFailTop('top-end','error','Error!!','Error al crear producto',false,1500);
+        }));
     }
   }
   getUltimoId() {

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import {User} from '../../../models/user.model';
 import{AuthService} from '../../../services/auth.service';
+import{AlertsService} from '../../../services/alerts.service';
 import Swal from 'sweetalert2';
 import { NgForm } from '@angular/forms';
 
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
   // @Output() logueado=new EventEmitter<User>();
   constructor(
     private router:Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private alertsService: AlertsService,
   ) { }
 
   ngOnInit() {
@@ -33,22 +35,15 @@ export class LoginComponent implements OnInit {
 
   login(f:NgForm) {
     if(!f.valid){
-
+      this.alertsService.alertaFailTop('top-end','error','Error!!','Formulario no válido',false,1500);
     }else{
       this.authService.login(this.email, this.password)
       .subscribe(()=>{
-  
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Ingreso exitoso',
-          showConfirmButton: false,
-          timer: 1500
-        })
+        this.alertsService.alertaSuccessTop('top-end','success','Login exitoso',false,1500);
         this.router.navigate(['/home']);
-
-  
-      },err=>{console.error('hubo un error al hacer login')});
+      },()=>{
+        this.alertsService.alertaFailTop('top-end','error','Error!!','Credenciales incorrectas',false,1500);
+      });
     }
     
   }

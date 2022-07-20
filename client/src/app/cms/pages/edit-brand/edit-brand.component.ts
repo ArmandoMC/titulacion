@@ -1,8 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router,ActivatedRoute } from '@angular/router';
 import {CreateBrandDTO,Brand} from '../../../models/brand.model';
 import {BrandService} from '../../../services/brand.service';
+import {AlertsService} from '../../../services/alerts.service';
 import {switchMap} from 'rxjs/operators';
 @Component({
   selector: 'app-edit-brand',
@@ -20,6 +21,7 @@ export class EditBrandComponent implements OnInit {
 
   constructor(
     private brandService:BrandService,
+    private alertsService:AlertsService,
     private router: Router,
     private route: ActivatedRoute
 
@@ -46,25 +48,31 @@ export class EditBrandComponent implements OnInit {
 
   editarBrand(f:NgForm){
     if(!f.valid){
-
+      this.alertsService.alertaFailTop('top-end','error','Error!!','Formulario no válido',false,1500);
     }else{
       const dto:CreateBrandDTO={
         name:this.editBrand.name,
         description:this.editBrand.description
       }
-      this.brandService.update(this.brandId,dto).subscribe(data=>{
-        console.log('marca editada:',data);
+      this.brandService.update(this.brandId,dto).subscribe(()=>{
+        this.alertsService.alertaSuccessTop('top-end','success','Marca modificada',false,1500);
         this.router.navigate(['/cms/brands']);
-        
-      })
+      },(()=>{
+        this.alertsService.alertaFailTop('top-end','error','Error!!','Error al editar marca',false,1500);
+      }))
     }
 
   }
   delete(){
-    this.brandService.delete(this.brandId).subscribe(data=>{
-      console.log('marca eliminada',data);
-      this.router.navigate(['/cms/brands']);
-    })
+    this.alertsService.alertaDelete('Estas seguro?','No podrás revertir los cambios','warning',true,'#3085d6',
+    '#d33','Si, eliminar').then((result) => {
+      if (result.isConfirmed) {
+        this.brandService.delete(this.brandId).subscribe(()=>{
+          this.alertsService.alertaSuccessTop('top-end','success','Marca eliminada',false,1500);
+          this.router.navigate(['/cms/brands']);
+        });
+      }
+    });
   }
   habilitar(){
     this.isDisabled=false;

@@ -1,16 +1,15 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import {CreateBrandDTO,Brand} from '../../../models/brand.model';
 import {BrandService} from '../../../services/brand.service';
+import {AlertsService} from '../../../services/alerts.service';
 @Component({
   selector: 'app-add-brand',
   templateUrl: './add-brand.component.html',
   styleUrls: ['./add-brand.component.css']
 })
 export class AddBrandComponent implements OnInit {
-
-  @ViewChild('addForm') addForm: NgForm;
 
   brand:Brand={
     id:0,
@@ -21,6 +20,7 @@ export class AddBrandComponent implements OnInit {
 
   constructor(
     private brandService:BrandService,
+    private alertsService:AlertsService,
     private router:Router,
 
   ) { }
@@ -30,17 +30,18 @@ export class AddBrandComponent implements OnInit {
 
   createBrand(f:NgForm){
     if(!f.valid){
-
+      this.alertsService.alertaFailTop('top-end','error','Error!!','Formulario no válido',false,1500);
     }else{
       const dto:CreateBrandDTO={
         name:this.brand.name,
         description:this.brand.description
       }
-      this.brandService.create(dto).subscribe(data=>{
-        console.log('categoria creada:',data)
-        this.addForm.resetForm();
+      this.brandService.create(dto).subscribe(()=>{
+        this.alertsService.alertaSuccessTop('top-end','success','Marca agregada',false,1500);
         this.router.navigate(['/cms/brands']);
-      })
+      },(()=>{
+        this.alertsService.alertaFailTop('top-end','error','Error!!','Error al crear marca',false,1500);
+      }))
     }
   }
 

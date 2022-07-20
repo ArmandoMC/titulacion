@@ -6,6 +6,7 @@ import { Product } from 'src/app/models/product.model';
 import { switchMap } from 'rxjs/operators';
 import { ProductsService } from '../../../services/products.service';
 import { StoreService } from '../../../services/store.service';
+import { AlertsService } from '../../../services/alerts.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -26,7 +27,8 @@ export class ProductDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private productsService: ProductsService,
     private storeService: StoreService,
-    private location: Location
+    private location: Location,
+    private alertsService: AlertsService,
   ) {}
 
   ngOnInit(): void {
@@ -70,6 +72,7 @@ export class ProductDetailComponent implements OnInit {
       this.product.oferta = Number.parseInt(this.seleccionado);
       this.storeService.addProduct(this.product);
       this.agregado = true;
+      this.alertsService.alertaSuccessTop('top-end','success','Producto agregado al carrito',false,1500);
     }
   }
 

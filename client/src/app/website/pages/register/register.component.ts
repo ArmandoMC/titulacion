@@ -1,17 +1,17 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { CreateCustomerDTO } from 'src/app/models/customer.model';
 import { CustomerService } from 'src/app/services/customer.service';
-import{OnExit} from '../../../guards/exit.guard';
+import { AlertsService } from 'src/app/services/alerts.service';
+// import{OnExit} from '../../../guards/exit.guard';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit,OnExit {
+export class RegisterComponent implements OnInit {
 
   @ViewChild('registerForm') registerForm:NgForm;
   @ViewChild('botonCerrar') botonCerrar:ElementRef;
@@ -25,6 +25,7 @@ export class RegisterComponent implements OnInit,OnExit {
 
   constructor(
     private customerService:CustomerService,
+    private alertsService:AlertsService,
     private router:Router
   ) { }
 
@@ -33,7 +34,7 @@ export class RegisterComponent implements OnInit,OnExit {
   createCustomer(f:NgForm){
 
     if(!f.valid){
-
+      this.alertsService.alertaFailTop('top-end','error','Error!!','Formulario no válido',false,1500);
     }else{
       const customer:CreateCustomerDTO={
         name:this.name,
@@ -55,9 +56,9 @@ export class RegisterComponent implements OnInit,OnExit {
 
   }
 
-  onExit(){
-    const rta=confirm('Logica desde component, estas seguro de salir');
-    return rta;
-  }
+  // onExit(){
+  //   const rta=confirm('Logica desde component, estas seguro de salir');
+  //   return rta;
+  // }
 
 }

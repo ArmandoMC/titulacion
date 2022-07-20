@@ -4,6 +4,7 @@ import { CreateSubCategoryDTO, SubCategory } from 'src/app/models/category.model
 import { switchMap } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SubcategoriesService } from 'src/app/services/subcategories.service';
+import { AlertsService } from 'src/app/services/alerts.service';
 
 @Component({
   selector: 'app-edit-subcategory',
@@ -22,6 +23,7 @@ export class EditSubcategoryComponent implements OnInit {
 
   constructor(
     private subcategoriesService:SubcategoriesService,
+    private alertsService:AlertsService,
     private route: ActivatedRoute,
     private router: Router,
 
@@ -51,21 +53,29 @@ export class EditSubcategoryComponent implements OnInit {
 
   editarSubcategory(f: NgForm) {
     if (!f.valid) {
+      this.alertsService.alertaFailTop('top-end','error','Error!!','Formulario no válido',false,1500);
     } else {
       const dto: CreateSubCategoryDTO = {
         name: this.editSubcategory.name,
         description: this.editSubcategory.description,
       };
-      this.subcategoriesService.update(this.subcategoryId, dto).subscribe((data) => {
-        console.log('subcategoria editada:', data);
+      this.subcategoriesService.update(this.subcategoryId, dto).subscribe(() => {
+        this.alertsService.alertaSuccessTop('top-end','success','Subcategoría modificada',false,1500);
         this.router.navigate(['/cms/subcategories']);
-      });
+      },(()=>{
+        this.alertsService.alertaFailTop('top-end','error','Error!!','Error al modificar subcategoría',false,1500);
+      }));
     }
   }
   delete() {
-    this.subcategoriesService.delete(this.subcategoryId).subscribe((data) => {
-      console.log('subcategoria eliminada', data);
-      this.router.navigate(['/cms/subcategories']);
+    this.alertsService.alertaDelete('Estas seguro?','No podrás revertir los cambios','warning',true,'#3085d6',
+    '#d33','Si, eliminar').then((result) => {
+      if (result.isConfirmed) {
+        this.subcategoriesService.delete(this.subcategoryId).subscribe(() => {
+          this.alertsService.alertaSuccessTop('top-end','success','Subcategoría eliminada',false,1500);
+          this.router.navigate(['/cms/subcategories']);
+        });
+      }
     });
    
   }

@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { CustomerService } from '../../../services/customer.service';
 import { UserService } from '../../../services/user.service';
+import { AlertsService } from '../../../services/alerts.service';
 import { UpdateUserDTO, User } from '../../../models/user.model';
 import { tap } from 'rxjs/operators';
 import { Customer, UpdateCustomerDTO } from 'src/app/models/customer.model';
@@ -43,6 +44,7 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService,
     private customerService: CustomerService,
     private userService: UserService,
+    private alertsService: AlertsService,
   ) {}
 
   ngOnInit(): void {
@@ -91,19 +93,14 @@ export class ProfileComponent implements OnInit {
 
   editarNombreCompleto(f:NgForm) {
     if(!f.valid){
-
+      this.alertsService.alertaFailTop('top-end','error','Error!!','Nombre no válido',false,1500);
     }else{
-      // const dto: UpdateCustomerDTO = {
-      //   name: this.name,
-      //   last_name: this.last_name,
-      //   dni: this.dni,
-      //   phone: this.phone,
-      // };
       this.customerService
         .updateNombreCompleto(this.idUsuario, this.name,this.last_name)
         .subscribe((client) => {
           this.name = client.name;
           this.last_name = client.last_name;
+          this.alertsService.alertaSuccessTop('top-end','success','Nombre actualizado',false,1500);
           this.cerrarModalNC();
         });
     }
@@ -111,31 +108,33 @@ export class ProfileComponent implements OnInit {
   }
   editarDni(f:NgForm){
     if(!f.valid){
-
+      this.alertsService.alertaFailTop('top-end','error','Error!!','Cédula no válida',false,1500);
     }else{
       this.customerService.updateDni(this.idUsuario,this.dni).subscribe(data=>{
         console.log('dni actualizado',data)
         this.dni = data.dni;
         this.existeDni=true;
+        this.alertsService.alertaSuccessTop('top-end','success','Cédula actualizada',false,1500);
         this.cerrarModalDni();
       })
     }
   }
   editarPhone(f:NgForm){
   if(!f.valid){
-
+    this.alertsService.alertaFailTop('top-end','error','Error!!','Teléfono no válido',false,1500);
     }else{
       this.customerService.updatePhone(this.idUsuario,this.phone).subscribe(data=>{
         console.log('phone actualziado',data)
         this.phone = data.phone;
         this.existePhone=true;
+        this.alertsService.alertaSuccessTop('top-end','success','Teléfono actualizado',false,1500);
         this.cerrarModalPhone();
       })
     }
   }
   editarContrasena(f:NgForm){
     if(!f.valid){
-
+      this.alertsService.alertaFailTop('top-end','error','Error!!','Contraseña no válida',false,1500);
     }else{
       const dto:UpdateUserDTO={
         email:this.email,
@@ -145,7 +144,7 @@ export class ProfileComponent implements OnInit {
       this.userService.updatePassword(this.idUsuario,dto).subscribe(user=>{
         this.email=user.email;
         this.password=user.password_real;
-        console.log('contra actualza:',user.password_real)
+        this.alertsService.alertaSuccessTop('top-end','success','Contraseña actualizada',false,1500);
         this.cerrarModalContraseña();
       })
     }
@@ -153,10 +152,11 @@ export class ProfileComponent implements OnInit {
   }
   editarEmail(f:NgForm){
     if(!f.valid){
-
+      this.alertsService.alertaFailTop('top-end','error','Error!!','Email no válido',false,1500);
     }else{
       this.authService.updateEmail(this.idUsuario,this.email).subscribe(user=>{
         this.email=user.email;
+        this.alertsService.alertaSuccessTop('top-end','success','Email actualizado',false,1500);
         this.cerrarModalEmail();
       })
     }

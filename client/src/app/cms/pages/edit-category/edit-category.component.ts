@@ -1,6 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { CategoriesService } from '../../../services/categories.service';
+import { AlertsService } from '../../../services/alerts.service';
 import { CreateCategoryDTO, Category } from '../../../models/category.model';
 import { switchMap } from 'rxjs/operators';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -11,7 +12,6 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./edit-category.component.css'],
 })
 export class EditCategoryComponent implements OnInit {
-  @ViewChild('editForm') editForm: NgForm;
 
   editCategory: Category = {
     id: 0,
@@ -23,6 +23,7 @@ export class EditCategoryComponent implements OnInit {
 
   constructor(
     private categoriesService: CategoriesService,
+    private alertsService: AlertsService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -50,21 +51,29 @@ export class EditCategoryComponent implements OnInit {
 
   editarCategory(f: NgForm) {
     if (!f.valid) {
+      this.alertsService.alertaFailTop('top-end','error','Error!!','Formulario no válido',false,1500);
     } else {
       const dto: CreateCategoryDTO = {
         name: this.editCategory.name,
         description: this.editCategory.description,
       };
-      this.categoriesService.update(this.categoryId, dto).subscribe((data) => {
-        console.log('categoria editada:', data);
+      this.categoriesService.update(this.categoryId, dto).subscribe(() => {
+        this.alertsService.alertaSuccessTop('top-end','success','Categoría modificada',false,1500);
         this.router.navigate(['/cms/categories']);
-      });
+      },(()=>{
+        this.alertsService.alertaFailTop('top-end','error','Error!!','Error al editar categoría',false,1500);
+      }));
     }
   }
   deleteCategory() {
-    this.categoriesService.delete(this.categoryId).subscribe((data) => {
-      console.log('categoria eliminada', data);
-      this.router.navigate(['/cms/categories']);
+    this.alertsService.alertaDelete('Estas seguro?','No podrás revertir los cambios','warning',true,'#3085d6',
+    '#d33','Si, eliminar').then((result) => {
+      if (result.isConfirmed) {
+        this.categoriesService.delete(this.categoryId).subscribe((data) => {
+          this.alertsService.alertaSuccessTop('top-end','success','Categoría eliminada',false,1500);
+          this.router.navigate(['/cms/categories']);
+        });
+      }
     });
   }
   habilitar(){
