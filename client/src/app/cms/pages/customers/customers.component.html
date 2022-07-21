@@ -35,6 +35,7 @@
   >
     <thead class="">
       <tr>
+        <th scope="col">#</th>
         <th scope="col">Cédula</th>
         <th scope="col">Nombres</th>
         <th scope="col">Apellidos</th>
@@ -46,6 +47,7 @@
     <tbody>
       <tr *ngFor="let c of customers | filtro:page:search"
       [ngStyle]="{height:'65px'}">
+        <td>{{ c.id }}</td>
         <td>{{ c.dni }}</td>
         <td>{{ c.name }}</td>
         <td>{{ c.last_name }}</td>

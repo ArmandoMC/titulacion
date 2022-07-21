@@ -1,4 +1,13 @@
 <div class="container">
+  <nav aria-label="breadcrumb" class="nav_barra">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/home">Inicio</a></li>
+      <li class="breadcrumb-item"><a routerLink="/account">Mi cuenta</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Mis direcciones de envío</li>
+    </ol>
+  </nav>
+</div>
+<div class="container principal">
   <h4 class="mt-3 mb-2">Mis direcciones</h4>
   <a href=""  data-toggle="modal" data-target="#addAddress">Añadir una dirección aquí</a>
   <div class="row mt-3">
@@ -80,7 +89,7 @@
         <div class="modal-body">
           <div class="form-row">
             <div class="form-group col mb-3">
-              <label for="validationCustom03">Direccion</label>
+              <label>Direccion</label>
               <input
                 type="text"
                 class="form-control"

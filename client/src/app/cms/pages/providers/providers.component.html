@@ -42,9 +42,9 @@
       </thead>
       <tbody>
         <tr
-          *ngFor="let pr of providers | filter: filterProvider; let i = index"
+          *ngFor="let pr of providers | filter: filterProvider"
         >
-          <td>{{ i + 1 }}</td>
+          <td>{{ pr.id }}</td>
           <td>{{ pr.name }}</td>
           <td>{{ pr.ruc }}</td>
           <td class="text-center">

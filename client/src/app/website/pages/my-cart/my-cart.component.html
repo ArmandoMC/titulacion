@@ -1,4 +1,12 @@
-<div class="container-fluid mt-4">
+<div class="container">
+  <nav aria-label="breadcrumb" class="nav_barra">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item br1"><a routerLink="/home">Inicio</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Carrito de compras</li>
+    </ol>
+  </nav>
+</div>
+<div class="container principal mt-4">
   <table class="table table-hover" *ngIf="products.length > 0; else elseBlock">
     <thead class="">
       <tr>

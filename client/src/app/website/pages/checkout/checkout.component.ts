@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Address, CreateAddressDTO } from 'src/app/models/address.model';
 import { AddressService } from 'src/app/services/address.service';
@@ -13,20 +13,18 @@ import { ProductsService } from '../../../services/products.service';
 import { loadStripe } from '@stripe/stripe-js';
 // import {WindowRef} from "../../WindowRef";
 import { environment } from '../../../../environments/environment';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import {
   OrderPayment,
-  UpdateOrderDTO,
   CreateOrderDTO,
 } from 'src/app/models/order.model';
-import { switchMap, tap } from 'rxjs/operators';
+import {  tap } from 'rxjs/operators';
 import { Product } from 'src/app/models/product.model';
 import { Customer } from 'src/app/models/customer.model';
-import { zip } from 'rxjs';
 // import {RestService} from "../../services/rest.service";
 // import {ActivatedRoute} from "@angular/router";
 // import {Toaster} from "ngx-toast-notifications";
-
+import {AlertsService} from '../../../services/alerts.service';
 declare global {
   interface window {
     Stripe?: any;
@@ -38,6 +36,7 @@ declare global {
   styleUrls: ['./checkout.component.css'],
 })
 export class CheckoutComponent implements OnInit {
+  @ViewChild('botonCerrar') botonCerrar:ElementRef;
   addresses: Address[] = [];
   name_lastname: string;
   telefono: string;
@@ -49,9 +48,6 @@ export class CheckoutComponent implements OnInit {
   idUsuario: number;
   logueado: boolean = false;
   showAddForm: boolean = false;
-  showStep1: boolean = true;
-  showStep2: boolean = false;
-  showStep3: boolean = false;
   /////////////////
   // const elements = stripe.elements();
   private readonly STRIPE!: any; //TODO: window.Stripe
@@ -63,6 +59,7 @@ export class CheckoutComponent implements OnInit {
   orderData!: any;
   cart: Product[] = [];
   total: number = 0;
+  nameTitular:string="";
   //variable spara customer
   customer: Customer;
   customer_name: string;
@@ -76,26 +73,25 @@ export class CheckoutComponent implements OnInit {
   address_id: number = 0;
   addressSelected: Address;
   status: string = 'Procesado';
-  tarifaFija:number=3.50;
+  tarifaFija:number=0;
   newOrder: OrderPayment;
-  disabledStep1: boolean = false;
-  disabledStep2: boolean = true;
-  disabledStep3: boolean = true;
+  isDisabled:boolean;
+  numeroProductos:number=0;
   constructor(
     private authService: AuthService,
     private addressService: AddressService,
     private checkoutService: CheckoutService,
-    private cartService: CartService,
     private storeService: StoreService,
     private customerService: CustomerService,
-    private tokenService: TokenService,
     private productService: ProductsService,
+    private alertsService: AlertsService,
     private router: Router
   ) {
     this.STRIPE = window.Stripe(environment.stripe_pk);
   }
 
   ngOnInit(): void {
+    this.isDisabled=false;
     this.authService.user$
       .pipe(
         tap((data) => {
@@ -130,6 +126,9 @@ export class CheckoutComponent implements OnInit {
 
     this.storeService.myCart$.subscribe((data) => {
       this.cart = data;
+      this.numeroProductos=data.reduce((sum,item)=>sum+item.oferta,0);
+      this.tarifaFija=this.numeroProductos*0.25;
+
     });
     this.total = this.storeService.getTotal();
 
@@ -196,7 +195,8 @@ export class CheckoutComponent implements OnInit {
   };
   async initPay() {
     try {
-      //TODO: SDK de Stripe genera un TOKEN para la intencion de pago!
+      if(this.address_id!=0 && this.nameTitular!=""&&this.customer_dni!=""&&this.customer_phone!=""){
+        //TODO: SDK de Stripe genera un TOKEN para la intencion de pago!
       const { token } = await this.STRIPE.createToken(this.cardNumber);
       console.log('token creado', token.id);
       //TODO: Enviamos el token a nuesta api donde generamos (stripe) un metodo de pago basado en el token
@@ -208,7 +208,8 @@ export class CheckoutComponent implements OnInit {
         token: token.id,
         name: this.customer.name,
       };
-      console.log('ordensita',newOrder)
+      this.isDisabled=true;
+
       this.checkoutService
         .sendPayment(newOrder)
         .pipe(
@@ -222,6 +223,7 @@ export class CheckoutComponent implements OnInit {
                 console.log('detalle registrado en bd:',detail)
 
                 this.storeService.vaciarCart();
+                this.alertsService.alertaSuccessTop('top-end','success','Pago exitoso',false,1500);
                 this.router.navigate(['/home']);
             })
             this.productService.updateStockProducts(this.cart).subscribe(dt=>{
@@ -241,36 +243,50 @@ export class CheckoutComponent implements OnInit {
             console.log('dni y phone de cliente actualizados',datos)
           })
         }
+      }else{
+        this.alertsService.alertaFailTop('top-end','error','Error!!','Datos no válidos',false,1500);
+      }
+      
     } catch (e) {
       //TODO: Nuestra api devolver un "client_secret" que es un token unico por intencion de pago
       //TODO: SDK de stripe se encarga de verificar si el banco necesita autorizar o no
       // this.toaster.open({text: 'Algo ocurrio mientras procesaba el pago', caption: 'ERROR', type: 'danger'})
       console.log('ALGO ACURRIO MIENTRAS SE PROCESABA EL PAGO');
+      this.alertsService.alertaFailTop('top-end','error','Error!!','Algo ocurrió mientras se procesaba el pago',false,1500);
+
     }
   }
+  
 
   cancelar() {
     this.showAddForm = false;
   }
 
-  addAddress() {
-    const newAddress: CreateAddressDTO = {
-      address: this.address,
-      city: this.city,
-      state: this.state,
-      country: this.country,
-      postal_code: this.postal_code,
-      user_id: this.idUsuario,
-    };
-    this.addressService.create(newAddress).subscribe(
-      (data) => {
-        console.log('direccion añadida');
-      },
-      (error) => {
-        console.log('error al agregar difeccion');
-      }
-    );
-    this.showAddForm = false;
+  addAddress(f:NgForm) {
+    if(!f.valid){
+      this.alertsService.alertaFailTop('top-end','error','Error!!','Formulario no válido',false,1500);
+    }else{
+      const newAddress: CreateAddressDTO = {
+        address: this.address,
+        city: this.city,
+        state: this.state,
+        country: this.country,
+        postal_code: this.postal_code,
+        user_id: this.idUsuario,
+      };
+      this.addressService.create(newAddress).subscribe(
+        () => {
+          this.alertsService.alertaSuccessTop('top-end','success','Dirección añadida',false,1500);
+          this.cerrarModal();
+        },
+        () => {
+          this.alertsService.alertaFailTop('top-end','error','Error!!','Error al añadir dirección',false,1500);
+        }
+      );
+    }
+  }
+  cerrarModal(){
+    this.botonCerrar.nativeElement.click();
   }
 
   capturar() {
@@ -280,22 +296,5 @@ export class CheckoutComponent implements OnInit {
     console.log('addres_id', id);
     this.address_id = id;
     this.addressSelected = this.addresses.find((dir) => dir.id == id);
-    //  console.log(this.addressSelected)
-  }
-  goToStep2() {
-    this.disabledStep1 = true;
-    this.disabledStep2 = false;
-  }
-  bactToStep1() {
-    this.disabledStep1 = false;
-    this.disabledStep2 = true;
-  }
-  goToStep3() {
-    this.disabledStep3 = false;
-    this.disabledStep2 = true;
-  }
-  bactToStep2() {
-    this.disabledStep3 = true;
-    this.disabledStep2 = false;
   }
 }

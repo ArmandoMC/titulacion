@@ -5,6 +5,15 @@
   <a *ngIf="user.role=='admin'" routerLink="/cms">Ir al CMS</a>
 </div> -->
 <div class="container">
+  <nav aria-label="breadcrumb" class="nav_barra">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/home">Inicio</a></li>
+      <li class="breadcrumb-item"><a routerLink="/account">Mi cuenta</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Perfil</li>
+    </ol>
+  </nav>
+</div>
+<div class="container">
   <div class="row">
     <div class="col-md-3">
 

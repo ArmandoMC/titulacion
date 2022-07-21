@@ -1,4 +1,13 @@
-<div class="container-fluid mt-4">
+<div class="container">
+    <nav aria-label="breadcrumb" class="nav_barra">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home">Inicio</a></li>
+        <li class="breadcrumb-item"><a routerLink="/account">Mi cuenta</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Pedidos</li>
+      </ol>
+    </nav>
+</div>
+<div class="container principal mt-4">
   <div class="table-responsive">
     <table class="table" *ngIf="orders.length > 0; else elseBlock">
       <thead class="">
@@ -122,7 +131,7 @@
           <tbody>
             <tr>
               <td>{{dirEnvio.address}} <br> {{dirEnvio.city}} - {{dirEnvio.state}} - {{dirEnvio.country}}</td>
-              <td>Envío estándar (1-2 días) </td>
+              <td>Envío estándar (1-5 días) </td>
               <td>Tarjeta de crédito/débito</td>
             </tr>
           </tbody>

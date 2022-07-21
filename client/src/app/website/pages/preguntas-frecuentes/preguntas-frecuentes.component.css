@@ -9,3 +9,6 @@
 .card-body p{
     text-align: justify;
 }
+.nav_barra ol{
+    background-color: transparent;
+}

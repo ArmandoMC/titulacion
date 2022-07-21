@@ -9,3 +9,6 @@
 .nombreCompleto{
     padding-top: 5px;
 }
+.nav_barra ol{
+    background-color: transparent;
+}

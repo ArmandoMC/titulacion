@@ -1,4 +1,4 @@
-.container{
+.principal{
     padding-bottom: 100px;
 }
 .mis-datos {
@@ -33,6 +33,9 @@
 .link-mis-pedidos{
     text-decoration: none;
     color: black;
+}
+.nav_barra ol{
+    background-color: transparent;
 }
 
 

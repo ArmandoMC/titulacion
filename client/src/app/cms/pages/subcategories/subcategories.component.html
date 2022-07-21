@@ -41,7 +41,7 @@
         <tr
           *ngFor="let subcat of subcategories | filter: filterSubcategory; let i = index"
         >
-          <td>{{ i + 1 }}</td>
+          <td>{{ subcat.id }}</td>
           <td>{{ subcat.name }}</td>
           <td>{{ subcat.description }}</td>
           <td class="text-center">

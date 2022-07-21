@@ -1,110 +1,187 @@
 <div class="container">
+  <nav aria-label="breadcrumb" class="nav_barra">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/home">Inicio</a></li>
+      <li class="breadcrumb-item"><a routerLink="/account">Carrito de compras</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+    </ol>
+  </nav>
+</div>
+<div class="container">
   <!-- <button (click)="cambiarEstado()"></button> -->
   <!--[ngCl ass]="{'rojo':disabled,'azul':!disabled}" -->
-  <div class="step1" [ngClass]="{ disabled: disabledStep1 }">
-    <h1>1 PASO --> Seleccionar una dirección de envío</h1>
+  <div class="step1 mt-3">
+    <img src="../../../../assets/images/paso1.png" alt="" class="img1">
+    <div class="padre mb-3">
+      <h4 class="titulo_p1">Seleccionar una dirección de envío</h4>
+
+    </div>
     <p>
       ¿Aparece a continuación la dirección que deseas utilizar? Si es así, haz
-      clic en el botón "Enviar a esta dirección". O puedes
+      clic sobre ella. O puedes
       <a
         class="link-new-address"
         (click)="capturar()"
         style="cursor: pointer; color: blue"
-        data-toggle="modal" data-target="#exampleModal"
+        data-toggle="modal"
+        data-target="#exampleModal"
       >
         introducir una nueva dirección de envío.
       </a>
     </p>
     <!-- Modal para agregar nueva direccion -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Agregar nueva dirección</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <h5 class="modal-title" id="exampleModalLabel">
+              Agregar nueva dirección
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+              #botonCerrar
+            >
               <span aria-hidden="true">&times;</span>
             </button>
-          </div>        
-                <form class="needs-validation" novalidate (ngSubmit)="addAddress()">
-                  <div class="modal-body">
-                    <div class="form-row">
-                      <div class="form-group col mb-3">
-                        <label for="validationCustom03">Direccion</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="validationCustom03"
-                          name="address"
-                          placeholder=""
-                          [(ngModel)]="address"
-                        />
-                        <div class="invalid-feedback">Please provide a valid city.</div>
-                      </div>
-                    </div>
-                    <div class="form-row">
-                      <div class="form-group col-md-4 mb-3">
-                        <label for="validationCustom03">Ciudad</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="validationCustom03"
-                          name="city"
-                          [(ngModel)]="city"
-                        />
-                        <div class="invalid-feedback">Please provide a valid city.</div>
-                      </div>
-                      <div class="form-group col-md-4 mb-3">
-                        <label for="validationCustom04">Provincia</label>
-                       
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="validationCustom03"
-                          name="state"
-                          placeholder=""
-                          [(ngModel)]="state"
-                        />
-            
-                        <div class="invalid-feedback">Please select a valid state.</div>
-                      </div>
-                      <div class="form-group col-md-4 mb-3">
-                        <label for="validationCustom05">Pais</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="validationCustom05"
-                          name="country"
-                          [(ngModel)]="country"
-                        />
-                        <div class="invalid-feedback">Please provide a valid zip.</div>
-                      </div>
-                    </div>
-                    <div class="form-row">
-                      <div class="form-group col-md-4 mb-3">
-                        <label for="validationCustom05">Codigo postal</label>
-                        <input
-                          type="text"
-                          class="form-control"
-                          id="validationCustom05"
-                          name="postal_code"
-                          [(ngModel)]="postal_code"
-                        />
-                        <div class="invalid-feedback">Please provide a valid zip.</div>
-                      </div>
-                    </div>
+          </div>
+          <form #addForm="ngForm" (ngSubmit)="addAddress(addForm)">
+            <div class="modal-body">
+              <div class="form-row">
+                <div class="form-group col mb-3">
+                  <label>Direccion</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="address"
+                    placeholder=""
+                    #nameAddress="ngModel"
+                    [(ngModel)]="address"
+                    [ngClass]="{
+                      'is-invalid': nameAddress.errors && nameAddress.touched
+                    }"
+                    required
+                  />
+                  <div
+                    [hidden]="!nameAddress.errors?.required"
+                    class="invalid-feedback"
+                  >
+                    Dirección requerida
                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4 mb-3">
+                  <label for="validationCustom03">Ciudad</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    #nameCity="ngModel"
+                    name="city"
+                    [(ngModel)]="city"
+                    [ngClass]="{
+                      'is-invalid': nameCity.errors && nameCity.touched
+                    }"
+                    required
+                  />
+                  <div
+                    [hidden]="!nameCity.errors?.required"
+                    class="invalid-feedback"
+                  >
+                    Ciudad requerida
                   </div>
-                </form>
+                </div>
+                <div class="form-group col-md-4 mb-3">
+                  <label>Provincia</label>
+
+                  <input
+                    type="text"
+                    class="form-control"
+                    #nameState="ngModel"
+                    name="state"
+                    placeholder=""
+                    [(ngModel)]="state"
+                    [ngClass]="{
+                      'is-invalid': nameState.errors && nameState.touched
+                    }"
+                    required
+                  />
+                  <div
+                    [hidden]="!nameState.errors?.required"
+                    class="invalid-feedback"
+                  >
+                    Provincia requerida
+                  </div>
+                </div>
+                <div class="form-group col-md-4 mb-3">
+                  <label>Pais</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    #nameCountry="ngModel"
+                    name="country"
+                    [(ngModel)]="country"
+                    [ngClass]="{
+                      'is-invalid': nameCountry.errors && nameCountry.touched
+                    }"
+                    required
+                  />
+                  <div
+                    [hidden]="!nameCountry.errors?.required"
+                    class="invalid-feedback"
+                  >
+                    País requerido
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-4 mb-3">
+                  <label>Codigo postal</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    #namePostalCode="ngModel"
+                    name="postal_code"
+                    [(ngModel)]="postal_code"
+                    [ngClass]="{'is-invalid':namePostalCode.errors && namePostalCode.touched}"
+                    required 
+                    minlength="6"
+                    />
+                     <div [hidden]="!namePostalCode.errors?.required" class="invalid-feedback">
+                    Código postal requerido</div>
+                     <div [hidden]="!namePostalCode.errors?.minlength" class="invalid-feedback">
+                    Debe contener 6 caracteres</div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Cancelar
+              </button>
+              <button type="submit" class="btn btn-primary">
+                Guardar
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
 
     <div class="container row direcciones mb-4">
       <div
-        class="form-check col-md-2 mr-3 address-detail"
+        class="form-check col-md-3 mr-3 address-detail"
         *ngFor="let d of addresses; let i = index"
       >
         <input
@@ -121,31 +198,27 @@
           ><br />
           <span>Ciudad: {{ d.city }}</span
           ><br />
-         <span>Provincia: {{ d.state }}</span
+          <span>Provincia: {{ d.state }}</span
           ><br />
-         <span>Pais: {{ d.country }}</span
+          <span>Pais: {{ d.country }}</span
           ><br />
           <span>Código postal: {{ d.postal_code }}</span
           ><br />
-          
         </label>
       </div>
       <div class="col-lg-12 mt-3">
-        <button
-          class="btn btn-success"
-          *ngIf="address_id"
-          (click)="goToStep2()"
-          onfocus="this.blur()"
-        >
-          Siguiente
-        </button>
       </div>
     </div>
   </div>
-  
-  <div class="step2" [ngClass]="{ disabled: disabledStep2 }">
-    <h2>PASO 2 : VERIFICACION DE PEDIDO Y DATOS DE ENVIO</h2>
-    <div class="row info-pedido">
+ <hr>
+  <div class="step2 mb-5">
+    <!-- [ngClass]="{ disabled: disabledStep2 }" -->
+    <img src="../../../../assets/images/paso2.png" alt="" class="img1">
+    <div class="padre mb-3">
+      <h4>Datos de facturación y verificación de pedido</h4>
+    </div>
+    <p>A continuación, revisa y completa tus datos de facturación en caso de ser necesario. También puedes modificar por última vez tu pedido.</p>
+    <div class="row info-pedido mt-3">
       <div class="col">
         <div class="card">
           <div class="card-header">Datos de Orden de compra</div>
@@ -153,65 +226,117 @@
             <form>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="inputNombres">Nombres<span style="color: red;"> *</span></label>
-                  <input type="text" class="form-control" id="inputNombres" name="customer_name" [(ngModel)]="customer_name" disabled>
+                  <label for="inputNombres"
+                    >Nombres<span style="color: red"> *</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="inputNombres"
+                    name="customer_name"
+                    [(ngModel)]="customer_name"
+                    disabled
+                  />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputApellidos">Apellidos<span style="color: red;"> *</span></label>
-                  <input type="text" class="form-control" id="inputApellidos" name="customer_lastName" [(ngModel)]="customer_lastName" disabled>
+                  <label for="inputApellidos"
+                    >Apellidos<span style="color: red"> *</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="inputApellidos"
+                    name="customer_lastName"
+                    [(ngModel)]="customer_lastName"
+                    disabled
+                  />
                 </div>
               </div>
               <div class="form-row">
                 <div class="form-group col-md-6">
-                  <label for="inputCedula">C.I/R.U.C<span style="color: red;"> *</span></label>
-                  <input type="text" class="form-control" id="inputCedula" name="customer_dni" [(ngModel)]="customer_dni" [disabled]="disabledInput">
+                  <label for="inputCedula"
+                    >C.I<span style="color: red"> *</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="inputCedula"
+                    name="customer_dni"
+                    [(ngModel)]="customer_dni"
+                    [disabled]="disabledInput"
+                  />
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="inputTelefono">Teléfono<span style="color: red;"> *</span></label>
-                  <input type="text" class="form-control" id="inputTelefono" name="customer_phone" [(ngModel)]="customer_phone" [disabled]="disabledInput">
+                  <label for="inputTelefono"
+                    >Teléfono<span style="color: red"> *</span></label
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="inputTelefono"
+                    name="customer_phone"
+                    [(ngModel)]="customer_phone"
+                    [disabled]="disabledInput"
+                  />
                 </div>
               </div>
               <div class="form-group">
-                <label for="inputCorreo">Correo<span style="color: red;"> *</span></label>
-                <input type="email" class="form-control" id="inputCorreo" placeholder="example@email.com" name="customer_email" [(ngModel)]="customer_email" disabled>
+                <label for="inputCorreo"
+                  >Correo<span style="color: red"> *</span></label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="inputCorreo"
+                  placeholder="example@email.com"
+                  name="customer_email"
+                  [(ngModel)]="customer_email"
+                  disabled
+                />
               </div>
               <div class="form-group">
-                <label for="inputAddress">Direccion<span style="color: red;"> *</span></label>
+                <label for="inputAddress"
+                  >Direccion<span style="color: red"> *</span></label
+                >
                 <div class="tabla">
                   <table class="table">
                     <tbody *ngIf="addressSelected; else showMessage">
                       <tr>
-                       {{addressSelected.address}}
+                        {{
+                          addressSelected.address
+                        }}
                       </tr>
-                      
+
                       <tr>
-                        {{addressSelected.city}} - {{addressSelected.state}} - {{addressSelected.country}}
+                        {{
+                          addressSelected.city
+                        }}
+                        -
+                        {{
+                          addressSelected.state
+                        }}
+                        -
+                        {{
+                          addressSelected.country
+                        }}
                       </tr>
                       <tr>
-                        {{addressSelected.postal_code}}
+                        {{
+                          addressSelected.postal_code
+                        }}
                       </tr>
                     </tbody>
                   </table>
                 </div>
-               
               </div>
             </form>
-           
+
             <ng-template #showMessage>
-              <h6>
+              <h6 style="text-align: justify;">
                 Los datos de direccion se mostrarán despues de seleccionar una
                 dirección de envio.
               </h6>
             </ng-template>
-          </div>
-          <div class="card-footer text-muted text-left">
-            <button
-              class="btn btn-secondary"
-              (click)="bactToStep1()"
-              onfocus="this.blur()"
-            >
-              Seleccionar otra direccion
-            </button>
           </div>
         </div>
       </div>
@@ -228,105 +353,97 @@
               </thead>
               <tbody>
                 <tr *ngFor="let p of cart; let indice = index">
-                  <td>
-                    {{ p.name }} {{ p.presentation }} x {{p.oferta}}
-                  </td>
-                  <!-- <td>x {{ p.oferta }}</td> -->
+                  <td>{{ p.name }} {{ p.presentation }} x {{ p.oferta }}</td>
                   <td>{{ p.subtotal | currency }}</td>
                 </tr>
               </tbody>
             </table>
           </div>
           <div class="card-footer text-muted text-right pr-5">
-           
             <h6>
-              Subtotal: <b style="font-size: 15px">{{total | currency}}</b>
+              Subtotal: <b style="font-size: 15px">{{ total | currency:'$' }}</b>
             </h6>
+            <h6>Iva: <b style="font-size: 15px">$0.00</b></h6>
             <h6>
-              Iva: <b style="font-size: 15px">$0.00</b>
-            </h6>
-            <h6>
-              Envío<span>(Tarifa fija):</span> <b>{{tarifaFija}}</b>
+              Envío: <b>{{ tarifaFija | currency:'$'}}</b>
             </h6>
             <h5>
-              Total: <b style="font-size: 20px">{{ total +tarifaFija | currency }}</b>
+              Total:
+              <b style="font-size: 20px">{{ total + tarifaFija | currency:'$' }}</b>
             </h5>
             <hr />
             <button
               class="btn btn-primary mt-2"
               [routerLink]="['/my-cart']"
-              onfocus="this.blur()"
             >
               Modificar pedido
             </button>
           </div>
         </div>
       </div>
-      
     </div>
-    <button
-      class="btn btn-success mt-3"
-      (click)="goToStep3()"
-      onfocus="this.blur()"
-    >
-        Siguiente
-    </button>
   </div>
-
-  <div class="step3 mt-3" [ngClass]="{ disabled: disabledStep3 }">
-    <h1>3 PASO --> Metodo de pago</h1>
+<hr>
+  <div class="step3 mt-3">
+    <img src="../../../../assets/images/paso3.png" alt="" class="img1">
+    <div class="padre">
+      <h4>Método de pago</h4>
+    </div>
     <!-- <p>A continuación, eleccione agregar una tarjetaa de credito o debito</p> -->
 
-    <div class="container checkout-card">
+    <div class="container checkout-card mt-3">
       <div class="checkbox-alert mb-3">
-        📌 A continuación debes de introducir los datos de tu tarjeta para procesar el pago! 
-        El pago se procesara mediante la platforma de <b><a href="https://stripe.com/" target="_blank">stripe</a></b>
+        <p style="text-align: justify;">📌 A continuación debes de introducir los datos de tu tarjeta para
+          realizar el pago. El pago se procesará mediante la plataforma de
+          <b><a href="https://stripe.com/" target="_blank">stripe</a>.</b></p>
+       
       </div>
       <form action="" class="datos" (submit)="initPay()">
-        <!-- <div class="input input-amount">
-          <label class="label">Monto a pagar</label>
-          <input type="text" name="amount" placeholder="0.00">
-          <span class="currency">USD</span>
-        </div> -->
         <div class="text-center mb-3">
           <img src="../../../../assets/images/car.jpg" alt="" width="90" />
           <h4 style="line-height: 90%">DIMA</h4>
           <span>tienda de productos lácteos</span>
         </div>
         <div class="form-group">
-          <label for="inputNombre">Nombre del titular<span style="color: red;"> *</span></label>
-          <input type="text" class="form-control titular" id="" placeholder="">
+          <label for="inputNombre"
+            >Nombre del titular<span style="color: red"> *</span></label
+          >
+          <input
+            type="text"
+            class="form-control titular"
+            name="nameTitular"
+            placeholder=""
+            [(ngModel)]="nameTitular"
+          />
         </div>
         <div class="form-group">
-          <label>Número de tarjeta<span style="color: red;"> *</span></label>
+          <label>Número de tarjeta<span style="color: red"> *</span></label>
           <div id="card"></div>
         </div>
         <hr />
         <div class="form-group">
-          <label>CVC<span style="color: red;"> *</span></label>
+          <label>CVC<span style="color: red"> *</span></label>
           <div id="cvc"></div>
         </div>
         <hr />
         <div class="form-group">
-          <label>Fecha de vencimiento<span style="color: red;"> *</span></label>
+          <label>Fecha de vencimiento<span style="color: red"> *</span></label>
           <div id="exp"></div>
         </div>
         <button
-          class="btn btn-success btn-block"
+          class="btn btn-success btn-block mb-3"
           type="submit"
           onfocus="this.blur()"
+          [disabled]="isDisabled"
         >
-          Pagar {{ total+tarifaFija | currency }}
+          Pagar {{ total + tarifaFija | currency }}
         </button>
+        <div class="text-center" *ngIf="isDisabled==true">
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
       </form>
-      <!-- <button
-        class="btn btn-secondary mt-3"
-        type="submit"
-        (click)="bactToStep2()"
-        onfocus="this.blur()"
-      >
-        Regresar al paso 2
-      </button> -->
     </div>
   </div>
 </div>

@@ -43,9 +43,9 @@
     </thead>
     <tbody>
       <tr
-        *ngFor="let cat of categories | filter: filterCategory; let i = index"
+        *ngFor="let cat of categories | filter: filterCategory"
       >
-        <td>{{ i + 1 }}</td>
+        <td>{{ cat.id }}</td>
         <td>{{ cat.name }}</td>
         <td>{{ cat.description }}</td>
         <td class="text-center">

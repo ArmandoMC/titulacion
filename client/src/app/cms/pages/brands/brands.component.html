@@ -36,8 +36,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let br of brands | filter: filterBrand; let i = index">
-        <td>{{ i + 1 }}</td>
+      <tr *ngFor="let br of brands | filter: filterBrand">
+        <td>{{br.id }}</td>
         <td>{{ br.name }}</td>
         <td>{{ br.description }}</td>
         <td class="text-center">
