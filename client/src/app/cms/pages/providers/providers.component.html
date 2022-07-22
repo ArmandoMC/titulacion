@@ -1,8 +1,12 @@
 <div class="container-fluid">
   <div class="form-group">
-    <h1><span style="float: left"><i class="fa fa-users" aria-hidden="true"></i></span></h1>
+    <h1>
+      <span style="float: left"
+        ><i class="fa fa-users" aria-hidden="true"></i
+      ></span>
+    </h1>
     <div class="form-group">
-      <h4 style="margin-left:65px;">Proveedores</h4>
+      <h4 style="margin-left: 65px">Proveedores</h4>
       <span class="ml-3 text-muted">Lista de proveedores activos</span>
     </div>
   </div>
@@ -10,55 +14,80 @@
 <div class="container mt-3">
   <div class="form-inline mb-3">
     <div class="form-group w-50 grupo1">
+      <span class="icon"><i class="fa fa-search" aria-hidden="true"></i></span>
       <input
         type="search"
         name=""
         id=""
-        placeholder="Buscar proveedor por nombre.."
-        [(ngModel)]="filterProvider"
-      /><i class="fa fa-search" aria-hidden="true"></i>
+        placeholder="Buscar proveedor por nombre..."
+        #txtSearch
+        (keyup)="onSearch(txtSearch.value)"
+      />
     </div>
     <div class="form-group w-50">
-      <button
-        class="btn btn-primary ml-auto"
-        routerLink="./add"
-      ><i class="fa fa-plus" aria-hidden="true"></i> 
+      <button class="btn btn-primary ml-auto" routerLink="./add">
+        <i class="fa fa-plus" aria-hidden="true"></i>
         Nuevo proveedor
       </button>
     </div>
-  
   </div>
-    
-    <table
-      class="table table-bordered"
-    >
-      <thead class="">
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">R.U.C</th>
-          <th scope="col">Opciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          *ngFor="let pr of providers | filter: filterProvider"
+
+  <table class="table table-bordered">
+    <thead class="">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">R.U.C</th>
+        <th scope="col">Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pr of providers | filtro: page:search">
+        <td>{{ pr.id }}</td>
+        <td>{{ pr.name }}</td>
+        <td>{{ pr.ruc }}</td>
+        <td class="text-center">
+          <button
+            class="btn btn-info"
+            [routerLink]="['/cms/providers/provider', pr.id]"
+          >
+            Detalles
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <nav aria-label="Page navigation example" class="text-right">
+    <ul class="pagination">
+      <li class="page-item">
+        <span aria-label="Previous" class="btn border" (click)="prevPage()">
+          <span aria-hidden="true"
+            ><i class="fa fa-angle-double-left" aria-hidden="true"></i>
+          </span>
+        </span>
+      </li>
+      <li class="page-item active" aria-current="page">
+        <a class="page-link">{{ numPagina }}</a>
+      </li>
+      <li class="page-item">
+        <button
+          aria-label="Next"
+          class="btn border"
+          (click)="nextPage()"
+          [disabled]="(providers | filtro: page:search).length === 0"
         >
-          <td>{{ pr.id }}</td>
-          <td>{{ pr.name }}</td>
-          <td>{{ pr.ruc }}</td>
-          <td class="text-center">
-            <button class="btn btn-info" [routerLink]="['/cms/providers/provider',pr.id]">Detalles</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <ng-template #elseBlock>
-      <div class="div">
-        <h3>No hay proveeddors registradas</h3>
+          <span aria-hidden="true"
+            ><i class="fa fa-angle-double-right" aria-hidden="true"></i>
+          </span>
+        </button>
+      </li>
+    </ul>
+  </nav>
+  <ng-template #elseBlock>
+    <div class="div">
+      <h3>No hay proveeddors registradas</h3>
 
-        <p></p>
-      </div>
-    </ng-template>
+      <p></p>
+    </div>
+  </ng-template>
 </div>
-

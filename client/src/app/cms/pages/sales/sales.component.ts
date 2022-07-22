@@ -38,7 +38,7 @@ export class SalesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.checkoutService.getAllPendingOrders().subscribe(data=>{
+    this.checkoutService.getAllCompletedOrders().subscribe(data=>{
       this.orders=data;
       this.fechaInicial=this.pipe.transform(Date.now(),'dd/MM/yyyy');
       this.fechaFinal=this.pipe.transform(Date.now(),'dd/MM/yyyy');

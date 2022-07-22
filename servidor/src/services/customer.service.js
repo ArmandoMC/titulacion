@@ -4,7 +4,7 @@ const boom = require('@hapi/boom');
 // const { models } = require('../libs/sequelize');
 const bcrypt = require('bcrypt');
 const pool = require('../libs/postgres.pool');
-const Customer=require('../models/customer.model');
+const Customer = require('../models/customer.model');
 class CustomerService {
 
   constructor() {
@@ -13,7 +13,7 @@ class CustomerService {
 
   }
   async create(data) {
-    const passwordReal=data.user.password;
+    const passwordReal = data.user.password;
     const hash = await bcrypt.hash(data.user.password, 10);
     const newData = {
       ...data,
@@ -22,36 +22,31 @@ class CustomerService {
         password: hash
       }
     }
-    const { name, last_name, phone, user } = newData;
-    let statement;
-    if (!user.role) {
-      const q1 = {
-        text: `INSERT INTO users(email,password,password_real) VALUES($1,$2,$3) RETURNING *`,
-        values: [user.email, user.password,passwordReal]
-      }
-      statement = await this.pool.query(q1);
-
-    } else {
-      const q2 = {
-        text: `INSERT INTO users(email,password,password_real,role) VALUES($1,$2,$3,$4) RETURNING *`,
-        values: [user.email, user.password,passwordReal, user.role]
-      }
-      statement = await this.pool.query(q2);
+    const { name, last_name, user } = newData;
+    const sql = {
+      text: `INSERT INTO users(email,password,password_real) VALUES($1,$2,$3) RETURNING *`,
+      values: [user.email, user.password, passwordReal]
     }
+    const statement = await this.pool.query(sql);
 
+    if (statement.rows.length === 0) {
+      throw boom.notFound('user no se pudo crear');
+    }
     const us = statement.rows[0];
     const query = {
       text: `INSERT INTO customers(name,last_name,user_id) VALUES($1,$2,$3) RETURNING *`,
       values: [name, last_name, us.id]
     }
     const newCustomer = await this.pool.query(query);
-
+    if (newCustomer.rows.length === 0) {
+      throw boom.notFound('customer no se pudo crear');
+    }
     // delete newCustomer.user.password;
     return newCustomer.rows[0];
 
   }
   async createByAdmin(data) {
-    const passwordReal=data.user.password;
+    const passwordReal = data.user.password;
     const hash = await bcrypt.hash(data.user.password, 10);
     const newData = {
       ...data,
@@ -60,47 +55,39 @@ class CustomerService {
         password: hash
       }
     }
-    const { name, last_name, dni,phone, user } = newData;
-    let statement;
-    if (!user.role) {
-      const q1 = {
-        text: `INSERT INTO users(email,password,password_real) VALUES($1,$2,$3) RETURNING *`,
-        values: [user.email, user.password,passwordReal]
-      }
-      statement = await this.pool.query(q1);
-
-    } else {
-      const q2 = {
-        text: `INSERT INTO users(email,password,password_real,role) VALUES($1,$2,$3,$4) RETURNING *`,
-        values: [user.email, user.password,passwordReal, user.role]
-      }
-      statement = await this.pool.query(q2);
+    const { name, last_name, dni, phone, user } = newData;
+    const sql = {
+      text: `INSERT INTO users(email,password,password_real) VALUES($1,$2,$3) RETURNING *`,
+      values: [user.email, user.password, passwordReal]
     }
+    const statement = await this.pool.query(sql);
 
-    if (statement.rows.length===0) {
+    if (statement.rows.length === 0) {
       throw boom.notFound('user no se pudo crear');
     }
     const us = statement.rows[0];
 
-    // console.log('usuario creado:',us)
     const query = {
       text: `INSERT INTO customers(name,last_name,dni,phone,user_id) VALUES($1,$2,$3,$4,$5) RETURNING *`,
-      values: [name, last_name,dni,phone, us.id]
+      values: [name, last_name, dni, phone, us.id]
     }
     const newCustomer = await this.pool.query(query);
-    
-    console.log('cliente creado para usuario:', newCustomer.rows[0])
-    if (newCustomer.rows.length===0) {
+
+    console.log('cliente creado para usuario:', newCustomer.rows[0]);
+    if (newCustomer.rows.length === 0) {
       throw boom.notFound('cliente no se pudo crear');
     }
     // delete newCustomer.user.password;
-    return {customer:newCustomer.rows[0],
-            user:us};
+    return {
+      customer: newCustomer.rows[0],
+      user: us
+    };
   }
   async findClientByUser(id) {
-    const query ={
+    const query = {
       text: `SELECT C.id,C.name, C.last_name,C.dni,C.phone,U.email FROM customers C JOIN users U ON C.user_id=U.id WHERE C.user_id=$1`,
-    values:[id]};
+      values: [id]
+    };
     const rta = await this.pool.query(query);
     return rta.rows[0];
   }
@@ -117,8 +104,8 @@ class CustomerService {
       // text: `SELECT * FROM customers c INNER JOIN users us ON c.user_id=us.id`
     };
     const customers = await this.pool.query(query);
-    
-    if (customers.rows.length===0) {
+
+    if (customers.rows.length === 0) {
       return [];
       // throw boom.notFound('customer not found');
     }
@@ -147,7 +134,7 @@ class CustomerService {
       values: [id]
     };
     const customer = await this.pool.query(query);
-    if (customer.rows.length===0) {
+    if (customer.rows.length === 0) {
       throw boom.notFound('customer not found');
     }
     return customer.rows[0];
@@ -155,38 +142,38 @@ class CustomerService {
 
   async update2(id, changes) {
     await this.findOne(id);
-    const { name, last_name, dni,phone,user } = changes;
+    const { name, last_name, dni, phone, user } = changes;
     const query = {
       text: `UPDATE customers SET name=$1,last_name=$2,dni=$3,phone=$4 WHERE id=$5 RETURNING *`,
-      values: [name, last_name, dni,phone, id]
+      values: [name, last_name, dni, phone, id]
     };
     const customer = await this.pool.query(query);
-    if (customer.rows.length===0) {
+    if (customer.rows.length === 0) {
       throw boom.notFound('customer not found');
     }
-    const cliente=customer.rows[0];
-    console.log('datos de custom actualizado',customer.rows[0])
+    const cliente = customer.rows[0];
+    console.log('datos de custom actualizado', customer.rows[0])
     const query2 = {
       text: `UPDATE users SET email=$1 WHERE id=$2 RETURNING *`,
       values: [user.email, cliente.user_id]
     };
     const us = await this.pool.query(query2);
-    const usuario=us.rows[0];
-    console.log('email de user actualiza',us.rows[0])
+    const usuario = us.rows[0];
+    console.log('email de user actualiza', us.rows[0])
     return {
-      customer:cliente,
-      user:usuario
+      customer: cliente,
+      user: usuario
     };
   }
   async update(id, changes) {
     await this.findOne(id);
-    const { name, lastName, dni,phone } = changes;
+    const { name, lastName, dni, phone } = changes;
     const query = {
       text: `UPDATE customers SET name=$1,last_name=$2,dni=$3,phone=$4 WHERE id=$5 RETURNING *`,
-      values: [name, lastName, dni,phone, id]
+      values: [name, lastName, dni, phone, id]
     };
     const customer = await this.pool.query(query);
-    if (customer.rows.length===0) {
+    if (customer.rows.length === 0) {
       throw boom.notFound('customer not found');
     }
     return rta.rows[0];
@@ -198,22 +185,22 @@ class CustomerService {
       values: [dni, phone, id]
     };
     const rta = await this.pool.query(query);
-    if (rta.rows.length===0) {
+    if (rta.rows.length === 0) {
       throw boom.notFound('customer not found');
     }
     return rta.rows[0];
   }
   async updateNombreCompleto(id, changes) {
-    const { name, lastName} = changes;
+    const { name, lastName } = changes;
     const query = {
       text: `UPDATE customers SET name=$1,last_name=$2 WHERE user_id=$3 RETURNING *`,
-      values: [name,lastName,id]
+      values: [name, lastName, id]
     };
     const rta = await this.pool.query(query);
-    if (rta.rows.length===0) {
+    if (rta.rows.length === 0) {
       throw boom.notFound('nombre completo de customer no se pudo actualizar');
     }
-    console.log('nombre completo de customer actualizado:',rta.rows[0])
+    console.log('nombre completo de customer actualizado:', rta.rows[0])
     return rta.rows[0];
   }
   async updateDni(id, changes) {
@@ -223,10 +210,10 @@ class CustomerService {
       values: [dni, id]
     };
     const rta = await this.pool.query(query);
-    if (rta.rows.length===0) {
+    if (rta.rows.length === 0) {
       throw boom.notFound('dni no se pudo actualizar');
     }
-    console.log('dni actualizado:',rta.rows[0])
+    console.log('dni actualizado:', rta.rows[0])
     return rta.rows[0];
   }
   async updatePhone(id, changes) {
@@ -236,20 +223,28 @@ class CustomerService {
       values: [phone, id]
     };
     const rta = await this.pool.query(query);
-    if (rta.rows.length===0) {
+    if (rta.rows.length === 0) {
       throw boom.notFound('phone no se pudo actualizar');
     }
-    console.log('phone actualizado:',rta.rows[0])
+    console.log('phone actualizado:', rta.rows[0])
     return rta.rows[0];
   }
 
   async delete(id) {
-    await this.findOne(id);
+    const cliente=await this.findOne(id);
+    const query2 = {
+      text: `DELETE FROM users WHERE id=$1`,
+      values: [cliente.user_id]
+    }
+    await this.pool.query(query2);
+    console.log('user eliminado antes de eliminar customer')
     const query = {
       text: `DELETE FROM customers WHERE id=$1`,
       values: [id]
     }
     await this.pool.query(query);
+    console.log('customer eliminado despues de eliminar su usuario')
+
     return { id };
   }
 

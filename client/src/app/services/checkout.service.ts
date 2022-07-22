@@ -96,24 +96,9 @@ export class CheckoutService {
     return this.http.get<OrderPayment[]>(`${this.API}/orders/completed`)
   
   }
-    // generateOrder(data:CreateOrderDTO) {
-  //   return this.http.post<OrderPayment>(`${this.API}/orders`, data)
-  // }
 
   confirmOrder(id:number,status:string) {
-    return this.http.put<OrderPayment>(`${this.API}/orders/pending/confirm/${id}`,{status})
-    // .pipe(
-    //   tap(data=>{
-    //     const indice= this.myOrders.findIndex(p=>p.id===data.id);
-    //     if(indice!=-1){
-    //       this.myOrders[indice]=data;
-    //       // this.myOrdersPending[indice]=data;
-    //       this.orders.next(this.myOrders);
-    //     // this.ordersPending.next(this.myOrdersPending);
-    //     }
-       
-      
-    //   })
+    return this.http.put<OrderPayment>(`${this.API}/orders/pending/confirm/${id}`,{status});
   }
   getCountPendings(){
     return this.http.get<any>(`${this.API}/orders/count-pendings`)
@@ -129,6 +114,10 @@ export class CheckoutService {
   }
   orderByFecha(dto:Fecha){
     return this.http.get<OrderPayment[]>(`${this.API}/orders/fecha`)
+
+  }
+  getTotal(){
+    return this.http.get<any>(`${this.API}/orders/count`)
 
   }
 }

@@ -60,6 +60,18 @@ router.get('/fecha',
 //     }
 //   }
 // );
+router.get('/count',
+  // validatorHandler(getOrderSchema, 'params'),
+  async (req, res, next) => {
+    try {
+      // const { id } = req.params;
+      const count = await servicePago.findCountTotal();
+      res.json(count);
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 router.get('/pending',
   // validatorHandler(getOrderSchema, 'params'),
   async (req, res, next) => {

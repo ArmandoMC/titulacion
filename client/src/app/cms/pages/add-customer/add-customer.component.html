@@ -129,122 +129,6 @@
               </div>
             </div>
             <div class="form-row">
-              <div class="form-group col mb-3">
-                <label>Direccion</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="dirNueva"
-                  placeholder=""
-                  #nameAddress="ngModel"
-                  [(ngModel)]="address.address"
-                  [ngClass]="{
-                    'is-invalid': nameAddress.errors && nameAddress.touched
-                  }"
-                  required
-                />
-                <div
-                  [hidden]="!nameAddress.errors?.required"
-                  class="invalid-feedback"
-                >
-                  Dirección requerida
-                </div>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-md-4 mb-3">
-                <label for="">Ciudad</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="cityNueva"
-                  #nameCity="ngModel"
-                  [(ngModel)]="address.city"
-                  [ngClass]="{
-                    'is-invalid': nameCity.errors && nameCity.touched
-                  }"
-                  required
-                />
-                <div
-                  [hidden]="!nameCity.errors?.required"
-                  class="invalid-feedback"
-                >
-                  Ciudad requerida
-                </div>
-              </div>
-              <div class="form-group col-md-4 mb-3">
-                <label for="">Provincia</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="stateNuevo"
-                  placeholder=""
-                  #nameState="ngModel"
-                  [(ngModel)]="address.state"
-                  [ngClass]="{
-                    'is-invalid': nameState.errors && nameState.touched
-                  }"
-                  required
-                />
-                <div
-                  [hidden]="!nameState.errors?.required"
-                  class="invalid-feedback"
-                >
-                  Provincia requerida
-                </div>
-              </div>
-              <div class="form-group col-md-4 mb-3">
-                <label>País</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="countryNuevo"
-                  #nameCountry="ngModel"
-                  [(ngModel)]="address.country"
-                  [ngClass]="{
-                    'is-invalid': nameCountry.errors && nameCountry.touched
-                  }"
-                  required
-                />
-                <div
-                  [hidden]="!nameCountry.errors?.required"
-                  class="invalid-feedback"
-                >
-                  País requerido
-                </div>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="form-group col-md-4 mb-3">
-                <label for="">Codigo postal</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="postal_codeNuevo"
-                  #namePostalCode="ngModel"
-                  [(ngModel)]="address.postal_code"
-                  [ngClass]="{
-                    'is-invalid':
-                      namePostalCode.errors && namePostalCode.touched
-                  }"
-                  required
-                  minlength="6"
-                />
-                <div
-                  [hidden]="!namePostalCode.errors?.required"
-                  class="invalid-feedback"
-                >
-                  Código postal requerido
-                </div>
-                <div
-                  [hidden]="!namePostalCode.errors?.minlength"
-                  class="invalid-feedback"
-                >
-                  Debe contener 6 caracteres
-                </div>
-              </div>
-            </div>
-            <div class="form-row">
               <div class="form-group col-md-6 mb-3">
                 <label>Contraseña</label>
                 <input
@@ -302,12 +186,6 @@
             </div>
           </div>
           <div class="card-footer">
-            <!-- <button
-              type="button"
-              class="btn btn-secondary"
-            >
-              Cancelar
-            </button> -->
             <button type="submit" class="btn btn-primary btn-block">Guardar</button>
           </div>
         </form>

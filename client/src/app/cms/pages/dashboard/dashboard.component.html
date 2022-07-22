@@ -1,8 +1,12 @@
 <div class="container-fluid inicio">
   <div class="form-group">
-    <h1 class="icono"><span style="float: left"><i class="fa fa-tachometer" aria-hidden="true"></i></span></h1>
+    <h1 class="icono">
+      <span style="float: left"
+        ><i class="fa fa-tachometer" aria-hidden="true"></i
+      ></span>
+    </h1>
     <div class="form-group">
-      <h4 style="margin-left:60px;" class="titulo">Dashboard</h4>
+      <h4 style="margin-left: 60px" class="titulo">Dashboard</h4>
       <span class="ml-3 text-muted">Inicio</span>
     </div>
   </div>
@@ -117,14 +121,39 @@
     <div class="col-md-6 mb-3">
       <div class="card">
         <div class="card-body">
-          <h3>Número de ventas</h3>
+          <i class="fa fa-tags" aria-hidden="true"></i>
+          <h4>
+            Subcategorías
+            <h2 class="float-right">
+              <b>{{ totalSubcategories }}</b>
+            </h2>
+          </h4>
         </div>
       </div>
     </div>
     <div class="col-md-6 mb-3">
       <div class="card">
         <div class="card-body">
-          <h3>$ Total de ventas</h3>
+          <i class="fa fa-tags" aria-hidden="true"></i>
+          <h4>
+            Proveedores
+            <h2 class="float-right">
+              <b>{{ totalProviders }}</b>
+            </h2>
+          </h4>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <i class="fa fa-tags" aria-hidden="true"></i>
+          <h4>
+            Ventas
+            <h2 class="float-right">
+              <b>{{ totalVentas | currency:'$' }}</b>
+            </h2>
+          </h4>
         </div>
       </div>
     </div>

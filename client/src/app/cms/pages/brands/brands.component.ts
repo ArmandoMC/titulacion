@@ -13,9 +13,10 @@ export class BrandsComponent implements OnInit {
   @ViewChild('addForm') addForm: NgForm;
 
   brands:Brand[]=[];
-  
-  
   filterBrand:string="";
+  public page: number = 0;
+  public search: string = '';
+  public numPagina: number = 1;
 
   constructor(
     private brandService:BrandService
@@ -26,5 +27,22 @@ export class BrandsComponent implements OnInit {
       this.brands=data;
 
     });
+  }
+  nextPage() {
+    this.page += 4;
+    this.numPagina+=1;
+  }
+
+  prevPage() {
+    if ( this.page > 0 )
+      this.page -= 4;
+    if(this.numPagina>1){
+        this.numPagina-=1;
+     }
+  }
+
+  onSearch( search: string ) {
+    this.page = 0;
+    this.search = search;
   }
 }

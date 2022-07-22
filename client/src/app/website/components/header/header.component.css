@@ -1,14 +1,12 @@
 /* body{background-color: #482b9c !important;} */
 
 .form-inline{
-  width: 18%;
+  width: 10%;
 }
-.form-inline input{
-  width: 55%;
 
-}
 nav{
   min-height: 85px;
+  box-shadow: 0px 0px 5px 0px #999;
 }
 ul{
   /* margin-right: 0; */

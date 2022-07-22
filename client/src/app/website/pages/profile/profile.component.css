@@ -1,10 +1,12 @@
 .perfil{
     border:1px solid;
     border-color:rgb(236, 230, 230);
-    margin-top: 10px;
+    margin-top: 20px;
 }
 .title-perfil{
     margin-top: 10px;
+    /* margin-bottom: 6px; */
+    color: rgb(97, 92, 92);
 }
 .nombreCompleto{
     padding-top: 5px;

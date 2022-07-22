@@ -153,6 +153,18 @@ class PagoService {
     }
     return orders.rows;
   }
+  async findCountTotal() {
+    const query =
+    {
+      text: `SELECT sum(total) FROM orders WHERE status='Pedido entregado'`
+    };
+    const orders = await this.pool.query(query);
+    console.log('total ordes$:',orders.rows[0])
+    if (orders.rows.length === 0) {
+      return [];
+    }
+    return orders.rows[0];
+  }
   async findPending() {
     const status='Preparando tu pedido';
     const query =
@@ -182,7 +194,7 @@ class PagoService {
     const status='Pedido entregado';
     const query =
     {
-      text:  `SELECT ord.id,ord.customer_id,ord.total,ord.id_transaccion,ord.status,ord.created_at, c.name FROM orders ord INNER JOIN customers c ON ord.customer_id=c.id WHERE ord.status=$1`,
+      text:  `SELECT ord.id,ord.customer_id,ord.total,ord.id_transaccion,ord.status,ord.created_at, c.name,s.num_factura FROM orders ord INNER JOIN customers c ON ord.customer_id=c.id INNER JOIN sales s ON ord.sale_id=s.id_sale WHERE ord.status=$1`,
       values:[status]
     };
     const orders = await this.pool.query(query);

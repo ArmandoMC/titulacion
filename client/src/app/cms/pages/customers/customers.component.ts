@@ -26,13 +26,13 @@ export class CustomersComponent implements OnInit {
     })
   }
   nextPage() {
-    this.page += 2;
+    this.page += 4;
     this.numPagina+=1;
   }
 
   prevPage() {
     if ( this.page > 0 )
-      this.page -= 2;
+      this.page -= 4;
     if(this.numPagina>1){
         this.numPagina-=1;
      }

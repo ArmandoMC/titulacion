@@ -10,13 +10,15 @@
 <div class="container mt-3">
   <div class="form-inline mb-3">
     <div class="form-group w-50 grupo1">
+      <span class="icon"><i class="fa fa-search" aria-hidden="true"></i></span>
       <input
         type="search"
         name=""
         id=""
-        placeholder="Buscar subcategoria por nombre.."
-        [(ngModel)]="filterSubcategory"
-      /><i class="fa fa-search" aria-hidden="true"></i>
+        placeholder="Buscar subcategoria por nombre..."
+        #txtSearch
+        (keyup)="onSearch(txtSearch.value)"
+      />
     </div>
     <div class="form-group w-50">
       <button class="btn btn-primary ml-auto" routerLink="/cms/subcategories/add">
@@ -39,7 +41,7 @@
       </thead>
       <tbody>
         <tr
-          *ngFor="let subcat of subcategories | filter: filterSubcategory; let i = index"
+          *ngFor="let subcat of subcategories |  filtro:page:search"
         >
           <td>{{ subcat.id }}</td>
           <td>{{ subcat.name }}</td>
@@ -50,6 +52,32 @@
         </tr>
       </tbody>
     </table>
+    <nav aria-label="Page navigation example" class="text-right">
+      <ul class="pagination">
+        <li class="page-item">
+          <span aria-label="Previous" class="btn border" (click)="prevPage()">
+            <span aria-hidden="true"
+              ><i class="fa fa-angle-double-left" aria-hidden="true"></i>
+            </span>
+          </span>
+        </li>
+        <li class="page-item active" aria-current="page">
+          <a class="page-link">{{ numPagina }}</a>
+        </li>
+        <li class="page-item">
+          <button
+            aria-label="Next"
+            class="btn border"
+            (click)="nextPage()"
+            [disabled]="(subcategories | filtro: page:search).length === 0"
+          >
+            <span aria-hidden="true"
+              ><i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            </span>
+          </button>
+        </li>
+      </ul>
+    </nav>
     <ng-template #elseBlock>
       <div class="div">
         <h3>No hay subcategorias registradas</h3>

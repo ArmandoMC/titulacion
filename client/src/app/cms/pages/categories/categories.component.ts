@@ -10,7 +10,10 @@ import { Category } from '../../../models/category.model';
 export class CategoriesComponent implements OnInit {
   
   categories: Category[] = [];
-  
+  public page: number = 0;
+  public search: string = '';
+  public numPagina: number = 1;
+
   constructor(private categoriesService: CategoriesService) {}
 
   filterCategory: string = '';
@@ -18,5 +21,22 @@ export class CategoriesComponent implements OnInit {
     this.categoriesService.getAll().subscribe((data) => {
       this.categories = data;
     });
+  }
+  nextPage() {
+    this.page += 4;
+    this.numPagina+=1;
+  }
+
+  prevPage() {
+    if ( this.page > 0 )
+      this.page -= 4;
+    if(this.numPagina>1){
+        this.numPagina-=1;
+     }
+  }
+
+  onSearch( search: string ) {
+    this.page = 0;
+    this.search = search;
   }
 }

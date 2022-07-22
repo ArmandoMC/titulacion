@@ -44,13 +44,7 @@ class CategoryService {
   }
   async findProductsBySubCat(id) {
 
-    // const { limit, offset } = query;
     let sql;
-    // if (limit && offset) {
-    //   sql = {
-    //     text: `SELECT * FROM products p LIMIT ${limit} OFFSET ${offset}WHERE p.subcategory_id=${id}`,
-    //   };
-    // }else{
        sql = {
           text: `SELECT * FROM products WHERE subcategory_id=$1`,
           values: [id]

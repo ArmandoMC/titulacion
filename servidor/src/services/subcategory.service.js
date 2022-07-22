@@ -57,6 +57,16 @@ class SubcategoryService {
     }
     return category.rows[0];
   }
+  async findCount() {
+    const query = {
+      text: `SELECT count(*) FROM subcategories`
+    };
+    const count = await this.pool.query(query);
+    if (count.rows.length === 0) {
+      throw boom.notFound('no hay subcategorias');
+    }
+    return count.rows[0];
+  }
   async findByCategory(id, query) {
 
     const { limit, offset } = query;

@@ -1,14 +1,5 @@
-body{
-    background-color: aqua;
-}
-img{
-    /* width: 1165px;
-    height: 652px; */
-    /* width: auto;
-    height: 500px; */
-}
 .carousel-inner{
-    background-color: rgb(240, 240, 240);
+    /* background-color: rgb(240, 240, 240); */
 }
 .content-select select{
 	appearance: none;
@@ -78,6 +69,15 @@ dos bordes con color y que giramos con transform: rotate(-45deg);
 .content-select:hover i{
 	margin-top: 3px;
 }
+.content-radio{
+}
+.form-check{
+height: 40px;
+}
+.form-check label{
+color:#266bec;
+}
+
 
 @media (max-width:390px){
     img{

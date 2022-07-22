@@ -1,8 +1,12 @@
 <div class="container-fluid">
   <div class="form-group">
-    <h1><span style="float: left"><i class="fa fa-users" aria-hidden="true"></i></span></h1>
+    <h1>
+      <span style="float: left"
+        ><i class="fa fa-users" aria-hidden="true"></i
+      ></span>
+    </h1>
     <div class="form-group">
-      <h4 style="margin-left:65px;">Categorías</h4>
+      <h4 style="margin-left: 65px">Categorías</h4>
       <span class="ml-3 text-muted">Lista de categorías activas</span>
     </div>
   </div>
@@ -10,29 +14,27 @@
 <div class="container mt-3">
   <div class="form-inline mb-3">
     <div class="form-group w-50 grupo1">
+      <span class="icon">
+        <i class="fa fa-search" aria-hidden="true"></i>
+      </span>
       <input
         type="search"
-        name=""
+        name="buscar"
         id=""
-        placeholder="Buscar categoria por nombre.."
-        [(ngModel)]="filterCategory"
-      /><i class="fa fa-search" aria-hidden="true"></i>
-
+        placeholder="Buscar categoria por nombre..."
+        #txtSearch
+        (keyup)="onSearch(txtSearch.value)"
+      />
     </div>
     <div class="form-group w-50">
-      <button
-        class="btn btn-primary ml-auto"
-        routerLink="/cms/categories/add"
-      ><i class="fa fa-plus" aria-hidden="true"></i> 
+      <button class="btn btn-primary ml-auto" routerLink="/cms/categories/add">
+        <i class="fa fa-plus" aria-hidden="true"></i>
         Nueva categoría
       </button>
     </div>
-    
   </div>
- 
-  <table
-    class="table table-bordered"
-  >
+
+  <table class="table table-bordered">
     <thead class="">
       <tr>
         <th scope="col">#</th>
@@ -42,16 +44,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr
-        *ngFor="let cat of categories | filter: filterCategory"
-      >
+      <tr *ngFor="let cat of categories | filtro:page:search">
         <td>{{ cat.id }}</td>
         <td>{{ cat.name }}</td>
         <td>{{ cat.description }}</td>
         <td class="text-center">
           <button
             class="btn btn-info"
-            [routerLink]="['/cms/categories/category',cat.id]"
+            [routerLink]="['/cms/categories/category', cat.id]"
           >
             Detalles
           </button>
@@ -59,6 +59,32 @@
       </tr>
     </tbody>
   </table>
+  <nav aria-label="Page navigation example" class="text-right">
+    <ul class="pagination">
+      <li class="page-item">
+        <span aria-label="Previous" class="btn border" (click)="prevPage()">
+          <span aria-hidden="true"
+            ><i class="fa fa-angle-double-left" aria-hidden="true"></i>
+          </span>
+        </span>
+      </li>
+      <li class="page-item active" aria-current="page">
+        <a class="page-link">{{ numPagina }}</a>
+      </li>
+      <li class="page-item">
+        <button
+          aria-label="Next"
+          class="btn border"
+          (click)="nextPage()"
+          [disabled]="(categories | filtro: page:search).length === 0"
+        >
+          <span aria-hidden="true"
+            ><i class="fa fa-angle-double-right" aria-hidden="true"></i>
+          </span>
+        </button>
+      </li>
+    </ul>
+  </nav>
   <ng-template #elseBlock>
     <div class="div">
       <h3>No hay categorias registradas</h3>

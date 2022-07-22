@@ -14,7 +14,9 @@ export class SubcategoriesComponent implements OnInit {
   
   subcategories:SubCategory[]=[];
   filterSubcategory:string="";
-
+  public page: number = 0;
+  public search: string = '';
+  public numPagina: number = 1;
   constructor(
     private subcategoriesService:SubcategoriesService
   ) { }
@@ -23,5 +25,22 @@ export class SubcategoriesComponent implements OnInit {
     this.subcategoriesService.getAll().subscribe(data=>{
       this.subcategories=data;
     });
+  }
+  nextPage() {
+    this.page += 4;
+    this.numPagina+=1;
+  }
+
+  prevPage() {
+    if ( this.page > 0 )
+      this.page -= 4;
+    if(this.numPagina>1){
+        this.numPagina-=1;
+     }
+  }
+
+  onSearch( search: string ) {
+    this.page = 0;
+    this.search = search;
   }
 }

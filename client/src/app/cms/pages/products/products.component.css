@@ -7,21 +7,28 @@
 .container-fluid .form-group h1,h4{
     color: rgb(23, 108, 235);
 }
-.grupo1{
-    border:1px solid #111;
-}
-.grupo1 input{
-    border: 0;
-    width: 90%;
-}
-.grupo1 input :focus{
-    border: 0;
-    border-color: white;
-}
-.grupo1 i{
-    border: 0;
+.grupo1 {
+    border: 1px solid rgb(228, 226, 226);
+    height: 40px;
+    padding-top: 5px;
+  }
+  .icon {
     width: 10%;
-}
+    text-align: center;
+  }
+  .grupo1 input {
+    width: 90%;
+    padding-left: 10px;
+    border: none !important;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+  }
+  .grupo1 input:focus {
+    border: transparent !important;
+    outline: none !important;
+    outline-offset: 0px;
+  }
 .modal-lg{
     max-width: 50% !important;
 }

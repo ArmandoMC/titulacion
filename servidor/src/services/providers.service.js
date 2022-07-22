@@ -28,6 +28,13 @@ class ProviderService {
     return providers.rows;
 
   }
+  async findCount() {
+
+    const query = 'SELECT count(*) FROM providers';
+    const count = await this.pool.query(query);
+    return count.rows[0];
+
+  }
 
   async findOne(id) {
     const query = {

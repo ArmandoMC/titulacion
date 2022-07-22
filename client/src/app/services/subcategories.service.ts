@@ -32,19 +32,13 @@ export class SubcategoriesService {
     return this.http.get<Product[]>(`${this.API_URL}/${id}/products`);
   }
   update(id:number,dto:CreateSubCategoryDTO){
-    return this.http.put<SubCategory>(`${this.API_URL}/${id}`,dto)
-    .pipe(
-      tap((subcategory)=>{
-        const indice=this.mySubcategories.findIndex(cat=>cat.id===subcategory.id);
-        if(indice!=-1){
-          this.mySubcategories[indice]=subcategory;
-          this.subcategories.next(this.mySubcategories);
-        }
-       
-      })
-    )
+    return this.http.put<SubCategory>(`${this.API_URL}/${id}`,dto);
   }
   delete(id:number){
     return this.http.delete<number>(`${this.API_URL}/${id}`);
   }
+  getCount(){
+    return this.http.get<any>(`${this.API_URL}/count`);
+  }
+
 }

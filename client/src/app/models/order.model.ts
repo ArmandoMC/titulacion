@@ -1,11 +1,5 @@
 
 export interface OrderPayment{
-  // id:number;
-  // name:string;
-  // amount:number;
-  // localizator?:string;
-  // stripe_id?:string;
-  // status?:string;
   id:number;
   customer_id:number;
   address_id:number;

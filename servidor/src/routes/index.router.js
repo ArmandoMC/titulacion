@@ -13,7 +13,6 @@ const authRouter = require('./auth.router');
 const profileRouter = require('./profile.router');
 const addressRouter = require('./address.router');
 const providerRouter = require('./providers.router');
-const menuRouter = require('./menus.router');
 
 function routerApi(app) {
 
@@ -31,7 +30,6 @@ function routerApi(app) {
   router.use('/brands', brandsRouter);
   router.use('/status', statusRouter);
   router.use('/providers', providerRouter);
-  router.use('/menus', menuRouter);
 
 }
 
