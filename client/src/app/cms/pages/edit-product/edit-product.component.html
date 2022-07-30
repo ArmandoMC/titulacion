@@ -193,20 +193,10 @@
                   type="text"
                   class="form-control"
                   name="flavor"
-                  #refEditFlavor="ngModel"
+                  placeholder="(opcional)"
                   [(ngModel)]="product.flavor"
-                  [ngClass]="{
-                    'is-invalid': refEditFlavor.errors && refEditFlavor.touched
-                  }"
-                  required
                   [disabled]="isDisabled"
                 />
-                <div
-                  [hidden]="!refEditFlavor.errors?.required"
-                  class="invalid-feedback"
-                >
-                  Sabor requerido
-                </div>
               </div>
               <div class="form-group col-md-3">
                 <label for="" style="display: block">Categoria</label>

@@ -23,8 +23,8 @@ export class AddProductComponent implements OnInit {
   codigo: string;
   name: string;
   description: string;
-  sleeve_color: string = '';
-  flavor: string;
+  sleeve_color: string = "";
+  flavor: string="";
   presentation: string;
   packaging: string;
   stock: number;
@@ -134,7 +134,7 @@ export class AddProductComponent implements OnInit {
   getUltimoId() {
     this.productsService.getUltimoId().subscribe((data) => {
       console.log('ultimo id rescatado:', data);
-      this.codigo = 'P000' + (data.max + 1);
+      this.codigo = 'P00' + (data.max + 1);
     });
   }
   capturarCategoriaAlInsertar(name: string) {

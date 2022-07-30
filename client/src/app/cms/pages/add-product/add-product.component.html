@@ -183,22 +183,19 @@
                   type="text"
                   class="form-control"
                   name="flavor"
-                  #refFlavor="ngModel"
+                  placeholder="( opcional )"
                   [(ngModel)]="flavor"
-                  [ngClass]="{
-                    'is-invalid': refFlavor.errors && refFlavor.touched
-                  }"
-                  required
+                 
                 />
-                <div
+                <!-- <div
                   [hidden]="!refFlavor.errors?.required"
                   class="invalid-feedback"
                 >
                   Sabor requerido
-                </div>
+                </div> -->
               </div>
               <div class="form-group col-md-3">
-                <label for="">Categoria</label>
+                <label for="">Categoría</label>
                 <div>
                   <select name="" id="">
                     <option
@@ -212,7 +209,7 @@
                 </div>
               </div>
               <div class="form-group col-md-3">
-                <label for="">Subcategoria</label>
+                <label for="">Subcategoría</label>
                 <div>
                   <select name="" id="">
                     <option
@@ -228,7 +225,7 @@
             </div>
             <div class="form-row">
               <div class="form-group col-md-6">
-                <label for="">Presentacion</label>
+                <label for="">Presentación</label>
                 <input
                   type="text"
                   class="form-control"

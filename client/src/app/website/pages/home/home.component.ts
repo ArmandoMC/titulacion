@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   idSubcategoria:number=null;
   productsBySubcat:Product[]=[];
   pro: Product[] = [];
-  limit=5;
+  limit=20;
   offset=0;
   productId:string | null=null;
   seleccionado="mayor a menor";
