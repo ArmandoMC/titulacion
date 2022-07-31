@@ -23,6 +23,8 @@ export class HomeComponent implements OnInit {
   productId:string | null=null;
   seleccionado="mayor a menor";
   vector=['Clasificación por defecto','mayor a menor','menor a mayor']
+  filterProduct:string="";
+
   constructor(
     private productsService:ProductsService,
     private categoriesService:CategoriesService,

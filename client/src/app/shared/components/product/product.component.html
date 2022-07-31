@@ -8,13 +8,13 @@
 <!-- <button (click)="onShowDetail()">Ver detalle</button> -->
 <!-- <button (click)="onAddToCart()">Add cart</button> -->
 <div class="card mb-3">
-  <a [routerLink]="['/product', product.id]">
+  <a [routerLink]="['/product', product.id]" class="text-center">
     <app-img [img]="product.image"></app-img>
   </a>
   <div class="card-body text-center">
-    <h5 class="card-title">
+    <h6 class="card-title">
       {{ product.name }} {{product.sleeve_color}} {{ product.presentation }} {{product.flavor}}
-    </h5>
+    </h6>
     <p class="card-text text-center"><b>Proalim</b></p>
     <p class="card-text">{{ product.price | currency: "$" }}</p>
     <!-- <button class="btn btn-primary float-left" (click)="onAddToCart()">

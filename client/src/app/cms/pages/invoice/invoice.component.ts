@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import {CheckoutService} from '../../../services/checkout.service';
+import {StoreService} from '../../../services/store.service';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
+
 @Component({
   selector: 'app-invoice',
   templateUrl: './invoice.component.html',
@@ -31,10 +33,13 @@ export class InvoiceComponent implements OnInit {
   total:number;
   isVisible:boolean=false;
   ///
-  tarifaFija:number=3.50;
+  tarifaFija:number=0;
+  numeroProductos:number=0;
+  subtotal:number=0;
   constructor(
     private route: ActivatedRoute,
     private checkoutService: CheckoutService,
+    private storeService: StoreService,
   ) { }
 
   ngOnInit(): void {
@@ -66,27 +71,35 @@ export class InvoiceComponent implements OnInit {
         this.nameProduct=this.orderDetail.name;
         this.quantity=this.orderDetail.quantity;
         this.price=this.orderDetail.price;
+        this.subtotal=this.orderDetail.reduce((sum,item)=>sum+(item.price*item.quantity),0);
+        this.tarifaFija=this.total-this.subtotal;
       }
      
     })
+    this.storeService.myCart$.subscribe((data) => {
+      this.numeroProductos=data.reduce((sum,item)=>sum+item.oferta,0);
+      this.tarifaFija=this.numeroProductos*0.35;
+
+    });
   }
 
   imprimir(){
     
     const doc = new jsPDF('p','mm','letter');
     const logo = new Image();
-    logo.src = '../../../../assets/images/car.jpg';
+    logo.src = '../../../../assets/images/logo4.png';
     doc.setFont('bold');
-    doc.text('SISTEMA WEB DIMA',80,10)
+    // doc.text('SISTEMA WEB DIMA',80,10)
+    doc.addImage(logo, 'JPG', 90, 5,40,20);
+
     doc.setFontSize(8)
     doc.text('Factura N°'+this.numFactura,163,10)
     doc.setFontSize(10)
-    doc.text('Venta al por menor de yogurt y lácteos',81,20)
-    doc.text('Tel.: 0989792475 - 072184087',85,30)
-    doc.text('E-mail: lacteosdima@gmail.com',85,40)
+    doc.text('Venta al por menor de lácteos',89,30)
+    doc.text('Tel.: 0989792475 - 072184087',89,40)
+    doc.text('E-mail: lacteosdima@gmail.com',88,50)
     // doc.text('SISTEMA WEB DIMA',doc.internal.pageSize.width,50,null,null,{align:'center'})
-    doc.addImage(logo, 'JPG', 5, 5,30,30);
-    autoTable(doc,{margin:{top:40}})
+    autoTable(doc,{margin:{top:50}})
     autoTable(doc, {
       head: [['FACTURAR A']],
       body: [
@@ -99,7 +112,7 @@ export class InvoiceComponent implements OnInit {
       ],
     })
 
-    autoTable(doc,{margin:{top:70}})
+    autoTable(doc,{margin:{top:90}})
     autoTable(doc,{html:'#formFactura'},)
    
     autoTable(doc,{html:'#formTotales'});

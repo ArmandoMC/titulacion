@@ -21,9 +21,6 @@ import {
 import {  tap } from 'rxjs/operators';
 import { Product } from 'src/app/models/product.model';
 import { Customer } from 'src/app/models/customer.model';
-// import {RestService} from "../../services/rest.service";
-// import {ActivatedRoute} from "@angular/router";
-// import {Toaster} from "ngx-toast-notifications";
 import {AlertsService} from '../../../services/alerts.service';
 declare global {
   interface window {
@@ -127,7 +124,7 @@ export class CheckoutComponent implements OnInit {
     this.storeService.myCart$.subscribe((data) => {
       this.cart = data;
       this.numeroProductos=data.reduce((sum,item)=>sum+item.oferta,0);
-      this.tarifaFija=this.numeroProductos*0.25;
+      this.tarifaFija=this.numeroProductos*0.35;
 
     });
     this.total = this.storeService.getTotal();

@@ -7,24 +7,22 @@
   </nav>
 </div>
 <div class="container principal mt-4">
-  <table class="table table-hover" *ngIf="products.length > 0; else elseBlock">
+  <table class="table table-bordered" *ngIf="products.length > 0; else elseBlock">
     <thead class="">
       <tr>
         <th scope="col">#</th>
         <th scope="col">Nombre</th>
         <th scope="col">Precio</th>
-        <th scope="col">Sabor</th>
-        <th scope="col">cantidad</th>
-        <th scope="col">subtotal</th>
+        <th scope="col">Cantidad</th>
+        <th scope="col">Subtotal</th>
         <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let product of products; let indice = index">
         <th scope="row">{{ indice + 1 }}</th>
-        <td><img [src]="product.image" alt="" width="120" /></td>
-        <td>{{ product.price }}</td>
-        <td>{{ product.flavor }}</td>
+        <td><p>{{product.name}} {{product.presentation}} {{product.sleeve_color}} {{product.flavor}} </p><img [src]="product.image" alt="" width="120" /> </td>
+        <td>{{ product.price | currency:'$'}}</td>
         <td>
           <div class="">
             <button (click)="restar(product.id)">-</button>
@@ -46,7 +44,7 @@
     </tbody>
   </table>
   <h4 *ngIf="products.length > 0" class="pr-5 h-total text-right">Total({{numProducts}} productos):{{total | currency}}</h4>
-  <p></p>
+
   <ng-template #elseBlock>
     <div class="container carroVacio text-center">
       <h3>Carrito vacio</h3>
@@ -58,12 +56,20 @@
   </ng-template>
   <button
     *ngIf="logueado == true && products.length>0; else elseShow"
-    class="btn btn-primary float-right mr-5 btn-pago"
+    class="btn btn-primary float-right mr-5 mt-3 btn-pago"
     
     [routerLink]="['/checkout']"
-  >
-    Ir a pagar
+  >Ir a pagar <i class="fa fa-arrow-right" aria-hidden="true"></i> 
   </button>
+ <div class="clear-fix"></div>
+  <button
+    *ngIf="products.length>0; else elseShow"
+    class="btn btn-primary float-right mr-5 mt-3 btn-pago"
+    
+    [routerLink]="['/home']"
+  ><i class="fa fa-arrow-left" aria-hidden="true"></i> Seguir comprando
+  </button>
+ 
   <ng-template #elseShow>
     <button *ngIf="products.length>0" [routerLink]="['/login']" class="btn btn-primary btn-login">
       Acceder a mi cuenta y pagar

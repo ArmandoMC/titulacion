@@ -32,11 +32,19 @@
   border-top: 0px;
   border-left: 0px;
   border-right: 0px;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
 }
+
 .titular:focus {
+  border: transparent !important;
   outline: none !important;
-  outline-offset: 0 !important;
-  outline-width: 0 !important;
+  outline-offset: 0px;
+ 
 }
 .titular:active {
   outline: none !important;

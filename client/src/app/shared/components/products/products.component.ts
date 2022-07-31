@@ -20,6 +20,7 @@ export class ProductsComponent {
   myShoppingCart: Product[] = [];
   total = 0;
   @Input() products: Product[] = [];
+  @Input() mostrar:boolean;
   // @Input() productId:string | null=null;
   @Input()
   set productId(id: string | null) {
@@ -29,6 +30,7 @@ export class ProductsComponent {
   }
 
   @Output() loadMore = new EventEmitter<Product[]>();
+  // @Output() mostrar=new EventEmitter<boolean>();
   today = new Date(2021, 1, 21);
   date = new Date(2021, 1, 21);
   showProductDetail = false;
@@ -58,7 +60,7 @@ export class ProductsComponent {
   // limit=5;
   // offset=0;
   statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init';
-
+  // mostrar:boolean=true;
  
   constructor(
     private storeService: StoreService,
@@ -66,6 +68,7 @@ export class ProductsComponent {
     private cartService: CartService
   ) {
     this.myShoppingCart = this.storeService.getShoppingCart();
+    this.mostrar=true;
   }
  
 
@@ -124,9 +127,6 @@ export class ProductsComponent {
   //   })
   // }
 
-  createNewProduct() {
-    
-  }
 
   updateProduct() {
     // const changes: UpdateProductDTO = {

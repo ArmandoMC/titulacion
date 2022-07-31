@@ -1,5 +1,5 @@
 <div class="container">
-    <h5>Visualización de factura</h5>
+    <h5 class="mt-2">Visualización de factura</h5>
   
     <form id="">
       <div class="form-row">
@@ -16,14 +16,7 @@
         <div class="form-group col-md-6">
           <label for="">Fecha de facturación</label>
           <div class="num-factura" >
-            <!-- <input
-            type="text"
-            class="form-control"
-            name="fechaFactura"
-            [(ngModel)]="fechaFactura"
-            disabled
-          />        -->
-          {{fechaFactura | date:'short'}}
+          {{fechaFactura | customDate}}
           </div> 
         </div>
       </div>
@@ -94,8 +87,9 @@
         *ngIf="order && orderDetail"
       >
         <thead class="text-center">
-          <tr class="text-center">
-            <b>DETALLES</b>
+          <tr class="text-center w-100">
+           
+            <td colspan="4"><b class="mx-auto">DETALLES</b></td>
           </tr>
           <tr>
             <th scope="col">Producto</th>
@@ -108,8 +102,8 @@
           <tr *ngFor="let detail of orderDetail" class="text-center">
             <td>{{ detail.name }}</td>
             <td>{{ detail.quantity }}</td>
-            <td>{{ detail.price | currency }}</td>
-            <td>{{ detail.price * detail.quantity | currency }}</td>
+            <td>{{ detail.price | currency:'$' }}</td>
+            <td>{{ detail.price * detail.quantity | currency:'$' }}</td>
           </tr>
         </tbody>
         </table>
@@ -143,7 +137,7 @@
                 <td>
                   <h6 class="">
                     Subtotal:
-                    <b style="font-size: 15px">{{ total - tarifaFija | currency }}</b>
+                    <b style="font-size: 15px">{{ total - tarifaFija | currency:'$' }}</b>
                   </h6>
                 </td>
               </tr>
@@ -199,7 +193,7 @@
                 <td colspan=""></td>
                 <td>
                   <h6>
-                    Envío<span>(Tarifa fija):</span> <b>{{ tarifaFija }}</b>
+                    Envío: <b>{{ tarifaFija | currency:'$' }}</b>
                   </h6>
                 </td>
               </tr>
@@ -238,7 +232,7 @@
     <br />
     <div class="form-row">
       <div class="form-group col-md-6">
-        <button class="btn btn-primary" (click)="imprimir()">IMPRIMIR</button>
+        <button class="btn btn-primary" (click)="imprimir()"><i class="fa fa-print" aria-hidden="true"></i> IMPRIMIR</button>
       </div>
     </div>
    

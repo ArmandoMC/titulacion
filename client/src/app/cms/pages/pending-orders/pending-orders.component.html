@@ -8,6 +8,24 @@
   </div>
 </div>
 <div class="container mt-3">
+  <div class="row">
+    <div class="col-md-7">
+      <div class="form-group grupo1 w-100">
+        <span class="icon"><i class="fa fa-search" aria-hidden="true"></i></span>
+        <input
+          type="search"
+          name=""
+          id=""
+          placeholder="Buscar pedido por nombre de cliente..."
+          #txtSearch
+          (keyup)="onSearch(txtSearch.value)"
+        />
+      </div>
+    </div>
+  </div>
+  
+</div>
+<div class="container mt-3">
     <table class="table table-bordered">
       <thead class="">
         <tr>
@@ -23,23 +41,48 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let order of ordersPending; let indice = index">
+        <tr *ngFor="let order of ordersPending | filtro:page:search">
           <td>{{ order.id }}</td>
           <td>{{ order.name }}</td>
           <td>{{ order.total | currency }}</td>
-          <td>{{ order.created_at | date:'short' }}</td>
+          <td>{{ order.created_at | customDate }}</td>
           <td>{{ order.id_transaccion }}</td>
           <td><span class="badge badge-warning">{{order.status}}</span></td>
           <td><button class="btn btn-success" [routerLink]="['/cms/orders/pendientes/confirm',order.id]">Envio</button> </td>
-          <td><button type="button" class="btn btn-info" [routerLink]="['/cms/factura/order',order.id]">
-            Detalle del pedido
+          <td><button class="btn btn-info" [routerLink]="['/cms/factura/order',order.id]">
+            Detalle
           </button>
           </td>
          
         </tr>
       </tbody>
     </table>
-    <p></p>
+    <nav aria-label="Page navigation example" class="text-right">
+      <ul class="pagination">
+        <li class="page-item">
+          <span aria-label="Previous" class="btn border" (click)="prevPage()">
+            <span aria-hidden="true"
+              ><i class="fa fa-angle-double-left" aria-hidden="true"></i>
+            </span>
+          </span>
+        </li>
+        <li class="page-item active" aria-current="page">
+          <a class="page-link">{{ numPagina }}</a>
+        </li>
+        <li class="page-item">
+          <button
+            aria-label="Next"
+            class="btn border"
+            (click)="nextPage()"
+            [disabled]="(ordersPending | filtro: page:search).length === 0"
+          >
+            <span aria-hidden="true"
+              ><i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            </span>
+          </button>
+        </li>
+      </ul>
+    </nav>
     <ng-template #elseBlock>
       <div class="div">
         <h3>No hay órdenes pendientes</h3>

@@ -79,7 +79,7 @@ export class SalesComponent implements OnInit {
   imprimir(){
     const doc = new jsPDF('p','mm','letter');
     const logo = new Image();
-    logo.src = '../../../../assets/images/car.jpg';
+    logo.src = '../../../../assets/images/logo4.png';
     doc.setFont('bold');
     doc.text('SISTEMA WEB DIMA',80,10)
     doc.setFontSize(8)

@@ -7,3 +7,26 @@
 .container-fluid .form-group h1,h4{
     color: rgb(23, 108, 235);
 }
+.grupo1 {
+    border: 1px solid rgb(228, 226, 226);
+    height: 40px;
+    padding-top: 5px;
+  }
+  .icon {
+    width: 20%;
+    padding-left: 9px;
+    text-align: center;
+  }
+  .grupo1 input {
+    width: 80%;
+    padding-left: 10px;
+    border: none !important;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+  }
+  .grupo1 input:focus {
+    border: transparent !important;
+    outline: none !important;
+    outline-offset: 0px;
+  }

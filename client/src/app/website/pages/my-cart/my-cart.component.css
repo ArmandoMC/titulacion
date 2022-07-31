@@ -17,3 +17,6 @@
 .nav_barra ol{
     background-color: transparent;
 }
+.clear-fix{
+    clear: both;
+}

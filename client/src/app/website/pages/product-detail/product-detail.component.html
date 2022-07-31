@@ -1,56 +1,112 @@
 <div class="container">
-    <nav aria-label="breadcrumb" class="nav_barra">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item br1"><a routerLink="/home">Inicio</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Detalle del producto</li>
-      </ol>
-    </nav>
+  <nav aria-label="breadcrumb" class="nav_barra">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item br1"><a routerLink="/home">Inicio</a></li>
+      <li class="breadcrumb-item active" aria-current="page">
+        Detalle del producto
+      </li>
+    </ol>
+  </nav>
 </div>
 
 <div class="container page-product mt-4">
   <!-- <button (click)="goToBack()" class="btn btn-success">Volver</button> -->
   <div class="row detail" *ngIf="product">
     <!-- <div class="row"> -->
-    <div class="col-lg-5 col-sm-12">
+    <div class="col-lg-6 col-sm-12">
       <div class="gallery">
         <!-- <swiper>
                         <ng-template> -->
-        <img [src]="product.image" alt=""/>
+        <img [src]="product.image" alt="" />
         <!-- </ng-template>
                     </swiper>> -->
       </div>
     </div>
-    <div class="col-lg-4 col-sm-12">
-    
+    <div class="col-lg-6 col-sm-12">
       <div>
-        <h1>{{ product?.name }} {{product?.presentation}} </h1>
-        <hr>
-        <h4 class="price"> {{product?.price | currency}} </h4>
-        <h4>Acerca de este producto</h4>
-        <p>{{ product?.description }}</p>
+        <h2>{{ product?.name }} {{ product?.presentation }} {{product.sleeve_color}}  {{product.flavor}}</h2>
+        <hr />
+        <!-- <h4 class="price">{{ product?.price | currency }}</h4> -->
+        <!-- <h4>Acerca de este producto</h4>
+        <p>{{ product?.description }}</p> -->
       </div>
-    </div>
-    <div class="col-lg-3 col-sm-12 carrito">
-      <div class="info-carrito">
-        <h4 class="price">{{product?.price | currency}}</h4>
-        <h4 class="stock">En stock</h4>
+      <div class="info-carrito w-50">
+        <h4 class="price"><b>{{ product?.price | currency:'$' }}</b></h4>
+        <!-- <h4 class="stock">En stock</h4> -->
         <div class="form-group">
           <label for="text">Cantidad</label>
           <p>
-            <select  name="miselect" [(ngModel)]="seleccionado" class="select" [disabled]="isDisabled">
-              <option  [value]="item" *ngFor="let item of listaOferta" >
+            <select
+              name="miselect"
+              [(ngModel)]="seleccionado"
+              class="select"
+              [disabled]="isDisabled"
+            >
+              <option [value]="item" *ngFor="let item of listaOferta">
                 {{ item }}
               </option>
             </select>
           </p>
-          <button (click)="onAddToShoppingCart()" class="btn btn-primary btn-block" [disabled]="isDisabled">
-            <i class="fa fa-cart-plus" aria-hidden="true"></i> {{ agregado == true ? "En el carrito" : "Agregar al carrito" }}
+          <button
+            (click)="onAddToShoppingCart()"
+            class="btn btn-primary btn-block"
+            [disabled]="isDisabled"
+          >
+            <i class="fa fa-cart-plus" aria-hidden="true"></i>
+            {{ agregado == true ? "En el carrito" : "Agregar al carrito" }}
           </button>
           <div class="alert alert-success mt-3" role="alert">
-            {{isStock==true? 'En stock':'Últimas unidades'}}
+            {{ isStock == true ? "En stock" : "Últimas unidades" }}
           </div>
         </div>
-      </div>      
+      </div>
+      <p class="text-muted" style="text-align: justify;">{{product.description}}</p>
+
+      <p><b>Forma de pago:</b> Tarjeta de crédito/débito</p>
+      <p>Métodos de pago:</p>
+
+    </div>
+    <!-- <div class="col-lg-3 col-sm-12 carrito">
+      <div class="info-carrito">
+        <h4 class="price">{{ product?.price | currency }}</h4>
+        <h4 class="stock">En stock</h4>
+        <div class="form-group">
+          <label for="text">Cantidad</label>
+          <p>
+            <select
+              name="miselect"
+              [(ngModel)]="seleccionado"
+              class="select"
+              [disabled]="isDisabled"
+            >
+              <option [value]="item" *ngFor="let item of listaOferta">
+                {{ item }}
+              </option>
+            </select>
+          </p>
+          <button
+            (click)="onAddToShoppingCart()"
+            class="btn btn-primary btn-block"
+            [disabled]="isDisabled"
+          >
+            <i class="fa fa-cart-plus" aria-hidden="true"></i>
+            {{ agregado == true ? "En el carrito" : "Agregar al carrito" }}
+          </button>
+          <div class="alert alert-success mt-3" role="alert">
+            {{ isStock == true ? "En stock" : "Últimas unidades" }}
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h5 class="ml-3 mb-2"><b>Productos relacionados</b></h5>
+
+      <app-products [products]="products" [mostrar]="mostrar"></app-products>
     </div>
   </div>
 </div>

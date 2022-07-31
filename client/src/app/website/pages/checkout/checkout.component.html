@@ -353,7 +353,7 @@
               </thead>
               <tbody>
                 <tr *ngFor="let p of cart; let indice = index">
-                  <td>{{ p.name }} {{ p.presentation }} x {{ p.oferta }}</td>
+                  <td>{{ p.name }} {{ p.presentation }} {{p.sleeve_color}} {{p.flavor}} x {{ p.oferta }}</td>
                   <td>{{ p.subtotal | currency }}</td>
                 </tr>
               </tbody>
@@ -400,9 +400,9 @@
       </div>
       <form action="" class="datos" (submit)="initPay()">
         <div class="text-center mb-3">
-          <img src="../../../../assets/images/car.jpg" alt="" width="90" />
-          <h4 style="line-height: 90%">DIMA</h4>
-          <span>tienda de productos lácteos</span>
+          <img src="../../../../assets/images/logo4.png" alt="" width="150" />
+          <!-- <h4 style="line-height: 90%">DIMA</h4> -->
+          <!-- <span>tienda de productos lácteos</span> -->
         </div>
         <div class="form-group">
           <label for="inputNombre"

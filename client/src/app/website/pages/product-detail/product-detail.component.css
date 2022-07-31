@@ -5,10 +5,10 @@
     
 }
 .info-carrito{
-    border-style: solid;
+    /* border-style: solid;
     border-radius: 10px;
     border-width: 1px;
-    border-color: darkgrey;
+    border-color: darkgrey; */
     padding: 15px 15px;
 }
 .price{
