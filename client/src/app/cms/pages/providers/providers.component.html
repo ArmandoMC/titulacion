@@ -29,6 +29,7 @@
         <i class="fa fa-plus" aria-hidden="true"></i>
         Nuevo proveedor
       </button>
+      <button class="btn btn-success ml-3" (click)="imprimir()"><i class="fa fa-print"></i> Imprimir</button>
     </div>
   </div>
 
@@ -38,6 +39,8 @@
         <th scope="col">#</th>
         <th scope="col">Nombre</th>
         <th scope="col">R.U.C</th>
+        <th scope="col">Teléfono</th>
+        <th scope="col">Dirección</th>
         <th scope="col">Opciones</th>
       </tr>
     </thead>
@@ -46,6 +49,8 @@
         <td>{{ pr.id }}</td>
         <td>{{ pr.name }}</td>
         <td>{{ pr.ruc }}</td>
+        <td>{{ pr.phone }}</td>
+        <td>{{ pr.address }}</td>
         <td class="text-center">
           <button
             class="btn btn-info"

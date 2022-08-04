@@ -17,12 +17,8 @@ export class LoginComponent implements OnInit {
   @ViewChild('loginForm') loginForm:NgForm;
 
   email: string;
-  password: string;
-  token='';
-  usuario:User | null=null;
-  profile:User | null=null;
+  password: string; 
 
-  // @Output() logueado=new EventEmitter<User>();
   constructor(
     private router:Router,
     private authService: AuthService,
@@ -38,27 +34,18 @@ export class LoginComponent implements OnInit {
       this.alertsService.alertaFailTop('top-end','error','Error!!','Formulario no válido',false,1500);
     }else{
       this.authService.login(this.email, this.password)
-      .subscribe(()=>{
+      .subscribe((response)=>{
+        if(response.user.role=='admin'){
+          this.router.navigate(['/cms']);
+        }else{
+          this.router.navigate(['/home']);
+        }
         this.alertsService.alertaSuccessTop('top-end','success','Login exitoso',false,1500);
-        this.router.navigate(['/home']);
+
       },()=>{
         this.alertsService.alertaFailTop('top-end','error','Error!!','Credenciales incorrectas',false,1500);
       });
     }
     
   }
-
-  // getProfile(){
-  //   this.authService.getProfile()
-  //   .subscribe(
-  //     profile=>{
-  //         console.log('usuario logueado: ' ,profile);
-  //     },
-  //     err=>console.log('Hubo un errorerr' , err)
-  //   )
-  // }
-
-  // loginAndGet(){
-
-  // }
 }

@@ -27,8 +27,8 @@ aside{
   display: block;
   height: auto;
   float: left;
-  height: 90vh;
-  border-right: 1px solid rgb(197, 195, 195);
+  /* height: 135vh; */
+  /* border-right: 1px solid rgb(197, 195, 195); */
 }
 aside ul{
   list-style: none;
@@ -38,12 +38,13 @@ aside ul{
 }
 aside ul li{
   width: 100%;
-  padding-top:10px;
-  padding-bottom: 10px;
-  text-align: center;
+  padding-top:19.5px !important;
+  padding-bottom: 19.5px !important;
+  text-align: left;
   padding-right: auto;
   background-color:  #2980b9 ;
   /* border: 1px solid; */
+  padding-left: 10px;
 }
 aside ul li a{
   color: white;
@@ -55,11 +56,13 @@ main{
   /* margin-top: 0; */
   /* display: inline-block; */
   width: 85%;
-  height: 90vh;
+  height: auto;
   /* height: auto; */
   /* background-color:  #f7f9f9 ; */
   padding: 0 !important;
   margin: 0 !important;
+  border-left: 1px solid rgb(197, 195, 195);
+
 }
 .cuerpo div{
   /* border:1px solid; */
@@ -76,6 +79,8 @@ main{
 }
 .cuerpo li{
   color: white !important;
+  border-radius: 0px;
+
 }
 .collapse{
   color:white !important;
@@ -84,14 +89,24 @@ main{
 .cuerpo li a{
   color: #2ecc71 !important;
   font-weight: bold;
+  border-radius: 0px;
 
 }
 
 .acc{
   background-color:  #2980b9 !important;
-
+  /* font-size: 10px !important; */
+  padding: 0;
+  margin: 0;
 }
-.accordion{
-  /* background-color:  #2980b9 !important; */
-
+.btn-block{
+  /* font-size: 12px !important; */
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+.card-header{
+  /* text-align: left !important; */
+  margin: 0;
+  padding: 0;
 }

@@ -1,17 +1,23 @@
 <div class="container-fluid">
   <div class="form-group">
-    <h1><span style="float: left"><i class="fa fa-users" aria-hidden="true"></i></span></h1>
+    <h1>
+      <span style="float: left"
+        ><i class="fa fa-usd" aria-hidden="true"></i
+      ></span>
+    </h1>
     <div class="form-group">
-      <h4 style="margin-left:65px;">Ventas</h4>
-      <span class="ml-3 text-muted">Listado de ventas realizadas</span>
+      <h4 style="margin-left: 47px">Ventas</h4>
+      <span class="ml-4 text-muted">Listado de ventas realizadas</span>
     </div>
   </div>
 </div>
-<div class="container mt-3">
+<div class="container ml-4 mt-3">
   <div class="row mb-3">
-    <div class="col-md-7">
-      <div class="form-group grupo1 w-100">
-        <span class="icon"><i class="fa fa-search" aria-hidden="true"></i></span>
+    <div class="col-md-8 columna">
+      <div class="form-group grupo1">
+        <span class="icon"
+          ><i class="fa fa-search" aria-hidden="true"></i
+        ></span>
         <input
           type="search"
           name=""
@@ -23,142 +29,184 @@
       </div>
     </div>
   </div>
- 
-  <div class="row">
-    <div class="col-md-7">
-      <div class="form-group w-100">
-        DE:
-        <input
-          type="date"
-          name="fechaInicial"
-          id=""
-          value="2022-07-13"
-          (change)="onSelect($event)"
-        /><i class="fa fa-calendar" aria-hidden="true"></i>
 
-        HASTA:
-        <input
-          type="date"
-          name="fechaFinal"
-          id=""
-          value="2022-07-13"
-          (change)="onSelect2($event)"
-        /><span class="glyphicon glyphicon-th"></span>
-        <button class="btn btn-success float-right" (click)="imprimir()">
-          <i class="fa fa-print" aria-hidden="true"></i> Generar reporte
-        </button>
+  <div class="row">
+    <div class="col-md-6" style="margin: 0; padding: 0">
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="">Desde:</label>
+          <input
+            type="date"
+            name="fechaInicial"
+            id=""
+            value="Elegir fecha"
+            class="form-control"
+            (change)="onSelect($event)"
+          />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="">Hasta:</label>
+          <input
+            type="date"
+            name="fechaFinal"
+            id=""
+            class="form-control"
+            value="Elegir fecha"
+            (change)="onSelect2($event)"
+          />
+        </div>
       </div>
     </div>
-    <div class="col-md-5"></div>
+    <div class="col-md-2" style="margin: 0; padding: 0">
+      <div class="form-row">
+        <div class="form-group col-md-12">
+          <label for="" style="visibility: hidden">gg</label> <br />
+          <button class="btn btn-success float-right" (click)="imprimir()">
+            <i class="fa fa-print" aria-hidden="true"></i> Generar reporte
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4"></div>
   </div>
 
   <div class="row">
     <div class="col-md-7">
-      <table id="tabla-ventas" class="table table-bordered">
-        <thead class="tabla-ventas-head">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">N° Factura</th>
-            <th scope="col">Cliente</th>
-            <th scope="col">Total pagado</th>
-            <th scope="col">Fecha</th>
-          </tr>
-        </thead>
-        <tbody class="tabla-ventas-body">
-          <tr
-            *ngFor="
-              let order of orders
-                | filtroFecha: fechaInicial:fechaFinal
-                | filter: search;
-              let i = index
-            "
-          >
-            <td>{{ i + 1 }}</td>
-            <td>{{ order.num_factura }}</td>
-            <td>{{ order.name }}</td>
-            <td>{{ order.total | currency }}</td>
-            <td>{{ order.created_at | customDate }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- <cdk-virtual-scroll-viewport -->
+        <!-- itemSize="10"
+        class="scroll"
+        style="width: 100%" -->
+      <!-- > -->
+        <table
+          id="tabla-ventas"
+          class="table table-bordered"
+         
+        >
+          <thead class="tabla-ventas-head">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">N° Factura</th>
+              <th scope="col">Cliente</th>
+              <th scope="col">Total pagado</th>
+              <th scope="col">Fecha</th>
+            </tr>
+          </thead>
+          <tbody class="tabla-ventas-body">
+            <tr
+              *ngFor="
+                let order of orders
+                  | filtroFecha: fechaInicial:fechaFinal:search;
+                let i = index
+              "
+              style="height: 70px"
+            >
+              <td>{{ i + 1 }}</td>
+              <td>{{ order.num_factura }}</td>
+              <td>{{ order.name }}</td>
+              <td>{{ order.total | currency }}</td>
+              <td>{{ order.created_at | customDate }}</td>
+            </tr>
+          </tbody>
+        </table>
+      <!-- </cdk-virtual-scroll-viewport> -->
     </div>
-    <div class="col-md-5">
-      <table id="tabla-resultados" class="table table-bordered">
-        <thead class="">
-          <tr></tr>
-        </thead>
+    <div class="col-md-1">
+      <!-- <cdk-virtual-scroll-viewport -->
+        <!-- itemSize="10"
+        class="scroll"
+        style="width: 100%" -->
+      <!-- > -->
+        <table id="dd" class="table table-bordered tabla-factura">
+          <thead class="tabla-factura-head">
+            <tr>
+              <th>Factura</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let order of orders
+                  | filtroFecha: fechaInicial:fechaFinal:search;
+                let i = index;
+                let ultimo = last
+              "
+              style="height: 70px"
+            >
+              <td class="text-center">
+                <button
+                  class="btn btn-info text-center"
+                  [routerLink]="['/cms/factura/order', order.id]"
+                >
+                  Ver
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      <!-- </cdk-virtual-scroll-viewport> -->
+    </div>
+    <div class="col-md-4">
+      <table id="tabla-resultados" class="ml-5">
         <tbody>
           <tr
             *ngFor="
-              let order of orders | filtroFecha: fechaInicial:fechaFinal;
+              let order of orders
+                | filtroFecha: fechaInicial:fechaFinal:search
               let i = index;
               let ultimo = last
             "
           >
-            <td *ngIf="ultimo">
-              <div class="card card-num" >
-                <div class="card-body">N° ventas: {{ order.numVentas }}</div>
-              </div>
-            </td>
+            <!-- <td *ngIf="ultimo">
+                <div class="card card-num">
+                  <div class="card-body">
+                    N° ventas: <br />
+                    {{ order.numVentas }}
+                  </div>
+                </div>
+              </td> -->
+            <!-- <td *ngIf="ultimo"></td> -->
             <td *ngIf="ultimo">
               <div class="card card-total">
-                <div class="card-body">
-                  Total ventas: {{ order.totalVentas | currency: "$" }}
+                <div class="card-body text-center">
+                  <h5 style="color: white">Total ventas:</h5>
+                  <h4 style="color: white">
+                    <b> {{ order.totalVentas | currency: "$" }}</b>
+                  </h4>
                 </div>
               </div>
             </td>
           </tr>
         </tbody>
       </table>
-      <!-- <div *ngFor="let order of orders | filtroFecha: fechaInicial:fechaFinal;
-      let i = index;
-      let ultimo = last">
-      <div class="card" *ngIf="ultimo">
-        <div class="card-body">
-          <h4>Total: {{order.totalVentas}}</h4>
-        </div>
-      </div>
-      <div class="card" *ngIf="ultimo">
-        <div class="card-body">
-          <h4>#ventas: {{order.numVentas}}</h4>
-        </div>
-      </div>
-
-      </div> -->
     </div>
   </div>
-  <!-- <div class="row">
-  <div class="col">
-    <nav aria-label="Page navigation example" class="text-right">
-      <ul class="pagination">
-        <li class="page-item">
-          <span aria-label="Previous" class="btn border" (click)="prevPage()">
-            <span aria-hidden="true"
-              ><i class="fa fa-angle-double-left" aria-hidden="true"></i>
-            </span>
+
+  <!-- <nav aria-label="Page navigation example" class="text-right" *ngIf="mostrar==true && mostrar2==true">
+    <ul class="pagination">
+      <li class="page-item">
+        <span aria-label="Previous" class="btn border" (click)="prevPage()">
+          <span aria-hidden="true"
+            ><i class="fa fa-angle-double-left" aria-hidden="true"></i>
           </span>
-        </li>
-        <li class="page-item active" aria-current="page">
-          <a class="page-link">{{ numPagina }}</a>
-        </li>
-        <li class="page-item">
-          <button
-            aria-label="Next"
-            class="btn border"
-            (click)="nextPage()"
-            [disabled]="(orders | filtro: page:search).length === 0"
-          >
-            <span aria-hidden="true"
-              ><i class="fa fa-angle-double-right" aria-hidden="true"></i>
-            </span>
-          </button>
-        </li>
-      </ul>
-</nav>
- 
-  
-  </div>
-</div> -->
+        </span>
+      </li>
+      <li class="page-item active" aria-current="page">
+        <a class="page-link">{{ numPagina }}</a>
+      </li>
+      <li class="page-item">
+        <button
+          aria-label="Next"
+          class="btn border"
+          (click)="nextPage()"
+          [disabled]="(orders | filtro:page:search).length === 0"
+        >
+          <span aria-hidden="true"
+            ><i class="fa fa-angle-double-right" aria-hidden="true"></i>
+          </span>
+        </button>
+      </li>
+    </ul>
+  </nav> -->
 </div>
 <ng-template #elseBlock>
   <div class="div">

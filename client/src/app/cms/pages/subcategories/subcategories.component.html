@@ -1,8 +1,8 @@
 <div class="container-fluid">
   <div class="form-group">
-    <h1><span style="float: left"><i class="fa fa-users" aria-hidden="true"></i></span></h1>
+    <h1><span style="float: left"><i class="fa fa-list-alt" aria-hidden="true"></i></span></h1>
     <div class="form-group">
-      <h4 style="margin-left:65px;">Subcategorías</h4>
+      <h4 style="margin-left:55px;">Subcategorías</h4>
       <span class="ml-3 text-muted">Lista de subcategorías activas</span>
     </div>
   </div>
@@ -24,6 +24,8 @@
       <button class="btn btn-primary ml-auto" routerLink="/cms/subcategories/add">
         <i class="fa fa-plus" aria-hidden="true"></i> Nueva subcategoría
       </button>
+      <button class="btn btn-success ml-3" (click)="imprimir()"><i class="fa fa-print"></i> Imprimir</button>
+
     </div>
     
   </div>

@@ -21,13 +21,11 @@ export class CheckoutGuard implements CanActivate {
 
       return this.authService.user$.pipe(
         map(user => {
-          if (!user) {
-            this.router.navigate(['/login']);
+          if (user) {
+            this.router.navigate(['/home']);
             return false;
-          }else{
-            return true;
           }
-
+          return true;
         })
       );
   }

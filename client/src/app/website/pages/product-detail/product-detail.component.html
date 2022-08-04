@@ -24,14 +24,19 @@
     </div>
     <div class="col-lg-6 col-sm-12">
       <div>
-        <h2>{{ product?.name }} {{ product?.presentation }} {{product.sleeve_color}}  {{product.flavor}}</h2>
+        <h2>
+          {{ product?.name }} {{ product?.presentation }}
+          {{ product.sleeve_color }} {{ product.flavor }}
+        </h2>
         <hr />
         <!-- <h4 class="price">{{ product?.price | currency }}</h4> -->
         <!-- <h4>Acerca de este producto</h4>
         <p>{{ product?.description }}</p> -->
       </div>
       <div class="info-carrito w-50">
-        <h4 class="price"><b>{{ product?.price | currency:'$' }}</b></h4>
+        <h4 class="price">
+          <b>{{ product?.price | currency: "$" }}</b>
+        </h4>
         <!-- <h4 class="stock">En stock</h4> -->
         <div class="form-group">
           <label for="text">Cantidad</label>
@@ -60,11 +65,16 @@
           </div>
         </div>
       </div>
-      <p class="text-muted" style="text-align: justify;">{{product.description}}</p>
+      <p class="text-muted" style="text-align: justify">
+        {{ product.description }}
+      </p>
 
       <p><b>Forma de pago:</b> Tarjeta de crédito/débito</p>
-      <p>Métodos de pago:</p>
-
+      <p><b>Métodos de pago:</b></p>
+      <ul class="lista">
+        <li><i class="fa fa-cc-visa" aria-hidden="true"></i></li>
+        <li><i class="fa fa-cc-mastercard" aria-hidden="true"></i></li>
+      </ul>
     </div>
     <!-- <div class="col-lg-3 col-sm-12 carrito">
       <div class="info-carrito">

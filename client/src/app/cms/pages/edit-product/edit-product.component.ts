@@ -150,7 +150,8 @@ export class EditProductComponent implements OnInit {
   }
 
   editProduct(f: NgForm) {
-    if (!f.valid) {
+    if (!f.valid || this.product.category_id==0 ||this.product.subcategory_id==0 ||this.product.brand_id==0 ||
+       this.product.provider_id==0) {
       this.alertsService.alertaFailTop('top-end','error','Error!!','Formulario no válido',false,1500);
     } else {
       this.productsService

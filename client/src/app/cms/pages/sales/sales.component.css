@@ -1,7 +1,8 @@
 .card-total {
   background-color: rgb(25, 89, 228);
-  color: white;
-  font-weight: bold;
+  /* color: white;
+  font-weight: bold; */
+  width: 200px;
 }
 .card-num {
   background-color: rgb(25, 89, 228);
@@ -42,3 +43,26 @@ h4 {
   outline: none !important;
   outline-offset: 0px;
 }
+.columna{
+  margin: 0;
+  padding: 0;
+}
+.col-md-7{
+  margin: 0;
+  padding: 0;
+}
+.col-md-1{
+  margin: 0;
+  padding: 0;
+}
+.tabla-ventas-head tr{
+  height: 60px;
+}
+.tabla-factura-head tr{
+  height: 60px !important;
+}
+
+/* .scroll{ */
+  /* height: 500px; */
+  /* width: 800px; */
+/* } */

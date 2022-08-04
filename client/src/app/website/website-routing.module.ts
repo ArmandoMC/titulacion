@@ -11,7 +11,6 @@ import { ProductDetailComponent } from './pages/product-detail/product-detail.co
 import { LayoutComponent } from './components/layout/layout.component';
 import { MyAddressesComponent } from './pages/my-addresses/my-addresses.component';
 import { OrdersComponent } from './pages/orders/orders.component';
-import { InvoiceComponent } from './pages/invoice/invoice.component';
 
 import { HomeComponent } from './pages/home/home.component';
 import {AuthGuard} from '../guards/auth.guard';
@@ -57,7 +56,7 @@ const routes: Routes = [
       },
       {
         path: 'account',
-        // canActivate:[AuthGuard],
+        canActivate:[AuthGuard],
         component: AccountComponent,
       },
       {
@@ -66,15 +65,17 @@ const routes: Routes = [
       },
       {
         path: 'my-addresses',
+        canActivate:[AuthGuard],
         component: MyAddressesComponent,
       },
       {
         path: 'orders',
+        canActivate:[AuthGuard],
         component: OrdersComponent,
       },
       {
         path: 'checkout',
-        canActivate:[CheckoutGuard],
+        canActivate:[AuthGuard],
         component: CheckoutComponent,
       },
      
@@ -104,11 +105,12 @@ const routes: Routes = [
       },
       {
         path: 'login',
+        canActivate:[CheckoutGuard],
         component: LoginComponent,
       },
       {
         path: 'register',
-        canDeactivate:[ExitGuard],
+        // canDeactivate:[ExitGuard],
         component: RegisterComponent,
       },
       {

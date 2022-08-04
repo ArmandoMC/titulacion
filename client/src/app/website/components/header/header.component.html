@@ -7,8 +7,6 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <form class="form-inline my-2 my-lg-0">
-      <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> -->
     </form>
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
@@ -18,7 +16,7 @@
         <a routerLinkActive="active" routerLink="/institucional/sugerencias" class="nav-link">Sugerencias y Consejos</a>
       </li>
       <li class="nav-item">
-        <a routerLinkActive="active" routerLink="/institucional/quienes-somos" class="nav-link">¿Quienes somos?</a>
+        <a routerLinkActive="active" routerLink="/institucional/quienes-somos" class="nav-link">Nosotros</a>
       </li>
       <li class="nav-item">
         <a routerLinkActive="active" routerLink="/institucional/contacto" class="nav-link">Contáctanos</a>
@@ -38,7 +36,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item"  routerLink="/account">Mi cuenta</a>
-          <a *ngIf="role=='admin'" class="dropdown-item" style="cursor: pointer" (click)="goCMS()">Ir al CMS</a>
+          <a *ngIf="role=='admin'" class="dropdown-item" style="cursor: pointer" (click)="goCMS()">Ir al Panel Administrativo</a>
           <a class="dropdown-item" style="cursor: pointer" (click)="logout()">Salir</a>
         </div>
       </li>
@@ -47,7 +45,7 @@
       </li>
       <li class="nav-item cart">
         <a class="nav-link " routerLink="/my-cart"><i class="fa fa-shopping-cart" aria-hidden="true">
-        </i><span class="badge badge-dark counter">{{counter}}</span></a>       
+        </i><span class="badge badge-primary counter">{{counter}}</span></a>       
       </li>
     </ul>
    

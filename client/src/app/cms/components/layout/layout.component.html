@@ -16,7 +16,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item"  routerLink="/account">Mi cuenta</a>
-          <a *ngIf="role=='admin'" class="dropdown-item" style="cursor: pointer" (click)="goToHome()">Ir al Home</a>
+          <!-- <a *ngIf="role=='admin'" class="dropdown-item" style="cursor: pointer" (click)="goToHome()">Ir al Home</a> -->
           <a class="dropdown-item" style="cursor: pointer" (click)="logout()">Salir</a>
         </div>
       </li>
@@ -26,14 +26,15 @@
 </nav>
 <aside>
   <ul>
-    <li routerLinkActive="active"><a routerLink="dashboard">Dashboard</a></li>
+    <li routerLinkActive="active"><a routerLink="dashboard"><i class="fa fa-home" aria-hidden="true"></i> Dashboard</a></li>
     <li routerLinkActive="active" class="acc">
       <div class="accordion" id="accordionExample">
         <div class="card">
           <div class="card-header" id="headingOne">
-            <h2 class="mb-0">
-              <button class="btn btn-block" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-               PEDIDOS
+            <h2 class="mb-0 text-left">
+              <button class="btn btn-block" type="button" data-toggle="collapse" data-target="#collapseOne"
+               aria-expanded="false" aria-controls="collapseOne" >
+               <i class="fa fa-tags" aria-hidden="true"></i> Pedidos
               </button>
             </h2>
           </div>
@@ -44,7 +45,7 @@
                 <a routerLink="orders/pendientes">Pedidos pendientes</a>
               </li>
               <li routerLinkActive="active">
-                <a routerLink="orders/en-camino">Pedidos en camino</a>
+                <a routerLink="orders/en-camino">Pedidos enviados</a>
               </li>
               <li routerLinkActive="active">
                 <a routerLink="orders/finalizadas">Pedidos entregados</a>
@@ -54,13 +55,13 @@
         </div>
       </div>  
     </li>
-    <li routerLinkActive="active"><a routerLink="customers">Customers</a></li>
-    <li routerLinkActive="active"><a routerLink="products">Products</a></li>
-    <li routerLinkActive="active"><a routerLink="categories">Categorías</a></li>
-    <li routerLinkActive="active"><a routerLink="subcategories">Subcategorías</a></li>
-    <li routerLinkActive="active"><a routerLink="brands">Marcas</a></li>
-    <li routerLinkActive="active"><a routerLink="providers">Proveedores</a></li>
-    <li routerLinkActive="active"><a routerLink="ventas">Ventas</a></li>
+    <li routerLinkActive="active"><a routerLink="customers"><i class="fa fa-users" aria-hidden="true"></i> Customers</a></li>
+    <li routerLinkActive="active"><a routerLink="products"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Productos</a></li>
+    <li routerLinkActive="active"><a routerLink="categories"><i class="fa fa-list-alt" aria-hidden="true"></i> Categorías</a></li>
+    <li routerLinkActive="active"><a routerLink="subcategories"><i class="fa fa-list-alt" aria-hidden="true"></i> Subcategorías</a></li>
+    <li routerLinkActive="active"><a routerLink="brands"><i class="fa fa-list-alt" aria-hidden="true"></i> Marcas</a></li>
+    <li routerLinkActive="active"><a routerLink="providers"><i class="fa fa-users" aria-hidden="true"></i> Proveedores</a></li>
+    <li routerLinkActive="active"><a routerLink="ventas"><i class="fa fa-usd" aria-hidden="true"></i> Ventas</a></li>
     <!-- <li routerLinkActive="active"><a routerLink="menu/nosotros">Menu Nosotros</a></li>
     <li routerLinkActive="active"><a routerLink="menu/sugerencias">Menu Sugerencias</a></li> -->
   </ul>

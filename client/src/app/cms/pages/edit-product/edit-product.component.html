@@ -170,20 +170,27 @@
               </div>
               <div class="form-group col-md-6">
                 <label for="">Imagen</label>
-                <input
-                  type="file"
-                  class="form-control"
-                  (change)="onPhotoSelected($event)"
-                  name="image"
-                  required
-                  [disabled]="isDisabled"
-                />
-                <img
-                  *ngIf="product.image"
-                  [src]="product.image"
-                  alt=""
-                  width="60"
-                />
+                <div class="row">
+                  <div class="col-md-7">
+                    <input
+                      type="file"
+                      class="form-control"
+                      (change)="onPhotoSelected($event)"
+                      name="image"
+                      required
+                      [disabled]="isDisabled"
+                    />
+                  </div>
+                  <div class="col-md-5">
+                    <img
+                      *ngIf="product.image"
+                      [src]="product.image"
+                      alt=""
+                      width="70"
+                      align="center"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
             <div class="form-row">

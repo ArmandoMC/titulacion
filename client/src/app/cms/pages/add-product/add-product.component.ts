@@ -32,10 +32,10 @@ export class AddProductComponent implements OnInit {
   purchase_price: number;
   price: number;
   image?: File = new File([], '');
-  category_id: number;
-  subcategory_id: number;
-  brand_id: number;
-  provider_id: number;
+  category_id: number=0;
+  subcategory_id: number=0;
+  brand_id: number=0;
+  provider_id: number=0;
   /////////////
   categories: Category[] = [];
   subcategories: SubCategory[] = [];
@@ -59,6 +59,7 @@ export class AddProductComponent implements OnInit {
   vectorBrand: string[] = [];
   //Filtrado
   filterProduct: string = '';
+  hayFoto:boolean=false;
   constructor(
     private productsService: ProductsService,
     private categoriesService: CategoriesService,
@@ -102,7 +103,8 @@ export class AddProductComponent implements OnInit {
     this.getUltimoId();
   }
   createProduct(f: NgForm) {
-    if (!f.valid) {
+    if (!f.valid || this.category_id==0 || this.subcategory_id==0 || this.brand_id==0 || this.provider_id==0
+      || this.hayFoto==false) {
       this.alertsService.alertaFailTop('top-end','error','Error!!','Formulario no válido',false,1500);
     } else {
       this.productsService
@@ -173,6 +175,7 @@ export class AddProductComponent implements OnInit {
     const file = element.files?.item(0);
     if (file) {
       this.image = file;
+      this.hayFoto=true;
       console.log(this.image);
     }
   }

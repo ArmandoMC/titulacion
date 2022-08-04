@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <div class="form-group">
-    <h1><span style="float: left"><i class="fa fa-users" aria-hidden="true"></i></span></h1>
+    <h1><span style="float: left"><i class="fa fa-tags" aria-hidden="true"></i></span></h1>
     <div class="form-group">
       <h4 style="margin-left:65px;">Pedidos enviados</h4>
       <span class="ml-3 text-muted">Lista de pedidos enviados</span>
@@ -48,7 +48,7 @@
           <td>{{ order.id }}</td>
           <td>{{ order.name }}</td>
           <td>{{ order.total | currency }}</td>
-          <td>{{ order.created_at | customDate' }}</td>
+          <td>{{ order.created_at | customDate}}</td>
           <td>{{ order.id_transaccion }}</td>
           <td><span class="badge badge-warning">{{order.status}}</span></td>
           <td> <button class="btn btn-success" [routerLink]="['/cms/orders/en-camino/confirm',order.id]">Envio</button></td>
