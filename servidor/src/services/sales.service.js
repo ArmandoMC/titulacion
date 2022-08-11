@@ -9,8 +9,8 @@ class SalesService {
     this.pool.on('error', (err) => console.error(err));
   }
   async createVenta(data) {
-    
-    const{status,created_at}=data;
+    const status='Pagada';
+    const{created_at}=data;
     const statement = {
       text: `INSERT INTO sales(status,created_at) VALUES($1,$2) RETURNING *`,
       values: [status,created_at]
@@ -25,7 +25,6 @@ class SalesService {
     console.log('venta creada: ',venta)
 
     const numFactura='000-000-000000'+venta.id_sale;
-    // console.log('codigo venta:',venta.codigo)
     console.log('numero de factura :',numFactura)
     const statement2 = {
       text: `UPDATE sales SET num_factura=$1 WHERE id_sale=${venta.id_sale} RETURNING *`,

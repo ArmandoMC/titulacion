@@ -4,6 +4,17 @@
 .carrito{
     
 }
+.content-select{
+    position: relative;
+    margin-bottom: 10px;
+
+}
+.content-select select{
+    outline: 0; 
+    border: 1px solid rgb(207, 205, 205);
+  border-radius: 0;
+  height: 32px;
+}
 .info-carrito{
     /* border-style: solid;
     border-radius: 10px;

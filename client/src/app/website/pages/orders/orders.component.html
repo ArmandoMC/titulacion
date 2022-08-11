@@ -8,10 +8,12 @@
     </nav>
 </div>
 <div class="container principal mt-4">
+  <h5 class="mb-3" style="color: rgb(97, 92, 92);
+  ">Lista de pedidos realizados</h5>
   <div class="table-responsive">
     <table class="table table-bordered" *ngIf="orders.length > 0; else elseBlock">
       <thead class="">
-        <tr>
+        <tr class="text-center">
           <th scope="col">Id</th>
           <th scope="col">Total</th>
           <th scope="col">Fecha de pedido</th>
@@ -20,7 +22,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let order of orders; let indice = index">
+        <tr *ngFor="let order of orders; let indice = index" class="text-center">
           <td>{{ order.id }}</td>
           <td>{{ order.total | currency }}</td>
           <td>{{ order.created_at | date:'short' }}</td>

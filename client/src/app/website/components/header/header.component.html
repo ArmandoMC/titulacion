@@ -21,17 +21,20 @@
       <li class="nav-item">
         <a routerLinkActive="active" routerLink="/institucional/contacto" class="nav-link">Contáctanos</a>
       </li>
+      <li class="nav-item">
+        <a routerLinkActive="active" routerLink="/como-comprar" class="nav-link">Cómo comprar</a>
+      </li>
       
     </ul>
     <ul class="navbar-nav  datos-usuario">
       <li *ngIf="!isLoggedIn" class="nav-item">
-        <a routerLink="/login"class="nav-link">Iniciar sesión</a>
+        <a routerLinkActive="active" routerLink="/login"class="nav-link">Iniciar sesión</a>
       </li>
       <li *ngIf="!isLoggedIn" class="nav-item">
-        <a routerLink="/register" class="nav-link">Registrarse</a>
+        <a routerLinkActive="active" routerLink="/register" class="nav-link">Registrarse</a>
       </li>
       <li *ngIf="isLoggedIn" class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+        <a routerLinkActive="active" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
           <i class="fa fa-user" aria-hidden="true"></i> Hola,{{loggedInUser}}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -41,7 +44,7 @@
         </div>
       </li>
       <li *ngIf="isLoggedIn" class="nav-item">
-        <a class="nav-link " routerLink="/orders">MIS PEDIDOS</a>
+        <a routerLinkActive="active" class="nav-link " routerLink="/orders">Mis Pedidos</a>
       </li>
       <li class="nav-item cart">
         <a class="nav-link " routerLink="/my-cart"><i class="fa fa-shopping-cart" aria-hidden="true">

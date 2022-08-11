@@ -30,6 +30,7 @@ import { TerminosComponent } from './pages/terminos/terminos.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { PreguntasFrecuentesComponent } from './pages/preguntas-frecuentes/preguntas-frecuentes.component';
 import { ContactoComponent } from './pages/contacto/contacto.component';
+import { ComoComprarComponent } from './pages/como-comprar/como-comprar.component';
 // import { FlashMessageModule } from 'angular2-flash-message';
 
 @NgModule({
@@ -54,7 +55,8 @@ import { ContactoComponent } from './pages/contacto/contacto.component';
     TerminosComponent,
     FooterComponent,
     PreguntasFrecuentesComponent,
-    ContactoComponent
+    ContactoComponent,
+    ComoComprarComponent
     
   ],
   imports: [

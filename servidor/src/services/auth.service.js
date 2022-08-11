@@ -56,6 +56,7 @@ class AuthService {
     }
     const payload = { sub: user.id };
     const token = jwt.sign(payload, config.jwtRecoverySecret, { expiresIn: '15min' });
+    console.log(token)
     const link = `http://localhost:4200/recovery/new-password/${token}`;
 
     await service.updateRecoveryField(user.id, token);
@@ -63,9 +64,18 @@ class AuthService {
       from: config.smtpEmail, // sender address
       to: `${user.email}`,  // list of receivers
       subject: "Email para recuperar contraseña", // Subject line
-      // text: "Hello armando 67612", // plain text body
-      html: `<b>Ingresa a este link =>${link} </b>`, // html body
+     
+      // plain text body
+      html: `<p>Por favor da click en el siguiente enlace para restablecer tu contraseña.</p> </br>
+      <a href=${link}>Restablecer contraseña</a> </br>
+      <p>El enlace solo será válido por 15 minutos.</p></br>
+      <p>Si presentas problemas para hacer clic en el enlace, entonces copia y pega el siguiente link
+      en tu navegador:</p> </br>
+      <p>${link}</p>`
+
+
     }
+    // <b>Ingresa a este link =>${link} </b>`, 
     const rta = await this.sendMail(mail);
     return rta;
   }

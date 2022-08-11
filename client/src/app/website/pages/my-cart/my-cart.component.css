@@ -20,3 +20,23 @@
 .clear-fix{
     clear: both;
 }
+
+.input-cantidad{
+    height: 39px;
+    border: 1px solid rgb(201, 200, 200);
+    width: 100px;
+}
+
+.boton-restar{
+   border-radius: 0;
+   margin-left: 63px;
+   font-weight: bold;
+   width: 38px;
+   background-color: rgb(235, 235, 235);
+}
+.boton-sumar{
+    border-radius: 0;
+    font-weight: bold;
+    background-color: rgb(235, 235, 235);
+
+ }

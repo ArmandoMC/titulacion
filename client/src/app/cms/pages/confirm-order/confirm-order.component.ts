@@ -52,8 +52,6 @@ export class ConfirmOrderComponent implements OnInit {
         this.router.navigate(['/cms/orders/en-camino']);
       })
     }
-   
-  
   }
 
 }

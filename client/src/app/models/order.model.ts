@@ -10,8 +10,8 @@ export interface OrderPayment{
   created_at?:Date;
   token?:string;
   name?:string;
+  last_name?:string;
   num_factura?:string;
-  confirmation?:boolean;
   totalVentas?:number;
   numVentas?:number;
   

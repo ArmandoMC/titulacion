@@ -21,13 +21,13 @@
     <tbody>
       <tr *ngFor="let product of products; let indice = index">
         <th scope="row">{{ indice + 1 }}</th>
-        <td><p>{{product.name}} {{product.presentation}} {{product.sleeve_color}} {{product.flavor}} </p><img [src]="product.image" alt="" width="120" /> </td>
+        <td><p>{{product.name}} {{product.presentation}} {{product.sleeve_color}} {{product.flavor}} </p><img [src]="product.image" alt="" width="120" class="img-producto"/> </td>
         <td>{{ product.price | currency:'$'}}</td>
-        <td>
-          <div class="">
-            <button (click)="restar(product.id)">-</button>
-            <input type="text" name="oferta" id="" value="{{product.oferta}}" disabled>
-            <button (click)="sumar(product.id)">+</button>
+        <td class="text-center">
+          <div class="form-row todo">
+            <button (click)="restar(product.id)" class="btn border boton-restar">-</button>
+            <input type="text" name="oferta" id="" value="{{product.oferta}}" disabled class="input-cantidad text-center">
+            <button (click)="sumar(product.id)" class="btn border boton-sumar">+</button>
           </div>
           
         </td>

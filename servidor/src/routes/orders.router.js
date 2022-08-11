@@ -17,19 +17,7 @@ const servicePago=new PagoService();
 const serviceSales=new SalesService();
 const addressService=new AddressService();
 
-router.get('/fecha',
-  // validatorHandler(getOrderSchema, 'params'),
-  async (req, res, next) => {
-    try {
-      const { fechaInicial,fechaFinal} = req.body;
-      console.log('fecha inicial:',fechaInicial,'fecha final:',fechaFinal)
-      const orders = await servicePago.findByFecha(req.body);
-      res.json(orders);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
+
 // router.post('/',
 //   passport.authenticate('jwt', { session: false }),
 //   validatorHandler(createOrderSchema, 'body'),
@@ -48,18 +36,7 @@ router.get('/fecha',
 //   }
 // );
 
-// router.get('/ultimoId',
-//   // validatorHandler(getOrderSchema, 'params'),
-//   async (req, res, next) => {
-//     try {
-//       // const { id } = req.params;
-//       const idOrder=await service.getUltimoId();
-//       res.status(201).json({ idOrder});
-//     } catch (error) {
-//       next(error);
-//     }
-//   }
-// );
+
 router.get('/count',
   // validatorHandler(getOrderSchema, 'params'),
   async (req, res, next) => {
@@ -169,7 +146,7 @@ router.put('/pending/confirm/:id',
     try {
       const {id} = req.params;
       const {status}=req.body;
-      console.log('item recibido en ruta',id,"y confirmation recibod:",status)
+      console.log('item recibido en ruta',id,"y estado de confirmacion recibido:",status)
       const orderConfirmada = await servicePago.findOneForUpdateStatus(id,status);
      
       console.log('(orden):',orderConfirmada)
@@ -237,12 +214,6 @@ router.get('/detail/:id',
     }
   }
 );
-
-
-
-
-
-
 
 router.get('/customer/:id',
   // validatorHandler(getOrderSchema, 'params'),

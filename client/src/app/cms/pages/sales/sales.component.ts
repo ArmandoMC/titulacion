@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderPayment } from 'src/app/models/order.model';
 import {CheckoutService} from '../../../services/checkout.service';
-import {DatePipe} from '@angular/common';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import {format} from'date-fns';
@@ -22,7 +21,6 @@ export class SalesComponent implements OnInit {
   fechaInicial:any;
   fechaFinal:any;
   total:number=0;
-  pipe=new DatePipe('en-US');
   public page: number = 0;
   public search: string = '';
   public numPagina:number=1;

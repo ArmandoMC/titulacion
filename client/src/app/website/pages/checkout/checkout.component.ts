@@ -221,7 +221,7 @@ export class CheckoutComponent implements OnInit {
 
                 this.storeService.vaciarCart();
                 this.alertsService.alertaSuccessTop('top-end','success','Pago exitoso',false,1500);
-                this.router.navigate(['/home']);
+                this.router.navigate(['/orders']);
             })
             this.productService.updateStockProducts(this.cart).subscribe(dt=>{
               console.log('data de stock actualzidos:',dt)
@@ -249,7 +249,7 @@ export class CheckoutComponent implements OnInit {
       //TODO: SDK de stripe se encarga de verificar si el banco necesita autorizar o no
       // this.toaster.open({text: 'Algo ocurrio mientras procesaba el pago', caption: 'ERROR', type: 'danger'})
       console.log('ALGO ACURRIO MIENTRAS SE PROCESABA EL PAGO');
-      this.alertsService.alertaFailTop('top-end','error','Error!!','Algo ocurrió mientras se procesaba el pago',false,1500);
+      this.alertsService.alertaFailTop('top-end','error','Error!!','Datos de tarjeta no válidos',false,1500);
 
     }
   }

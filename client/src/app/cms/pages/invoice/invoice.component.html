@@ -1,240 +1,173 @@
 <div class="container">
-    <h5 class="mt-2">Visualización de factura</h5>
-  
-    <form id="">
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="">#FACTURA</label>
-          <input
-            type="text"
-            class="form-control"
-            name="numFactura"
-            [(ngModel)]="numFactura"
-            disabled
-          />
-        </div>
-        <div class="form-group col-md-6">
-          <label for="">Fecha de facturación</label>
-          <div class="num-factura" >
-          {{fechaFactura | customDate}}
-          </div> 
+  <h5 class="mt-2 mb-2">Visualización de factura</h5>
+
+  <form id="">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="">N° Factura</label>
+        <input
+          type="text"
+          class="form-control"
+          name="numFactura"
+          [(ngModel)]="numFactura"
+          disabled
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="">Fecha de facturación</label>
+        <div class="num-factura">
+          {{ fechaFactura | customDate }}
         </div>
       </div>
-      <hr />
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="">Cliente</label>
-          <input
-            type="text"
-            class="form-control"
-            name="nameCustomer"
-            [(ngModel)]="nameCustomer"
-            disabled
-          />
-        </div>
-        <div class="form-group col-md-6">
-          <label for="">Cédula</label>
-          <input
-            type="text"
-            class="form-control"
-            name="dniCustomer"
-            [(ngModel)]="dniCustomer"
-            disabled
-          />
-        </div>
+    </div>
+    <hr />
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="">Cliente</label>
+        <input
+          type="text"
+          class="form-control"
+          name="nameCustomer"
+          [(ngModel)]="nameCustomer"
+          disabled
+        />
       </div>
-  
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="">Dirección</label>
-          <input
-            type="text"
-            class="form-control"
-            name="orderAddress"
-            [(ngModel)]="orderAddress"
-            disabled
-          />
-        </div>
-        <div class="form-group col-md-6">
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="">Email</label>
-              <input
-                type="text"
-                class="form-control"
-                name="emailCustomer"
-                [(ngModel)]="emailCustomer"
-                disabled
-              />
-            </div>
-            <div class="form-group col-md-6">
-              <label for="">Telefono</label>
-              <input
-                type="text"
-                class="form-control"
-                name="phoneCustomer"
-                [(ngModel)]="phoneCustomer"
-                disabled
-              />
-            </div>
+      <div class="form-group col-md-6">
+        <label for="">Cédula</label>
+        <input
+          type="text"
+          class="form-control"
+          name="dniCustomer"
+          [(ngModel)]="dniCustomer"
+          disabled
+        />
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="">Dirección</label>
+        <input
+          type="text"
+          class="form-control"
+          name="orderAddress"
+          [(ngModel)]="orderAddress"
+          disabled
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="">Email</label>
+            <input
+              type="text"
+              class="form-control"
+              name="emailCustomer"
+              [(ngModel)]="emailCustomer"
+              disabled
+            />
+          </div>
+          <div class="form-group col-md-6">
+            <label for="">Telefono</label>
+            <input
+              type="text"
+              class="form-control"
+              name="phoneCustomer"
+              [(ngModel)]="phoneCustomer"
+              disabled
+            />
           </div>
         </div>
       </div>
-      <hr />
-      <table
-        id="formFactura"
-        class="table table-bordered"
-        *ngIf="order && orderDetail"
-      >
-        <thead class="text-center">
-          <tr class="text-center w-100">
-           
-            <td colspan="4"><b class="mx-auto">DETALLES</b></td>
-          </tr>
-          <tr>
-            <th scope="col">Producto</th>
-            <th scope="col">Cantidad</th>
-            <th scope="col">Precio</th>
-            <th scope="col">Subtotal</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let detail of orderDetail" class="text-center">
-            <td>{{ detail.name }}</td>
-            <td>{{ detail.quantity }}</td>
-            <td>{{ detail.price | currency:'$' }}</td>
-            <td>{{ detail.price * detail.quantity | currency:'$' }}</td>
-          </tr>
-        </tbody>
-        </table>
-          <table class="table table-borderless" id="formTotales">
-            <tbody>
-              <tr class="">
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-               
-               
-               
-                <td>
-                  <h6 class="">
-                    Subtotal:
-                    <b style="font-size: 15px">{{ total - tarifaFija | currency:'$' }}</b>
-                  </h6>
-                </td>
-              </tr>
-        
-              <tr class="">
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td>
-                  <h6>Iva: <b style="font-size: 15px">$0.00</b></h6>
-                </td>
-              </tr>
-        
-              <tr class="">
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td>
-                  <h6>
-                    Envío: <b>{{ tarifaFija | currency:'$' }}</b>
-                  </h6>
-                </td>
-              </tr>
-              <tr class="">
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td colspan=""></td>
-                <td>
-                  <h5>
-                    Total: <b style="font-size: 20px">{{ total | currency }}</b>
-                  </h5>
-                </td>
-              </tr>
-            </tbody>
-          
-          </table>
-    </form>
-    <br />
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <button class="btn btn-primary" (click)="imprimir()"><i class="fa fa-print" aria-hidden="true"></i> IMPRIMIR</button>
-      </div>
     </div>
-   
+    <hr />
+    <table
+      id="formFactura"
+      class="table table-bordered"
+      *ngIf="order && orderDetail"
+    >
+      <thead class="text-center">
+        <tr class="text-center w-100">
+          <!-- <td colspa="4"><b class="mx-auto">DETALLES</b></td> -->
+        </tr>
+        <tr>
+          <th scope="col">Descripción</th>
+          <th scope="col">Cantidad</th>
+          <th scope="col">Precio</th>
+          <th scope="col">Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let detail of orderDetail" class="text-center">
+          <td>{{ detail.name }}</td>
+          <td>{{ detail.quantity }}</td>
+          <td>{{ detail.price | currency: "$" }}</td>
+          <td>{{ detail.price * detail.quantity | currency: "$" }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="table table-borderless" id="formTotales">
+      <tbody>
+        <tr class="">
+          <td colspan="">
+            <h6 class="">Subtotal:</h6>
+          </td>
+          <td colspan="" style="width: 100px; padding-right: 57px">
+            <h6 class="">
+              <b style="font-size: 15px">{{
+                total - tarifaFija | currency: "$"
+              }}</b>
+            </h6>
+          </td>
+        </tr>
+
+        <tr class="">
+          <td>
+            <h6>Iva:</h6>
+          </td>
+          <td style="width: 100px; padding-right: 57px">
+            <h6><b style="font-size: 15px">$0.00</b></h6>
+          </td>
+        </tr>
+
+        <tr class="" style="display: none">
+          <td>
+            <h6>Descuento:</h6>
+          </td>
+          <td style="width: 100px; padding-right: 57px">
+            <h6><b style="font-size: 15px">$0.00</b></h6>
+          </td>
+        </tr>
+
+        <tr class="">
+          <td>
+            <h6>Envío:</h6>
+          </td>
+          <td style="width: 100px; padding-right: 57px">
+            <h6>
+              <b>{{ tarifaFija | currency: "$" }}</b>
+            </h6>
+          </td>
+        </tr>
+        <tr class="">
+          <td>
+            <h5>TOTAL:</h5>
+          </td>
+          <td style="width: 100px; padding-right: 57px">
+            <h5>
+              <b style="font-size: 20px">{{ total | currency }}</b>
+            </h5>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+  <br />
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <button class="btn btn-primary" (click)="imprimir()">
+        <i class="fa fa-print" aria-hidden="true"></i> IMPRIMIR
+      </button>
+    </div>
   </div>
-  
+</div>

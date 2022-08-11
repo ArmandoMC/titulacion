@@ -46,12 +46,6 @@ class PagoService {
       let orderDetail = await this.pool.query(query);
       console.log('detalle de orden',orderDetail.rows)
     };
-     
-
-    // console.log('detalle de orden:', orderDetail.rows)
-    // if (order.rows.length === 0) {
-    //   throw boom.notFound('error al crear orden');
-    // }
 
     return {message:'Detalle de orden registrado con éxito'};
   }
@@ -131,7 +125,7 @@ class PagoService {
   async findOne(id) {
     const query =
     {
-      text: `SELECT ord.id,ord.total,ord.status,ord.created_at,ord.sale_id,ad.address,c.name,c.dni,c.phone,us.email,s.num_factura FROM orders ord INNER JOIN customers c ON ord.customer_id=c.id 
+      text: `SELECT ord.id,ord.total,ord.status,ord.created_at,ord.sale_id,ad.address,c.name,c.last_name,c.dni,c.phone,us.email,s.num_factura FROM orders ord INNER JOIN customers c ON ord.customer_id=c.id 
       INNER JOIN users us On c.user_id=us.id
       INNER JOIN address ad ON ord.address_id=ad.id INNER JOIN sales s ON ord.sale_id=s.id_sale WHERE ord.id=$1`,
       values: [id]
@@ -142,17 +136,7 @@ class PagoService {
     }
     return order.rows[0];
   }
-  async findByFecha() {
-    const query =
-    {
-      text: `SELECT ord.id,ord.customer_id,ord.total,ord.id_transaccion,ord.status,ord.created_at,c.name,sa.num_factura FROM orders ord INNER JOIN customers c ON ord.customer_id=c.id JOIN sales sa ON ord.sale_id=sa.id_sale`
-    };
-    const orders = await this.pool.query(query);
-    if (orders.rows.length === 0) {
-      return [];
-    }
-    return orders.rows;
-  }
+
   async findCountTotal() {
     const query =
     {

@@ -11,6 +11,7 @@ import { ProductDetailComponent } from './pages/product-detail/product-detail.co
 import { LayoutComponent } from './components/layout/layout.component';
 import { MyAddressesComponent } from './pages/my-addresses/my-addresses.component';
 import { OrdersComponent } from './pages/orders/orders.component';
+import { ComoComprarComponent } from './pages/como-comprar/como-comprar.component';
 
 import { HomeComponent } from './pages/home/home.component';
 import {AuthGuard} from '../guards/auth.guard';
@@ -112,6 +113,11 @@ const routes: Routes = [
         path: 'register',
         // canDeactivate:[ExitGuard],
         component: RegisterComponent,
+      },
+      {
+        path: 'como-comprar',
+        // canDeactivate:[ExitGuard],
+        component: ComoComprarComponent,
       },
       {
         path: 'recovery/new-password/:token',

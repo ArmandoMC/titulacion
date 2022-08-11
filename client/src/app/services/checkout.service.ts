@@ -14,12 +14,9 @@ export class CheckoutService {
   private API='http://localhost:3000/api';
 
   private myOrders: OrderPayment[]=[];
-  private myOrdersPending: OrderPayment[]=[];
 
   private orders= new BehaviorSubject<OrderPayment[]>([]);
   orders$ = this.orders.asObservable();
-  private ordersPending= new BehaviorSubject<OrderPayment[]>([]);
-  ordersPending$ = this.ordersPending.asObservable();
 
   constructor(
     private http:HttpClient,
@@ -112,10 +109,7 @@ export class CheckoutService {
     return this.http.get<any>(`${this.API}/orders/count-completed`)
 
   }
-  orderByFecha(dto:Fecha){
-    return this.http.get<OrderPayment[]>(`${this.API}/orders/fecha`)
-
-  }
+  
   getTotal(){
     return this.http.get<any>(`${this.API}/orders/count`)
 
