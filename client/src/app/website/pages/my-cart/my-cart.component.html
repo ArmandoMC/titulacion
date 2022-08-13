@@ -32,18 +32,18 @@
           
         </td>
         <td>{{ product.subtotal |currency}}</td>
-        <td>
+        <td class="text-center">
           <button
-            class="btn btn-primary"
+            class="btn btn-danger"
             (click)="eliminarProducto(product.id)"
           >
-            Eliminar
+          <i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar
           </button>
         </td>
       </tr>
     </tbody>
   </table>
-  <h4 *ngIf="products.length > 0" class="pr-5 h-total text-right">Total({{numProducts}} productos):{{total | currency}}</h4>
+  <h4 *ngIf="products.length > 0" class="pr-5 h-total text-right">Total ({{numProducts}} productos): {{total | currency}}</h4>
 
   <ng-template #elseBlock>
     <div class="container carroVacio text-center">
@@ -71,11 +71,12 @@
   </button>
  
   <ng-template #elseShow>
-    <button *ngIf="products.length>0" [routerLink]="['/login']" class="btn btn-primary btn-login">
+    <button *ngIf="products.length>0" [routerLink]="['/login']" class="btn btn-primary btn-login float-right mr-5">
       Acceder a mi cuenta y pagar
     </button>
-    <p></p>
-    <button *ngIf="products.length>0" [routerLink]="['/register']" class="btn btn-primary btn-register">
+    <div class="clear-fix"></div>
+
+    <button *ngIf="products.length>0" [routerLink]="['/register']" class="btn btn-primary btn-register float-right mr-5 mt-3">
       Registrarme y pagar
     </button>
   </ng-template>

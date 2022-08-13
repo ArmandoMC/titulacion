@@ -30,7 +30,7 @@
 .boton-restar{
    border-radius: 0;
    margin-left: 63px;
-   font-weight: bold;
+   /* font-weight: bold; */
    width: 38px;
    background-color: rgb(235, 235, 235);
 }

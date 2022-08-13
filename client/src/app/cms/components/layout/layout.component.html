@@ -12,7 +12,7 @@
     
       <li *ngIf="isLoggedIn" class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" 
-        aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> Hola,{{loggedInUser}}
+        aria-expanded="false"><i class="fa fa-user" aria-hidden="true"></i> {{loggedInUser}}
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item"  routerLink="/account">Mi cuenta</a>

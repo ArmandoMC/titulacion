@@ -3,7 +3,7 @@
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a routerLink="/home">Inicio</a></li>
       <li class="breadcrumb-item"><a routerLink="/account">Carrito de compras</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+      <li class="breadcrumb-item active" aria-current="page">Pago</li>
     </ol>
   </nav>
 </div>
@@ -22,7 +22,7 @@
       <a
         class="link-new-address"
         (click)="capturar()"
-        style="cursor: pointer; color: blue"
+        style="cursor: pointer; color: rgb(6, 102, 228)"
         data-toggle="modal"
         data-target="#exampleModal"
       >
@@ -215,7 +215,7 @@
     <!-- [ngClass]="{ disabled: disabledStep2 }" -->
     <img src="../../../../assets/images/paso2.png" alt="" class="img1">
     <div class="padre mb-3">
-      <h4>Datos de facturación y verificación de pedido</h4>
+      <h4>Detalles de facturación y pedido</h4>
     </div>
     <p>A continuación, revisa y completa tus datos de facturación en caso de ser necesario. También puedes modificar por última vez tu pedido.</p>
     <div class="row info-pedido mt-3">
@@ -354,7 +354,7 @@
               <tbody>
                 <tr *ngFor="let p of cart; let indice = index">
                   <td>{{ p.name }} {{ p.presentation }} {{p.sleeve_color}} {{p.flavor}} x {{ p.oferta }}</td>
-                  <td>{{ p.subtotal | currency }}</td>
+                  <td>{{ p.subtotal | currency:'$' }}</td>
                 </tr>
               </tbody>
             </table>
@@ -365,7 +365,7 @@
             </h6>
             <h6>Iva: <b style="font-size: 15px">$0.00</b></h6>
             <h6>
-              Envío: <b>{{ tarifaFija | currency:'$'}}</b>
+              Envío (Tarifa fija): <b>{{tarifaFija|currency:'$'}}</b>
             </h6>
             <h5>
               Total:
@@ -393,9 +393,8 @@
 
     <div class="container checkout-card mt-3">
       <div class="checkbox-alert mb-3">
-        <p style="text-align: justify;">📌 A continuación debes de introducir los datos de tu tarjeta para
-          realizar el pago. El pago se procesará mediante la plataforma de
-          <b><a href="https://stripe.com/" target="_blank">stripe</a>.</b></p>
+        <p style="text-align: justify;">A continuación debes de introducir los datos de tu tarjeta para
+          realizar el pago. </p>
        
       </div>
       <form action="" class="datos" (submit)="initPay()">

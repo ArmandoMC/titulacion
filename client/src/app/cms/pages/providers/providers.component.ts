@@ -66,10 +66,10 @@ export class ProvidersComponent implements OnInit {
     autoTable(doc,{head:[['REPORTE DE PROVEEDORES']],styles:{halign:'center',minCellHeight:10,cellPadding:3,
     fillColor:'#159983'}})
 
-    autoTable(doc,{
+    autoTable(doc,{theme:'plain',tableLineWidth:0.1,tableLineColor:'black',
       head:[['#','Ruc','Nombre','Teléfono','Dirección']],
-      styles:{fillColor:'#159983'},
-      body:rows,bodyStyles:{fillColor:false,lineWidth:0.1}
+      headStyles:{fillColor:'#159983',textColor:'white',lineColor:0.1,lineWidth:0.1},
+      body:rows,bodyStyles:{fillColor:false,textColor:'black',lineColor:0.1,lineWidth:0.1}
     })
     doc.save('Reporte de proveedores');
 

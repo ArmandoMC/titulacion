@@ -65,10 +65,10 @@ export class CategoriesComponent implements OnInit {
     autoTable(doc,{head:[['REPORTE DE CATEGORÍAS']],styles:{halign:'center',minCellHeight:10,cellPadding:3,
     fillColor:'#159983'}})
 
-    autoTable(doc,{
+    autoTable(doc,{theme:'plain',tableLineWidth:0.1,tableLineColor:'black',
       head:[['#','Nombre','Descripción']],
-      styles:{fillColor:'#159983'},
-      body:rows,bodyStyles:{fillColor:false,lineWidth:0.1}
+      headStyles:{fillColor:'#159983',textColor:'white',lineColor:0.1,lineWidth:0.1},
+      body:rows,bodyStyles:{fillColor:false,textColor:'black',lineColor:0.1,lineWidth:0.1}
     })
     doc.save('Reporte de categorias');
 

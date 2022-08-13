@@ -14,9 +14,9 @@
     <table class="table table-bordered" *ngIf="orders.length > 0; else elseBlock">
       <thead class="">
         <tr class="text-center">
-          <th scope="col">Id</th>
+          <th scope="col">N° orden</th>
           <th scope="col">Total</th>
-          <th scope="col">Fecha de pedido</th>
+          <th scope="col">Fecha</th>
           <th scope="col">Estado</th>
           <th scope="col">Detalle</th>
         </tr>
@@ -30,7 +30,7 @@
           <td>
             <button
               type="button"
-              class="btn btn-primary"
+              class="btn btn-info"
               data-toggle="modal"
               data-target="#exampleModal"
               (click)="verDetalle(order.id, order.address_id)"

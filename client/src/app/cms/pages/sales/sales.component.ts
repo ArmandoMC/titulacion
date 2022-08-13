@@ -103,9 +103,11 @@ export class SalesComponent implements OnInit {
     autoTable(doc,{margin:{top:40}});
     autoTable(doc,{head:[['REPORTE DE VENTAS']],styles:{halign:'center',minCellHeight:10,cellPadding:3,
     fillColor:'#159983'}})
-    autoTable(doc,{html:'#tabla-ventas',headStyles:{fillColor:'#159983'},bodyStyles:{fillColor:false,lineWidth:0.1}});
+    autoTable(doc,{html:'#tabla-ventas',theme:'plain',tableLineWidth:0.1,tableLineColor:'black',
+    headStyles:{fillColor:'#159983',textColor:'white',lineColor:0.1,lineWidth:0.1},
+    bodyStyles:{fillColor:false,textColor:'black',lineColor:0.1,lineWidth:0.1}});
    
-    autoTable(doc,{html:'#tabla-resultados',bodyStyles:{cellPadding:[2,2,2,73]}});
+    autoTable(doc,{html:'#tabla-resultados',theme:'plain',tableLineWidth:0.1,tableLineColor:'black',bodyStyles:{cellPadding:[2,2,2,76],fillColor:false,textColor:'black',lineColor:0.1,lineWidth:0.1}});
     doc.setFontSize(18);
     doc.save('Reporte de ventas.pdf');
   }

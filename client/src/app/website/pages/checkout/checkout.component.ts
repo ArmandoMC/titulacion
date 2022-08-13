@@ -70,7 +70,7 @@ export class CheckoutComponent implements OnInit {
   address_id: number = 0;
   addressSelected: Address;
   status: string = 'Procesado';
-  tarifaFija:number=0;
+  tarifaFija:number=2;
   newOrder: OrderPayment;
   isDisabled:boolean;
   numeroProductos:number=0;
@@ -123,8 +123,8 @@ export class CheckoutComponent implements OnInit {
 
     this.storeService.myCart$.subscribe((data) => {
       this.cart = data;
-      this.numeroProductos=data.reduce((sum,item)=>sum+item.oferta,0);
-      this.tarifaFija=this.numeroProductos*0.35;
+      // this.numeroProductos=data.reduce((sum,item)=>sum+item.oferta,0);
+      // this.tarifaFija=this.numeroProductos*0.35;
 
     });
     this.total = this.storeService.getTotal();
@@ -220,7 +220,10 @@ export class CheckoutComponent implements OnInit {
                 console.log('detalle registrado en bd:',detail)
 
                 this.storeService.vaciarCart();
-                this.alertsService.alertaSuccessTop('top-end','success','Pago exitoso',false,1500);
+                // this.alertsService.alertaSuccessTop('top-end','success','Pago exitoso',false,1500);
+                this.alertsService.alertaFailTop('top-center','success','Gracias por su pedido','Su pago en línea ha sido'
+                +' procesado correctamente'+'',true,10000);
+
                 this.router.navigate(['/orders']);
             })
             this.productService.updateStockProducts(this.cart).subscribe(dt=>{
@@ -250,7 +253,7 @@ export class CheckoutComponent implements OnInit {
       // this.toaster.open({text: 'Algo ocurrio mientras procesaba el pago', caption: 'ERROR', type: 'danger'})
       console.log('ALGO ACURRIO MIENTRAS SE PROCESABA EL PAGO');
       this.alertsService.alertaFailTop('top-end','error','Error!!','Datos de tarjeta no válidos',false,1500);
-
+      
     }
   }
   

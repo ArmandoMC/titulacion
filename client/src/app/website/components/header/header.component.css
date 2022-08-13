@@ -36,7 +36,7 @@ nav{
 
 .active{
   border:1px solid #ACD9B2 !important;
-  color:#ACD9B2;
+  color:#159983 !important;
   border-radius: 5px;
 }
 .datos-usuario{

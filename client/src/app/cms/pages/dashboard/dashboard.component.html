@@ -119,43 +119,49 @@
       </a>
     </div>
     <div class="col-md-6 mb-3">
-      <div class="card">
-        <div class="card-body">
-          <i class="fa fa-list-alt" aria-hidden="true"></i>
-          <h4>
-            Subcategorías
-            <h2 class="float-right">
-              <b>{{ totalSubcategories }}</b>
-            </h2>
-          </h4>
+      <a routerLink="/cms/subcategories">
+        <div class="card">
+          <div class="card-body">
+            <i class="fa fa-list-alt" aria-hidden="true"></i>
+            <h4>
+              Subcategorías
+              <h2 class="float-right">
+                <b>{{ totalSubcategories }}</b>
+              </h2>
+            </h4>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
     <div class="col-md-6 mb-3">
-      <div class="card">
-        <div class="card-body">
-          <i class="fa fa-users" aria-hidden="true"></i>
-          <h4>
-            Proveedores
-            <h2 class="float-right">
-              <b>{{ totalProviders }}</b>
-            </h2>
-          </h4>
+      <a routerLink="/cms/providers">
+        <div class="card">
+          <div class="card-body">
+            <i class="fa fa-users" aria-hidden="true"></i>
+            <h4>
+              Proveedores
+              <h2 class="float-right">
+                <b>{{ totalProviders }}</b>
+              </h2>
+            </h4>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
     <div class="col-md-6 mb-3">
-      <div class="card">
-        <div class="card-body">
-          <i class="fa fa-usd" aria-hidden="true"></i>
-          <h4>
-            Ventas
-            <h2 class="float-right">
-              <b>{{ totalVentas | currency:'$' }}</b>
-            </h2>
-          </h4>
+      <a routerLink="/cms/ventas">
+        <div class="card">
+          <div class="card-body">
+            <i class="fa fa-usd" aria-hidden="true"></i>
+            <h4>
+              Ventas
+              <h2 class="float-right">
+                <b>{{ totalVentas | currency:'$' }}</b>
+              </h2>
+            </h4>
+          </div>
         </div>
-      </div>
+      </a>
     </div>
   </div>
 </div>
