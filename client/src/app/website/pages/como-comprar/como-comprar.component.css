@@ -1,12 +1,14 @@
 .numero{
-    /* width: 80;
-    border-radius: 10px;
-    border: 1px solid;
-    background-color: #159983; */
+    
 }
 .numero h4{
     color:#159983;
     font-weight: bold;
     font-style: normal;
     
+}
+@media (max-width:414px){
+    .col-sm-12 img{
+        width: 100%;
+    }
 }

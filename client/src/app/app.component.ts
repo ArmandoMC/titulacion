@@ -1,9 +1,7 @@
-import { Component, Output ,OnInit} from '@angular/core';
-import { Product } from './models/product.model';
+import { Component ,OnInit} from '@angular/core';
 import {AuthService} from './services/auth.service';
 import {TokenService} from './services/token.service';
 
-import {StoreService} from './services/store.service';
 
 @Component({
   selector: 'app-root',
@@ -18,8 +16,6 @@ export class AppComponent implements OnInit {
   constructor(
     private authService:AuthService,
     private tokenService:TokenService,
-    private storeService:StoreService
-
   ){
 
   }

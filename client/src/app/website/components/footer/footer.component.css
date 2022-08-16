@@ -20,10 +20,11 @@
 .l3{
     float: right;
 }
-@media (max-width:390px){
+@media (max-width:414px){
     .lista li{
         width: 100%;
         display: block;
+        padding-bottom: 5px;
     }
     .l2{
         margin-left: 0px;

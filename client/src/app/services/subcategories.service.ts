@@ -1,18 +1,14 @@
 import { Injectable } from '@angular/core';
-import{HttpClient,HttpParams} from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import{HttpClient} from '@angular/common/http';
 import { CreateSubCategoryDTO, SubCategory } from '../models/category.model';
 import { Product } from '../models/product.model';
-
+import {tap} from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
 export class SubcategoriesService {
-  private API_URL='http://localhost:3000/api/subcategories';
-  private mySubcategories: SubCategory[]=[];
-  private subcategories= new BehaviorSubject<SubCategory[]>([]);
-  subcategories$ = this.subcategories.asObservable();
+  private API_URL='https://tienda-dima.herokuapp.com/api/subcategories';
+  
   constructor(
     private http:HttpClient
 
@@ -41,4 +37,20 @@ export class SubcategoriesService {
     return this.http.get<any>(`${this.API_URL}/count`);
   }
 
+  getProductsDeMayorAMenorPorSubcategoria(id:number){
+    return this.http.get<Product[]>(`${this.API_URL}/${id}/products`)
+    .pipe(
+      tap((products)=>{
+       products.sort((a,b)=> b.price - a.price)
+      })
+    )
+  }
+  getProductsDeMenorAMayorPorSubcategoria(id:number){
+    return this.http.get<Product[]>(`${this.API_URL}/${id}/products`)
+    .pipe(
+      tap((products)=>{
+       products.sort((a,b)=> a.price - b.price)
+      })
+    )
+  }
 }

@@ -12,7 +12,7 @@ import { ProductDetailComponent } from './pages/product-detail/product-detail.co
 import {LoginComponent} from './pages/login/login.component';
 import {RegisterComponent} from './pages/register/register.component';
 import { LayoutComponent } from './components/layout/layout.component';
-import {SwiperModule} from 'swiper/angular';
+// import {SwiperModule} from 'swiper/angular';
 import  {SharedModule} from '../shared/shared.module';
 import {QuicklinkModule} from 'ngx-quicklink';
 import { FormsModule } from '@angular/forms';
@@ -22,7 +22,6 @@ import { CheckoutComponent } from './pages/checkout/checkout.component';
 import { MyAddressesComponent } from './pages/my-addresses/my-addresses.component';
 import { AccountComponent } from './pages/account/account.component';
 import { OrdersComponent } from './pages/orders/orders.component';
-import { InvoiceComponent } from './pages/invoice/invoice.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { MenuNosotrosComponent } from './pages/menu-nosotros/menu-nosotros.component';
 import { SugerenciasComponent } from './pages/sugerencias/sugerencias.component';
@@ -31,7 +30,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { PreguntasFrecuentesComponent } from './pages/preguntas-frecuentes/preguntas-frecuentes.component';
 import { ContactoComponent } from './pages/contacto/contacto.component';
 import { ComoComprarComponent } from './pages/como-comprar/como-comprar.component';
-// import { FlashMessageModule } from 'angular2-flash-message';
+import {FiltroPipe} from './pipes/filtro.pipe';
 
 @NgModule({
   declarations: [
@@ -48,7 +47,6 @@ import { ComoComprarComponent } from './pages/como-comprar/como-comprar.componen
     MyAddressesComponent,
     AccountComponent,
     OrdersComponent,
-    InvoiceComponent,
     ResetPasswordComponent,
     MenuNosotrosComponent,
     SugerenciasComponent,
@@ -56,13 +54,14 @@ import { ComoComprarComponent } from './pages/como-comprar/como-comprar.componen
     FooterComponent,
     PreguntasFrecuentesComponent,
     ContactoComponent,
-    ComoComprarComponent
+    ComoComprarComponent,
+    FiltroPipe
     
   ],
   imports: [
     CommonModule,
     WebsiteRoutingModule,
-    SwiperModule,
+    // SwiperModule,
     SharedModule,
     QuicklinkModule,
     FormsModule

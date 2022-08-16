@@ -40,3 +40,15 @@
     background-color: rgb(235, 235, 235);
 
  }
+ @media (max-width:414px){
+    .boton-restar{
+        margin-left: 3px;
+    }
+    
+    .input-cantidad{
+        width: 40px;
+    }
+    .todo{
+        width: 120px!important;
+    }
+ }

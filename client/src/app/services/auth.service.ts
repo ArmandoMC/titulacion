@@ -12,8 +12,10 @@ import { StoreService } from './store.service';
   providedIn: 'root',
 })
 export class AuthService {
-  private API_URL = 'http://localhost:3000/api/auth';
-  private API_URL2 = 'http://localhost:3000/api/users';
+  // private API_URL = 'http://localhost:3000/api/auth';
+  private API_URL = 'https://tienda-dima.herokuapp.com/api/auth';
+  // private API_URL2 = 'http://localhost:3000/api/users';
+  private API_URL2 = 'https://tienda-dima.herokuapp.com/api/users';
   us: User = {
     id: 0,
     email: '',

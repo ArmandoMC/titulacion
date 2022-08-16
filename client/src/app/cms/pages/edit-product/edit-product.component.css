@@ -9,3 +9,9 @@
 .c1 button{
     margin: 15px 0px;
 }
+.content-select select{
+    outline: 0; 
+    border: 1px solid rgb(207, 205, 205);
+  border-radius: 0;
+  height: 30px;
+}

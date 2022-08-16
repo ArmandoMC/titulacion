@@ -1,11 +1,11 @@
-import { Component, OnInit ,Input,Output,EventEmitter,OnChanges, AfterViewInit,OnDestroy,SimpleChanges} from '@angular/core';
+import { Component, OnInit ,Input,Output,EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-img',
   templateUrl: './img.component.html',
   styleUrls: ['./img.component.css']
 })
-export class ImgComponent implements OnInit ,OnChanges,AfterViewInit,OnDestroy{
+export class ImgComponent implements OnInit {
 
   img:string='';
 
@@ -32,13 +32,13 @@ export class ImgComponent implements OnInit ,OnChanges,AfterViewInit,OnDestroy{
 
    }
 
-   ngOnChanges(changes:SimpleChanges): void {
-      //before and during render
-      // changes inputs - times
-      // console.log('ngOnChanges','imgValue=>',this.img);
-      // console.log('changes ',changes);
+  //  ngOnChanges(changes:SimpleChanges): void {
+  //     //before and during render
+  //     // changes inputs - times
+  //     // console.log('ngOnChanges','imgValue=>',this.img);
+  //     // console.log('changes ',changes);
 
-   }
+  //  }
 
   ngOnInit() {
     //before render
@@ -50,18 +50,18 @@ export class ImgComponent implements OnInit ,OnChanges,AfterViewInit,OnDestroy{
     // },1000)
 
   }
-  ngAfterViewInit(): void {
-    //after render
-    //handler children
-    // console.log('ngAfterViewInit');
+  // ngAfterViewInit(): void {
+  //   //after render
+  //   //handler children
+  //   // console.log('ngAfterViewInit');
 
-  }
-  ngOnDestroy(): void {
-      //delete
-      // console.log('ngOnDestroy');
-      // window.clearInterval(this.counterFn);
+  // }
+  // ngOnDestroy(): void {
+  //     //delete
+  //     // console.log('ngOnDestroy');
+  //     // window.clearInterval(this.counterFn);
 
-  }
+  // }
 
   imgError(){
     this.img=this.imgDefault;

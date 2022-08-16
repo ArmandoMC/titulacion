@@ -4,10 +4,8 @@ import { Address, CreateAddressDTO } from 'src/app/models/address.model';
 import { AddressService } from 'src/app/services/address.service';
 import { AuthService } from '../../../services/auth.service';
 import { CheckoutService } from '../../../services/checkout.service';
-import { CartService } from '../../../services/cart.service';
 import { StoreService } from '../../../services/store.service';
 import { CustomerService } from '../../../services/customer.service';
-import { TokenService } from '../../../services/token.service';
 import { ProductsService } from '../../../services/products.service';
 // import { kushki } from "@kushki/js";
 import { loadStripe } from '@stripe/stripe-js';
@@ -59,11 +57,11 @@ export class CheckoutComponent implements OnInit {
   nameTitular:string="";
   //variable spara customer
   customer: Customer;
-  customer_name: string;
-  customer_lastName: string;
-  customer_email: string;
-  customer_dni: string;
-  customer_phone: string;
+  customer_name: string="";
+  customer_lastName: string="";
+  customer_email: string="";
+  customer_dni: string="";
+  customer_phone: string="";
   customer_id: number = 0;
   disabledInput:boolean;
   ///////////////77
@@ -103,6 +101,7 @@ export class CheckoutComponent implements OnInit {
               this.customer_id = this.customer.id;
               this.customer_name=this.customer.name;
               this.customer_lastName=this.customer.last_name;
+              this.nameTitular=this.customer_name+" "+this.customer_lastName;
               console.log('customer_id', this.customer_id);
               if(this.customer.dni!="" && this.customer.phone!="" &&
               this.customer.dni!=null && this.customer.phone!=null){
@@ -222,7 +221,7 @@ export class CheckoutComponent implements OnInit {
                 this.storeService.vaciarCart();
                 // this.alertsService.alertaSuccessTop('top-end','success','Pago exitoso',false,1500);
                 this.alertsService.alertaFailTop('top-center','success','Gracias por su pedido','Su pago en línea ha sido'
-                +' procesado correctamente'+'',true,10000);
+                +' procesado correctamente'+'',true,3000);
 
                 this.router.navigate(['/orders']);
             })
@@ -276,11 +275,11 @@ export class CheckoutComponent implements OnInit {
       };
       this.addressService.create(newAddress).subscribe(
         () => {
-          this.alertsService.alertaSuccessTop('top-end','success','Dirección añadida',false,1500);
+          this.alertsService.alertaSuccessTop('top-end','success','Dirección agregada',false,1500);
           this.cerrarModal();
         },
         () => {
-          this.alertsService.alertaFailTop('top-end','error','Error!!','Error al añadir dirección',false,1500);
+          this.alertsService.alertaFailTop('top-end','error','Error!!','Error al agregar dirección',false,1500);
         }
       );
     }

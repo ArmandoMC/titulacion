@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import{AuthService} from '../../../services/auth.service';
 import{AlertsService} from '../../../services/alerts.service';
-
 @Component({
   selector: 'app-recovery',
   templateUrl: './recovery.component.html',
@@ -41,10 +40,7 @@ export class RecoveryComponent implements OnInit {
     }
   }
   reenviar(){
-    this.authService.recovery(this.email).subscribe(data=>{
-      console.log('respuesta:', data);
-      this.alertsService.alertaSuccessTop('top-end','success','Envío exitoso',false,1500);
-      this.habilitar=true;
-    })
+    this.habilitar=false;
   }
+  
 }

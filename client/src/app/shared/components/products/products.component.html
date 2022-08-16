@@ -28,22 +28,22 @@
   </div> -->
   <div class="row product--grid">
     <app-product class="col-lg-3 col-md-6 col-sm-6 pp" [product]="p" *ngFor="let p of products"
-      (addedProduct)="onAddToShoppingCart($event)" (showProduct)="onShowDetail($event)">
+      (addedProduct)="onAddToShoppingCart($event)">
     </app-product>
     
   
   </div>
   
   <!-- <pagination-controls (pageChange)="($event)"></pagination-controls> -->
-  <div class="ver-mas mx-auto mb-3" *ngIf="mostrar==true">
-    <button type="button" (click)="onLoadMore()" class="btn btn-success btn-block"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i> Ver más</button>
-  </div>
+  <!-- <div class="ver-mas mx-auto mb-3" *ngIf="mostrar==true"> -->
+    <!-- <button type="button" (click)="onLoadMore()" class="btn btn-success btn-block"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i> Ver más</button> -->
+  <!-- </div> -->
 </div>
-<div class="product-detail" [ngClass]="{'active':showProductDetail}">
-  {{statusDetail}}
-  <div *ngIf="productChosen">
+<!-- <div class="product-detail" [ngClass]="{'active':showProductDetail}"> -->
+  <!-- {{statusDetail}} -->
+  <!-- <div *ngIf="productChosen">
     <button (click)="toggleProductDetail()">Close</button>
-    <h1> {{productChosen.name}} </h1>
+    <h1> {{productChosen.name}} </h1> -->
     <!-- <swiper [slidesPerView]="1">
       <ng-template swiperSlide>
         <img [src]="productChosen.image" alt="">
@@ -51,11 +51,11 @@
       <ng-template swiperSlide>Slide 2</ng-template>
       <ng-template swiperSlide>Slide 3</ng-template>
     </swiper> -->
-    <img [src]="productChosen.image" alt="">
+    <!-- <img [src]="productChosen.image" alt=""> -->
 
-    <p>{{productChosen.description}} </p>
+    <!-- <p>{{productChosen.description}} </p> -->
     <!-- <button (click)="updateProduct()">editar</button>
     <button (click)="deleteProduct()">eliminar</button> -->
 
-  </div>
-</div>
+  <!-- </div> -->
+<!-- </div> -->

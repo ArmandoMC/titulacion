@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import {User} from '../../../models/user.model';
 import{AuthService} from '../../../services/auth.service';
 import{AlertsService} from '../../../services/alerts.service';
-import Swal from 'sweetalert2';
 import { NgForm } from '@angular/forms';
 
 
@@ -15,6 +13,7 @@ import { NgForm } from '@angular/forms';
 export class LoginComponent implements OnInit {
   
   @ViewChild('loginForm') loginForm:NgForm;
+  show:boolean;
 
   email: string;
   password: string; 
@@ -23,7 +22,7 @@ export class LoginComponent implements OnInit {
     private router:Router,
     private authService: AuthService,
     private alertsService: AlertsService,
-  ) { }
+  ) { this.show=false;}
 
   ngOnInit() {
   
@@ -48,4 +47,7 @@ export class LoginComponent implements OnInit {
     }
     
   }
+  mostrarContrasena(){
+    this.show=!this.show;
+ }
 }

@@ -6,6 +6,7 @@ import {StoreService} from '../../../services/store.service';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import {format} from'date-fns';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -37,14 +38,16 @@ export class InvoiceComponent implements OnInit {
   total:number=0;
   isVisible:boolean=false;
   ///
-  tarifaFija:number=0;
+  tarifaFija:number;
   numeroProductos:number=0;
   subtotal:number=0;
   constructor(
     private route: ActivatedRoute,
     private checkoutService: CheckoutService,
     private storeService: StoreService,
-  ) { }
+    private location: Location,
+
+  ) {this.tarifaFija=2; }
 
   ngOnInit(): void {
     this.route.paramMap
@@ -79,17 +82,19 @@ export class InvoiceComponent implements OnInit {
         this.quantity=this.orderDetail.quantity;
         this.price=this.orderDetail.price;
         this.subtotal=this.orderDetail.reduce((sum,item)=>sum+(item.price*item.quantity),0);
-        this.tarifaFija=this.total-this.subtotal;
       }
      
     })
     this.storeService.myCart$.subscribe((data) => {
       this.numeroProductos=data.reduce((sum,item)=>sum+item.oferta,0);
-      this.tarifaFija=this.numeroProductos*0.35;
+      // this.tarifaFija=this.numeroProductos*0.35;
 
     });
   }
 
+  goToBack() {
+    this.location.back();
+  }
   imprimir(){
     
     const doc = new jsPDF('p','mm','letter');
@@ -244,7 +249,7 @@ export class InvoiceComponent implements OnInit {
    
     autoTable(doc,{html:'#formTotales',theme:'grid',tableLineWidth:0.1,tableLineColor:'black',
     includeHiddenHtml:true,columnStyles:{0:{fontStyle:'bold'}},
-    tableWidth:84,margin:{left:118},
+    tableWidth:80,margin:{left:122},
     bodyStyles:{fillColor:false,lineColor:0.1,textColor:'black',fontSize:9}
   });
   

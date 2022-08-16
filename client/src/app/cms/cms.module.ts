@@ -13,18 +13,16 @@ import { CompletedOrdersComponent } from './pages/completed-orders/completed-ord
 import { OnthewayOrdersComponent } from './pages/ontheway-orders/ontheway-orders.component';
 import { ConfirmOrderComponent } from './pages/confirm-order/confirm-order.component';
 import { InvoiceComponent } from './pages/invoice/invoice.component';
-import { FilterPipe } from './pipes/filter.pipe';
 import { CategoriesComponent } from './pages/categories/categories.component';
 import { BrandsComponent } from './pages/brands/brands.component';
 import { ProvidersComponent } from './pages/providers/providers.component';
 import { SubcategoriesComponent } from './pages/subcategories/subcategories.component';
 import { FiltroPipe } from './pipes/filtro.pipe';
-import {ScrollingModule} from '@angular/cdk/scrolling';
+// import {ScrollingModule} from '@angular/cdk/scrolling';
 import { AddProductComponent } from './pages/add-product/add-product.component';
 import { EditProductComponent } from './pages/edit-product/edit-product.component';
 import { AddCustomerComponent } from './pages/add-customer/add-customer.component';
 import { EditCustomerComponent } from './pages/edit-customer/edit-customer.component';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { FiltroFechaPipe } from './pipes/filtro-fecha.pipe';
 import { FiltroVentasPipe } from './pipes/filtro-ventas.pipe';
 import { AddCategoryComponent } from './pages/add-category/add-category.component';
@@ -50,7 +48,6 @@ import { CustomDatePipe } from './pipes/custom-date.pipe';
     OnthewayOrdersComponent,
     ConfirmOrderComponent,
     InvoiceComponent,
-    FilterPipe,
     CategoriesComponent,
     BrandsComponent,
     ProvidersComponent,
@@ -76,8 +73,7 @@ import { CustomDatePipe } from './pipes/custom-date.pipe';
     CommonModule,
     CmsRoutingModule,
     FormsModule,
-    ScrollingModule,
-    NgxChartsModule,    
+    // ScrollingModule,
   ]
 })
 export class CmsModule { }

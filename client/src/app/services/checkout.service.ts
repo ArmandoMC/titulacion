@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
-import { CreateOrderDTO, Fecha, OrderPayment, UpdateOrderDTO } from '../models/order.model';
+import { CreateOrderDTO, OrderPayment } from '../models/order.model';
 import { Product } from '../models/product.model';
 import {AuthService} from './auth.service';
 import { Address } from '../models/address.model';
@@ -11,7 +11,8 @@ import { Address } from '../models/address.model';
 })
 export class CheckoutService {
 
-  private API='http://localhost:3000/api';
+  // private API='http://localhost:3000/api';
+  private API='https://tienda-dima.herokuapp.com/api';
 
   private myOrders: OrderPayment[]=[];
 
@@ -20,7 +21,6 @@ export class CheckoutService {
 
   constructor(
     private http:HttpClient,
-    private authService:AuthService
 
   ) { 
   }

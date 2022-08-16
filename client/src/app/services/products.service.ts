@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import {HttpClient,HttpParams,HttpErrorResponse,HttpStatusCode, HttpHeaders} from '@angular/common/http';
-import { CreateProductDTO, CreateProductDTO2, Product, Product2, UpdateProductDTO } from '../models/product.model';
-import{retry,catchError,map,tap} from 'rxjs/operators';
-import{BehaviorSubject, Observable, throwError, zip} from 'rxjs';
+import {HttpClient,HttpParams,HttpErrorResponse,HttpStatusCode} from '@angular/common/http';
+import { CreateProductDTO, Product } from '../models/product.model';
+import{catchError,tap} from 'rxjs/operators';
+import{throwError} from 'rxjs';
 
-import{environment} from '../../environments/environment';
+// import{environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,8 @@ export class ProductsService {
   // private myProducts: Product[]=[];
   // private products= new BehaviorSubject<Product[]>([]);
   // products$ = this.products.asObservable();
-  private API_URL='http://localhost:3000/api';
+  // private API_URL='http://localhost:3000/api';
+  private API_URL='https://tienda-dima.herokuapp.com/api';
   constructor(
     private http:HttpClient,
   ) { }
@@ -59,12 +60,15 @@ export class ProductsService {
   //   )
 
   // }
-  getProductsDeMenorAMayor(){
-    // let params=new HttpParams();
-    // if(limit && offset!=null){
-    //   params=params.set('limit',limit);
-    //   params=params.set('offset',offset);
-    // }
+  getProductsPorNombre(){    
+    return this.http.get<Product[]>(`${this.API_URL}/products`)
+    .pipe(
+      tap((products)=>{
+       products.sort((x,y)=>x.name.localeCompare(y.name));
+      })
+    )
+  }
+  getProductsDeMenorAMayor(){    
     return this.http.get<Product[]>(`${this.API_URL}/products`)
     .pipe(
       tap((products)=>{
@@ -80,6 +84,7 @@ export class ProductsService {
       })
     )
   }
+  
   getProduct(id:string){
     return this.http.get<Product>(`${this.API_URL}/products/${id}`)
     .pipe(

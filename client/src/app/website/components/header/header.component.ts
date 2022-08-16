@@ -1,13 +1,10 @@
-import { Component, OnInit, OnDestroy, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
 import { StoreService } from '../../../services/store.service';
-import { CategoriesService } from '../../../services/categories.service';
-import { Category } from 'src/app/models/category.model';
 import { User } from 'src/app/models/user.model';
 import { Product } from 'src/app/models/product.model';
-import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +17,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   role:string;
   subscription: Subscription;
   counter:Number = 0;
-  categories: Category[] = [];
+  // categories: Category[] = [];
   usuario: User | null = null;
   profile: User | null = null;
   products:Product[]=[];
@@ -29,8 +26,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private auhtService: AuthService,
     private storeService: StoreService,
-    private categoriesService: CategoriesService,
-    private cartService: CartService,
     private router: Router
   ) {
     // this.products=this.storeService.getShoppingCart();
@@ -49,8 +44,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }else{
           this.isLoggedIn=false;
         }
-    },error=>{});
-
+    });
     this.storeService.myCart$.subscribe(data => {
       if(data){
         this.counter=data.reduce((sum,item)=>sum+item.oferta,0);
@@ -72,11 +66,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.router.navigate(['/home']);
   }
 
-  getAllCategories() {
-    this.categoriesService.getAll().subscribe((data) => {
-      this.categories = data;
-    });
-  }
+ 
   goCMS(){
     this.router.navigate(['/cms']);
   }

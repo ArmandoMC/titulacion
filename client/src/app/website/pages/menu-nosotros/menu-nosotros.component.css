@@ -18,3 +18,10 @@ color: #159983;
     font-size: 20px;
 
 }
+@media (max-width:414px) {
+    
+    .descripcion{
+        height: auto;
+    }
+   
+}

@@ -1,19 +1,16 @@
 import { Injectable } from '@angular/core';
-import{HttpClient,HttpParams} from '@angular/common/http';
-import { Category, CreateCategoryDTO,CreateSubCategoryDTO, SubCategory } from '../models/category.model';
-import { BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import{HttpClient} from '@angular/common/http';
+import { Category, CreateCategoryDTO } from '../models/category.model';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriesService {
 
-  private API_URL='http://localhost:3000/api/categories';
+  // private API_URL='http://localhost:3000/api/categories';
+  private API_URL='https://tienda-dima.herokuapp.com/api/categories';
   
-  // private myCategories: Category[]=[];
-  // private categories= new BehaviorSubject<Category[]>([]);
-  // categories$ = this.categories.asObservable();
   
   constructor(
     private http:HttpClient

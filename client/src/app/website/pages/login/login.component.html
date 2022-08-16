@@ -11,58 +11,91 @@
           </div>
           <div class="card-body">
             <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
-              <div class="form-group">
-                <label for="email"
-                  >Email<span style="color: red"> *</span></label
-                >
-                <input
-                  type="email"
-                  class="form-control"
-                  name="email"
-                  #nameEmail="ngModel"
-                  [(ngModel)]="email"
-                  required
-                  [ngClass]="{
-                    'is-invalid': nameEmail.errors && nameEmail.touched
-                  }"
-                  required
-                />
-                <div
-                  [hidden]="!nameEmail.errors?.required"
-                  class="invalid-feedback"
-                >
-                  Email requerido
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label for="email"
+                    >Email<span style="color: red"> *</span></label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    name="email"
+                    #nameEmail="ngModel"
+                    [(ngModel)]="email"
+                    required
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                    [ngClass]="{
+                      'is-invalid': nameEmail.errors && nameEmail.touched
+                    }"
+                    required
+                  />
+                  <div
+                    [hidden]="!nameEmail.errors?.required"
+                    class="invalid-feedback"
+                  >
+                    Email requerido
+                  </div>
+                  <div
+                    [hidden]="!nameEmail.errors?.pattern"
+                    class="invalid-feedback"
+                  >
+                    Correo electrónico no válido
+                  </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label for="password"
-                  >Contraseña<span style="color: red"> *</span></label
-                >
-                <input
-                  type="password"
-                  class="form-control"
-                  name="password"
-                  #nameClave="ngModel"
-                  [(ngModel)]="password"
-                  [ngClass]="{
-                    'is-invalid': nameClave.errors && nameClave.touched
-                  }"
-                  required
-                  minlength="8"
-                />
-                <div
-                  [hidden]="!nameClave.errors?.required"
-                  class="invalid-feedback"
-                >
-                  Contraseña requerida
+         
+              <div class="form-row todo">
+                <div class="form-group col-sm-10 col-md-10 caja-clave">
+                    <label for="password"
+                      >Contraseña<span style="color: red"> *</span></label
+                    >
+                    <input
+                      [type]="show ? 'text' : 'password'"
+                      class="form-control input-email"
+                      name="password"
+                      #nameClave="ngModel"
+                      [(ngModel)]="password"
+                      [ngClass]="{
+                        'is-invalid': nameClave.errors && nameClave.touched
+                      }"
+                      required
+                      minlength="8"
+                    />
+
+                  <div
+                    [hidden]="!nameClave.errors?.required"
+                    class="invalid-feedback"
+                  >
+                    Contraseña requerida
+                  </div>
+                  <div
+                    [hidden]="!nameClave.errors?.minlength"
+                    class="invalid-feedback"
+                  >
+                    Se requiere al menos 8 caracteres
+                  </div>
                 </div>
-                <div
-                  [hidden]="!nameClave.errors?.minlength"
-                  class="invalid-feedback"
-                >
-                  Se requiere al menos 8 caracteres
+                <div class="form-group col-sm-2 col-md-2 text-right caja-boton">
+                  <label for="" style="visibility: hidden">ddd</label> <br />
+                  <button
+                    *ngIf="show == true"
+                    type="button"
+                    class="btn btn-secondary"
+                    (click)="mostrarContrasena()"
+                  >
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                  </button>
+                  <button
+                    *ngIf="show == false"
+                    type="button"
+                    class="btn btn-secondary"
+                    (click)="mostrarContrasena()"
+                  >
+                    <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                  </button>
                 </div>
               </div>
+
               <div class="form-group">
                 <button type="submit" class="btn btn-success btn-block">
                   Entrar <i class="fa fa-sign-in" aria-hidden="true"></i>

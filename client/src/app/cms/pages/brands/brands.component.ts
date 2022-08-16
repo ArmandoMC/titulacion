@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {Brand} from '../../../models/brand.model';
 import {BrandService} from '../../../services/brand.service';
@@ -10,8 +10,6 @@ import  autoTable from 'jspdf-autotable';
   styleUrls: ['./brands.component.css']
 })
 export class BrandsComponent implements OnInit {
-
-  @ViewChild('addForm') addForm: NgForm;
 
   brands:Brand[]=[];
   filterBrand:string="";
@@ -65,7 +63,7 @@ export class BrandsComponent implements OnInit {
     doc.setFont('normal');
     doc.text('Ciudadela Los Vergeles',91,32);
     doc.text('Tel.: 0989792475 - 072184087',86,36);
-    doc.text('E-mail: mariamorocho1965@gmail.com',80,40);
+    doc.text('E-mail: lacteosdima@gmail.com',85,40);
     autoTable(doc,{margin:{top:40}});
     autoTable(doc,{head:[['REPORTE DE MARCAS']],styles:{halign:'center',minCellHeight:10,cellPadding:3,
     fillColor:'#159983'}})

@@ -5,7 +5,7 @@ import { UserService } from '../../../services/user.service';
 import { AlertsService } from '../../../services/alerts.service';
 import { UpdateUserDTO, User } from '../../../models/user.model';
 import { tap } from 'rxjs/operators';
-import { Customer, UpdateCustomerDTO } from 'src/app/models/customer.model';
+import { Customer } from 'src/app/models/customer.model';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -28,8 +28,8 @@ export class ProfileComponent implements OnInit {
   user: User | null = null;
   idUsuario: number;
   email: string;
-  password: string;
-  password_aux:string;
+  password: string="";
+  password_aux:string="";
   role:string="";
   //variables para customer
   customer: Customer;
@@ -39,13 +39,14 @@ export class ProfileComponent implements OnInit {
   phone: string = '';
   existeDni: boolean;
   existePhone: boolean;
+  show:boolean;
 
   constructor(
     private authService: AuthService,
     private customerService: CustomerService,
     private userService: UserService,
     private alertsService: AlertsService,
-  ) {}
+  ) {this.show=false;}
 
   ngOnInit(): void {
     this.authService.user$
@@ -102,21 +103,39 @@ export class ProfileComponent implements OnInit {
           this.last_name = client.last_name;
           this.alertsService.alertaSuccessTop('top-end','success','Nombre actualizado',false,1500);
           this.cerrarModalNC();
-        });
+        },(()=>{
+          this.alertsService.alertaFailTop(
+            'top-end',
+            'error',
+            'Error!!',
+            'Error al actualizar datos',
+            false,
+            1500
+          );
+        }));
     }
     
   }
   editarDni(f:NgForm){
     if(!f.valid){
-      this.alertsService.alertaFailTop('top-end','error','Error!!','Cédula no válida',false,1500);
+      this.alertsService.alertaFailTop('top-end','error','Error!!','Cédula/R.U.C no válidO',false,1500);
     }else{
       this.customerService.updateDni(this.idUsuario,this.dni).subscribe(data=>{
         console.log('dni actualizado',data)
         this.dni = data.dni;
         this.existeDni=true;
-        this.alertsService.alertaSuccessTop('top-end','success','Cédula actualizada',false,1500);
+        this.alertsService.alertaSuccessTop('top-end','success','Cédula/R.U.C actualizado',false,1500);
         this.cerrarModalDni();
-      })
+      },(()=>{
+        this.alertsService.alertaFailTop(
+          'top-end',
+          'error',
+          'Error!!',
+          'Error al actualizar cédula/ruc',
+          false,
+          1500
+        );
+      }))
     }
   }
   editarPhone(f:NgForm){
@@ -129,7 +148,16 @@ export class ProfileComponent implements OnInit {
         this.existePhone=true;
         this.alertsService.alertaSuccessTop('top-end','success','Teléfono actualizado',false,1500);
         this.cerrarModalPhone();
-      })
+      },(()=>{
+        this.alertsService.alertaFailTop(
+          'top-end',
+          'error',
+          'Error!!',
+          'Error al actualizar teléfono',
+          false,
+          1500
+        );
+      }))
     }
   }
   editarContrasena(f:NgForm){
@@ -146,7 +174,16 @@ export class ProfileComponent implements OnInit {
         this.password=user.password_real;
         this.alertsService.alertaSuccessTop('top-end','success','Contraseña actualizada',false,1500);
         this.cerrarModalContraseña();
-      })
+      },(()=>{
+        this.alertsService.alertaFailTop(
+          'top-end',
+          'error',
+          'Error!!',
+          'Error al actualizar contraseña',
+          false,
+          1500
+        );
+      }))
     }
    
   }
@@ -158,10 +195,22 @@ export class ProfileComponent implements OnInit {
         this.email=user.email;
         this.alertsService.alertaSuccessTop('top-end','success','Email actualizado',false,1500);
         this.cerrarModalEmail();
-      })
+      },(()=>{
+        this.alertsService.alertaFailTop(
+          'top-end',
+          'error',
+          'Error!!',
+          'Error al actualizar email',
+          false,
+          1500
+        );
+      }))
     }
  
   }
+  mostrarContrasena(){
+    this.show=!this.show;
+ }
   cerrarModalNC(){
     this.botonCerrarNC.nativeElement.click();
   }

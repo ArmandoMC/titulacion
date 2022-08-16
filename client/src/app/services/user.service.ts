@@ -7,7 +7,7 @@ import {User,UpdateUserDTO} from '../models/user.model';
 })
 export class UserService {
 
-  private API_URL = 'http://localhost:3000/api/users';
+  private API_URL = 'https://tienda-dima.herokuapp.com/api/users';
 
   constructor(
     private http:HttpClient

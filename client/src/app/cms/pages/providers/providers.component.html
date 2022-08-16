@@ -45,7 +45,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let pr of providers | filtro: page:search">
+      <tr *ngFor="let pr of providers | filtro:page:search">
         <td>{{ pr.id }}</td>
         <td>{{ pr.name }}</td>
         <td>{{ pr.ruc }}</td>
@@ -79,7 +79,7 @@
           aria-label="Next"
           class="btn border"
           (click)="nextPage()"
-          [disabled]="(providers | filtro: page:search).length === 0"
+          [disabled]="(providers | filtro:page:search).length === 0"
         >
           <span aria-hidden="true"
             ><i class="fa fa-angle-double-right" aria-hidden="true"></i>

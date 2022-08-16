@@ -13,6 +13,7 @@ import { AlertsService } from 'src/app/services/alerts.service';
 })
 export class RegisterComponent implements OnInit {
 
+  // show:boolean;
   @ViewChild('registerForm') registerForm:NgForm;
   @ViewChild('botonCerrar') botonCerrar:ElementRef;
   name:string;
@@ -27,7 +28,9 @@ export class RegisterComponent implements OnInit {
     private customerService:CustomerService,
     private alertsService:AlertsService,
     private router:Router
-  ) { }
+  ) { 
+    // this.show=false;
+  }
 
   ngOnInit(): void {
   }
@@ -46,10 +49,12 @@ export class RegisterComponent implements OnInit {
      }
      this.customerService.create(customer)
      .subscribe(data=>{
-     console.log( data);
+     console.log(data);
      this.router.navigate(['/login']);
  
-     },err=>console.log(err))
+     },(()=>{
+      this.alertsService.alertaFailTop('top-end','error','Error!!','Error al registrarse',false,1500);
+     }))
  
     }
     
@@ -60,5 +65,8 @@ export class RegisterComponent implements OnInit {
   //   const rta=confirm('Logica desde component, estas seguro de salir');
   //   return rta;
   // }
+//   mostrarContrasena(){
+//    this.show=!this.show;
+// }
 
 }

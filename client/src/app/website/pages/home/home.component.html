@@ -8,13 +8,13 @@
  
     
     <div class="carousel-item active text-center">
-      <img src="../../../../assets/images/banners/proalim8_rec(7).jpg"  class="d-block mx-auto" alt="...">
+      <img src="../../../../assets/images/banners/proalim8_rec(7).jpg"  class="d-block mx-auto" alt="banner3">
     </div>
     <div class="carousel-item text-center">
-      <img src="../../../../assets/images/banners/proalim3_rec(1).jpg"  class="d-block mx-auto" alt="...">
+      <img src="../../../../assets/images/banners/proalim3_rec(1).jpg"  class="d-block mx-auto" alt="banner1">
     </div>
     <div class="carousel-item text-center">
-      <img src="../../../../assets/images/banners/proalim6_rec(1).jpg"  class="d-block mx-auto" alt="...">
+      <img src="../../../../assets/images/banners/proalim6_rec(1).jpg"  class="d-block mx-auto" alt="banner2">
     </div>
     
     <!-- <div class="carousel-item">
@@ -66,7 +66,7 @@
 <div class="row">
   <div class="col-md-3">
     <div class="content-radio ml-3 pl-4 ">
-      <h5>Sub-categorias</h5>
+      <h5>Subcategorías</h5>
         <div class="form-check" *ngFor="let sub of subcategories">
           <input
             class="form-check-input"
@@ -76,7 +76,7 @@
             value="option1"
             (click)="obtener(sub.id)"
           />
-          <label class="form-check-label" for="exampleRadios1">
+          <label class="form-check-label" for="exampleRadios1" style="color: #159983;">
             {{ sub.name }}
           </label>
       </div>
@@ -84,11 +84,42 @@
   </div>
   <div class="col-md-9">
     <app-products
-      [productId]="productId"
-      [products]="pro | filter:filterProduct"
-      (loadMore)="onLoadMore()"
+      [products]="pro | filtro:page:filterProduct"
+     
     >
     </app-products>
+    <nav aria-label="Page navigation example" class="">
+      <ul class="pagination">
+        <div class="form-row mx-auto">
+          
+          <li class="page-item" style="display: inline-block">
+            <span aria-label="Previous" class="btn border" (click)="prevPage()">
+              <span aria-hidden="true"
+                ><i class="fa fa-angle-double-left" aria-hidden="true"></i>
+              </span>
+            </span>
+          </li>
+          <li class="page-item active" aria-current="page" style="display: inline-block;">
+            <span>
+              <a class="page-link">{{ numPagina }}</a>
+            </span>
+          </li>
+          <li class="page-item" style="display: inline-block;">
+            <button
+              aria-label="Next"
+              class="btn border"
+              (click)="nextPage()"
+              [disabled]="(pro | filtro: page).length === 0"
+            >
+              <span aria-hidden="true"
+                ><i class="fa fa-angle-double-right" aria-hidden="true"></i>
+              </span>
+            </button>
+          </li>
+        </div>
+       
+      </ul>
+    </nav>
   </div>
 </div>
 <app-footer></app-footer>

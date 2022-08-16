@@ -1,7 +1,7 @@
-import { Routes, RouterModule,PreloadAllModules } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import {NotFoundComponent} from './not-found/not-found.component';
-import {CustomPreloadService} from './services/custom-preload.service';
+// import {CustomPreloadService} from './services/custom-preload.service';
 import {QuicklinkStrategy} from 'ngx-quicklink';
 import {AdminGuard} from './guards/admin.guard';
 
@@ -22,15 +22,6 @@ const routes: Routes = [
     path: '**',
     component: NotFoundComponent,
   },
-  // {
-  //   path:'home', component:ProductsComponent
-  // },
-  // {
-  //   path:'login',component:LoginComponent
-  // },
-  // {
-  //   path:'register',component:RegisterComponent
-  // }
 ];
 
 @NgModule({

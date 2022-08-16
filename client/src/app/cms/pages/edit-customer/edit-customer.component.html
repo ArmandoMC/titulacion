@@ -34,7 +34,7 @@
                   [hidden]="!refNewName.errors?.required"
                   class="invalid-feedback"
                 >
-                  Npmbre requerido
+                  Nombre requerido
                 </div>
               </div>
               <div class="form-group col-md-6 mb-3">
@@ -62,17 +62,20 @@
             </div>
             <div class="form-row">
               <div class="form-group col-md-6 mb-3">
-                <label>Cédula</label>
+                <label>Cédula/R.U.C</label>
                 <input
                   type="text"
                   class="form-control"
                   name="dni"
                   placeholder=""
+                  pattern="^((\\+91-?)|0)?[0-9]{10,13}$"
                   #refNewDni="ngModel"
                   [(ngModel)]="client.dni"
                   [ngClass]="{
                     'is-invalid': refNewDni.errors && refNewDni.touched
                   }"
+                  minlength="10"
+                  maxlength="13"
                   required
                   [disabled]="isDisabled"
                 />
@@ -80,8 +83,20 @@
                   [hidden]="!refNewDni.errors?.required"
                   class="invalid-feedback"
                 >
-                  Cédula requerida
+                  Cédula/R.U.C requerido
                 </div>
+                <div
+                [hidden]="!refNewDni.errors?.pattern"
+                class="invalid-feedback"
+              >
+                Cédula/R.U.C inválido
+              </div>
+              <div
+                [hidden]="!refNewDni.errors?.minlength"
+                class="invalid-feedback"
+              >
+                Se require de al menos 10 dígitos
+              </div>
               </div>
               <div class="form-group col-md-6 mb-3">
                 <label>Teléfono</label>
@@ -89,11 +104,14 @@
                   type="text"
                   class="form-control"
                   name="phone"
+                  pattern="^((\\+91-?)|0)?[0-9]{10}$"
                   #refNewPhone="ngModel"
                   [(ngModel)]="client.phone"
                   [ngClass]="{
                     'is-invalid': refNewPhone.errors && refNewPhone.touched
                   }"
+                  minlength="10"
+                  maxlength="10"
                   required
                   [disabled]="isDisabled"
                 />
@@ -103,6 +121,18 @@
                 >
                   Teléfono requerido
                 </div>
+                <div
+                [hidden]="!refNewPhone.errors?.pattern"
+                class="invalid-feedback"
+              >
+                Número de teléfono inválido
+              </div>
+              <div
+                [hidden]="!refNewPhone.errors?.minlength"
+                class="invalid-feedback"
+              >
+                Se require de 10 dígitos
+              </div>
               </div>
             </div>
             <div class="form-row">
@@ -112,6 +142,7 @@
                   type="text"
                   class="form-control"
                   name="email"
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
                   #refNewEmail="ngModel"
                   [(ngModel)]="client.user.email"
                   [ngClass]="{
@@ -119,7 +150,6 @@
                   }"
                   required
                   [disabled]="isDisabled"
-                  minlength="8"
                 />
                 <div
                   [hidden]="!refNewEmail.errors?.required"
@@ -128,11 +158,12 @@
                   E-mail requerido
                 </div>
                 <div
-                  [hidden]="!refNewEmail.errors?.minlength"
-                  class="invalid-feedback"
-                >
-                  Debe contener 8 caracteres
-                </div>
+                [hidden]="!refNewEmail.errors?.pattern"
+                class="invalid-feedback"
+              >
+                E-mail no válido
+              </div>
+              
               </div>
             </div>
           </div>

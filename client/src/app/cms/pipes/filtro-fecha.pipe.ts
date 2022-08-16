@@ -1,11 +1,9 @@
 import { DatePipe } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
 import { OrderPayment } from 'src/app/models/order.model';
-import { format, compareAsc } from 'date-fns';
+import { format } from 'date-fns';
 import isWithinInterval from 'date-fns/isWithinInterval';
-import getDate from 'date-fns/getDate';
-import getMonth from 'date-fns/getMonth';
-import getYear from 'date-fns/getYear';
+
 
 @Pipe({
   name: 'filtroFecha',
@@ -29,7 +27,6 @@ export class FiltroFechaPipe implements PipeTransform {
 
     let filteredDatos: OrderPayment[] = [];
     let filteredDatos2: OrderPayment[] = [];
-    const result2: OrderPayment[] = [];
     const f = dateInicial.split('-');
     const anioInicial = Number(f[2]);
     const mesInicial = Number(f[1]);
@@ -42,8 +39,7 @@ export class FiltroFechaPipe implements PipeTransform {
     // this.nnDate = format(new Date(anioInicial, mesInicial - 1, diaInicial), 'dd-MM-yyyy');
     // console.log('esta es newdate desde pipe:', this.nnDate);
     
-    let total2: number = 0;
-    let num2: number = 0;
+   
     let total: number = 0;
     let num: number = 0;
     if (search.length === 0) {
@@ -108,58 +104,6 @@ export class FiltroFechaPipe implements PipeTransform {
       return filteredDatos2;
     }
 
-    // this.fechaInicial=this.pipe.transform(this.fechaInicial,'dd/MM/yyyy');
-    // this.fechaFinal=this.pipe.transform(this.fechaFinal,'dd/MM/yyyy');
-
-    // let total: number = 0;
-    // let num: number = 0;
-    // let total2: number = 0;
-    // let num2: number = 0;
-
-    // if (search.length === 0){
-
-    //   for (const item of datos) {
-    //     this.todayWithPipe = this.pipe.transform(
-    //       item.created_at,
-    //       'dd/MM/yyyy'
-    //     );
-    //     if (
-    //       this.todayWithPipe >= dateInicial &&
-    //       this.todayWithPipe <= dateFinal
-    //     ) {
-    //       num +=1;
-    //       total += item.total;
-    //       item.totalVentas = total;
-    //       item.numVentas = num;
-    //       result.push(item);
-    //       // }
-    //     }
-    //   }
-    //   return result;
-
-    // }else{
-    // filteredDatos = datos.filter((dato) =>
-    //   dato.name.toLowerCase().includes(search.toLowerCase())
-    // );
-    //   for(const item of filteredDatos){
-    //     this.todayWithPipe2 = this.pipe.transform(
-    //       item.created_at,
-    //       'dd/MM/yyyy'
-    //     );
-    //     if(
-    //         this.todayWithPipe2 >= dateInicial &&
-    //         this.todayWithPipe2 <= dateFinal
-    //       ) {
-    //         num2 += 1;
-    //         total2 += item.total;
-    //         item.totalVentas = total2;
-    //         item.numVentas = num2;
-    //         filteredDatos2.push(item);
-    //         // }
-    //       }
-
-    //   }
-    //   return filteredDatos2;
-    // }
+  
   }
 }

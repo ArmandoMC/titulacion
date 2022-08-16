@@ -7,42 +7,45 @@
   </nav>
 </div>
 <div class="container principal mt-4">
-  <table class="table table-bordered" *ngIf="products.length > 0; else elseBlock">
-    <thead class="">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nombre</th>
-        <th scope="col">Precio</th>
-        <th scope="col">Cantidad</th>
-        <th scope="col">Subtotal</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let product of products; let indice = index">
-        <th scope="row">{{ indice + 1 }}</th>
-        <td><p>{{product.name}} {{product.presentation}} {{product.sleeve_color}} {{product.flavor}} </p><img [src]="product.image" alt="" width="120" class="img-producto"/> </td>
-        <td>{{ product.price | currency:'$'}}</td>
-        <td class="text-center">
-          <div class="form-row todo">
-            <button (click)="restar(product.id)" class="btn border boton-restar">-</button>
-            <input type="text" name="oferta" id="" value="{{product.oferta}}" disabled class="input-cantidad text-center">
-            <button (click)="sumar(product.id)" class="btn border boton-sumar">+</button>
-          </div>
-          
-        </td>
-        <td>{{ product.subtotal |currency}}</td>
-        <td class="text-center">
-          <button
-            class="btn btn-danger"
-            (click)="eliminarProducto(product.id)"
-          >
-          <i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-bordered" *ngIf="products.length > 0; else elseBlock">
+      <thead class="">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Precio</th>
+          <th scope="col" class="td-cantidad">Cantidad</th>
+          <th scope="col">Subtotal</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products; let indice = index">
+          <th scope="row">{{ indice + 1 }}</th>
+          <td><p>{{product.name}} {{product.presentation}} {{product.sleeve_color}} {{product.flavor}} </p><img [src]="product.image" alt="" width="120" class="img-producto"/> </td>
+          <td>{{ product.price | currency:'$'}}</td>
+          <td class="text-center td-cantidad">
+            <div class="form-row todo">
+              <button (click)="restar(product.id)" class="btn border boton-restar">-</button>
+              <input type="text" name="oferta" id="" value="{{product.oferta}}" disabled class="input-cantidad text-center">
+              <button (click)="sumar(product.id)" class="btn border boton-sumar">+</button>
+            </div>
+            
+          </td>
+          <td>{{ product.subtotal |currency}}</td>
+          <td class="text-center">
+            <button
+              class="btn btn-danger"
+              (click)="eliminarProducto(product.id)"
+            >
+            <i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
   <h4 *ngIf="products.length > 0" class="pr-5 h-total text-right">Total ({{numProducts}} productos): {{total | currency}}</h4>
 
   <ng-template #elseBlock>

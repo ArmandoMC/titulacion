@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -193,7 +193,9 @@ export class EditProductComponent implements OnInit {
           console.log('producto eliminado',data)
           this.alertsService.alertaSuccessTop('top-end','success','Producto eliminado',false,1500);
           this.router.navigate(['/cms/products']);
-        });
+        },(()=>{
+          this.alertsService.alertaFailTop('top-end','error','Error!!','Error al eliminar producto',false,1500);
+        }));
       }
     });
     

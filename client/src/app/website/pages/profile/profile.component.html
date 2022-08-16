@@ -36,7 +36,7 @@
         <hr>
         <div class="form-row">
           <div class="form-group col-md-8">
-            <span><b>Cédula:</b></span> <br>
+            <span><b>Cédula / R.U.C:</b></span> <br>
             <span>{{dni}}</span>
 
           </div>
@@ -160,19 +160,26 @@
               <div class="modal-body">
                 <div class="form-row">
                   <div class="form-group col mb-3">
-                    <label for="">Cédula</label>
+                    <label for="">Cédula / R.U.C</label>
                     <input
                       type="text"
                       class="form-control"
                       name="dni"
                       placeholder=""
+                      pattern="^((\\+91-?)|0)?[0-9]{10,13}$"
                       #refDni="ngModel"
                       [(ngModel)]="dni"
                       [ngClass]="{'is-invalid':refDni.errors && refDni.touched}"
+                      minlength="10"
+                      maxlength="13"
                       required 
                       />
                        <div [hidden]="!refDni.errors?.required" class="invalid-feedback">
-                      Cédula requerida</div>
+                      Cédula ó R.U.C requerido</div>
+                      <div [hidden]="!refDni.errors?.pattern" class="invalid-feedback">
+                        Número de cédula o ruc inválido</div>
+                      <div [hidden]="!refDni.errors?.minlength" class="invalid-feedback">
+                        Se require de al menos 10 dígitos</div>
                   </div>
                 </div>
                
@@ -205,13 +212,21 @@
                       class="form-control"
                       name="phone"
                       placeholder=""
+                      pattern="^((\\+91-?)|0)?[0-9]{10}$"
                       #refTelefono="ngModel"
                       [(ngModel)]="phone"
                       [ngClass]="{'is-invalid':refTelefono.errors && refTelefono.touched}"
+                      minlength="10"
+                      maxlength="10"
                       required 
                       />
                        <div [hidden]="!refTelefono.errors?.required" class="invalid-feedback">
                       Teléfono requerido</div>
+                      <div [hidden]="!refTelefono.errors?.pattern" class="invalid-feedback">
+                       Número de teléfono inválido</div>
+                      <div [hidden]="!refTelefono.errors?.minlength" class="invalid-feedback">
+                        Se require de 10 dígitos</div>
+                     
                   </div>
                 </div>
                
@@ -244,6 +259,7 @@
                       class="form-control"
                       name="email"
                       placeholder=""
+                      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
                       #refEmail="ngModel"
                       [(ngModel)]="email"
                       [ngClass]="{'is-invalid':refEmail.errors && refEmail.touched}"
@@ -251,6 +267,12 @@
                       />
                        <div [hidden]="!refEmail.errors?.required" class="invalid-feedback">
                       Email requerido</div>
+                      <div
+                    [hidden]="!refEmail.errors?.pattern"
+                    class="invalid-feedback"
+                  >
+                    Correo electrónico no válido
+                  </div>
                   </div>
                 </div>
                </div>
@@ -291,35 +313,47 @@
                   </div>
                 </div>
                 <div class="form-row">
-                  <div class="form-group col-md-6 mb-3">
+                  <div class="form-group col-md-5 mb-3">
                     <label for="">Nueva contraseña</label>
                     <input
-                      type="password"
-                      class="form-control"
+                    [type]="show ?'text':'password'"
+                    class="form-control"
                       name="password_aux"
                       placeholder=""
                       #refPasswordAux="ngModel"
                       [(ngModel)]="password_aux"
                       [ngClass]="{'is-invalid':refPasswordAux.errors && refPasswordAux.touched}"
+                      minlength="8"
                       required 
                       />
                        <div [hidden]="!refPasswordAux.errors?.required" class="invalid-feedback">
                       Nueva contraseña requerida</div>
+                       <div [hidden]="!refPasswordAux.errors?.minlength" class="invalid-feedback">
+                      Se requiren al menos 8 caracteres</div>
                   </div>
-                  <div class="form-group col-md-6 mb-3">
+                  <div class="form-group col-md-2 text-center">
+                    <label for="" style="visibility:hidden;">ddd</label> <br>
+                    <button *ngIf="show==true" type="button" class="btn btn-secondary" (click)="mostrarContrasena()"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                    <button *ngIf="show==false" type="button" class="btn btn-secondary" (click)="mostrarContrasena()"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>
+  
+                  </div>
+                  <div class="form-group col-md-5 mb-3">
                     <label for="">Repetir contraseña</label>
                     <input
-                      type="password"
-                      class="form-control"
+                    [type]="show ?'text':'password'"
+                    class="form-control"
                       name="password_aux"
                       placeholder=""
-                      #refPasswordAux2="ngModel"
+                      #refPasswordAux="ngModel"
                       [(ngModel)]="password_aux"
-                      [ngClass]="{'is-invalid':refPasswordAux2.errors && refPasswordAux2.touched}"
+                      [ngClass]="{'is-invalid':refPasswordAux.errors && refPasswordAux.touched}"
+                      minlength="8"
                       required 
                       />
-                       <div [hidden]="!refPasswordAux2.errors?.required" class="invalid-feedback">
+                       <div [hidden]="!refPasswordAux.errors?.required" class="invalid-feedback">
                       Nueva contraseña requerida</div>
+                      <div [hidden]="!refPasswordAux.errors?.minlength" class="invalid-feedback">
+                        Se requiren al menos 8 caracteres</div>
                   </div>
                 </div>
                

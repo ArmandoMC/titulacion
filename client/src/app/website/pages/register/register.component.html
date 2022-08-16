@@ -74,12 +74,19 @@
                       'is-invalid': nameEmail.errors && nameEmail.touched
                     }"
                     required
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
                   />
                   <div
                     [hidden]="!nameEmail.errors?.required"
                     class="invalid-feedback"
                   >
                     Email requerido
+                  </div>
+                  <div
+                    [hidden]="!nameEmail.errors?.pattern"
+                    class="invalid-feedback"
+                  >
+                    Correo electrónico no válido
                   </div>
                 </div>
               </div>
@@ -89,7 +96,8 @@
                     >Contraseña<span style="color: red"> *</span></label
                   >
                   <input
-                    type="password"
+                  id="password"
+                  type="password"
                     class="form-control"
                     name="password"
                     #nameContrasena="ngModel"
@@ -100,7 +108,7 @@
                     }"
                     required
                     minlength="8"
-                  />
+                  /> 
                   <div
                     [hidden]="!nameContrasena.errors?.required"
                     class="invalid-feedback"
@@ -114,6 +122,12 @@
                     Se requiere al menos 8 caracteres
                   </div>
                 </div>
+                <!-- <div class="form-group col-md-2 text-center">
+                  <label for="" style="visibility:hidden;">ddd</label> <br>
+                  <button *ngIf="show==true" type="button" class="btn btn-secondary" (click)="mostrarContrasena()"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                  <button *ngIf="show==false" type="button" class="btn btn-secondary" (click)="mostrarContrasena()"><i class="fa fa-eye-slash" aria-hidden="true"></i></button>
+
+                </div> -->
                 <div class="form-group col-md-6">
                   <label for="repeatPassword"
                     >Repetir Contraseña<span style="color: red"> *</span></label
@@ -147,7 +161,10 @@
                 </div>
               </div>
               <button type="submit" class="btn btn-success btn-block">Registrarme <i class="fa fa-sign-in" aria-hidden="true"></i></button>
-            </div>
+              <div class="text-left mt-3">
+                <a routerLink="/login" style="font-size: 14px;">Volver al inicio de sesión</a>
+              </div>  
+              </div>         
           </form>
         </div>
       </div>

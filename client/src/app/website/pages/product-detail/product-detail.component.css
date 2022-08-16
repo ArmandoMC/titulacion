@@ -1,9 +1,6 @@
 .page-product{
    padding-bottom: 50px;
 }
-.carrito{
-    
-}
 .content-select{
     position: relative;
     margin-bottom: 10px;
@@ -16,10 +13,6 @@
   height: 32px;
 }
 .info-carrito{
-    /* border-style: solid;
-    border-radius: 10px;
-    border-width: 1px;
-    border-color: darkgrey; */
     padding: 15px 15px;
 }
 .price{
@@ -32,12 +25,6 @@
 .select{
     width: 50%;
 }
-/* .detail{
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    grid-gap:20px;
-
-} */
 .gallery{
     overflow: hidden;
     width: 100%;
@@ -74,4 +61,18 @@ h2{font-size: 1.5em;}
     /* font-size: 50px; */
     padding-right: 10px;
     /* color: rgb(63, 63, 236); */
+}
+
+@media (max-width:414px) {
+    .image{
+        width: 300px;
+    }
+    .gallery{
+        text-align: center;
+    }
+    .info-carrito{
+       
+        width: 100% !important;
+    }
+   
 }

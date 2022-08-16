@@ -13,6 +13,8 @@ import { CreateAddressDTO } from 'src/app/models/address.model';
 })
 export class AddCustomerComponent implements OnInit {
   @ViewChild('addForm') clientForm: NgForm;
+  show:boolean;
+
   client2: Customer = {
     id: 0,
     name: '',
@@ -36,7 +38,7 @@ export class AddCustomerComponent implements OnInit {
     private customerService: CustomerService,
     private alertsService: AlertsService,
     private router: Router
-  ) {}
+  ) {this.show=false;}
 
   ngOnInit(): void {}
   addClient(f: NgForm) {
@@ -84,4 +86,7 @@ export class AddCustomerComponent implements OnInit {
         };
     }
   }
+  mostrarContrasena(){
+    this.show=!this.show;
+ }
 }

@@ -1,9 +1,10 @@
 .address-detail {
-  border-style: groove;
-  /* border-color: blueviolet; */
-  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(221, 221, 221);
   border-radius: 5px;
+  /* padding-left: 2px; */
   /* cursor: pointer; */
+  border-width: 1px;
 }
 .address-detail span {
   font-size: small !important;
@@ -64,4 +65,16 @@
 }
 .nav_barra ol{
   background-color: transparent;
+}
+@media (max-width:414px){
+  .address-detail{
+    margin-bottom: 8px;
+    margin-left: 11%;
+  }
+  .card{
+    margin-bottom: 10px;
+  }
+  .datos{
+    width: 100%;
+  }
 }

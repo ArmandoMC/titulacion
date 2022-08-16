@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import {CheckoutService} from '../../../services/checkout.service';
 import {AuthService} from '../../../services/auth.service';
 import {CustomerService} from '../../../services/customer.service';
 import { switchMap,tap } from 'rxjs/operators';
-import { Customer } from 'src/app/models/customer.model';
-import { OrderPayment } from 'src/app/models/order.model';
 import { User } from 'src/app/models/user.model';
 import { Address } from 'src/app/models/address.model';
 
@@ -16,7 +13,9 @@ import { Address } from 'src/app/models/address.model';
   styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent implements OnInit {
-
+  public page: number = 0;
+  public search: string = '';
+  public numPagina: number = 1;
   idOrder:number;
   idUsuario:number;
   idCliente:number;
@@ -39,8 +38,7 @@ export class OrdersComponent implements OnInit {
   constructor(
     private checkoutService:CheckoutService,
     private authService:AuthService,
-    private customerService:CustomerService,
-    private router:Router,
+    private customerService:CustomerService
   ) { 
   }
 
@@ -89,6 +87,23 @@ export class OrdersComponent implements OnInit {
       this.dirEnvio=dt;
     })
     
+  }
+  nextPage() {
+    this.page += 20;
+    this.numPagina+=1;
+  }
+
+  prevPage() {
+    if ( this.page > 0 )
+      this.page -= 20;
+    if(this.numPagina>1){
+        this.numPagina-=1;
+     }
+  }
+
+  onSearch( search: string ) {
+    this.page = 0;
+    this.search = search;
   }
   
 

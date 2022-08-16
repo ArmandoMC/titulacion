@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProvidersService } from 'src/app/services/providers.service';
 import { Provider } from 'src/app/models/provider.model';
 import jsPDF from 'jspdf';
@@ -61,7 +61,7 @@ export class ProvidersComponent implements OnInit {
     doc.setFont('normal');
     doc.text('Ciudadela Los Vergeles',91,32);
     doc.text('Tel.: 0989792475 - 072184087',86,36);
-    doc.text('E-mail: mariamorocho1965@gmail.com',80,40);
+    doc.text('E-mail: lacteosdima@gmail.com',85,40);
     autoTable(doc,{margin:{top:40}});
     autoTable(doc,{head:[['REPORTE DE PROVEEDORES']],styles:{halign:'center',minCellHeight:10,cellPadding:3,
     fillColor:'#159983'}})

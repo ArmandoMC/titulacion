@@ -23,9 +23,8 @@ export class SalesComponent implements OnInit {
   total:number=0;
   public page: number = 0;
   public search: string = '';
-  public numPagina:number=1;
-  mostrar:boolean=false;
-  mostrar2:boolean=false;
+  // public numPagina:number=1;
+ 
   constructor(
     private checkoutService:CheckoutService
   ) { }
@@ -38,9 +37,7 @@ export class SalesComponent implements OnInit {
 
   onSelect(event){
     const date=event.target.value;
-    if(date){
-      this.mostrar=true;
-    }
+    
     const prototypeDate=new Date(`${date}T00:00:00`);
     console.log('protodate:',prototypeDate)
    
@@ -61,25 +58,22 @@ export class SalesComponent implements OnInit {
     // this.fechaFinalSelect=event.target.value;
     // this.fechaFinal=this.pipe.transform(this.fechaFinalSelect,'dd/MM/yyyy');
     const date=event.target.value;
-    if(date){
-      this.mostrar2=true;
-    }
     const prototypeDate=new Date(`${date}T00:00:00`);
     this.fechaFinal=format(prototypeDate,'dd-MM-yyyy');
     console.log('fecha final:',this.fechaFinal)
   }
-  nextPage() {
-    this.page += 4;
-    this.numPagina+=1;
-  }
+  // nextPage() {
+  //   this.page += 4;
+  //   this.numPagina+=1;
+  // }
 
-  prevPage() {
-    if ( this.page > 0 )
-      this.page -= 4;
-    if(this.numPagina>1){
-      this.numPagina-=1;
-    }
-  }
+  // prevPage() {
+  //   if ( this.page > 0 )
+  //     this.page -= 4;
+  //   if(this.numPagina>1){
+  //     this.numPagina-=1;
+  //   }
+  // }
 
   onSearch( search: string ) {
     this.page = 0;
@@ -99,7 +93,7 @@ export class SalesComponent implements OnInit {
     doc.setFont('normal');
     doc.text('Ciudadela Los Vergeles',91,32);
     doc.text('Tel.: 0989792475 - 072184087',86,36);
-    doc.text('E-mail: mariamorocho1965@gmail.com',80,40);
+    doc.text('E-mail: lacteosdima@gmail.com',85,40);
     autoTable(doc,{margin:{top:40}});
     autoTable(doc,{head:[['REPORTE DE VENTAS']],styles:{halign:'center',minCellHeight:10,cellPadding:3,
     fillColor:'#159983'}})

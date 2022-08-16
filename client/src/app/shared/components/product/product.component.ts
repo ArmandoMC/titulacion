@@ -31,7 +31,6 @@ export class ProductComponent implements OnInit {
 
 
   }
-  agregado:boolean=false;
 
 
   @Output() addedProduct=new EventEmitter<Product>();
@@ -62,14 +61,4 @@ export class ProductComponent implements OnInit {
   onShowDetail(){
     this.showProduct.emit(this.product.id);
   }
-  // verificar(products:Product[]){
-  //   const indice=products.findIndex(p=>p.id==this.product.id)
-  //      if(indice!=-1){
-  //        this.agregado=false;
-  //      }else{
-  //       // this.addedProduct.emit(this.product);
-
-  //        this.agregado=true;
-  //      }
-  // }
 }

@@ -15,7 +15,7 @@ import { ComoComprarComponent } from './pages/como-comprar/como-comprar.componen
 
 import { HomeComponent } from './pages/home/home.component';
 import {AuthGuard} from '../guards/auth.guard';
-import {ExitGuard} from '../guards/exit.guard';
+// import {ExitGuard} from '../guards/exit.guard';
 import {CheckoutGuard} from '../guards/checkout.guard';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { MenuNosotrosComponent } from './pages/menu-nosotros/menu-nosotros.component';
@@ -38,14 +38,14 @@ const routes: Routes = [
         path: 'home',
         component: HomeComponent,
       },
-      {
-        path: 'category',
-        loadChildren: () => import('./pages/category/category.module').then(m => m.CategoryModule),
-        data:{
-          preload:true
-        }
+      // {
+      //   path: 'category',
+      //   loadChildren: () => import('./pages/category/category.module').then(m => m.CategoryModule),
+      //   data:{
+      //     preload:true
+      //   }
 
-      },
+      // },
       {
         path: 'product/:id',
         component: ProductDetailComponent,

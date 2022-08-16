@@ -47,11 +47,14 @@
                   type="text"
                   class="form-control"
                   name="editRuc"
+                  pattern="^((\\+91-?)|0)?[0-9]{13}$"
                   #refEditDesc="ngModel"
                   [(ngModel)]="editProvider.ruc"
                   [ngClass]="{
                     'is-invalid': refEditDesc.errors && refEditDesc.touched
                   }"
+                  minlength="13"
+                  maxlength="13"
                   required
                   [disabled]="isDisabled"
                 />
@@ -61,6 +64,18 @@
                 >
                   R.U.C requerido
                 </div>
+                <div
+                [hidden]="!refEditDesc.errors?.pattern"
+                class="invalid-feedback"
+              >
+                R.U.C inválido
+              </div>
+              <div
+              [hidden]="!refEditDesc.errors?.minlength"
+              class="invalid-feedback"
+            >
+              Se requiere de 13 dígitos
+            </div>
               </div>
             </div>
             <div class="form-row">
@@ -91,11 +106,14 @@
                   type="text"
                   class="form-control"
                   name="editPhone"
+                  pattern="^((\\+91-?)|0)?[0-9]{10}$"
                   #refEditPhone="ngModel"
                   [(ngModel)]="editProvider.phone"
                   [ngClass]="{
                     'is-invalid': refEditPhone.errors && refEditPhone.touched
                   }"
+                  minlength="10"
+                  maxlength="10"
                   required
                   [disabled]="isDisabled"
                 />
@@ -105,6 +123,18 @@
                 >
                   Teléfono requerido
                 </div>
+                <div
+                [hidden]="!refEditPhone.errors?.pattern"
+                class="invalid-feedback"
+              >
+                Número de teléfono inválido
+              </div>
+              <div
+                [hidden]="!refEditPhone.errors?.minlength"
+                class="invalid-feedback"
+              >
+                Se requiere de 10 dígitos
+              </div>
               </div>
             </div>
           </div>

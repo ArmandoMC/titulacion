@@ -1,4 +1,9 @@
-<div class="container">
+<div class="container-fluid c1 mt-2">
+  <button class="btn btn-primary" (click)="goToBack()">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i> Volver
+  </button>
+</div>
+<div class="container"> 
   <h5 class="mt-2 mb-2">Visualización de factura</h5>
 
   <form id="">
@@ -15,7 +20,7 @@
       </div>
       <div class="form-group col-md-6">
         <label for="">Fecha de facturación</label>
-        <div class="num-factura">
+        <div class="num-factura pl-2">
           {{ fechaFactura | customDate }}
         </div>
       </div>

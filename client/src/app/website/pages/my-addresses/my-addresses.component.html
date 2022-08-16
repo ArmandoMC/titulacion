@@ -11,7 +11,7 @@
   <h5 class="mt-3 mb-2" style="color: rgb(97, 92, 92);">Mis direcciones de envío</h5>
   <a href=""  data-toggle="modal" data-target="#addAddress">Añadir una dirección aquí</a>
   <div class="row mt-3">
-    <div class="col-md-4 col-sm-12" *ngFor="let ad of addresses; let indice = index">
+    <div class="col-md-4 col-sm-12 caja-dir" *ngFor="let ad of addresses; let indice = index">
       <div class="tabla pt-2 pr-3 pb-3 pl-3">
         <table class="table">
           <tbody>
@@ -82,9 +82,6 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-
-      <!-- <flash-message messagePositioning="top-right"></flash-message> -->
-
       <form #addressForm="ngForm" (ngSubmit)="addAddress(addressForm)">
         <div class="modal-body">
           <div class="form-row">
@@ -153,13 +150,17 @@
                 class="form-control"
                 name="postal_codeNuevo"
                 #namePostalCode="ngModel"
+                pattern="^((\\+91-?)|0)?[0-9]{6}$"
                 [(ngModel)]="postal_codeNuevo"
                 [ngClass]="{'is-invalid':namePostalCode.errors && namePostalCode.touched}"
                 required 
                 minlength="6"
+                maxlength="6"
                 />
                  <div [hidden]="!namePostalCode.errors?.required" class="invalid-feedback">
                 Código postal requerido</div>
+                <div [hidden]="!namePostalCode.errors?.pattern" class="invalid-feedback">
+                  Código postal inválido</div>
                  <div [hidden]="!namePostalCode.errors?.minlength" class="invalid-feedback">
                 Debe contener 6 caracteres</div>
             </div>
@@ -271,13 +272,17 @@
                 id="validationCustom05"
                 name="postal_code"
                 #nameCod="ngModel"
+                pattern="^((\\+91-?)|0)?[0-9]{6}$"
                 [(ngModel)]="postal_code"
                 [ngClass]="{'is-invalid':nameCod.errors && nameCod.touched}"
                 required 
                 minlength="6"
+                maxlength="6"
                 />
                  <div [hidden]="!nameCod.errors?.required" class="invalid-feedback">
-                Código postal requerido</div>              
+                Código postal requerido</div>  
+                <div [hidden]="!nameCod.errors?.pattern" class="invalid-feedback">
+                  Código postal inválido</div>            
                  <div [hidden]="!nameCod.errors?.minlength" class="invalid-feedback">
                 Se require 6 caracteres</div>              
             </div>

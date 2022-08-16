@@ -16,7 +16,7 @@
       <h4 class="titulo_p1">Seleccionar una dirección de envío</h4>
 
     </div>
-    <p>
+    <p style="text-align: justify;">
       ¿Aparece a continuación la dirección que deseas utilizar? Si es así, haz
       clic sobre ella. O puedes
       <a
@@ -150,13 +150,17 @@
                     class="form-control"
                     #namePostalCode="ngModel"
                     name="postal_code"
+                    pattern="^((\\+91-?)|0)?[0-9]{6}$"
                     [(ngModel)]="postal_code"
                     [ngClass]="{'is-invalid':namePostalCode.errors && namePostalCode.touched}"
                     required 
                     minlength="6"
+                    maxlength="6"
                     />
                      <div [hidden]="!namePostalCode.errors?.required" class="invalid-feedback">
                     Código postal requerido</div>
+                    <div [hidden]="!namePostalCode.errors?.pattern" class="invalid-feedback">
+                      Código postal inválido</div>
                      <div [hidden]="!namePostalCode.errors?.minlength" class="invalid-feedback">
                     Debe contener 6 caracteres</div>
                 </div>
@@ -217,7 +221,7 @@
     <div class="padre mb-3">
       <h4>Detalles de facturación y pedido</h4>
     </div>
-    <p>A continuación, revisa y completa tus datos de facturación en caso de ser necesario. También puedes modificar por última vez tu pedido.</p>
+    <p style="text-align:justify ;">A continuación, revisa y completa tus datos de facturación en caso de ser necesario. También puedes modificar por última vez tu pedido.</p>
     <div class="row info-pedido mt-3">
       <div class="col">
         <div class="card">
@@ -255,7 +259,7 @@
               <div class="form-row">
                 <div class="form-group col-md-6">
                   <label for="inputCedula"
-                    >C.I<span style="color: red"> *</span></label
+                    >C.I/R.U.C<span style="color: red"> *</span></label
                   >
                   <input
                     type="text"
@@ -400,8 +404,7 @@
       <form action="" class="datos" (submit)="initPay()">
         <div class="text-center mb-3">
           <img src="../../../../assets/images/logo4.png" alt="" width="150" />
-          <!-- <h4 style="line-height: 90%">DIMA</h4> -->
-          <!-- <span>tienda de productos lácteos</span> -->
+       
         </div>
         <div class="form-group">
           <label for="inputNombre"

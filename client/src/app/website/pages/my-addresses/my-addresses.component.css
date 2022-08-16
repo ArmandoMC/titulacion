@@ -16,3 +16,8 @@
     background-color: transparent;
 }
 
+@media (max-width:414px){
+   .caja-dir{
+    margin-bottom: 8px;
+   }
+}
